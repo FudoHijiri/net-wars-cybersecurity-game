@@ -49,6 +49,11 @@ const COLOR_STATES := {
 const FOCUS_STYLE := &"focus"
 const ORIGINAL_META := &"_interface_colors_original"
 const BORDER_WIDTH := 2
+# Keyboard focus: a second ring drawn just OUTSIDE the button, with a 1px gap. A ring on the
+# button's own border would be invisible when that border is already white.
+const FOCUS_RING_WIDTH := 2
+const FOCUS_RING_GAP := 1
+const FOCUS_RING_COLOR := Color("ffffff")
 
 var preset: int = Preset.DEFAULT
 
@@ -146,9 +151,8 @@ func _apply_palette(button: Button) -> void:
 		var state: String = STYLE_STATES[style_name]
 		if is_toggle and state == "pressed":
 			state = "normal"
-		button.add_theme_stylebox_override(style_name, _make_style(palette[state], margins, true))
-	# Keyboard focus: a ring drawn over the button, with a white outline.
-	button.add_theme_stylebox_override(FOCUS_STYLE, _make_style(palette["hover"], margins, false))
+		button.add_theme_stylebox_override(style_name, _make_style(palette[state], margins))
+	button.add_theme_stylebox_override(FOCUS_STYLE, _make_focus_style())
 	for color_name: StringName in COLOR_STATES:
 		var state: String = COLOR_STATES[color_name]
 		if is_toggle and state == "pressed":
@@ -169,12 +173,11 @@ func _keep_size(button: Button) -> void:
 	button.custom_minimum_size = custom
 
 
-func _make_style(state: Dictionary, margins: Array, filled: bool) -> StyleBoxFlat:
+func _make_style(state: Dictionary, margins: Array) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
-	style.draw_center = filled
 	style.bg_color = state["fill"]
 	style.set_border_width_all(BORDER_WIDTH)
-	style.border_color = state["border"] if filled else Color.WHITE
+	style.border_color = state["border"]
 	style.shadow_color = state["halo"]
 	style.shadow_size = 1
 	style.shadow_offset = Vector2.ZERO
@@ -182,6 +185,16 @@ func _make_style(state: Dictionary, margins: Array, filled: bool) -> StyleBoxFla
 	style.content_margin_top = maxf(margins[1], BORDER_WIDTH)
 	style.content_margin_right = maxf(margins[2], BORDER_WIDTH)
 	style.content_margin_bottom = maxf(margins[3], BORDER_WIDTH)
+	return style
+
+
+## Hollow ring around the outside of the button (expand margin = gap + ring width).
+func _make_focus_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.draw_center = false
+	style.set_border_width_all(FOCUS_RING_WIDTH)
+	style.border_color = FOCUS_RING_COLOR
+	style.set_expand_margin_all(FOCUS_RING_GAP + FOCUS_RING_WIDTH)
 	return style
 
 
@@ -200,8 +213,8 @@ func _skin_popup(popup: PopupMenu) -> void:
 			popup.remove_theme_color_override(color_name)
 		return
 	var palette: Dictionary = PALETTES[preset]
-	popup.add_theme_stylebox_override(&"panel", _make_style(palette["normal"], [4, 4, 4, 4], true))
-	popup.add_theme_stylebox_override(&"hover", _make_style(palette["pressed"], [4, 2, 4, 2], true))
+	popup.add_theme_stylebox_override(&"panel", _make_style(palette["normal"], [4, 4, 4, 4]))
+	popup.add_theme_stylebox_override(&"hover", _make_style(palette["pressed"], [4, 2, 4, 2]))
 	popup.add_theme_color_override(&"font_color", palette["normal"]["text"])
 	popup.add_theme_color_override(&"font_hover_color", palette["pressed"]["text"])
 	popup.add_theme_color_override(&"font_disabled_color", palette["disabled"]["text"])
