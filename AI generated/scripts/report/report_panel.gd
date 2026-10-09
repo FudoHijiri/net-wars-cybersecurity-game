@@ -67,6 +67,7 @@ func open() -> void:
 	_result_page.hide()
 	_show_message("pick")
 	show()
+	_back_button.grab_focus() # keyboard focus starts inside the panel, on a neutral button
 
 
 func close() -> void:
@@ -199,6 +200,7 @@ func _show_result() -> void:
 	_what_is_text.text = str(result.get("what_is_it", ""))
 	_board_page.hide()
 	_result_page.show()
+	_continue_button.grab_focus()
 
 
 func _on_continue_pressed() -> void:

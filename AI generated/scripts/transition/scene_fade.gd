@@ -1,7 +1,8 @@
 class_name SceneFade
 extends RefCounted
 
-## Fades the screen to dark, switches scene, then fades back in. Static and fire-and-forget:
+## Fades the screen to dark, switches scene, then fades back in (or just switches when
+## Reduce Screen Effects is on). Static and fire-and-forget:
 ## `SceneFade.go(get_tree(), "res://...")`. The fade layer lives on the root, so it survives
 ## the scene change and removes itself when done.
 
@@ -15,6 +16,9 @@ static var _busy := false # a second request during a fade is ignored
 static func go(tree: SceneTree, scene_path: String) -> void:
 	if not ResourceLoader.exists(scene_path):
 		push_error("SceneFade: scene not found: %s" % scene_path)
+		return
+	if ScreenEffects.reduce_effects:
+		tree.change_scene_to_file(scene_path) # Reduce Screen Effects: no fade, switch right away
 		return
 	if _busy:
 		return

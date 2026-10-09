@@ -49,6 +49,7 @@ func show_results(results: Dictionary) -> void:
 	_continue_button.disabled = false
 	_notice_label.hide()
 	show()
+	_continue_button.grab_focus() # keyboard focus starts on the one action
 
 
 func _make_line(line: Dictionary) -> HBoxContainer:

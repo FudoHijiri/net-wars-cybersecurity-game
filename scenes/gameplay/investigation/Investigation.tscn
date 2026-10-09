@@ -62,6 +62,7 @@ stretch_mode = 3
 
 [node name="TextureButton" type="TextureButton" parent="TextureRect" unique_id=1684521468]
 layout_mode = 0
+focus_mode = 0
 offset_left = 67.0
 offset_top = 339.0
 offset_right = 97.0

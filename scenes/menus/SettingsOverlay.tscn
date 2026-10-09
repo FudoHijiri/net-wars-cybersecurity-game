@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="3_w31c7"]
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_w31c7"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="5_fnhdr"]
+[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="hint_m3x6"]
 
 [sub_resource type="Theme" id="Theme_yr6qk"]
 
@@ -109,6 +110,7 @@ offset_right = 252.89063
 offset_bottom = 175.73438
 mouse_filter = 2
 follow_focus = true
+horizontal_scroll_mode = 0
 scroll_horizontal_by_default = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/ScrollContainer" unique_id=2013590890]
@@ -159,15 +161,71 @@ popup/item_7/id = 7
 popup/item_8/text = "Achromatomaly"
 popup/item_8/id = 8
 
+[node name="ColorblindHint" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("hint_m3x6")
+theme_override_font_sizes/font_size = 16
+text = "Previews the game as seen with a color-vision deficiency. It does not correct colors."
+autowrap_mode = 3
+
+[node name="InterfaceColors" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/InterfaceColors"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = SubResource("Theme_3568o")
+text = "Interface Colors"
+
+[node name="InterfaceColorsOptions" type="OptionButton" parent="NinePatchRect/ScrollContainer/VBoxContainer/InterfaceColors"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Changes the colors of buttons. Color Blind Mode still works on top of it."
+theme = SubResource("Theme_kl3rf")
+selected = 0
+item_count = 3
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+popup/item_1/text = "High Contrast Buttons"
+popup/item_1/id = 1
+popup/item_2/text = "Blue and Orange"
+popup/item_2/id = 2
+
+[node name="InterfaceColorsHint" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("hint_m3x6")
+theme_override_font_sizes/font_size = 16
+text = "Changes button colors. High Contrast uses bold outlines; Blue and Orange avoids red and green."
+autowrap_mode = 3
+
 [node name="ReduceEffects" type="CheckButton" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1072445035]
 layout_mode = 2
 theme = SubResource("Theme_xttc1")
 text = "Reduce Screen Effects"
 
+[node name="ReduceEffectsHint" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("hint_m3x6")
+theme_override_font_sizes/font_size = 16
+text = "Turns off the fade between screens."
+autowrap_mode = 3
+
 [node name="Shaking" type="CheckButton" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=2096225330]
 layout_mode = 2
 theme = SubResource("Theme_rjwuq")
 text = "Screen Shake"
+
+[node name="ShakingHint" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("hint_m3x6")
+theme_override_font_sizes/font_size = 16
+text = "Allows screen shake. The game has none yet, so this changes nothing today."
+autowrap_mode = 3
 
 [node name="HSeparator" type="HSeparator" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=41986672]
 layout_mode = 2
@@ -228,3 +286,6 @@ value = 100.0
 
 [connection signal="pressed" from="NinePatchRect/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="item_selected" from="NinePatchRect/ScrollContainer/VBoxContainer/Colorblind/ColorblindModeOptions" to="." method="_on_colorblind_mode_options_item_selected"]
+[connection signal="item_selected" from="NinePatchRect/ScrollContainer/VBoxContainer/InterfaceColors/InterfaceColorsOptions" to="." method="_on_interface_colors_options_item_selected"]
+[connection signal="toggled" from="NinePatchRect/ScrollContainer/VBoxContainer/ReduceEffects" to="." method="_on_reduce_effects_toggled"]
+[connection signal="toggled" from="NinePatchRect/ScrollContainer/VBoxContainer/Shaking" to="." method="_on_shaking_toggled"]

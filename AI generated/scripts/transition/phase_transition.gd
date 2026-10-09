@@ -57,6 +57,7 @@ func setup(data: Dictionary) -> void:
 	_continue_button.disabled = false
 	_next_scene = str(data.get("next_scene", ""))
 	_notice_label.hide()
+	_continue_button.grab_focus() # the card has one action: keyboard focus starts on it
 
 
 ## True when `path` points to a scene that exists in the project.

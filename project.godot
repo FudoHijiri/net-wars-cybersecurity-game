@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 ColorblindFilter="*res://autoload/colorblind_filter.gd"
+InterfaceColors="*res://AI generated/scripts/accessibility/interface_colors.gd"
+ScreenEffects="*res://AI generated/scripts/accessibility/screen_effects.gd"
 GameState="*res://autoload/game_state.gd"
 DebugPanel="*res://AI generated/scenes/debug/DebugPanel.tscn"
 PauseMenu="*res://AI generated/scenes/pause/PauseMenu.tscn"

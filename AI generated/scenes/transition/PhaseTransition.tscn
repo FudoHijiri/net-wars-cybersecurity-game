@@ -53,7 +53,13 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.5803922, 0.6901961, 0.7607843, 0.6)
 
-[sub_resource type="StyleBoxEmpty" id="SB_empty"]
+[sub_resource type="StyleBoxFlat" id="SB_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
 
 [sub_resource type="Theme" id="Theme_main"]
 default_font = ExtResource("2_font")
@@ -64,7 +70,7 @@ Button/colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
 Button/colors/font_hover_pressed_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
 Button/colors/font_pressed_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
 Button/styles/disabled = SubResource("SB_btn_disabled")
-Button/styles/focus = SubResource("SB_empty")
+Button/styles/focus = SubResource("SB_focus")
 Button/styles/hover = SubResource("SB_btn_hover")
 Button/styles/hover_pressed = SubResource("SB_btn_pressed")
 Button/styles/normal = SubResource("SB_btn_normal")
