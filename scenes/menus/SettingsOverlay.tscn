@@ -1,0 +1,230 @@
+[gd_scene format=3 uid="uid://c1xey3c6qhddm"]
+
+[ext_resource type="Script" uid="uid://bhdtehbvgxb34" path="res://scripts/menus/settings_overlay.gd" id="1_5a7sg"]
+[ext_resource type="Texture2D" uid="uid://byao028ojcr5d" path="res://assets/ui/Panel.png" id="2_kl3rf"]
+[ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="3_w31c7"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_w31c7"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="5_fnhdr"]
+
+[sub_resource type="Theme" id="Theme_yr6qk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g14hg"]
+atlas = ExtResource("3_w31c7")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="Theme" id="Theme_ptohj"]
+default_font = ExtResource("4_w31c7")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_uyhkn"]
+default_font = ExtResource("4_w31c7")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_3568o"]
+default_font = ExtResource("5_fnhdr")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_kl3rf"]
+default_font = ExtResource("5_fnhdr")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_xttc1"]
+default_font = ExtResource("5_fnhdr")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_rjwuq"]
+default_font = ExtResource("5_fnhdr")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_farh1"]
+default_font = ExtResource("4_w31c7")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_riil3"]
+default_font = ExtResource("5_fnhdr")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_5wmqr"]
+default_font = ExtResource("5_fnhdr")
+default_font_size = 6
+
+[node name="SettingsOverlay" type="Control" unique_id=942352815]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_5a7sg")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1544849732]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.89063
+offset_top = -92.734375
+offset_right = 131.89063
+offset_bottom = 92.734375
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kl3rf")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 11
+patch_margin_top = 11
+patch_margin_right = 11
+patch_margin_bottom = 11
+
+[node name="ExitButton" type="TextureButton" parent="NinePatchRect" unique_id=1486947095]
+layout_mode = 0
+offset_left = 238.89063
+offset_top = 9.734375
+offset_right = 253.89063
+offset_bottom = 24.734375
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = SubResource("Theme_yr6qk")
+texture_normal = SubResource("AtlasTexture_g14hg")
+stretch_mode = 5
+
+[node name="SettingsLabel" type="Label" parent="NinePatchRect" unique_id=731154502]
+layout_mode = 0
+offset_left = 99.890625
+offset_top = 8.734375
+offset_right = 153.89063
+offset_bottom = 20.734375
+theme = SubResource("Theme_ptohj")
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect" unique_id=642263479]
+layout_mode = 0
+offset_left = 10.890625
+offset_top = 25.734375
+offset_right = 252.89063
+offset_bottom = 175.73438
+mouse_filter = 2
+follow_focus = true
+scroll_horizontal_by_default = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/ScrollContainer" unique_id=2013590890]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="GeneralLabel" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1833884388]
+layout_mode = 2
+theme = SubResource("Theme_uyhkn")
+text = "GENERAL"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Colorblind" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1373482056]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/Colorblind" unique_id=1639112571]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = SubResource("Theme_3568o")
+text = "Color Blind Mode"
+
+[node name="ColorblindModeOptions" type="OptionButton" parent="NinePatchRect/ScrollContainer/VBoxContainer/Colorblind" unique_id=1522374212]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "This is for Colorblind people."
+theme = SubResource("Theme_kl3rf")
+selected = 0
+item_count = 9
+popup/item_0/text = "Normal"
+popup/item_0/id = 0
+popup/item_1/text = "Protanopia"
+popup/item_1/id = 1
+popup/item_2/text = "Protonomaly "
+popup/item_2/id = 2
+popup/item_3/text = "Deuteranopia "
+popup/item_3/id = 3
+popup/item_4/text = "Deuteranomaly "
+popup/item_4/id = 4
+popup/item_5/text = "Tritanopie"
+popup/item_5/id = 5
+popup/item_6/text = "Tritanomaly"
+popup/item_6/id = 6
+popup/item_7/text = "Achromatopsia "
+popup/item_7/id = 7
+popup/item_8/text = "Achromatomaly"
+popup/item_8/id = 8
+
+[node name="ReduceEffects" type="CheckButton" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1072445035]
+layout_mode = 2
+theme = SubResource("Theme_xttc1")
+text = "Reduce Screen Effects"
+
+[node name="Shaking" type="CheckButton" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=2096225330]
+layout_mode = 2
+theme = SubResource("Theme_rjwuq")
+text = "Screen Shake"
+
+[node name="HSeparator" type="HSeparator" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=41986672]
+layout_mode = 2
+
+[node name="Sounds&VolumeLabel" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1121283861]
+layout_mode = 2
+theme = SubResource("Theme_farh1")
+text = "SOUNDS & VOLUME"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MuteInBackground" type="CheckButton" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=755521815]
+layout_mode = 2
+theme = SubResource("Theme_riil3")
+text = "Mute in background"
+
+[node name="MasterVolume" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=146024779]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/MasterVolume" unique_id=601005747]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = SubResource("Theme_5wmqr")
+text = "Master Volume"
+
+[node name="MasterVolSlider" type="HSlider" parent="NinePatchRect/ScrollContainer/VBoxContainer/MasterVolume" unique_id=559706512]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+
+[node name="MusicVolume" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1416781099]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/MusicVolume" unique_id=410736351]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = SubResource("Theme_5wmqr")
+text = "Music Volume"
+
+[node name="MusicVolSlider" type="HSlider" parent="NinePatchRect/ScrollContainer/VBoxContainer/MusicVolume" unique_id=1147148757]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+
+[node name="SFXVolume" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1920700696]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/SFXVolume" unique_id=712203188]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = SubResource("Theme_5wmqr")
+text = "Sound Effects Volume"
+
+[node name="SFXSlider" type="HSlider" parent="NinePatchRect/ScrollContainer/VBoxContainer/SFXVolume" unique_id=1848138828]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+
+[connection signal="pressed" from="NinePatchRect/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="item_selected" from="NinePatchRect/ScrollContainer/VBoxContainer/Colorblind/ColorblindModeOptions" to="." method="_on_colorblind_mode_options_item_selected"]

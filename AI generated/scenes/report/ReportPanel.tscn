@@ -1,0 +1,440 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://AI generated/scripts/report/report_panel.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="2_font"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_bold"]
+[ext_resource type="FontFile" path="res://assets/font/m3x6.ttf" id="4_m3x6"]
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_normal"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_hover"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_pressed"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_disabled"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 0.6)
+
+[sub_resource type="StyleBoxEmpty" id="SB_empty"]
+
+[sub_resource type="StyleBoxFlat" id="SB_threat_normal"]
+content_margin_left = 4.0
+content_margin_top = 1.0
+content_margin_right = 4.0
+content_margin_bottom = 1.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 0)
+
+[sub_resource type="StyleBoxFlat" id="SB_threat_hover"]
+content_margin_left = 4.0
+content_margin_top = 1.0
+content_margin_right = 4.0
+content_margin_bottom = 1.0
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_threat_pressed"]
+content_margin_left = 4.0
+content_margin_top = 1.0
+content_margin_right = 4.0
+content_margin_bottom = 1.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="Theme" id="Theme_main"]
+default_font = ExtResource("2_font")
+default_font_size = 6
+Button/colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+Button/colors/font_disabled_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+Button/colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+Button/colors/font_hover_pressed_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+Button/colors/font_pressed_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+Button/styles/disabled = SubResource("SB_btn_disabled")
+Button/styles/focus = SubResource("SB_empty")
+Button/styles/hover = SubResource("SB_btn_hover")
+Button/styles/hover_pressed = SubResource("SB_btn_pressed")
+Button/styles/normal = SubResource("SB_btn_normal")
+Button/styles/pressed = SubResource("SB_btn_pressed")
+ThreatButton/base_type = &"Button"
+ThreatButton/colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+ThreatButton/colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+ThreatButton/colors/font_hover_pressed_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+ThreatButton/colors/font_pressed_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+ThreatButton/styles/focus = SubResource("SB_empty")
+ThreatButton/styles/hover = SubResource("SB_threat_hover")
+ThreatButton/styles/hover_pressed = SubResource("SB_threat_pressed")
+ThreatButton/styles/normal = SubResource("SB_threat_normal")
+ThreatButton/styles/pressed = SubResource("SB_threat_pressed")
+
+[sub_resource type="StyleBoxFlat" id="SB_window"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_dark"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_message"]
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_icon"]
+content_margin_left = 3.0
+content_margin_top = 1.0
+content_margin_right = 3.0
+content_margin_bottom = 1.0
+bg_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_threat_name"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_close"]
+content_margin_left = 3.0
+content_margin_top = 0.0
+content_margin_right = 3.0
+content_margin_bottom = 0.0
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[node name="ReportPanel" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_main")
+script = ExtResource("1_script")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.10980392, 0.17254902, 0.6)
+
+[node name="Window" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 44.0
+offset_right = 570.0
+offset_bottom = 294.0
+theme_override_styles/panel = SubResource("SB_window")
+
+[node name="TitleBar" type="Panel" parent="Window"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 498.0
+offset_bottom = 16.0
+theme_override_styles/panel = SubResource("SB_dark")
+
+[node name="TitleLabel" type="Label" parent="Window/TitleBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 6.0
+offset_right = 380.0
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+text = "REPORT.exe  >  CLUE BOARD"
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Window/TitleBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 474.0
+offset_top = 1.0
+offset_right = 492.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_pressed_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_styles/hover = SubResource("SB_close")
+theme_override_styles/normal = SubResource("SB_close")
+theme_override_styles/pressed = SubResource("SB_close")
+text = "X"
+
+[node name="BoardPage" type="Control" parent="Window"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_top = 16.0
+offset_right = 500.0
+offset_bottom = 250.0
+
+[node name="EvidencePanel" type="Panel" parent="Window/BoardPage"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 246.0
+offset_bottom = 158.0
+theme_override_styles/panel = SubResource("SB_dark")
+
+[node name="EvidenceTitle" type="Label" parent="Window/BoardPage/EvidencePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 232.0
+offset_bottom = 15.0
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+text = "EVIDENCE COLLECTED (0)"
+
+[node name="EvidenceScroll" type="ScrollContainer" parent="Window/BoardPage/EvidencePanel"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 17.0
+offset_right = 234.0
+offset_bottom = 146.0
+horizontal_scroll_mode = 0
+
+[node name="EvidenceList" type="VBoxContainer" parent="Window/BoardPage/EvidencePanel/EvidenceScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="ThreatPanel" type="Panel" parent="Window/BoardPage"]
+layout_mode = 0
+offset_left = 254.0
+offset_top = 8.0
+offset_right = 492.0
+offset_bottom = 158.0
+theme_override_styles/panel = SubResource("SB_dark")
+
+[node name="ThreatTitle" type="Label" parent="Window/BoardPage/ThreatPanel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 232.0
+offset_bottom = 15.0
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+text = "WHICH THREAT DO YOUR CLUES POINT TO?"
+
+[node name="ThreatList" type="VBoxContainer" parent="Window/BoardPage/ThreatPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 18.0
+offset_right = 234.0
+offset_bottom = 148.0
+theme_override_constants/separation = 2
+
+[node name="MessageBar" type="PanelContainer" parent="Window/BoardPage"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 164.0
+offset_right = 492.0
+offset_bottom = 194.0
+theme_override_styles/panel = SubResource("SB_message")
+
+[node name="MessageRow" type="HBoxContainer" parent="Window/BoardPage/MessageBar"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MessageIcon" type="Label" parent="Window/BoardPage/MessageBar/MessageRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_styles/normal = SubResource("SB_icon")
+text = "?"
+horizontal_alignment = 1
+
+[node name="MessageText" type="Label" parent="Window/BoardPage/MessageBar/MessageRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("4_m3x6")
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+
+[node name="BackButton" type="Button" parent="Window/BoardPage"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 202.0
+offset_right = 158.0
+offset_bottom = 224.0
+text = "< BACK TO CLUES"
+
+[node name="ConfirmButton" type="Button" parent="Window/BoardPage"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 292.0
+offset_top = 202.0
+offset_right = 492.0
+offset_bottom = 224.0
+disabled = true
+text = "CONFIRM REPORT"
+
+[node name="ResultPage" type="Control" parent="Window"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_top = 16.0
+offset_right = 500.0
+offset_bottom = 250.0
+
+[node name="ResultEvidencePanel" type="Panel" parent="Window/ResultPage"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 246.0
+offset_bottom = 196.0
+theme_override_styles/panel = SubResource("SB_dark")
+
+[node name="ResultEvidenceTitle" type="Label" parent="Window/ResultPage/ResultEvidencePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 232.0
+offset_bottom = 15.0
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+text = "YOUR EVIDENCE"
+
+[node name="ResultEvidenceScroll" type="ScrollContainer" parent="Window/ResultPage/ResultEvidencePanel"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 17.0
+offset_right = 234.0
+offset_bottom = 184.0
+horizontal_scroll_mode = 0
+
+[node name="ResultEvidenceList" type="VBoxContainer" parent="Window/ResultPage/ResultEvidencePanel/ResultEvidenceScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="ResultThreatPanel" type="Panel" parent="Window/ResultPage"]
+layout_mode = 0
+offset_left = 254.0
+offset_top = 8.0
+offset_right = 492.0
+offset_bottom = 196.0
+theme_override_styles/panel = SubResource("SB_dark")
+
+[node name="ResultBox" type="VBoxContainer" parent="Window/ResultPage/ResultThreatPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 230.0
+offset_bottom = 184.0
+theme_override_constants/separation = 2
+
+[node name="ResultHeadline" type="Label" parent="Window/ResultPage/ResultThreatPanel/ResultBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_font_sizes/font_size = 12
+text = "THREAT IDENTIFIED"
+
+[node name="ResultThreat" type="Label" parent="Window/ResultPage/ResultThreatPanel/ResultBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_styles/normal = SubResource("SB_threat_name")
+text = "THREAT"
+
+[node name="WhatHappenedTitle" type="Label" parent="Window/ResultPage/ResultThreatPanel/ResultBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+text = "WHAT HAPPENED"
+
+[node name="WhatHappenedText" type="Label" parent="Window/ResultPage/ResultThreatPanel/ResultBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_m3x6")
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+
+[node name="WhatIsTitle" type="Label" parent="Window/ResultPage/ResultThreatPanel/ResultBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+text = "WHAT IS THIS THREAT?"
+
+[node name="WhatIsText" type="Label" parent="Window/ResultPage/ResultThreatPanel/ResultBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_m3x6")
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+
+[node name="ContinueButton" type="Button" parent="Window/ResultPage"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 342.0
+offset_top = 204.0
+offset_right = 492.0
+offset_bottom = 226.0
+text = "CONTINUE >"

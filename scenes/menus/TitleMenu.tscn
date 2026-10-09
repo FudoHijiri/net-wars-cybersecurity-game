@@ -1,0 +1,185 @@
+[gd_scene format=3 uid="uid://cd4swcir106gx"]
+
+[ext_resource type="Script" uid="uid://bgeho30c01x14" path="res://scripts/menus/title_menu.gd" id="1_qscjq"]
+[ext_resource type="Texture2D" uid="uid://dgkb1tcvsdtdr" path="res://assets/ui/BiomesBackgroundsSpritesheet.png" id="2_anjp0"]
+[ext_resource type="Texture2D" uid="uid://cue2ve6mo182r" path="res://assets/ui/Monitor.png" id="3_7qd28"]
+[ext_resource type="Texture2D" uid="uid://bukl1qcnajstb" path="res://assets/ui/Play Icon.png" id="4_l5vkc"]
+[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="5_c17xt"]
+[ext_resource type="Texture2D" uid="uid://belx41jy07rs" path="res://assets/ui/Settings Icon.png" id="6_k35l2"]
+[ext_resource type="Texture2D" uid="uid://dxwrk60mrs1c7" path="res://assets/ui/Exit Icon.png" id="7_5cp2e"]
+[ext_resource type="PackedScene" uid="uid://lgr0j1qe0d48" path="res://scenes/menus/TitleOverlay.tscn" id="8_taitg"]
+[ext_resource type="PackedScene" uid="uid://c1xey3c6qhddm" path="res://scenes/menus/SettingsOverlay.tscn" id="9_7ykrv"]
+[ext_resource type="PackedScene" uid="uid://lfblfvkjhc36" path="res://scenes/menus/StageSelect.tscn" id="10_hfivi"]
+[ext_resource type="Script" uid="uid://cvuntjqbgk8yy" path="res://scripts/menus/time.gd" id="11_sc00c"]
+[ext_resource type="Script" uid="uid://cyvy5wi0m2fp8" path="res://scripts/menus/date.gd" id="12_ysex8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xttc1"]
+atlas = ExtResource("2_anjp0")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="Theme" id="Theme_j7vip"]
+default_font = ExtResource("5_c17xt")
+default_font_size = 16
+
+[node name="TitleMenu" type="Control" unique_id=2389425]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qscjq")
+
+[node name="Background Art" type="TextureRect" parent="." unique_id=412826056]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_xttc1")
+
+[node name="Control" type="Control" parent="." unique_id=627039055]
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="Monitor" type="TextureRect" parent="Control" unique_id=1305090332]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_7qd28")
+
+[node name="Screen Content" type="Control" parent="Control" unique_id=509857247]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Play" type="TextureButton" parent="Control/Screen Content" unique_id=141548251]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 10.0
+offset_right = 32.0
+offset_bottom = 26.0
+texture_normal = ExtResource("4_l5vkc")
+
+[node name="PlayText" type="RichTextLabel" parent="Control/Screen Content/Play" unique_id=189665186]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 13.0
+offset_right = 25.0
+offset_bottom = 26.0
+theme = SubResource("Theme_j7vip")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Play.exe"
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Settings" type="TextureButton" parent="Control/Screen Content" unique_id=95823008]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 42.0
+offset_right = 32.0
+offset_bottom = 58.0
+texture_normal = ExtResource("6_k35l2")
+
+[node name="SettingsText" type="RichTextLabel" parent="Control/Screen Content/Settings" unique_id=1546898439]
+layout_mode = 0
+offset_left = -13.0
+offset_top = 13.0
+offset_right = 33.0
+offset_bottom = 26.0
+theme = SubResource("Theme_j7vip")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Settings.exe"
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Exit" type="TextureButton" parent="Control/Screen Content" unique_id=763006549]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 76.0
+offset_right = 32.0
+offset_bottom = 92.0
+texture_normal = ExtResource("7_5cp2e")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Screen Content/Exit" unique_id=2099382274]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 13.0
+offset_right = 24.0
+offset_bottom = 26.0
+theme = SubResource("Theme_j7vip")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Exit.exe"
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="TitleOverlay" parent="Control/Screen Content" unique_id=1224077806 instance=ExtResource("8_taitg")]
+visible = false
+layout_mode = 1
+offset_top = 2.0
+offset_bottom = 2.0
+
+[node name="SettingsOverlay" parent="Control/Screen Content" unique_id=942352815 instance=ExtResource("9_7ykrv")]
+visible = false
+layout_mode = 1
+
+[node name="StageSelect" parent="Control/Screen Content" unique_id=1292606746 instance=ExtResource("10_hfivi")]
+visible = false
+layout_mode = 1
+
+[node name="Time" type="RichTextLabel" parent="Control/Screen Content" unique_id=786027844]
+layout_mode = 0
+offset_left = 527.0
+offset_top = 261.0
+offset_right = 561.0
+offset_bottom = 274.0
+theme_override_fonts/normal_font = ExtResource("5_c17xt")
+theme_override_font_sizes/normal_font_size = 16
+text = "00:00 PM
+"
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("11_sc00c")
+
+[node name="Date" type="RichTextLabel" parent="Control/Screen Content" unique_id=1033167184]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 268.0
+offset_right = 560.0
+offset_bottom = 281.0
+theme_override_fonts/normal_font = ExtResource("5_c17xt")
+theme_override_font_sizes/normal_font_size = 16
+text = "00/00/0000"
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("12_ysex8")
+
+[connection signal="pressed" from="Control/Screen Content/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Control/Screen Content/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Control/Screen Content/Exit" to="." method="_on_exit_pressed"]

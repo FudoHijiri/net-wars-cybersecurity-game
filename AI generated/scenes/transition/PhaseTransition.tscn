@@ -1,0 +1,222 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://AI generated/scripts/transition/phase_transition.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="2_font"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_bold"]
+[ext_resource type="FontFile" path="res://assets/font/m3x6.ttf" id="4_m3x6"]
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_normal"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_hover"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_pressed"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_disabled"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 0.6)
+
+[sub_resource type="StyleBoxEmpty" id="SB_empty"]
+
+[sub_resource type="Theme" id="Theme_main"]
+default_font = ExtResource("2_font")
+default_font_size = 6
+Button/colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+Button/colors/font_disabled_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+Button/colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+Button/colors/font_hover_pressed_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+Button/colors/font_pressed_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+Button/styles/disabled = SubResource("SB_btn_disabled")
+Button/styles/focus = SubResource("SB_empty")
+Button/styles/hover = SubResource("SB_btn_hover")
+Button/styles/hover_pressed = SubResource("SB_btn_pressed")
+Button/styles/normal = SubResource("SB_btn_normal")
+Button/styles/pressed = SubResource("SB_btn_pressed")
+
+[sub_resource type="StyleBoxFlat" id="SB_card"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_box"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[node name="PhaseTransition" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_main")
+script = ExtResource("1_script")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[node name="Card" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 34.0
+offset_right = 624.0
+offset_bottom = 324.0
+theme_override_styles/panel = SubResource("SB_card")
+
+[node name="DayLabel" type="Label" parent="Card"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 10.0
+offset_right = 608.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+text = "DAY 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HeadlineLabel" type="Label" parent="Card"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 24.0
+offset_right = 608.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_font_sizes/font_size = 12
+text = "OBJECTIVE COMPLETE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TrackerRow" type="HBoxContainer" parent="Card"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 14.0
+offset_top = 54.0
+offset_right = 594.0
+offset_bottom = 96.0
+theme_override_constants/separation = 4
+
+[node name="CarriedBox" type="Panel" parent="Card"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 110.0
+offset_right = 250.0
+offset_bottom = 226.0
+theme_override_styles/panel = SubResource("SB_box")
+
+[node name="CarriedTitle" type="Label" parent="Card/CarriedBox"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 228.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+text = "CARRIED OVER"
+
+[node name="CarriedLines" type="VBoxContainer" parent="Card/CarriedBox"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 22.0
+offset_right = 228.0
+offset_bottom = 108.0
+theme_override_constants/separation = 3
+
+[node name="NextBox" type="Panel" parent="Card"]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 110.0
+offset_right = 594.0
+offset_bottom = 226.0
+theme_override_styles/panel = SubResource("SB_box")
+
+[node name="NextTitle" type="Label" parent="Card/NextBox"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 328.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+text = "NEXT"
+
+[node name="NextDescription" type="Label" parent="Card/NextBox"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 22.0
+offset_right = 328.0
+offset_bottom = 108.0
+theme_override_fonts/font = ExtResource("4_m3x6")
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+
+[node name="ContinueButton" type="Button" parent="Card"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 224.0
+offset_top = 240.0
+offset_right = 384.0
+offset_bottom = 262.0
+text = "CONTINUE >"
+
+[node name="NoticeLabel" type="Label" parent="Card"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 14.0
+offset_top = 268.0
+offset_right = 594.0
+offset_bottom = 284.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+horizontal_alignment = 1
+vertical_alignment = 1

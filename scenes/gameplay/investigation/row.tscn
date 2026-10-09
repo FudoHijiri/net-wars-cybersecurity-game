@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://dk3wy26wasxnu"]
+
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="1_2xnly"]
+[ext_resource type="Script" uid="uid://7nt6f5xp87y8" path="res://scenes/gameplay/investigation/row.gd" id="3_rowgd"]
+[ext_resource type="FontFile" uid="uid://50jkpab10lpq" path="res://assets/font/Tiny5-Regular.ttf" id="3_sqd1f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0wkqd"]
+font = ExtResource("1_2xnly")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_a8407"]
+font = ExtResource("1_2xnly")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_dj3g0"]
+font = ExtResource("1_2xnly")
+font_size = 6
+
+[sub_resource type="Theme" id="Theme_154kt"]
+default_font = ExtResource("3_sqd1f")
+default_font_size = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sqd1f"]
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wkqd"]
+bg_color = Color(0.2, 0.23529412, 0.34117648, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8407"]
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[node name="Row" type="Control" unique_id=270359512]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_rowgd")
+
+[node name="HSplitContainer" type="HBoxContainer" parent="." unique_id=1770132874]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Label1" type="Label" parent="HSplitContainer" unique_id=981570597]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Test1"
+label_settings = SubResource("LabelSettings_0wkqd")
+
+[node name="Label2" type="Label" parent="HSplitContainer" unique_id=1891352731]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Test2"
+label_settings = SubResource("LabelSettings_a8407")
+
+[node name="Label3" type="Label" parent="HSplitContainer" unique_id=506622456]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Test3"
+label_settings = SubResource("LabelSettings_dj3g0")
+
+[node name="Label4" type="Label" parent="HSplitContainer" unique_id=239641311]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Test4"
+label_settings = SubResource("LabelSettings_0wkqd")
+
+[node name="Label5" type="Label" parent="HSplitContainer" unique_id=654029183]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Test5"
+label_settings = SubResource("LabelSettings_0wkqd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer" unique_id=1632995654]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/HBoxContainer" unique_id=1903793689]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HSplitContainer/HBoxContainer/VBoxContainer" unique_id=1569355204]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_154kt")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sqd1f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0wkqd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_a8407")
+text = " Select "

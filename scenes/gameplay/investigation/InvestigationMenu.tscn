@@ -1,0 +1,202 @@
+[gd_scene format=3 uid="uid://3cwouuj002s6"]
+
+[ext_resource type="Texture2D" uid="uid://i5qyuq7urtwx" path="res://assets/ui/Server Panel.png" id="1_y4voi"]
+[ext_resource type="Texture2D" uid="uid://pry0okj8q6x1" path="res://assets/ui/Server Panel Inside 2.png" id="2_ct0q2"]
+[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="4_ifctt"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_kw4ys"]
+[ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="5_ct4th"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="6_xacso"]
+[ext_resource type="PackedScene" uid="uid://i6tx2uvn6e1m" path="res://scenes/gameplay/investigation/AppViewPanel.tscn" id="8_kw4ys"]
+[ext_resource type="Texture2D" uid="uid://ckhs6ajdsqlfl" path="res://assets/ui/Investigation Icon.png" id="8_xacso"]
+[ext_resource type="Script" uid="uid://bsl7mgv7n8kcv" path="res://scenes/gameplay/investigation/investigation_menu.gd" id="9_menugd"]
+
+[sub_resource type="Theme" id="Theme_rjwuq"]
+default_font = ExtResource("4_kw4ys")
+default_font_size = 6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3568o"]
+atlas = ExtResource("5_ct4th")
+
+[sub_resource type="LabelSettings" id="LabelSettings_76wf1"]
+font = ExtResource("4_ifctt")
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_xttc1"]
+default_font = ExtResource("6_xacso")
+default_font_size = 6
+
+[node name="InvestigationMenu" type="Control" unique_id=374564516]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_menugd")
+
+[node name="FramePanel" type="NinePatchRect" parent="." unique_id=744571823]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 338.0
+texture = ExtResource("1_y4voi")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 11
+patch_margin_top = 11
+patch_margin_right = 11
+patch_margin_bottom = 11
+
+[node name="MainPanel" type="NinePatchRect" parent="FramePanel" unique_id=520052223]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -314.0
+offset_top = -160.0
+offset_right = 314.0
+offset_bottom = 163.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ct0q2")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 4
+patch_margin_top = 27
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="AppViewPanel" parent="FramePanel/MainPanel" unique_id=1432646798 instance=ExtResource("8_kw4ys")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Objective" type="RichTextLabel" parent="FramePanel/MainPanel" unique_id=1537799411]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 4.0
+offset_right = 340.0
+offset_bottom = 25.0
+theme = SubResource("Theme_rjwuq")
+theme_override_colors/default_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+text = "OBJECTIVE - INVESTIGATE AND FIND CLUES"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+
+[node name="CluesFound" type="RichTextLabel" parent="FramePanel/MainPanel" unique_id=427928853]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 28.0
+offset_right = 576.0
+offset_bottom = 54.0
+theme = SubResource("Theme_rjwuq")
+theme_override_colors/default_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+text = "Found Clues: 00"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+
+[node name="ExitButton" type="TextureButton" parent="FramePanel/MainPanel" unique_id=816621309]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 6.0
+offset_right = 622.0
+offset_bottom = 23.0
+texture_normal = SubResource("AtlasTexture_3568o")
+stretch_mode = 0
+
+[node name="TitleExe" type="Label" parent="FramePanel/MainPanel" unique_id=1326763157]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -11.0
+offset_right = 75.0
+offset_bottom = 2.0
+text = "INVESTIGATION.exe"
+label_settings = SubResource("LabelSettings_76wf1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FramePanel/MainPanel" unique_id=760668025]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 28.0
+offset_right = 456.0
+offset_bottom = 54.0
+
+[node name="EmailButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=73067319]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_xttc1")
+text = "EMAIL"
+
+[node name="LogsButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=858452852]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_xttc1")
+text = "LOGS"
+
+[node name="ComputersButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1271615936]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_xttc1")
+text = "COMPUTERS"
+
+[node name="LoginButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1475047935]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_xttc1")
+text = "LOGIN"
+
+[node name="FilesButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1959169695]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_xttc1")
+text = "FILES"
+
+[node name="NetButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1312770801]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_xttc1")
+text = "NETWORK"
+
+[node name="ServersButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1362667695]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_xttc1")
+text = "SERVERS"
+
+[node name="ReportsButton" type="Button" parent="FramePanel/MainPanel" unique_id=106251227]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 28.0
+offset_right = 618.0
+offset_bottom = 54.0
+theme = SubResource("Theme_xttc1")
+theme_override_fonts/font = ExtResource("4_kw4ys")
+text = "REPORT"
+
+[node name="TextureRect" type="TextureRect" parent="FramePanel/MainPanel" unique_id=1241522806]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("8_xacso")
+
+[connection signal="pressed" from="FramePanel/MainPanel/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/LogsButton" to="." method="_on_logs_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/ComputersButton" to="." method="_on_computers_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/FilesButton" to="." method="_on_files_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/NetButton" to="." method="_on_net_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/ServersButton" to="." method="_on_servers_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/ReportsButton" to="." method="_on_reports_button_pressed"]

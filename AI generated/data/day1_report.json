@@ -1,0 +1,32 @@
+{
+	"required_clues": 4,
+	"day_title": "AN UNUSUAL LOGIN",
+	"threats": ["Credential Abuse", "Malware", "Ransomware", "Insider Threat", "Data Exfiltration", "DDoS", "Phishing", "Web Application Attack"],
+	"clue_labels": {
+		"log_failed_logins": "17 failed logins, then a success",
+		"login_germany": "Sign-in from Germany",
+		"computer_unknown_7f3a": "Unregistered device UNKNOWN-7F3A",
+		"email_anna_reply": "Anna says she did not reset it",
+		"log_password_reset": "Password reset at 02:44, right after the login",
+		"net_vpn_inbound": "VPN session from the same outside address",
+		"net_outbound_transfer": "48 MB sent out to that address",
+		"file_payroll_download": "payroll.xlsx downloaded at 2 AM"
+	},
+	"messages": {
+		"pick": "Choose the threat you think is behind these clues, then press CONFIRM.",
+		"not_enough": "NOT ENOUGH EVIDENCE YET. Your clues are not strong enough to be sure. Keep investigating.",
+		"mismatch": "THESE CLUES DO NOT MATCH {threat}. Look again at what they have in common."
+	},
+	"result": {
+		"headline": "THREAT IDENTIFIED",
+		"what_happened": "Someone guessed Anna's password, then signed in from another country at 2 AM on a device nobody knows.",
+		"what_is_it": "Credential abuse: attackers guess, steal or reuse passwords to log in as a real user. The login looks normal, so it is easy to miss."
+	},
+	"next": {
+		"phase_index": 1,
+		"title": "MONITORING",
+		"description": "Watch the system as it runs. Report the activity that looks wrong, but do not report normal activity. Correct reports earn Security Points to spend on defenses.",
+		"button": "START MONITORING >",
+		"scene": "res://AI generated/scenes/monitoring/Monitoring.tscn"
+	}
+}

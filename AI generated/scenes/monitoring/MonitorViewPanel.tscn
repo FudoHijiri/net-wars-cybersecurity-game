@@ -1,0 +1,255 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/Blank Panel.png" id="1_panel"]
+[ext_resource type="Script" path="res://AI generated/scripts/monitoring/monitor_view_panel.gd" id="2_script"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="3_font"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_bold"]
+[ext_resource type="FontFile" path="res://assets/font/m3x6.ttf" id="5_m3x6"]
+
+[sub_resource type="StyleBoxFlat" id="SB_title_strip"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="Theme" id="Theme_regular"]
+default_font = ExtResource("3_font")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_bold"]
+default_font = ExtResource("4_bold")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_body"]
+default_font = ExtResource("5_m3x6")
+default_font_size = 16
+
+[sub_resource type="StyleBoxLine" id="SB_split"]
+color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 2
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id="SB_navy"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_header"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 0.5882353)
+expand_margin_bottom = 4.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_head"]
+font = ExtResource("3_font")
+font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_normal"]
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_pressed"]
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_hover"]
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_disabled"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 0.6)
+
+[sub_resource type="Theme" id="Theme_button"]
+default_font = ExtResource("3_font")
+default_font_size = 6
+Button/colors/font_disabled_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[node name="MonitorViewPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_script")
+
+[node name="MainPanelAppView" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 55.0
+offset_right = 618.0
+offset_bottom = 311.0
+texture = ExtResource("1_panel")
+
+[node name="Panel" type="Panel" parent="MainPanelAppView"]
+layout_mode = 0
+offset_right = 608.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("SB_title_strip")
+
+[node name="Title" type="RichTextLabel" parent="MainPanelAppView/Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_right = 306.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme = SubResource("Theme_regular")
+text = "LOGIN VIEW > LIVE SIGN-INS"
+scroll_active = false
+vertical_alignment = 1
+
+[node name="Guide" type="RichTextLabel" parent="MainPanelAppView/Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 332.0
+offset_right = 602.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme = SubResource("Theme_regular")
+text = "New events keep arriving"
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MainPanelAppView"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 20.0
+offset_right = 608.0
+offset_bottom = 256.0
+theme_override_constants/separation = 0
+theme_override_styles/split_bar_background = SubResource("SB_split")
+split_offsets = PackedInt32Array(375)
+dragging_enabled = false
+split_offset = 375
+
+[node name="Left" type="Panel" parent="MainPanelAppView/HSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("SB_navy")
+
+[node name="LeftColumn" type="VBoxContainer" parent="MainPanelAppView/HSplitContainer/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="HeaderPanel" type="PanelContainer" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("SB_header")
+
+[node name="HeaderRow" type="HBoxContainer" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn/HeaderPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label1" type="Label" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn/HeaderPanel/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "TIME"
+label_settings = SubResource("LabelSettings_head")
+
+[node name="Label2" type="Label" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn/HeaderPanel/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "USER"
+label_settings = SubResource("LabelSettings_head")
+
+[node name="Label3" type="Label" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn/HeaderPanel/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "WHERE"
+label_settings = SubResource("LabelSettings_head")
+
+[node name="Label4" type="Label" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn/HeaderPanel/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "DEVICE"
+label_settings = SubResource("LabelSettings_head")
+
+[node name="Label5" type="Label" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn/HeaderPanel/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "STATUS"
+label_settings = SubResource("LabelSettings_head")
+
+[node name="SelectSpacer" type="Control" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn/HeaderPanel/HeaderRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(58, 0)
+layout_mode = 2
+
+[node name="RowsPanel" type="PanelContainer" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("SB_navy")
+
+[node name="RowsScroll" type="ScrollContainer" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn/RowsPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="RowsList" type="VBoxContainer" parent="MainPanelAppView/HSplitContainer/Left/LeftColumn/RowsPanel/RowsScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Right" type="Panel" parent="MainPanelAppView/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("SB_navy")
+
+[node name="DetailColumn" type="VBoxContainer" parent="MainPanelAppView/HSplitContainer/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DetailTitle" type="RichTextLabel" parent="MainPanelAppView/HSplitContainer/Right/DetailColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_bold")
+text = "EVENT"
+fit_content = true
+scroll_active = false
+
+[node name="DetailBody" type="RichTextLabel" parent="MainPanelAppView/HSplitContainer/Right/DetailColumn"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_body")
+text = "Waiting for events..."
+scroll_active = false
+
+[node name="ReportButton" type="Button" parent="MainPanelAppView/HSplitContainer/Right"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -27.0
+offset_right = -6.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_button")
+theme_override_styles/disabled = SubResource("SB_btn_disabled")
+theme_override_styles/hover = SubResource("SB_btn_hover")
+theme_override_styles/hover_pressed = SubResource("SB_btn_hover")
+theme_override_styles/normal = SubResource("SB_btn_normal")
+theme_override_styles/pressed = SubResource("SB_btn_pressed")
+disabled = true
+text = "REPORT ANOMALY"

@@ -1,0 +1,321 @@
+[gd_scene format=3 uid="uid://lfblfvkjhc36"]
+
+[ext_resource type="Script" uid="uid://b83jpagbwif4l" path="res://scripts/menus/stage_select.gd" id="1_7853p"]
+[ext_resource type="Texture2D" uid="uid://byao028ojcr5d" path="res://assets/ui/Panel.png" id="1_eik83"]
+[ext_resource type="Texture2D" uid="uid://c78ql2mhefktq" path="res://assets/ui/Play Button.png" id="3_8dxb8"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_nuuas"]
+[ext_resource type="Texture2D" uid="uid://blk2uwytyd6qy" path="res://assets/ui/New Game Button.png" id="4_7853p"]
+[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="4_j7vip"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="4_ope24"]
+[ext_resource type="Texture2D" uid="uid://bqvx7g34beueg" path="res://assets/ui/Settings Button.png" id="5_py727"]
+[ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="7_ope24"]
+[ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="10_ope24"]
+
+[sub_resource type="Theme" id="Theme_cvl1l"]
+default_font = ExtResource("3_nuuas")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_riil3"]
+
+[sub_resource type="Theme" id="Theme_3568o"]
+default_font = ExtResource("4_j7vip")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_xttc1"]
+default_font = ExtResource("4_j7vip")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_rjwuq"]
+default_font = ExtResource("4_j7vip")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_u4ec8"]
+default_font = ExtResource("4_j7vip")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_farh1"]
+default_font = ExtResource("4_j7vip")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_ptohj"]
+default_font = ExtResource("4_j7vip")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_uyhkn"]
+default_font = ExtResource("4_j7vip")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_6ytef"]
+default_font = ExtResource("4_j7vip")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_5wmqr"]
+default_font = ExtResource("4_ope24")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_ope24"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7vip"]
+atlas = ExtResource("3_8dxb8")
+region = Rect2(0, 0, 32, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4654"]
+atlas = ExtResource("3_8dxb8")
+region = Rect2(0, 18, 32, 19)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fnhdr"]
+font = ExtResource("7_ope24")
+font_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsg2b"]
+atlas = ExtResource("4_7853p")
+region = Rect2(0, 0, 32, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mri2f"]
+atlas = ExtResource("4_7853p")
+region = Rect2(0, 18, 32, 19)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cvl1l"]
+font = ExtResource("7_ope24")
+font_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3568o"]
+atlas = ExtResource("5_py727")
+region = Rect2(0, 0, 32, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oruy3"]
+atlas = ExtResource("5_py727")
+region = Rect2(0, 18, 32, 19)
+
+[sub_resource type="LabelSettings" id="LabelSettings_w31c7"]
+font = ExtResource("7_ope24")
+font_size = 8
+
+[node name="StageSelect" type="Control" unique_id=1292606746]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7853p")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2091680253]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -222.0
+offset_top = -128.0
+offset_right = 222.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_eik83")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 11
+patch_margin_top = 11
+patch_margin_right = 11
+patch_margin_bottom = 11
+
+[node name="SettingsLabel" type="Label" parent="NinePatchRect" unique_id=996859544]
+layout_mode = 0
+offset_left = 182.0
+offset_top = 10.0
+offset_right = 262.0
+offset_bottom = 22.0
+size_flags_horizontal = 4
+theme = SubResource("Theme_cvl1l")
+text = "STAGE SELECT"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect" unique_id=1207973782]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 26.0
+offset_right = 159.0
+offset_bottom = 197.0
+
+[node name="Panel" type="PanelContainer" parent="NinePatchRect/ScrollContainer" unique_id=1683070900]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_riil3")
+
+[node name="Day List" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/Panel" unique_id=1713011107]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Day1" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=1762380131]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_3568o")
+text = "Day 1 - An Unusual Login"
+
+[node name="Day2" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=259402007]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_xttc1")
+disabled = true
+text = "Day 2 - Something Got In"
+
+[node name="Day3" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=1508651174]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_rjwuq")
+disabled = true
+text = "Day 3 - Files Under Lock"
+
+[node name="Day4" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=1136045357]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_u4ec8")
+disabled = true
+text = "Day 4 - Someone Inside"
+
+[node name="Day5" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=1238774003]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_farh1")
+disabled = true
+text = "Day 5 - Data on the Move"
+
+[node name="Day6" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=1948478407]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_ptohj")
+disabled = true
+text = "Day 6 - Under Heavy Load"
+
+[node name="Day7" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=125329867]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_uyhkn")
+disabled = true
+text = "Day 7 - A Message to Trust"
+
+[node name="Day8" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=613441096]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_6ytef")
+disabled = true
+text = "Day 8 - The Open Door"
+
+[node name="PanelContainer" type="Panel" parent="NinePatchRect" unique_id=1103711204]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 26.0
+offset_right = 433.0
+offset_bottom = 197.0
+size_flags_horizontal = 3
+
+[node name="Day Description" type="RichTextLabel" parent="NinePatchRect/PanelContainer" unique_id=767525978]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 271.0
+offset_bottom = 170.0
+theme = SubResource("Theme_5wmqr")
+text = " Day 1 - An Unusal Login
+
+It's your first day as an Incident Response Specialist. But something went wrong and you are receiving warnings in the company's logs. Find out the cause of this.
+"
+
+[node name="PlayButton" type="TextureButton" parent="NinePatchRect" unique_id=1040769812]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.675
+anchor_right = 0.5
+anchor_bottom = 0.675
+offset_left = 119.0
+offset_top = 39.199997
+offset_right = 176.0
+offset_bottom = 69.2
+size_flags_horizontal = 4
+theme = SubResource("Theme_ope24")
+texture_normal = SubResource("AtlasTexture_j7vip")
+texture_pressed = SubResource("AtlasTexture_p4654")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="NinePatchRect/PlayButton" unique_id=1603855934]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -11.0
+offset_right = 60.0
+offset_bottom = -3.0
+text = "RESUME"
+label_settings = SubResource("LabelSettings_fnhdr")
+horizontal_alignment = 1
+
+[node name="NewGameButton" type="TextureButton" parent="NinePatchRect" unique_id=650676235]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.675
+anchor_right = 0.5
+anchor_bottom = 0.675
+offset_left = 37.0
+offset_top = 39.199997
+offset_right = 94.0
+offset_bottom = 69.2
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_ope24")
+texture_normal = SubResource("AtlasTexture_nsg2b")
+texture_pressed = SubResource("AtlasTexture_mri2f")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="NinePatchRect/NewGameButton" unique_id=739152417]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -11.0
+offset_right = 68.0
+offset_bottom = -3.0
+text = "NEW GAME"
+label_settings = SubResource("LabelSettings_cvl1l")
+horizontal_alignment = 1
+
+[node name="ArchiveButton" type="TextureButton" parent="NinePatchRect" unique_id=214672444]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.675
+anchor_right = 0.5
+anchor_bottom = 0.675
+offset_left = -195.0
+offset_top = 39.199997
+offset_right = -138.0
+offset_bottom = 69.2
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_ope24")
+texture_normal = SubResource("AtlasTexture_3568o")
+texture_pressed = SubResource("AtlasTexture_oruy3")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="NinePatchRect/ArchiveButton" unique_id=1955834318]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -11.0
+offset_right = 68.0
+offset_bottom = -3.0
+rotation = -3.7789243e-05
+text = "ARCHIVE"
+label_settings = SubResource("LabelSettings_w31c7")
+horizontal_alignment = 1
+
+[node name="Exit" type="TextureButton" parent="NinePatchRect" unique_id=1698926410]
+layout_mode = 0
+offset_left = 419.0
+offset_top = 10.0
+offset_right = 434.0
+offset_bottom = 25.0
+texture_normal = ExtResource("10_ope24")
+stretch_mode = 0
+
+[connection signal="pressed" from="NinePatchRect/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="NinePatchRect/NewGameButton" to="." method="_on_new_game_button_pressed"]

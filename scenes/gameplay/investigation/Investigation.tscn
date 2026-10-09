@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://dhp7rgcugpcli"]
+
+[ext_resource type="Script" uid="uid://lg77y5wcwfms" path="res://scenes/gameplay/investigation/investigation.gd" id="1_24irc"]
+[ext_resource type="Texture2D" uid="uid://cnmivreptvylt" path="res://assets/ui/Server Background.png" id="1_bn4ig"]
+[ext_resource type="Texture2D" uid="uid://bsgi3pd7setjw" path="res://assets/ui/Windows Server Icon.png" id="3_j5kma"]
+[ext_resource type="Texture2D" uid="uid://n7yhjs53rrcr" path="res://assets/ui/Windows Run Icon.png" id="4_d10ov"]
+[ext_resource type="Texture2D" uid="uid://djp64kkhrvm8q" path="res://assets/ui/Windows File Explorer Icon.png" id="5_mxnjl"]
+[ext_resource type="Texture2D" uid="uid://bevlrubnhgq16" path="res://assets/ui/Program Icon.png" id="6_hvjs7"]
+[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="7_x2w4j"]
+[ext_resource type="Script" uid="uid://cvuntjqbgk8yy" path="res://scripts/menus/time.gd" id="8_8hhul"]
+[ext_resource type="Script" uid="uid://cyvy5wi0m2fp8" path="res://scripts/menus/date.gd" id="9_j0x3p"]
+[ext_resource type="PackedScene" uid="uid://3cwouuj002s6" path="res://scenes/gameplay/investigation/InvestigationMenu.tscn" id="9_j5kma"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3568o"]
+atlas = ExtResource("6_hvjs7")
+region = Rect2(1, 18, 30, 21)
+
+[node name="Investigation" type="Control" unique_id=31948289]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_24irc")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1337201935]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bn4ig")
+
+[node name="WindowsServerIcon" type="TextureRect" parent="TextureRect" unique_id=1019743736]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 340.0
+offset_right = 20.0
+offset_bottom = 359.0
+texture = ExtResource("3_j5kma")
+stretch_mode = 4
+
+[node name="WindowsRunIcon" type="TextureRect" parent="TextureRect" unique_id=746666665]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 341.0
+offset_right = 41.0
+offset_bottom = 358.0
+texture = ExtResource("4_d10ov")
+stretch_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect" unique_id=730902193]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 341.0
+offset_right = 62.0
+offset_bottom = 358.0
+texture = ExtResource("5_mxnjl")
+stretch_mode = 3
+
+[node name="TextureButton" type="TextureButton" parent="TextureRect" unique_id=1684521468]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 339.0
+offset_right = 97.0
+offset_bottom = 360.0
+texture_normal = SubResource("AtlasTexture_3568o")
+
+[node name="Time" type="RichTextLabel" parent="TextureRect" unique_id=201678743]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 338.0
+offset_right = 639.0
+offset_bottom = 351.0
+theme_override_fonts/normal_font = ExtResource("7_x2w4j")
+theme_override_font_sizes/normal_font_size = 16
+text = "00:00 PM
+"
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("8_8hhul")
+
+[node name="Date" type="RichTextLabel" parent="TextureRect" unique_id=678227130]
+layout_mode = 0
+offset_left = 598.0
+offset_top = 345.0
+offset_right = 638.0
+offset_bottom = 358.0
+theme_override_fonts/normal_font = ExtResource("7_x2w4j")
+theme_override_font_sizes/normal_font_size = 16
+text = "00/00/0000"
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("9_j0x3p")
+
+[node name="InvestigationMenu" parent="TextureRect" unique_id=374564516 instance=ExtResource("9_j5kma")]
+unique_name_in_owner = true
+layout_mode = 1

@@ -1,0 +1,219 @@
+{
+	"start_clock": "02:30",
+	"end_clock": "03:00",
+	"points": {"correct": 20, "important": 30, "false_alarm": -10},
+	"results": {
+		"perfect": "No false alarms and nothing missed. You told the real attack apart from the odd-looking but normal activity."
+	},
+	"views": {
+		"computer": {
+			"title": "COMPUTER VIEW > DEVICES ON THE NETWORK",
+			"columns": ["TIME", "DEVICE", "EVENT", "STATUS"],
+			"widths": [36, 82, 138, 55]
+		},
+		"login": {
+			"title": "LOGIN VIEW > LIVE SIGN-INS",
+			"columns": ["TIME", "USER", "WHERE", "DEVICE", "STATUS"],
+			"widths": [36, 52, 80, 88, 55]
+		},
+		"network": {
+			"title": "NETWORK VIEW > CONNECTIONS",
+			"columns": ["TIME", "FROM", "TO", "DATA", "STATUS"],
+			"widths": [36, 76, 96, 52, 51]
+		},
+		"server": {
+			"title": "SERVER VIEW > HEALTH",
+			"columns": ["TIME", "SERVER", "EVENT", "STATUS"],
+			"widths": [36, 64, 156, 55]
+		}
+	},
+	"events": [
+		{
+			"id": "login_cpatel_philippines",
+			"view": "login",
+			"time": "02:34",
+			"kind": "normal",
+			"important": false,
+			"cells": ["02:34", "cpatel", "Philippines", "WS-CARLA"],
+			"title": "Sign-in: cpatel",
+			"detail": "Account: cpatel (Carla Patel)\nWhere: Philippines\nDevice: WS-CARLA (registered)\nTime: 02:34\n\nIs this normal for this account? Look at who it is and what device she used.",
+			"explain": "Carla works the night handover on her own registered laptop. A late hour alone is not an attack."
+		},
+		{
+			"id": "login_failed_burst",
+			"view": "login",
+			"time": "02:38",
+			"kind": "anomaly",
+			"important": false,
+			"cells": ["02:38", "anreyes", "185.220.101.47", "9 failed tries"],
+			"title": "9 failed sign-ins: anreyes",
+			"detail": "Account: anreyes (Anna Reyes)\nFrom address: 185.220.101.47\nResult: 9 FAILED sign-ins in a row\nTime: 02:38\n\nNobody mistypes a password 9 times in a row. Look at where the tries come from.",
+			"explain": "Many wrong passwords in a row from one outside address means someone is guessing the password."
+		},
+		{
+			"id": "login_germany",
+			"view": "login",
+			"time": "02:43",
+			"kind": "anomaly",
+			"important": true,
+			"cells": ["02:43", "anreyes", "Germany", "UNKNOWN-7F3A"],
+			"title": "Sign-in from Germany: anreyes",
+			"detail": "Account: anreyes (Anna Reyes)\nWhere: Germany\nDevice: UNKNOWN-7F3A (not registered)\nTime: 02:43\n\nAnna always signs in from the office, on her own laptop.",
+			"explain": "A sign-in from another country on an unknown device, right after the failed tries, means the password guess worked."
+		},
+		{
+			"id": "login_bnguyen_philippines",
+			"view": "login",
+			"time": "02:50",
+			"kind": "normal",
+			"important": false,
+			"cells": ["02:50", "bnguyen", "Philippines", "WS-BEN"],
+			"title": "Sign-in: bnguyen",
+			"detail": "Account: bnguyen (Ben Nguyen)\nWhere: Philippines\nDevice: WS-BEN (registered)\nTime: 02:50\n\nBen is working late from home.",
+			"explain": "Ben is a known user on his own registered laptop. It looks odd at this hour, but nothing about it is wrong."
+		},
+		{
+			"id": "net_backup_sync",
+			"view": "network",
+			"time": "02:35",
+			"kind": "normal",
+			"important": false,
+			"cells": ["02:35", "BACKUP-01", "FS-01", "4 MB"],
+			"title": "BACKUP-01 to FS-01",
+			"detail": "From: BACKUP-01\nTo: FS-01\nData: 4 MB\nTime: 02:35\n\nNightly backup sync between two company servers.",
+			"explain": "Two company servers syncing a backup at night is routine."
+		},
+		{
+			"id": "net_vpn_inbound",
+			"view": "network",
+			"time": "02:43",
+			"kind": "anomaly",
+			"important": false,
+			"cells": ["02:43", "185.220.101.47", "VPN-GW", "VPN login"],
+			"title": "Outside VPN session",
+			"detail": "From: 185.220.101.47 (outside the company)\nTo: VPN-GW\nType: inbound VPN session\nTime: 02:43\n\nThis is the same address that tried Anna's password earlier.",
+			"explain": "A VPN session from the same outside address that guessed the password. This is how the attacker got inside."
+		},
+		{
+			"id": "net_data_out",
+			"view": "network",
+			"time": "02:52",
+			"kind": "anomaly",
+			"important": true,
+			"cells": ["02:52", "FS-01", "185.220.101.47", "3.2 MB"],
+			"title": "FS-01 sending data out",
+			"detail": "From: FS-01 (file server)\nTo: 185.220.101.47 (outside the company)\nData: 3.2 MB leaving the network\nTime: 02:52\n\nThe file server rarely sends anything outside.",
+			"explain": "A file server sending data to an outside address at night is data leaving the network. The attacker is taking files."
+		},
+		{
+			"id": "net_system_update",
+			"view": "network",
+			"time": "02:58",
+			"kind": "normal",
+			"important": false,
+			"cells": ["02:58", "WS-BEN", "update.example.com", "12 MB"],
+			"title": "WS-BEN downloads an update",
+			"detail": "From: WS-BEN\nTo: update.example.com\nData: 12 MB\nTime: 02:58\n\nA laptop downloading a system update.",
+			"explain": "A registered laptop fetching a system update from the vendor's update site is normal."
+		},
+		{
+			"id": "comp_ws_carla_locked",
+			"view": "computer",
+			"time": "02:32",
+			"kind": "normal",
+			"important": false,
+			"cells": ["02:32", "WS-CARLA", "Screen locked"],
+			"title": "WS-CARLA",
+			"detail": "Device: WS-CARLA\nOwner: Carla Patel\nEvent: screen locked\nTime: 02:32\n\nRegistered device, normal activity.",
+			"explain": "A registered laptop locking its screen is normal."
+		},
+		{
+			"id": "comp_unknown_joined",
+			"view": "computer",
+			"time": "02:44",
+			"kind": "anomaly",
+			"important": false,
+			"cells": ["02:44", "UNKNOWN-7F3A", "Joined the network"],
+			"title": "UNKNOWN-7F3A joined",
+			"detail": "Device: UNKNOWN-7F3A\nOwner: none registered\nEvent: joined the network\nTime: 02:44\n\nEvery company device is on the asset list. This one is not.",
+			"explain": "A device with no registered owner joined the network. Real company devices are always on the list."
+		},
+		{
+			"id": "comp_ws_ben_update",
+			"view": "computer",
+			"time": "02:47",
+			"kind": "normal",
+			"important": false,
+			"cells": ["02:47", "WS-BEN", "Installed an update"],
+			"title": "WS-BEN restarted",
+			"detail": "Device: WS-BEN\nOwner: Ben Nguyen\nEvent: installed a software update and restarted\nTime: 02:47\n\nRegistered device.",
+			"explain": "Installing an update and restarting is normal maintenance on a registered laptop. Odd-looking is not always an attack."
+		},
+		{
+			"id": "comp_printer_restart",
+			"view": "computer",
+			"time": "02:55",
+			"kind": "normal",
+			"important": false,
+			"cells": ["02:55", "PRN-FL2", "Printer restarted"],
+			"title": "PRN-FL2 restarted",
+			"detail": "Device: PRN-FL2\nType: floor 2 printer\nEvent: restarted\nTime: 02:55",
+			"explain": "Printers restart on their own from time to time. This is normal."
+		},
+		{
+			"id": "srv_backup_started",
+			"view": "server",
+			"time": "02:30",
+			"kind": "normal",
+			"important": false,
+			"cells": ["02:30", "BACKUP-01", "Nightly backup started"],
+			"title": "BACKUP-01 backup job",
+			"detail": "Server: BACKUP-01\nEvent: nightly backup job started\nTime: 02:30\n\nScheduled job, runs every night.",
+			"explain": "A scheduled nightly backup is routine."
+		},
+		{
+			"id": "srv_failed_logins",
+			"view": "server",
+			"time": "02:41",
+			"kind": "anomaly",
+			"important": false,
+			"cells": ["02:41", "DC-01", "17 failed sign-ins: anreyes"],
+			"title": "DC-01: 17 failed sign-ins",
+			"detail": "Server: DC-01 (handles every login)\nAccount: anreyes\nEvent: 17 failed sign-ins in 11 minutes\nTime: 02:41\n\nNormal is 0 to 1 failed sign-ins.",
+			"explain": "Many failed sign-ins in a row can mean someone is guessing passwords."
+		},
+		{
+			"id": "srv_password_changed",
+			"view": "server",
+			"time": "02:44",
+			"kind": "anomaly",
+			"important": false,
+			"cells": ["02:44", "DC-01", "Password changed: anreyes"],
+			"title": "DC-01: password changed",
+			"detail": "Server: DC-01\nAccount: anreyes\nEvent: password changed\nTime: 02:44\n\nThis came one minute after the sign-in from Germany.",
+			"explain": "The password was changed right after the attacker got in. This locks Anna out of her own account."
+		},
+		{
+			"id": "srv_payroll_download",
+			"view": "server",
+			"time": "02:52",
+			"kind": "anomaly",
+			"important": true,
+			"cells": ["02:52", "FS-01", "payroll.xlsx downloaded"],
+			"title": "FS-01: payroll.xlsx downloaded",
+			"detail": "Server: FS-01 (file server)\nFile: payroll.xlsx\nEvent: downloaded by anreyes\nTime: 02:52\n\nThe account is the one that signed in from Germany.",
+			"explain": "Payroll holds private data. Downloading it at 2 AM with a stolen account is the attacker's goal."
+		},
+		{
+			"id": "srv_mail_sync",
+			"view": "server",
+			"time": "02:57",
+			"kind": "normal",
+			"important": false,
+			"cells": ["02:57", "MAIL-01", "Mail sync completed"],
+			"title": "MAIL-01 mail sync",
+			"detail": "Server: MAIL-01\nEvent: mail sync completed\nTime: 02:57\n\nRoutine background job.",
+			"explain": "A mail server finishing its regular sync is normal."
+		}
+	]
+}

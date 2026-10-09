@@ -1,0 +1,165 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://AI generated/scripts/pause/pause_menu.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="2_font"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_bold"]
+[ext_resource type="FontFile" path="res://assets/font/m3x6.ttf" id="4_m3x6"]
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_normal"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_hover"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_pressed"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+
+[sub_resource type="Theme" id="Theme_main"]
+default_font = ExtResource("2_font")
+default_font_size = 6
+Button/colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+Button/colors/font_focus_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+Button/colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+Button/colors/font_hover_pressed_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+Button/colors/font_pressed_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+Button/styles/focus = SubResource("SB_btn_hover")
+Button/styles/hover = SubResource("SB_btn_hover")
+Button/styles/hover_pressed = SubResource("SB_btn_pressed")
+Button/styles/normal = SubResource("SB_btn_normal")
+Button/styles/pressed = SubResource("SB_btn_pressed")
+
+[sub_resource type="StyleBoxFlat" id="SB_window"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_title_bar"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 90
+visible = false
+script = ExtResource("1_script")
+
+[node name="Screen" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_main")
+
+[node name="Dim" type="ColorRect" parent="Screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.10980392, 0.17254902, 0.7)
+
+[node name="Window" type="Panel" parent="Screen"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 230.0
+offset_top = 92.0
+offset_right = 410.0
+offset_bottom = 268.0
+theme_override_styles/panel = SubResource("SB_window")
+
+[node name="TitleBar" type="Panel" parent="Screen/Window"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 178.0
+offset_bottom = 22.0
+theme_override_styles/panel = SubResource("SB_title_bar")
+
+[node name="TitleLabel" type="Label" parent="Screen/Window/TitleBar"]
+layout_mode = 0
+offset_right = 176.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("3_bold")
+theme_override_font_sizes/font_size = 12
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="Screen/Window"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 32.0
+offset_right = 166.0
+offset_bottom = 150.0
+theme_override_constants/separation = 6
+
+[node name="ResumeButton" type="Button" parent="Screen/Window/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "RESUME"
+
+[node name="SettingsButton" type="Button" parent="Screen/Window/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="StageSelectButton" type="Button" parent="Screen/Window/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "STAGE SELECT"
+
+[node name="MainMenuButton" type="Button" parent="Screen/Window/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "MAIN MENU"
+
+[node name="HintLabel" type="Label" parent="Screen/Window"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 154.0
+offset_right = 174.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("4_m3x6")
+theme_override_font_sizes/font_size = 16
+text = "Esc to resume"
+horizontal_alignment = 1
+vertical_alignment = 1

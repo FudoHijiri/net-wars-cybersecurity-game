@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://dg8aetth7yuwq"]
+
+[ext_resource type="Texture2D" uid="uid://cnmivreptvylt" path="res://assets/ui/Server Background.png" id="1_bg"]
+[ext_resource type="Texture2D" uid="uid://bsgi3pd7setjw" path="res://assets/ui/Windows Server Icon.png" id="2_server"]
+[ext_resource type="Texture2D" uid="uid://n7yhjs53rrcr" path="res://assets/ui/Windows Run Icon.png" id="3_run"]
+[ext_resource type="Texture2D" uid="uid://djp64kkhrvm8q" path="res://assets/ui/Windows File Explorer Icon.png" id="4_files"]
+[ext_resource type="Texture2D" uid="uid://bevlrubnhgq16" path="res://assets/ui/Program Icon.png" id="5_program"]
+[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="6_m3x6"]
+[ext_resource type="Script" uid="uid://cvuntjqbgk8yy" path="res://scripts/menus/time.gd" id="7_time"]
+[ext_resource type="Script" uid="uid://cyvy5wi0m2fp8" path="res://scripts/menus/date.gd" id="8_date"]
+[ext_resource type="PackedScene" path="res://AI generated/scenes/monitoring/MonitoringMenu.tscn" id="9_menu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_program"]
+atlas = ExtResource("5_program")
+region = Rect2(1, 18, 30, 21)
+
+[node name="Monitoring" type="Control" unique_id=1061563303]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=884921281]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bg")
+
+[node name="WindowsServerIcon" type="TextureRect" parent="TextureRect" unique_id=901122328]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 340.0
+offset_right = 20.0
+offset_bottom = 359.0
+texture = ExtResource("2_server")
+stretch_mode = 4
+
+[node name="WindowsRunIcon" type="TextureRect" parent="TextureRect" unique_id=1969209494]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 341.0
+offset_right = 41.0
+offset_bottom = 358.0
+texture = ExtResource("3_run")
+stretch_mode = 3
+
+[node name="FilesIcon" type="TextureRect" parent="TextureRect" unique_id=560548217]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 341.0
+offset_right = 62.0
+offset_bottom = 358.0
+texture = ExtResource("4_files")
+stretch_mode = 3
+
+[node name="ProgramButton" type="TextureButton" parent="TextureRect" unique_id=685976255]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 339.0
+offset_right = 97.0
+offset_bottom = 360.0
+texture_normal = SubResource("AtlasTexture_program")
+
+[node name="Time" type="RichTextLabel" parent="TextureRect" unique_id=533927340]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 338.0
+offset_right = 639.0
+offset_bottom = 351.0
+theme_override_fonts/normal_font = ExtResource("6_m3x6")
+theme_override_font_sizes/normal_font_size = 16
+text = "00:00 PM
+"
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("7_time")
+
+[node name="Date" type="RichTextLabel" parent="TextureRect" unique_id=1633301570]
+layout_mode = 0
+offset_left = 598.0
+offset_top = 345.0
+offset_right = 638.0
+offset_bottom = 358.0
+theme_override_fonts/normal_font = ExtResource("6_m3x6")
+theme_override_font_sizes/normal_font_size = 16
+text = "00/00/0000"
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("8_date")
+
+[node name="MonitoringMenu" parent="TextureRect" unique_id=785287021 instance=ExtResource("9_menu")]
+unique_name_in_owner = true
+layout_mode = 1
