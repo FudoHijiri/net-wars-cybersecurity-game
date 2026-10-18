@@ -13,7 +13,7 @@
 
 [sub_resource type="Theme" id="Theme_cvl1l"]
 default_font = ExtResource("3_nuuas")
-default_font_size = 6
+default_font_size = 12
 
 [sub_resource type="Theme" id="Theme_riil3"]
 
@@ -102,15 +102,9 @@ script = ExtResource("1_7853p")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2091680253]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -222.0
-offset_top = -128.0
-offset_right = 222.0
-offset_bottom = 128.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_eik83")
@@ -119,29 +113,35 @@ patch_margin_left = 11
 patch_margin_top = 11
 patch_margin_right = 11
 patch_margin_bottom = 11
+metadata/_edit_use_anchors_ = true
 
 [node name="SettingsLabel" type="Label" parent="NinePatchRect" unique_id=996859544]
-layout_mode = 0
-offset_left = 182.0
-offset_top = 10.0
-offset_right = 262.0
-offset_bottom = 22.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.030555556
+anchor_right = 0.625
+anchor_bottom = 0.097222224
 size_flags_horizontal = 4
 theme = SubResource("Theme_cvl1l")
 text = "STAGE SELECT"
 horizontal_alignment = 1
 vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect" unique_id=1207973782]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 26.0
-offset_right = 159.0
-offset_bottom = 197.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.024774775
+anchor_top = 0.14166667
+anchor_right = 0.3581081
+anchor_bottom = 0.76953125
+metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="PanelContainer" parent="NinePatchRect/ScrollContainer" unique_id=1683070900]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = SubResource("Theme_riil3")
 
 [node name="Day List" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/Panel" unique_id=1713011107]
@@ -204,12 +204,14 @@ disabled = true
 text = "Day 8 - The Open Door"
 
 [node name="PanelContainer" type="Panel" parent="NinePatchRect" unique_id=1103711204]
-layout_mode = 0
-offset_left = 161.0
-offset_top = 26.0
-offset_right = 433.0
-offset_bottom = 197.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3626126
+anchor_top = 0.14166667
+anchor_right = 0.97522527
+anchor_bottom = 0.76953125
 size_flags_horizontal = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="Day Description" type="RichTextLabel" parent="NinePatchRect/PanelContainer" unique_id=767525978]
 layout_mode = 0
@@ -225,41 +227,35 @@ It's your first day as an Incident Response Specialist. But something went wrong
 [node name="PlayButton" type="TextureButton" parent="NinePatchRect" unique_id=1040769812]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.675
-anchor_right = 0.5
-anchor_bottom = 0.675
-offset_left = 119.0
-offset_top = 39.199997
-offset_right = 176.0
-offset_bottom = 69.2
+anchor_left = 0.768018
+anchor_top = 0.828125
+anchor_right = 0.8963964
+anchor_bottom = 0.9453125
 size_flags_horizontal = 4
 theme = SubResource("Theme_ope24")
 texture_normal = SubResource("AtlasTexture_j7vip")
 texture_pressed = SubResource("AtlasTexture_p4654")
 stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="NinePatchRect/PlayButton" unique_id=1603855934]
 layout_mode = 0
-offset_left = -2.0
-offset_top = -11.0
-offset_right = 60.0
-offset_bottom = -3.0
+anchor_left = -0.03508772
+anchor_top = -0.36666667
+anchor_right = 1.0526316
+anchor_bottom = -0.1
 text = "RESUME"
 label_settings = SubResource("LabelSettings_fnhdr")
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="NewGameButton" type="TextureButton" parent="NinePatchRect" unique_id=650676235]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.675
-anchor_right = 0.5
-anchor_bottom = 0.675
-offset_left = 37.0
-offset_top = 39.199997
-offset_right = 94.0
-offset_bottom = 69.2
+anchor_left = 0.5833333
+anchor_top = 0.828125
+anchor_right = 0.7117117
+anchor_bottom = 0.9453125
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -267,28 +263,26 @@ theme = SubResource("Theme_ope24")
 texture_normal = SubResource("AtlasTexture_nsg2b")
 texture_pressed = SubResource("AtlasTexture_mri2f")
 stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="NinePatchRect/NewGameButton" unique_id=739152417]
 layout_mode = 0
-offset_left = -10.0
-offset_top = -11.0
-offset_right = 68.0
-offset_bottom = -3.0
+anchor_left = -0.1754386
+anchor_top = -0.36666667
+anchor_right = 1.1929824
+anchor_bottom = -0.1
 text = "NEW GAME"
 label_settings = SubResource("LabelSettings_cvl1l")
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="ArchiveButton" type="TextureButton" parent="NinePatchRect" unique_id=214672444]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.675
-anchor_right = 0.5
-anchor_bottom = 0.675
-offset_left = -195.0
-offset_top = 39.199997
-offset_right = -138.0
-offset_bottom = 69.2
+anchor_left = 0.06081081
+anchor_top = 0.828125
+anchor_right = 0.1891892
+anchor_bottom = 0.9453125
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -296,26 +290,36 @@ theme = SubResource("Theme_ope24")
 texture_normal = SubResource("AtlasTexture_3568o")
 texture_pressed = SubResource("AtlasTexture_oruy3")
 stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="NinePatchRect/ArchiveButton" unique_id=1955834318]
 layout_mode = 0
-offset_left = -10.0
-offset_top = -11.0
-offset_right = 68.0
-offset_bottom = -3.0
+anchor_left = -0.1754386
+anchor_top = -0.36666667
+anchor_right = 1.1929878
+anchor_bottom = -0.100098245
+offset_right = -0.00030517578
+offset_bottom = 0.0029473305
 rotation = -3.7789243e-05
 text = "ARCHIVE"
 label_settings = SubResource("LabelSettings_w31c7")
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Exit" type="TextureButton" parent="NinePatchRect" unique_id=1698926410]
-layout_mode = 0
-offset_left = 419.0
-offset_top = 10.0
-offset_right = 434.0
-offset_bottom = 25.0
+custom_minimum_size = Vector2(17, 17)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9783751
+anchor_top = 0.041666668
+anchor_right = 0.9783751
+anchor_bottom = 0.041777782
+offset_left = -17.160034
+offset_right = -0.16003418
+offset_bottom = 16.96
 texture_normal = ExtResource("10_ope24")
 stretch_mode = 0
+metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="NinePatchRect/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="NinePatchRect/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="NinePatchRect/Exit" to="." method="_on_exit_pressed"]

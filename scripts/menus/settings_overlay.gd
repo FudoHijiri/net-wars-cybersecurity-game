@@ -9,6 +9,9 @@ extends Control
 @onready var shaking_toggle: CheckButton = find_child("Shaking", true, false)
 
 
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_show_saved_values()

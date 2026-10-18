@@ -21,6 +21,17 @@ region = Rect2(0, 0, 32, 18)
 atlas = ExtResource("3_4kmj2")
 region = Rect2(0, 18, 32, 19)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4654"]
+atlas = ExtResource("6_cv0d6")
+
+[sub_resource type="Theme" id="Theme_3568o"]
+default_font = ExtResource("3_37ng2")
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_xttc1"]
+default_font = ExtResource("3_37ng2")
+default_font_size = 32
+
 [node name="TitleOverlay" type="Control" unique_id=636519347]
 layout_mode = 3
 anchors_preset = 15
@@ -34,15 +45,9 @@ script = ExtResource("1_37ng2")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1154618283]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -131.89063
-offset_top = -92.734375
-offset_right = 131.89063
-offset_bottom = 92.734375
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.99999994
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_sbuo7")
@@ -51,44 +56,44 @@ patch_margin_left = 11
 patch_margin_top = 11
 patch_margin_right = 11
 patch_margin_bottom = 11
+metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect" unique_id=599685392]
-layout_mode = 0
-offset_left = 37.890625
-offset_top = 151.73438
-offset_right = 231.89063
-offset_bottom = 160.73438
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0125
+anchor_top = 0.8222223
+anchor_right = 0.9875
+anchor_bottom = 0.9111112
 theme_override_colors/default_color = Color(0.1254902, 0.8235294, 0, 1)
 theme_override_fonts/normal_font = ExtResource("3_37ng2")
 theme_override_font_sizes/normal_font_size = 8
 text = "> Click to Play! <"
+fit_content = true
 scroll_active = false
 horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="NinePatchRect" unique_id=659357948]
+visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.504
-anchor_top = 0.33600003
-anchor_right = 0.504
-anchor_bottom = 0.33600003
-offset_left = -47.05513
-offset_top = -46.58313
-offset_right = 46.94487
-offset_bottom = 46.41687
+anchor_left = 0.28734177
+anchor_top = 0.08741259
+anchor_right = 0.72531646
+anchor_bottom = 0.6188811
 texture = SubResource("AtlasTexture_wlb4v")
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="PlayButton" type="TextureButton" parent="NinePatchRect" unique_id=983271107]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.675
-anchor_right = 0.5
-anchor_bottom = 0.675
-offset_left = -29.0
-offset_top = -13.457031
-offset_right = 28.0
-offset_bottom = 18.542969
+anchor_left = 0.42658228
+anchor_top = 0.6704981
+anchor_right = 0.5708861
+anchor_bottom = 0.79310346
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -96,15 +101,55 @@ theme = SubResource("Theme_yyp7w")
 texture_normal = SubResource("AtlasTexture_mghhg")
 texture_pressed = SubResource("AtlasTexture_amdra")
 stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="Exit" type="TextureButton" parent="NinePatchRect" unique_id=1358692184]
-layout_mode = 0
-offset_left = 238.89063
-offset_top = 9.734375
-offset_right = 253.89063
-offset_bottom = 24.734375
-texture_normal = ExtResource("6_cv0d6")
-stretch_mode = 0
+texture_filter = 1
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.97506255
+anchor_top = 0.047222227
+anchor_right = 0.97506255
+anchor_bottom = 0.04766667
+offset_left = -17.04004
+offset_right = -0.040039063
+offset_bottom = 16.84
+texture_normal = SubResource("AtlasTexture_p4654")
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="NET" type="Label" parent="NinePatchRect" unique_id=1264350414]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.24444446
+anchor_right = 0.7
+anchor_bottom = 0.35555556
+theme = SubResource("Theme_3568o")
+theme_override_colors/font_color = Color(0, 0.63529414, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+text = "NET"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="WARS" type="Label" parent="NinePatchRect" unique_id=486569104]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.3555556
+anchor_right = 0.7
+anchor_bottom = 0.4666667
+theme = SubResource("Theme_xttc1")
+theme_override_colors/font_color = Color(0.8627451, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+text = "WARS"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="NinePatchRect/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="NinePatchRect/Exit" to="." method="_on_exit_pressed"]

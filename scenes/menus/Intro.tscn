@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://bb7tdulcsutsp"]
+
+[ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="1_0tqt6"]
+[ext_resource type="Script" uid="uid://c2ak3stca43tu" path="res://scripts/menus/intro.gd" id="1_26wb5"]
+[ext_resource type="Texture2D" uid="uid://dhppjdlu74b5r" path="res://assets/ui/Monitor No Taskbar.png" id="1_u18ng"]
+[ext_resource type="Texture2D" uid="uid://dufm23ppndnc0" path="res://assets/ui/Windows Icon.png" id="3_26wb5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3568o"]
+font = ExtResource("1_0tqt6")
+
+[sub_resource type="Animation" id="Animation_0tqt6"]
+resource_name = "Intro"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.021434637, 0.021434635, 0.021434633, 1), Color(0.019607844, 0.019607844, 0.019607844, 0), Color(0.021434637, 0.021434635, 0.021434633, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_26wb5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.021434637, 0.021434635, 0.021434633, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3v45d"]
+_data = {
+&"Intro": SubResource("Animation_0tqt6"),
+&"RESET": SubResource("Animation_26wb5")
+}
+
+[node name="Intro" type="Control" unique_id=1558773982]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_26wb5")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1163322273]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.021434637, 0.021434635, 0.021434633, 1)
+
+[node name="Label" type="Label" parent="." unique_id=672625565]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Studio Name"
+label_settings = SubResource("LabelSettings_3568o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Windows Icon" type="Sprite2D" parent="." unique_id=1126773436]
+position = Vector2(320, 128)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_26wb5")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=1006104389]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.021434637, 0.021434635, 0.021434633, 1)
+
+[node name="Monitor Edge" type="TextureRect" parent="." unique_id=1551097364]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+offset_transform_scale = Vector2(1.005, 1.005)
+texture = ExtResource("1_u18ng")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1164456319]
+root_node = NodePath("../Overlay")
+libraries/ = SubResource("AnimationLibrary_3v45d")
+autoplay = &"Intro"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

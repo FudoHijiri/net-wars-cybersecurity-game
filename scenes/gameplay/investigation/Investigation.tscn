@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dhp7rgcugpcli"]
 
-[ext_resource type="Script" uid="uid://lg77y5wcwfms" path="res://scenes/gameplay/investigation/investigation.gd" id="1_24irc"]
+[ext_resource type="Script" uid="uid://lg77y5wcwfms" path="res://scripts/gameplay/investigation/investigation.gd" id="1_24irc"]
 [ext_resource type="Texture2D" uid="uid://cnmivreptvylt" path="res://assets/ui/Server Background.png" id="1_bn4ig"]
 [ext_resource type="Texture2D" uid="uid://bsgi3pd7setjw" path="res://assets/ui/Windows Server Icon.png" id="3_j5kma"]
 [ext_resource type="Texture2D" uid="uid://n7yhjs53rrcr" path="res://assets/ui/Windows Run Icon.png" id="4_d10ov"]
@@ -62,11 +62,11 @@ stretch_mode = 3
 
 [node name="TextureButton" type="TextureButton" parent="TextureRect" unique_id=1684521468]
 layout_mode = 0
-focus_mode = 0
 offset_left = 67.0
 offset_top = 339.0
 offset_right = 97.0
 offset_bottom = 360.0
+focus_mode = 0
 texture_normal = SubResource("AtlasTexture_3568o")
 
 [node name="Time" type="RichTextLabel" parent="TextureRect" unique_id=201678743]

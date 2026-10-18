@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dk3wy26wasxnu"]
 
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="1_2xnly"]
-[ext_resource type="Script" uid="uid://7nt6f5xp87y8" path="res://scenes/gameplay/investigation/row.gd" id="3_rowgd"]
+[ext_resource type="Script" uid="uid://7nt6f5xp87y8" path="res://scripts/gameplay/investigation/row.gd" id="3_rowgd"]
 [ext_resource type="FontFile" uid="uid://50jkpab10lpq" path="res://assets/font/Tiny5-Regular.ttf" id="3_sqd1f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wkqd"]

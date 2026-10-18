@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="NetWars Cybersecurity Game"
-run/main_scene="uid://cd4swcir106gx"
+run/main_scene="uid://bb7tdulcsutsp"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -23,12 +23,14 @@ ScreenEffects="*res://AI generated/scripts/accessibility/screen_effects.gd"
 GameState="*res://autoload/game_state.gd"
 DebugPanel="*res://AI generated/scenes/debug/DebugPanel.tscn"
 PauseMenu="*res://AI generated/scenes/pause/PauseMenu.tscn"
+SceneTransitions="*res://autoload/transition/SceneTransitions.tscn"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/mode=1
+window/size/borderless=true
 window/size/extend_to_title=true
 window/size/window_width_override=1920
 window/size/window_height_override=1080
@@ -53,3 +55,4 @@ textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_transforms_to_pixel=true

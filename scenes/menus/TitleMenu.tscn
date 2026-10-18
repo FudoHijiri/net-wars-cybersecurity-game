@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dxwrk60mrs1c7" path="res://assets/ui/Exit Icon.png" id="7_5cp2e"]
 [ext_resource type="PackedScene" uid="uid://lgr0j1qe0d48" path="res://scenes/menus/TitleOverlay.tscn" id="8_taitg"]
 [ext_resource type="PackedScene" uid="uid://c1xey3c6qhddm" path="res://scenes/menus/SettingsOverlay.tscn" id="9_7ykrv"]
+[ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="10_anjp0"]
 [ext_resource type="PackedScene" uid="uid://lfblfvkjhc36" path="res://scenes/menus/StageSelect.tscn" id="10_hfivi"]
 [ext_resource type="Script" uid="uid://cvuntjqbgk8yy" path="res://scripts/menus/time.gd" id="11_sc00c"]
 [ext_resource type="Script" uid="uid://cyvy5wi0m2fp8" path="res://scripts/menus/date.gd" id="12_ysex8"]
@@ -20,6 +21,12 @@ region = Rect2(256, 256, 128, 128)
 [sub_resource type="Theme" id="Theme_j7vip"]
 default_font = ExtResource("5_c17xt")
 default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_7qd28"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5vkc"]
+atlas = ExtResource("10_anjp0")
+region = Rect2(0, 0, 8, 8)
 
 [node name="TitleMenu" type="Control" unique_id=2389425]
 layout_mode = 3
@@ -142,16 +149,48 @@ horizontal_alignment = 1
 [node name="TitleOverlay" parent="Control/Screen Content" unique_id=1224077806 instance=ExtResource("8_taitg")]
 visible = false
 layout_mode = 1
-offset_top = 2.0
-offset_bottom = 2.0
+anchors_preset = -1
+anchor_left = 0.15714286
+anchor_top = 0.121212125
+anchor_right = 0.8428571
+anchor_bottom = 0.8484849
+metadata/_edit_use_anchors_ = true
 
 [node name="SettingsOverlay" parent="Control/Screen Content" unique_id=942352815 instance=ExtResource("9_7ykrv")]
-visible = false
 layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.9
+metadata/_edit_use_anchors_ = true
+
+[node name="ExitButtonForSettings" type="TextureButton" parent="Control/Screen Content/SettingsOverlay" unique_id=411095663]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.97800004
+anchor_top = 0.041666668
+anchor_right = 0.97800004
+anchor_bottom = 0.042000003
+offset_left = -15.920044
+offset_right = 0.079956055
+offset_bottom = 15.879999
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = SubResource("Theme_7qd28")
+texture_normal = SubResource("AtlasTexture_l5vkc")
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="StageSelect" parent="Control/Screen Content" unique_id=1292606746 instance=ExtResource("10_hfivi")]
 visible = false
 layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.9
+metadata/_edit_use_anchors_ = true
 
 [node name="Time" type="RichTextLabel" parent="Control/Screen Content" unique_id=786027844]
 layout_mode = 0
@@ -183,3 +222,4 @@ script = ExtResource("12_ysex8")
 [connection signal="pressed" from="Control/Screen Content/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Control/Screen Content/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Control/Screen Content/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Control/Screen Content/SettingsOverlay/ExitButtonForSettings" to="." method="_on_exit_button_pressed"]

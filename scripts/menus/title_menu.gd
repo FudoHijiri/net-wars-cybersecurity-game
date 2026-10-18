@@ -7,20 +7,28 @@ extends Control
 @onready var settings_overlay: Control = $"Control/Screen Content/SettingsOverlay"
 
 
+
+
 func _ready() -> void:
 	title_overlay.show()
 	settings_overlay.hide()
+	SceneTransitions.fade_in()
 
 
 func _on_play_pressed() -> void:
+	await SceneTransitions.fade_out()
 	title_overlay.show()
 	settings_overlay.hide()
+	SceneTransitions.fade_in()
 
 
 func _on_settings_pressed() -> void:
+	await SceneTransitions.fade_out()
 	settings_overlay.show()
 	title_overlay.hide()
+	SceneTransitions.fade_in()
 
 
 func _on_exit_pressed() -> void:
+	await SceneTransitions.fade_out()
 	get_tree().quit()
