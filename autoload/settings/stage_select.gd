@@ -1,8 +1,8 @@
 extends Control
 
-@onready var title_overlay: Control = $"../TitleOverlay"
 @onready var stage_select: Control = $"."
 @onready var new_game_button: TextureButton = $NinePatchRect/NewGameButton
+@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 
 const GAMEPLAY_SCENE := "res://scenes/gameplay/investigation/Investigation.tscn"
 # Loaded by path, so this works even before the editor has registered the SceneFade class.
@@ -19,11 +19,14 @@ func _process(delta: float) -> void:
 
 
 func _on_exit_pressed() -> void:
+	animation_player.play_backwards("stage_select_animation")
+	await animation_player.animation_finished
 	stage_select.hide()
-	title_overlay.show()
 
 
 func _on_new_game_button_pressed() -> void:
-	new_game_button.disabled = true # one press is enough while the screen fades
+	new_game_button.disabled = true 
 	GameState.reset_progress()
+	await SceneTransitions.fade_out()
+	SceneTransitions.fade_in()
 	SCENE_FADE.go(get_tree(), GAMEPLAY_SCENE)

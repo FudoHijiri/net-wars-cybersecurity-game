@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://lfblfvkjhc36"]
 
-[ext_resource type="Script" uid="uid://b83jpagbwif4l" path="res://scripts/menus/stage_select.gd" id="1_7853p"]
+[ext_resource type="Script" uid="uid://b83jpagbwif4l" path="res://autoload/settings/stage_select.gd" id="1_7853p"]
 [ext_resource type="Texture2D" uid="uid://byao028ojcr5d" path="res://assets/ui/Panel.png" id="1_eik83"]
 [ext_resource type="Texture2D" uid="uid://c78ql2mhefktq" path="res://assets/ui/Play Button.png" id="3_8dxb8"]
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_nuuas"]
 [ext_resource type="Texture2D" uid="uid://blk2uwytyd6qy" path="res://assets/ui/New Game Button.png" id="4_7853p"]
-[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="4_j7vip"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="4_ope24"]
 [ext_resource type="Texture2D" uid="uid://bqvx7g34beueg" path="res://assets/ui/Settings Button.png" id="5_py727"]
 [ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="7_ope24"]
@@ -18,36 +17,36 @@ default_font_size = 12
 [sub_resource type="Theme" id="Theme_riil3"]
 
 [sub_resource type="Theme" id="Theme_3568o"]
-default_font = ExtResource("4_j7vip")
-default_font_size = 16
+default_font = ExtResource("4_ope24")
+default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_xttc1"]
-default_font = ExtResource("4_j7vip")
-default_font_size = 16
+default_font = ExtResource("4_ope24")
+default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_rjwuq"]
-default_font = ExtResource("4_j7vip")
-default_font_size = 16
+default_font = ExtResource("4_ope24")
+default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_u4ec8"]
-default_font = ExtResource("4_j7vip")
-default_font_size = 16
+default_font = ExtResource("4_ope24")
+default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_farh1"]
-default_font = ExtResource("4_j7vip")
-default_font_size = 16
+default_font = ExtResource("4_ope24")
+default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_ptohj"]
-default_font = ExtResource("4_j7vip")
-default_font_size = 16
+default_font = ExtResource("4_ope24")
+default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_uyhkn"]
-default_font = ExtResource("4_j7vip")
-default_font_size = 16
+default_font = ExtResource("4_ope24")
+default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_6ytef"]
-default_font = ExtResource("4_j7vip")
-default_font_size = 16
+default_font = ExtResource("4_ope24")
+default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_5wmqr"]
 default_font = ExtResource("4_ope24")
@@ -103,8 +102,10 @@ script = ExtResource("1_7853p")
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2091680253]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.1
+anchor_top = 0.18055555
+anchor_right = 0.9
+anchor_bottom = 0.84166664
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_eik83")
@@ -215,9 +216,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Day Description" type="RichTextLabel" parent="NinePatchRect/PanelContainer" unique_id=767525978]
 layout_mode = 0
-offset_left = 4.0
-offset_right = 271.0
-offset_bottom = 170.0
+offset_left = 4.0653076
+offset_right = 257.0653
+offset_bottom = 149.28333
 theme = SubResource("Theme_5wmqr")
 text = " Day 1 - An Unusal Login
 

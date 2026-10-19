@@ -4,7 +4,7 @@ extends CanvasLayer
 ## part of any scene. Esc opens it; while it is open the game is frozen (the Monitoring
 ## clock stops too). It does nothing on the title menu or stage select.
 
-const SETTINGS_SCENE := preload("res://scenes/menus/SettingsOverlay.tscn")
+const SETTINGS_SCENE := preload("res://autoload/settings/Settings.tscn")
 const TITLE_MENU_SCENE := "res://scenes/menus/TitleMenu.tscn"
 
 ## A scene counts as gameplay when its path starts with one of these.

@@ -1,51 +1,51 @@
 [gd_scene format=3 uid="uid://c1xey3c6qhddm"]
 
-[ext_resource type="Script" uid="uid://bhdtehbvgxb34" path="res://scripts/menus/settings_overlay.gd" id="1_5a7sg"]
-[ext_resource type="Texture2D" uid="uid://byao028ojcr5d" path="res://assets/ui/Panel.png" id="2_kl3rf"]
-[ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="3_w31c7"]
-[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_w31c7"]
-[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="5_fnhdr"]
-[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="hint_m3x6"]
+[ext_resource type="Script" uid="uid://bhdtehbvgxb34" path="res://scripts/menus/settings.gd" id="1_uupp0"]
+[ext_resource type="Texture2D" uid="uid://byao028ojcr5d" path="res://assets/ui/Panel.png" id="2_t7be2"]
+[ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="3_5u131"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_o7ld8"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="5_kd222"]
+[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="6_17ua5"]
 
 [sub_resource type="Theme" id="Theme_yr6qk"]
 
 [sub_resource type="Theme" id="Theme_ptohj"]
-default_font = ExtResource("4_w31c7")
+default_font = ExtResource("4_o7ld8")
 default_font_size = 12
 
 [sub_resource type="Theme" id="Theme_uyhkn"]
-default_font = ExtResource("4_w31c7")
+default_font = ExtResource("4_o7ld8")
 default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_3568o"]
-default_font = ExtResource("5_fnhdr")
+default_font = ExtResource("5_kd222")
 default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_kl3rf"]
-default_font = ExtResource("5_fnhdr")
+default_font = ExtResource("5_kd222")
 default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_xttc1"]
-default_font = ExtResource("5_fnhdr")
+default_font = ExtResource("5_kd222")
 default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_rjwuq"]
-default_font = ExtResource("5_fnhdr")
+default_font = ExtResource("5_kd222")
 default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_farh1"]
-default_font = ExtResource("4_w31c7")
+default_font = ExtResource("4_o7ld8")
 default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_riil3"]
-default_font = ExtResource("5_fnhdr")
+default_font = ExtResource("5_kd222")
 default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_5wmqr"]
-default_font = ExtResource("5_fnhdr")
+default_font = ExtResource("5_kd222")
 default_font_size = 6
 
-[node name="SettingsOverlay" type="Control" unique_id=942352815]
+[node name="Settings" type="Control" unique_id=942352815]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,7 +53,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_5a7sg")
+script = ExtResource("1_uupp0")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1544849732]
 layout_mode = 1
@@ -62,7 +62,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_kl3rf")
+texture = ExtResource("2_t7be2")
 region_rect = Rect2(0, 0, 33, 33)
 patch_margin_left = 11
 patch_margin_top = 11
@@ -87,7 +87,7 @@ scale = Vector2(0.96, 0.96)
 size_flags_horizontal = 4
 size_flags_vertical = 10
 theme = SubResource("Theme_yr6qk")
-texture_normal = ExtResource("3_w31c7")
+texture_normal = ExtResource("3_5u131")
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
@@ -168,7 +168,7 @@ popup/item_8/id = 8
 [node name="ColorblindHint" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1717617740]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
-theme_override_fonts/font = ExtResource("hint_m3x6")
+theme_override_fonts/font = ExtResource("6_17ua5")
 theme_override_font_sizes/font_size = 16
 text = "Previews the game as seen with a color-vision deficiency. It does not correct colors."
 autowrap_trim_flags = 0
@@ -200,7 +200,7 @@ popup/item_2/id = 2
 [node name="InterfaceColorsHint" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=466289763]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
-theme_override_fonts/font = ExtResource("hint_m3x6")
+theme_override_fonts/font = ExtResource("6_17ua5")
 theme_override_font_sizes/font_size = 16
 text = "Changes button colors. High Contrast uses bold outlines; Blue and Orange avoids red and green."
 autowrap_mode = 3
@@ -213,7 +213,7 @@ text = "Reduce Screen Effects"
 [node name="ReduceEffectsHint" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1494097275]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
-theme_override_fonts/font = ExtResource("hint_m3x6")
+theme_override_fonts/font = ExtResource("6_17ua5")
 theme_override_font_sizes/font_size = 16
 text = "Turns off the fade between screens."
 autowrap_mode = 3
@@ -226,7 +226,7 @@ text = "Screen Shake"
 [node name="ShakingHint" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer" unique_id=76899152]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
-theme_override_fonts/font = ExtResource("hint_m3x6")
+theme_override_fonts/font = ExtResource("6_17ua5")
 theme_override_font_sizes/font_size = 16
 text = "Allows screen shake. The game has none yet, so this changes nothing today."
 autowrap_mode = 3

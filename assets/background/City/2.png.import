@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e71105txkgyu"
-path="res://.godot/imported/Untitled 03-22-2025 05-57-37.png-89cbd98ca34a26b5b285a38485da6f45.ctex"
+uid="uid://bm4crxkyifler"
+path="res://.godot/imported/2.png-982befe593665b20c79cb55168274dd3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/spritesheet/Loading Animations/Untitled 03-22-2025 05-57-37.png"
-dest_files=["res://.godot/imported/Untitled 03-22-2025 05-57-37.png-89cbd98ca34a26b5b285a38485da6f45.ctex"]
+source_file="res://assets/background/City/2.png"
+dest_files=["res://.godot/imported/2.png-982befe593665b20c79cb55168274dd3.ctex"]
 
 [params]
 

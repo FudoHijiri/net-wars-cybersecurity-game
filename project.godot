@@ -17,13 +17,15 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+GlobalState="*uid://cbygxk8bhs75g"
+GameState="*res://autoload/game_state.gd"
+SceneTransitions="*res://autoload/transition/SceneTransitions.tscn"
+Settings="*uid://c1xey3c6qhddm"
 ColorblindFilter="*res://autoload/colorblind_filter.gd"
 InterfaceColors="*res://AI generated/scripts/accessibility/interface_colors.gd"
 ScreenEffects="*res://AI generated/scripts/accessibility/screen_effects.gd"
-GameState="*res://autoload/game_state.gd"
 DebugPanel="*res://AI generated/scenes/debug/DebugPanel.tscn"
 PauseMenu="*res://AI generated/scenes/pause/PauseMenu.tscn"
-SceneTransitions="*res://autoload/transition/SceneTransitions.tscn"
 
 [display]
 
