@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnmivreptvylt"
-path="res://.godot/imported/Server Background.png-db020b6502dd7a9aab3fc0670838265a.ctex"
+uid="uid://t26hmnng47qj"
+path="res://.godot/imported/Pause Icon.png-bfd2635851f43777c9a58327085da7db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Server Background.png"
-dest_files=["res://.godot/imported/Server Background.png-db020b6502dd7a9aab3fc0670838265a.ctex"]
+source_file="res://assets/ui/Pause Icon.png"
+dest_files=["res://.godot/imported/Pause Icon.png-bfd2635851f43777c9a58327085da7db.ctex"]
 
 [params]
 

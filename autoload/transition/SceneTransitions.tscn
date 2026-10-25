@@ -39,8 +39,9 @@ _data = {
 &"scene_transition": SubResource("Animation_w3vao")
 }
 
-[node name="SceneTransitions" type="CanvasLayer" unique_id=149629135]
+[node name="SceneTransitions" type="CanvasLayer" unique_id=149629135 node_paths=PackedStringArray("animation_player")]
 script = ExtResource("1_xef5t")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="FadeToBlack" type="ColorRect" parent="." unique_id=821878224]
 anchors_preset = 15

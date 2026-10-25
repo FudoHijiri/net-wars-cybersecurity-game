@@ -8,10 +8,10 @@ signal continue_pressed
 
 const STEPS: Array[String] = ["INVESTIGATE", "MONITOR", "HARDEN", "RESPOND", "RECOVER"]
 const TITLE_MENU_SCENE := "res://scenes/menus/TitleMenu.tscn"
-# Where the title menu keeps its overlays and the stage select (see TitleMenu.tscn).
-const MENU_TITLE_PATH := "Control/Screen Content/TitleOverlay"
-const MENU_SETTINGS_PATH := "Control/Screen Content/SettingsOverlay"
-const MENU_STAGE_SELECT_PATH := "Control/Screen Content/StageSelect"
+# Where the title menu keeps its stage select and the animation that slides it in (see TitleMenu.tscn).
+const MENU_STAGE_SELECT_PATH := "MainContent/StageSelect"
+const MENU_ANIMATION_PATH := "MainContent/AnimationPlayer"
+const MENU_STAGE_ANIMATION := &"stage_select_animation"
 const NOT_BUILT_TEXT := "! This part is not built yet. Going back to the stage select..."
 const NOT_BUILT_DELAY := 2.5
 
@@ -66,22 +66,26 @@ static func scene_exists(path: String) -> bool:
 
 
 ## Returns to the stage select screen. StageSelect.tscn is not a screen of its own (alone it
-## is a blank gray window): it lives inside the title menu. So load the title menu and show
-## its StageSelect with the TitleOverlay and SettingsOverlay hidden.
+## is a blank gray window): it lives inside the title menu. So load the title menu and do what
+## its Play button does: show the StageSelect and slide it in (at once with Reduce Screen Effects).
 static func go_to_stage_select(tree: SceneTree) -> void:
-	tree.change_scene_to_file(TITLE_MENU_SCENE)
+	if SceneManager.is_loading:
+		return
+	SceneManager.load_scene(TITLE_MENU_SCENE)
+	await SceneManager.load_finished # the loader has asked for the switch
 	await tree.process_frame # the scene swap happens at the end of this frame
 	await tree.process_frame # the menu's own _ready() has run by now, so we can override it
 	var menu := tree.current_scene
 	if menu == null:
 		return
-	for path in [MENU_TITLE_PATH, MENU_SETTINGS_PATH]:
-		var overlay := menu.get_node_or_null(path) as Control
-		if overlay != null:
-			overlay.hide()
 	var stage_select := menu.get_node_or_null(MENU_STAGE_SELECT_PATH) as Control
 	if stage_select != null:
 		stage_select.show()
+	var animations := menu.get_node_or_null(MENU_ANIMATION_PATH) as AnimationPlayer
+	if animations != null and animations.has_animation(MENU_STAGE_ANIMATION):
+		animations.play(MENU_STAGE_ANIMATION)
+		if ScreenEffects.reduce_effects:
+			animations.advance(animations.current_animation_length)
 
 
 func _build_tracker(next_index: int) -> void:
@@ -139,7 +143,7 @@ static func clear_children(container: Node) -> void:
 func _on_continue_pressed() -> void:
 	continue_pressed.emit()
 	if scene_exists(_next_scene):
-		get_tree().change_scene_to_file(_next_scene)
+		SceneManager.load_scene(_next_scene)
 		return
 	_continue_button.disabled = true
 	_notice_label.text = NOT_BUILT_TEXT

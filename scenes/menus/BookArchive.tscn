@@ -1,0 +1,231 @@
+[gd_scene format=3 uid="uid://dlhv7jwuixgfb"]
+
+[ext_resource type="Texture2D" uid="uid://baldap6bommpj" path="res://assets/spritesheet/Book/RADL_Book.png" id="1_icjlm"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="2_ts6uy"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="3_rtst2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl13t"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(0, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyx0m"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(190, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74lek"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(380, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5jx5"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(570, 0, 190, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3568o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bl13t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyx0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74lek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5jx5")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpvoh"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(760, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_at5dv"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(950, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcd4p"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(1140, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uacia"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(570, 0, 190, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xttc1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpvoh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_at5dv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcd4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uacia")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Theme" id="Theme_3568o"]
+default_font = ExtResource("2_ts6uy")
+default_font_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_74lek"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 0.1254902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4ec8"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j5jx5"]
+bg_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+
+[node name="BookArchive" type="Node" unique_id=621958137]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=2067988582]
+
+[node name="BookOpeningAnimation" type="AnimatedSprite2D" parent="Node2D" unique_id=1620421418]
+position = Vector2(320, 168.99998)
+scale = Vector2(3.368421, 2.8000002)
+sprite_frames = SubResource("SpriteFrames_3568o")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+
+[node name="NextPageAnimation" type="AnimatedSprite2D" parent="Node2D" unique_id=146523505]
+visible = false
+position = Vector2(320, 169)
+scale = Vector2(3.368421, 2.7999997)
+sprite_frames = SubResource("SpriteFrames_xttc1")
+frame = 3
+frame_progress = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1597226856]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=644981580]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/Control" unique_id=1344877432]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.215625
+anchor_top = 0.11388889
+anchor_right = 0.359375
+anchor_bottom = 0.18055555
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3568o")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Archive"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control" unique_id=1762159463]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 66.0
+offset_right = 272.0
+offset_bottom = 275.0
+
+[node name="Label1" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=1517649544]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rtst2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+text = "Credential Threat"
+
+[node name="Label2" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=1626123278]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rtst2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+text = "Malware"
+
+[node name="Label3" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=89932782]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rtst2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+text = "Ransomware"
+
+[node name="Label4" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=2044046289]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rtst2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+text = "Insider Threat"
+
+[node name="Label5" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=321529912]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rtst2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+text = "Data Exfiltration"
+
+[node name="Label6" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=1792571353]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rtst2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+text = "Distributed Denial-of-Service"
+
+[node name="Label7" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=774488045]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rtst2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+text = "Phishing"
+
+[node name="Label8" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=153217406]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rtst2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+text = "Web Application Attack"

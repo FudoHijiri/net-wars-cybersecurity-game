@@ -1,8 +1,6 @@
-extends Control
+extends CanvasLayer
 
-@onready var exit_button: TextureButton = $NinePatchRect/ExitButton
-@onready var settings_overlay: Control = $"."
-# Looked up by name so moving nodes around in the scene doesn't break the paths.
+@onready var exit_button: TextureButton = %ExitButton
 @onready var colorblind_option: OptionButton = find_child("ColorblindModeOptions", true, false)
 @onready var interface_colors_option: OptionButton = find_child("InterfaceColorsOptions", true, false)
 @onready var reduce_effects_toggle: CheckButton = find_child("ReduceEffects", true, false)
@@ -14,6 +12,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	hide()
 	_show_saved_values()
 	# The overlay can stay alive while hidden (the pause menu keeps one), so refresh on show.
 	visibility_changed.connect(_show_saved_values)
@@ -28,8 +27,16 @@ func _show_saved_values() -> void:
 	shaking_toggle.set_pressed_no_signal(ScreenEffects.screen_shake)
 
 
+func open() -> void:
+	show()
+
+
+func close() -> void:
+	hide()
+
+
 func _on_exit_button_pressed() -> void:
-	settings_overlay.hide()
+	SceneManager.fade_through(close) # covers the whole screen: fade out, close, fade in
 
 
 func _on_colorblind_mode_options_item_selected(index: int) -> void:

@@ -1,0 +1,62 @@
+{
+	"start": {
+		"text": "It's my first day as an IT. I hope no problems comes today.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Call Ringing*",
+		"name": "???",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "*Accepts Call*",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Help! Are you an IT?",
+		"name": "Client",
+		"art": "Client",
+		"choices": {
+			"Yes": "D",
+			"What's the problem?": "D"
+		}
+	},
+	"D": {
+		"text": "Yeah, I am. What's the problem?",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "E"
+	},
+	"E": {
+		"text": "I can't [b][color=red]login[/color][/b] into my account. I'll be in trouble if I can't fix this today!",
+		"name": "Client",
+		"art": "Client",
+		"next": "F"
+	},
+	"F": {
+		"text": "Don't worry, I'll investigate this further.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "G"
+	},
+	"G": {
+		"text": "Thank you so much! I hope it can be fixed before my shift ends. *Call End*",
+		"name": "Client",
+		"art": "Client",
+		"next": "I"
+	},
+	"I": {
+		"text": "I'll have to [b][color=green]investigate[/color][/b] first what caused this.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "J"
+	},
+	"J": {
+		"trigger": "start_investigation"
+	}
+}

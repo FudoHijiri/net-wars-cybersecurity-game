@@ -89,7 +89,7 @@ func _make_tag(tag: String) -> Label:
 func _on_continue_pressed() -> void:
 	continue_pressed.emit()
 	if PhaseTransition.scene_exists(NEXT_SCENE):
-		get_tree().change_scene_to_file(NEXT_SCENE)
+		SceneManager.load_scene(NEXT_SCENE)
 		return
 	_continue_button.disabled = true
 	_notice_label.text = NOT_BUILT_TEXT

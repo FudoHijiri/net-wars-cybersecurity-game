@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://bryr8psfc1lle"]
+
+[ext_resource type="Script" uid="uid://d2vyvprwmotj4" path="res://AI generated/scripts/investigation/case_investigation.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bnb1cms8vhegq" path="res://AI generated/scenes/investigation/case_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://i5qyuq7urtwx" path="res://assets/ui/Server Panel.png" id="3_frame"]
+[ext_resource type="Texture2D" uid="uid://pry0okj8q6x1" path="res://assets/ui/Server Panel Inside 2.png" id="4_inside"]
+[ext_resource type="PackedScene" path="res://AI generated/scenes/investigation/CaseAppView.tscn" id="5_appview"]
+[ext_resource type="Texture2D" uid="uid://t26hmnng47qj" path="res://assets/ui/Pause Icon.png" id="6_pause"]
+[ext_resource type="Texture2D" uid="uid://ckhs6ajdsqlfl" path="res://assets/ui/Investigation Icon.png" id="7_icon"]
+[ext_resource type="PackedScene" path="res://AI generated/scenes/investigation/MonologueBox.tscn" id="8_monologue"]
+[ext_resource type="PackedScene" path="res://AI generated/scenes/investigation/CaseReport.tscn" id="9_report"]
+
+[node name="Investigation" type="Control" unique_id=410455863]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="FramePanel" type="NinePatchRect" parent="." unique_id=53362591]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("3_frame")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 11
+patch_margin_top = 11
+patch_margin_right = 11
+patch_margin_bottom = 11
+
+[node name="MainPanel" type="NinePatchRect" parent="FramePanel" unique_id=424582459]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -314.0
+offset_top = -171.0
+offset_right = 314.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_inside")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 4
+patch_margin_top = 27
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="AppView" parent="FramePanel/MainPanel" unique_id=366126904 instance=ExtResource("5_appview")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 55.0
+offset_right = 618.0
+offset_bottom = 334.0
+
+[node name="Icon" type="TextureRect" parent="FramePanel/MainPanel" unique_id=1313618501]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("7_icon")
+
+[node name="Objective" type="Label" parent="FramePanel/MainPanel" unique_id=1456648033]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 26.0
+offset_top = 4.0
+offset_right = 390.0
+offset_bottom = 25.0
+theme_type_variation = &"HeadingLabel"
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+vertical_alignment = 1
+
+[node name="PauseButton" type="TextureButton" parent="FramePanel/MainPanel" unique_id=2143284695]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 605.0
+offset_top = 6.0
+offset_right = 622.0
+offset_bottom = 23.0
+texture_normal = ExtResource("6_pause")
+stretch_mode = 0
+
+[node name="TitleExe" type="Label" parent="FramePanel/MainPanel" unique_id=1795750029]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = -10.0
+offset_right = 126.0
+offset_bottom = 3.0
+theme_type_variation = &"BodyLabel"
+
+[node name="Tabs" type="HBoxContainer" parent="FramePanel/MainPanel" unique_id=1547541685]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 28.0
+offset_right = 456.0
+offset_bottom = 54.0
+
+[node name="CluesFound" type="Label" parent="FramePanel/MainPanel" unique_id=701987077]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 396.0
+offset_top = 4.0
+offset_right = 596.0
+offset_bottom = 25.0
+theme_type_variation = &"HeadingLabel"
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ReportButton" type="Button" parent="FramePanel/MainPanel" unique_id=584572696]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 568.0
+offset_top = 28.0
+offset_right = 618.0
+offset_bottom = 54.0
+
+[node name="MonologueBox" parent="." unique_id=1230090953 instance=ExtResource("8_monologue")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="CaseReport" parent="." unique_id=606238669 instance=ExtResource("9_report")]
+unique_name_in_owner = true
+layout_mode = 1

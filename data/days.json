@@ -1,0 +1,9 @@
+{
+	"1": {
+		"title": "An Unusual Login",
+		"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeInvestigation.json",
+		"investigation_scene": "res://AI generated/scenes/investigation/Investigation.tscn",
+		"case": "res://AI generated/data/day1_investigation.json",
+		"scenario": "res://data/scenarios/day1_credential_abuse.json"
+	}
+}

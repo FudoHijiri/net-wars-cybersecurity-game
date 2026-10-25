@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://lfblfvkjhc36"]
 
-[ext_resource type="Script" uid="uid://b83jpagbwif4l" path="res://autoload/settings/stage_select.gd" id="1_7853p"]
+[ext_resource type="Script" uid="uid://b83jpagbwif4l" path="res://scripts/menus/stage_select.gd" id="1_7853p"]
 [ext_resource type="Texture2D" uid="uid://byao028ojcr5d" path="res://assets/ui/Panel.png" id="1_eik83"]
-[ext_resource type="Texture2D" uid="uid://c78ql2mhefktq" path="res://assets/ui/Play Button.png" id="3_8dxb8"]
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_nuuas"]
-[ext_resource type="Texture2D" uid="uid://blk2uwytyd6qy" path="res://assets/ui/New Game Button.png" id="4_7853p"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="4_ope24"]
-[ext_resource type="Texture2D" uid="uid://bqvx7g34beueg" path="res://assets/ui/Settings Button.png" id="5_py727"]
+[ext_resource type="Texture2D" uid="uid://bukl1qcnajstb" path="res://assets/ui/Play Icon.png" id="5_nuuas"]
+[ext_resource type="Texture2D" uid="uid://qr51bu0mbh2" path="res://assets/ui/Archive File Icon.png" id="6_7853p"]
+[ext_resource type="Texture2D" uid="uid://b4np2rxnae84s" path="res://assets/ui/Plus Icon.png" id="7_j7vip"]
 [ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="7_ope24"]
 [ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="10_ope24"]
 
@@ -16,9 +16,36 @@ default_font_size = 12
 
 [sub_resource type="Theme" id="Theme_riil3"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c17wx"]
+
 [sub_resource type="Theme" id="Theme_3568o"]
 default_font = ExtResource("4_ope24")
 default_font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3568o"]
+content_margin_top = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4ec8"]
+content_margin_top = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjwuq"]
+content_margin_top = 1.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cl5td"]
+content_margin_top = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(0.2, 0.23529412, 0.34117648, 0.5176471)
 
 [sub_resource type="Theme" id="Theme_xttc1"]
 default_font = ExtResource("4_ope24")
@@ -48,43 +75,63 @@ default_font_size = 6
 default_font = ExtResource("4_ope24")
 default_font_size = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsg2b"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
 [sub_resource type="Theme" id="Theme_5wmqr"]
 default_font = ExtResource("4_ope24")
 default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_ope24"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j7vip"]
-atlas = ExtResource("3_8dxb8")
-region = Rect2(0, 0, 32, 18)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p4654"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p4654"]
-atlas = ExtResource("3_8dxb8")
-region = Rect2(0, 18, 32, 19)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7vip"]
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ope24"]
+bg_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_py727"]
+atlas = ExtResource("5_nuuas")
+region = Rect2(1, 1, 6, 6)
 
 [sub_resource type="LabelSettings" id="LabelSettings_fnhdr"]
 font = ExtResource("7_ope24")
 font_size = 8
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nsg2b"]
-atlas = ExtResource("4_7853p")
-region = Rect2(0, 0, 32, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mri2f"]
-atlas = ExtResource("4_7853p")
-region = Rect2(0, 18, 32, 19)
+[sub_resource type="AtlasTexture" id="AtlasTexture_7853p"]
+atlas = ExtResource("7_j7vip")
+region = Rect2(1, 1, 6, 6)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cvl1l"]
 font = ExtResource("7_ope24")
 font_size = 8
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3568o"]
-atlas = ExtResource("5_py727")
-region = Rect2(0, 0, 32, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oruy3"]
-atlas = ExtResource("5_py727")
-region = Rect2(0, 18, 32, 19)
+[sub_resource type="AtlasTexture" id="AtlasTexture_csbtl"]
+atlas = ExtResource("6_7853p")
+region = Rect2(1, 1, 6, 6)
 
 [sub_resource type="LabelSettings" id="LabelSettings_w31c7"]
 font = ExtResource("7_ope24")
@@ -136,7 +183,7 @@ anchors_preset = -1
 anchor_left = 0.024774775
 anchor_top = 0.14166667
 anchor_right = 0.3581081
-anchor_bottom = 0.76953125
+anchor_bottom = 0.76890755
 metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="PanelContainer" parent="NinePatchRect/ScrollContainer" unique_id=1683070900]
@@ -144,6 +191,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_riil3")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_c17wx")
 
 [node name="Day List" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/Panel" unique_id=1713011107]
 layout_mode = 2
@@ -153,56 +201,96 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_3568o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3568o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjwuq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cl5td")
 text = "Day 1 - An Unusual Login"
+alignment = 0
 
 [node name="Day2" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=259402007]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_xttc1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3568o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjwuq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cl5td")
 disabled = true
 text = "Day 2 - Something Got In"
+alignment = 0
 
 [node name="Day3" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=1508651174]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_rjwuq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3568o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjwuq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cl5td")
 disabled = true
 text = "Day 3 - Files Under Lock"
+alignment = 0
 
 [node name="Day4" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=1136045357]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_u4ec8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3568o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjwuq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cl5td")
 disabled = true
 text = "Day 4 - Someone Inside"
+alignment = 0
 
 [node name="Day5" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=1238774003]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_farh1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3568o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjwuq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cl5td")
 disabled = true
 text = "Day 5 - Data on the Move"
+alignment = 0
 
 [node name="Day6" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=1948478407]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_ptohj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3568o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjwuq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cl5td")
 disabled = true
 text = "Day 6 - Under Heavy Load"
+alignment = 0
 
 [node name="Day7" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=125329867]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_uyhkn")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3568o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjwuq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cl5td")
 disabled = true
 text = "Day 7 - A Message to Trust"
+alignment = 0
 
 [node name="Day8" type="Button" parent="NinePatchRect/ScrollContainer/Panel/Day List" unique_id=613441096]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_6ytef")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3568o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjwuq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cl5td")
 disabled = true
 text = "Day 8 - The Open Door"
+alignment = 0
 
 [node name="PanelContainer" type="Panel" parent="NinePatchRect" unique_id=1103711204]
 layout_mode = 1
@@ -212,6 +300,7 @@ anchor_top = 0.14166667
 anchor_right = 0.97522527
 anchor_bottom = 0.76953125
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nsg2b")
 metadata/_edit_use_anchors_ = true
 
 [node name="Day Description" type="RichTextLabel" parent="NinePatchRect/PanelContainer" unique_id=767525978]
@@ -225,80 +314,92 @@ text = " Day 1 - An Unusal Login
 It's your first day as an Incident Response Specialist. But something went wrong and you are receiving warnings in the company's logs. Find out the cause of this.
 "
 
-[node name="PlayButton" type="TextureButton" parent="NinePatchRect" unique_id=1040769812]
+[node name="PlayButton" type="Button" parent="NinePatchRect" unique_id=73321129]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.768018
-anchor_top = 0.828125
-anchor_right = 0.8963964
-anchor_bottom = 0.9453125
+anchor_left = 0.84679407
+anchor_top = 0.83613443
+anchor_right = 0.8956222
+anchor_bottom = 0.9411765
 size_flags_horizontal = 4
 theme = SubResource("Theme_ope24")
-texture_normal = SubResource("AtlasTexture_j7vip")
-texture_pressed = SubResource("AtlasTexture_p4654")
-stretch_mode = 5
+theme_override_styles/normal = SubResource("StyleBoxFlat_p4654")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j7vip")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ope24")
+icon = SubResource("AtlasTexture_py727")
+icon_alignment = 1
+expand_icon = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="NinePatchRect/PlayButton" unique_id=1603855934]
-layout_mode = 0
-anchor_left = -0.03508772
-anchor_top = -0.36666667
-anchor_right = 1.0526316
-anchor_bottom = -0.1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.44900864
+anchor_top = -0.3637498
+anchor_right = 1.4709914
+anchor_bottom = -0.04374981
 text = "RESUME"
 label_settings = SubResource("LabelSettings_fnhdr")
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="NewGameButton" type="TextureButton" parent="NinePatchRect" unique_id=650676235]
+[node name="NewGameButton" type="Button" parent="NinePatchRect" unique_id=2127811660]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5833333
-anchor_top = 0.828125
-anchor_right = 0.7117117
-anchor_bottom = 0.9453125
+anchor_left = 0.6621094
+anchor_top = 0.83613443
+anchor_right = 0.7109375
+anchor_bottom = 0.9411765
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme = SubResource("Theme_ope24")
-texture_normal = SubResource("AtlasTexture_nsg2b")
-texture_pressed = SubResource("AtlasTexture_mri2f")
-stretch_mode = 5
+theme_override_styles/normal = SubResource("StyleBoxFlat_p4654")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j7vip")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ope24")
+icon = SubResource("AtlasTexture_7853p")
+icon_alignment = 1
+expand_icon = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="NinePatchRect/NewGameButton" unique_id=739152417]
-layout_mode = 0
-anchor_left = -0.1754386
-anchor_top = -0.36666667
-anchor_right = 1.1929824
-anchor_bottom = -0.1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.74666667
+anchor_top = -0.3637498
+anchor_right = 1.8133334
+anchor_bottom = -0.04374981
 text = "NEW GAME"
 label_settings = SubResource("LabelSettings_cvl1l")
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="ArchiveButton" type="TextureButton" parent="NinePatchRect" unique_id=214672444]
+[node name="ArchiveButton" type="Button" parent="NinePatchRect" unique_id=813366575]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.06081081
-anchor_top = 0.828125
-anchor_right = 0.1891892
-anchor_bottom = 0.9453125
+anchor_left = 0.07421876
+anchor_top = 0.83613443
+anchor_right = 0.12304688
+anchor_bottom = 0.9411765
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme = SubResource("Theme_ope24")
-texture_normal = SubResource("AtlasTexture_3568o")
-texture_pressed = SubResource("AtlasTexture_oruy3")
-stretch_mode = 5
+theme_override_styles/normal = SubResource("StyleBoxFlat_p4654")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j7vip")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ope24")
+icon = SubResource("AtlasTexture_csbtl")
+icon_alignment = 1
+expand_icon = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="NinePatchRect/ArchiveButton" unique_id=1955834318]
-layout_mode = 0
-anchor_left = -0.1754386
-anchor_top = -0.36666667
-anchor_right = 1.1929878
-anchor_bottom = -0.100098245
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.52112675
+anchor_top = -0.35854343
+anchor_right = 1.5633917
+anchor_bottom = -0.07181436
 offset_right = -0.00030517578
 offset_bottom = 0.0029473305
 rotation = -3.7789243e-05

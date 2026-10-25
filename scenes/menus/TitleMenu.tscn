@@ -20,25 +20,26 @@ default_font = ExtResource("19_taitg")
 default_font_size = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xttc1"]
-bg_color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.3403393, 0.34033933, 0.3403393, 1)
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjwuq"]
-bg_color = Color(0.24840051, 0.2484, 0.24840024, 1)
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.6542321, 0.6542321, 0.654232, 1)
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4ec8"]
-bg_color = Color(0.85882354, 0, 0.59607846, 1)
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_farh1"]
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3568o"]
 atlas = ExtResource("20_hfivi")
@@ -336,7 +337,7 @@ position = Vector2(320, 180)
 scale = Vector2(1.1111112, 1.111111)
 texture = ExtResource("18_sc00c")
 
-[node name="Main Content" type="Control" parent="." unique_id=1448613447]
+[node name="MainContent" type="Control" parent="." unique_id=1448613447]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -344,7 +345,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NET" type="Label" parent="Main Content" unique_id=618947615]
+[node name="NET" type="Label" parent="MainContent" unique_id=618947615]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3
@@ -360,7 +361,7 @@ text = "NET"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WARS" type="Label" parent="Main Content" unique_id=1969145304]
+[node name="WARS" type="Label" parent="MainContent" unique_id=1969145304]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3
@@ -376,12 +377,12 @@ text = "WARS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CreditsButton" type="Button" parent="Main Content" unique_id=781462490]
+[node name="CreditsButton" type="Button" parent="MainContent" unique_id=781462490]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 339.0
-offset_right = 66.0
-offset_bottom = 356.0
+anchor_left = 0.00625
+anchor_top = 0.94166666
+anchor_right = 0.103125
+anchor_bottom = 0.98888886
 size_flags_vertical = 3
 offset_transform_enabled = true
 theme_override_fonts/font = ExtResource("19_taitg")
@@ -392,16 +393,18 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "Credits
 "
+metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main Content" unique_id=116645702]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContent" unique_id=116645702]
 layout_mode = 0
-offset_left = 284.0
-offset_top = 173.0
-offset_right = 356.0
-offset_bottom = 246.0
+anchor_left = 0.44375
+anchor_top = 0.48055556
+anchor_right = 0.55625
+anchor_bottom = 0.68333334
 offset_transform_enabled = true
+metadata/_edit_use_anchors_ = true
 
-[node name="PlayButton" type="Button" parent="Main Content/VBoxContainer" unique_id=1723912709]
+[node name="PlayButton" type="Button" parent="MainContent/VBoxContainer" unique_id=1723912709]
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
@@ -413,7 +416,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "PLAY"
 
-[node name="SettingsButton" type="Button" parent="Main Content/VBoxContainer" unique_id=794949296]
+[node name="SettingsButton" type="Button" parent="MainContent/VBoxContainer" unique_id=794949296]
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
@@ -425,7 +428,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "SETTINGS"
 
-[node name="ExitButton" type="Button" parent="Main Content/VBoxContainer" unique_id=1730976179]
+[node name="ExitButton" type="Button" parent="MainContent/VBoxContainer" unique_id=1730976179]
 layout_mode = 2
 size_flags_vertical = 3
 offset_transform_enabled = true
@@ -438,7 +441,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "EXIT
 "
 
-[node name="StageSelect" parent="Main Content" unique_id=1292606746 instance=ExtResource("10_hfivi")]
+[node name="StageSelect" parent="MainContent" unique_id=1292606746 instance=ExtResource("10_hfivi")]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -455,7 +458,7 @@ grow_vertical = 1
 offset_transform_enabled = true
 metadata/_edit_use_anchors_ = true
 
-[node name="ExitConfirmation" type="NinePatchRect" parent="Main Content" unique_id=808187875]
+[node name="ExitConfirmation" type="NinePatchRect" parent="MainContent" unique_id=808187875]
 visible = false
 layout_mode = 0
 offset_left = 208.0
@@ -463,13 +466,14 @@ offset_top = 160.0
 offset_right = 432.0
 offset_bottom = 251.0
 offset_transform_enabled = true
+mouse_filter = 1
 texture = SubResource("AtlasTexture_3568o")
 patch_margin_left = 8
 patch_margin_top = 9
 patch_margin_right = 8
 patch_margin_bottom = 9
 
-[node name="Label" type="Label" parent="Main Content/ExitConfirmation" unique_id=280953848]
+[node name="Label" type="Label" parent="MainContent/ExitConfirmation" unique_id=280953848]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 10.0
@@ -480,7 +484,7 @@ text = "Are You Sure You Want to Quit?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="YesButton" type="Button" parent="Main Content/ExitConfirmation" unique_id=1273541383]
+[node name="YesButton" type="Button" parent="MainContent/ExitConfirmation" unique_id=1273541383]
 layout_mode = 0
 offset_left = 39.0
 offset_top = 42.0
@@ -496,7 +500,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "YES"
 
-[node name="NoButton" type="Button" parent="Main Content/ExitConfirmation" unique_id=56871363]
+[node name="NoButton" type="Button" parent="MainContent/ExitConfirmation" unique_id=56871363]
 layout_mode = 0
 offset_left = 128.0
 offset_top = 42.0
@@ -512,11 +516,11 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "NO"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Main Content" unique_id=911817797]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainContent" unique_id=911817797]
 libraries/ = SubResource("AnimationLibrary_hfivi")
 
-[connection signal="pressed" from="Main Content/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="Main Content/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Main Content/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="Main Content/ExitConfirmation/YesButton" to="." method="_on_yes_button_pressed"]
-[connection signal="pressed" from="Main Content/ExitConfirmation/NoButton" to="." method="_on_no_button_pressed"]
+[connection signal="pressed" from="MainContent/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainContent/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MainContent/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MainContent/ExitConfirmation/YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="MainContent/ExitConfirmation/NoButton" to="." method="_on_no_button_pressed"]

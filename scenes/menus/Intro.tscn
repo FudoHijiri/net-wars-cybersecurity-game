@@ -55,28 +55,30 @@ grow_vertical = 2
 script = ExtResource("1_26wb5")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1163322273]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.019607844, 0.019607844, 0.019607844, 1)
 
-[node name="Label" type="Label" parent="." unique_id=672625565]
+[node name="Name" type="Label" parent="." unique_id=672625565]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+anchors_preset = -1
+anchor_left = 0.3625
+anchor_top = 0.46805555
+anchor_right = 0.6375
+anchor_bottom = 0.53194445
+offset_left = 68.0
+offset_right = -68.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Studio Name"
 label_settings = SubResource("LabelSettings_3568o")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Windows Icon" type="Sprite2D" parent="." unique_id=1126773436]
 position = Vector2(320, 128)
@@ -84,15 +86,21 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_26wb5")
 
 [node name="Overlay" type="ColorRect" parent="." unique_id=1006104389]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 
 [node name="Monitor Edge" type="TextureRect" parent="." unique_id=1551097364]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 offset_transform_scale = Vector2(1.005, 1.005)
 texture = ExtResource("1_u18ng")
 

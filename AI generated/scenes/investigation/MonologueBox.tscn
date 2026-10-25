@@ -1,0 +1,72 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://AI generated/scripts/investigation/monologue_box.gd" id="1_script"]
+
+[node name="MonologueBox" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Dim" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.10980392, 0.17254902, 0.45)
+
+[node name="Box" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -100.0
+offset_right = -24.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"MonologuePanel"
+
+[node name="Content" type="VBoxContainer" parent="Box"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Speaker" type="Label" parent="Box/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"SpeakerLabel"
+
+[node name="Text" type="RichTextLabel" parent="Box/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+size_flags_vertical = 3
+theme_type_variation = &"MonologueText"
+focus_mode = 0
+scroll_active = false
+
+[node name="Foot" type="HBoxContainer" parent="Box/Content"]
+layout_mode = 2
+
+[node name="Hint" type="Label" parent="Box/Content/Foot"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_type_variation = &"HintLabel"
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="Box/Content/Foot"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MonologueButton"

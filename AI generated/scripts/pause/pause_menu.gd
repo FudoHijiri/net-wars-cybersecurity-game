@@ -10,6 +10,7 @@ const TITLE_MENU_SCENE := "res://scenes/menus/TitleMenu.tscn"
 ## A scene counts as gameplay when its path starts with one of these.
 const GAMEPLAY_PATHS: Array[String] = [
 	"res://scenes/gameplay/",
+	"res://AI generated/scenes/investigation/",
 	"res://AI generated/scenes/monitoring/Monitoring.tscn",
 ]
 
@@ -107,4 +108,4 @@ func _go_to_stage_select() -> void:
 
 func _go_to_title_menu() -> void:
 	close()
-	SceneFade.go(get_tree(), TITLE_MENU_SCENE)
+	SceneManager.load_scene(TITLE_MENU_SCENE)

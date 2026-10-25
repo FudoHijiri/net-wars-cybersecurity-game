@@ -15,7 +15,9 @@ const COLOR_LIGHT := Color("94b0c2")
 const DESTINATIONS := [
 	["Title Menu", TITLE_MENU_SCENE],
 	["Stage Select", ""], # special: the title menu with the stage select showing
-	["Investigation", "res://scenes/gameplay/investigation/Investigation.tscn"],
+	["Dialogue (day intro)", "res://scenes/gameplay/visual novel/Dialogue.tscn"],
+	["Investigation", "res://AI generated/scenes/investigation/Investigation.tscn"],
+	["Investigation (old)", "res://scenes/gameplay/investigation/Investigation.tscn"],
 	["Monitoring", "res://AI generated/scenes/monitoring/Monitoring.tscn"],
 	["Hardening", "res://scenes/gameplay/hardening/Hardening.tscn"],
 	["Response", "res://scenes/gameplay/response/Response.tscn"],
@@ -60,7 +62,13 @@ func _rebuild() -> void:
 	PhaseTransition.clear_children(_actions)
 	var path := _shown_scene.scene_file_path if _shown_scene != null else ""
 	_add_section("THIS PHASE")
-	if path.ends_with("Investigation.tscn"):
+	if _shown_scene != null and _shown_scene.has_method("debug_complete"):
+		# the new Investigation brings its own shortcuts
+		_add_action("COMPLETE PHASE >", _call_on_scene.bind("debug_complete"))
+		_add_action("Find all clues", _call_on_scene.bind("debug_find_all_clues"))
+		_add_action("Clear all clues", _call_on_scene.bind("debug_clear_clues"))
+		_add_action("Open the report", _call_on_scene.bind("debug_open_report"))
+	elif path.ends_with("Investigation.tscn"):
 		_add_action("COMPLETE PHASE >", _complete_investigation)
 		_add_action("Mark all real clues", _mark_real_clues)
 		_add_action("Clear all marks", _clear_marks)
@@ -81,6 +89,9 @@ func _rebuild() -> void:
 
 func _refresh_info() -> void:
 	var scene_name := str(_shown_scene.name) if _shown_scene != null else "none"
+	if _shown_scene != null and _shown_scene.has_method("debug_info"):
+		_info.text = "SCENE: %s\n%s\nSECURITY POINTS: %d" % [scene_name, _shown_scene.debug_info(), GameState.security_points]
+		return
 	_info.text = "SCENE: %s\nMARKED: %d (%d real)   THREAT: %s\nSECURITY POINTS: %d" % [
 		scene_name, GameState.marked_count(), ReportLogic.real_clue_count(),
 		GameState.identified_threat if not GameState.identified_threat.is_empty() else "-",
@@ -117,7 +128,14 @@ func _go_to(path: String) -> void:
 	if path.is_empty():
 		PhaseTransition.go_to_stage_select(get_tree())
 	else:
-		get_tree().change_scene_to_file(path)
+		SceneManager.load_scene(path)
+
+
+## Calls one of the scene's own debug_* methods, then closes the panel.
+func _call_on_scene(method: String) -> void:
+	if _shown_scene != null and _shown_scene.has_method(method):
+		_shown_scene.call(method)
+	toggle()
 
 
 func _mark_real_clues() -> void:

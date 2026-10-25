@@ -1,0 +1,262 @@
+[gd_scene format=3 uid="uid://3c7f3ifrv4i1"]
+
+[ext_resource type="Script" uid="uid://00f0c2c5fq7r" path="res://scripts/gameplay/visual novel/dialogue.gd" id="1_k6sw3"]
+[ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="1_n4ymj"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="2_k6sw3"]
+[ext_resource type="Texture2D" uid="uid://fr65ghqjc6s1" path="res://assets/background/server_room.png" id="2_om1uo"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_s64ie"]
+[ext_resource type="Script" uid="uid://dnbg4v2lqv5x3" path="res://scripts/gameplay/visual novel/choices.gd" id="6_muaq0"]
+[ext_resource type="Texture2D" uid="uid://c2qpgddhfwxox" path="res://assets/charactersprite/Joshua.png" id="6_om1uo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xttc1"]
+bg_color = Color(0.08235294, 0.08235294, 0.08235294, 0.6666667)
+border_width_bottom = 1
+border_color = Color(0.019607844, 0.019607844, 0.019607844, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3568o"]
+font = ExtResource("1_n4ymj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3568o"]
+bg_color = Color(0.08235294, 0.08235294, 0.08235294, 0.6666667)
+
+[sub_resource type="Theme" id="Theme_xttc1"]
+default_font = ExtResource("1_n4ymj")
+default_font_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6316o"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxsk4"]
+bg_color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3403393, 0.34033933, 0.3403393, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4j22i"]
+bg_color = Color(0.24840051, 0.2484, 0.24840024, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6542321, 0.6542321, 0.654232, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k8ige"]
+bg_color = Color(0.85882354, 0, 0.59607846, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpnlu"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_qdt5y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s64ie"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_muaq0"]
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_om1uo"]
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ymsk"]
+
+[node name="Dialogue" type="CanvasLayer" unique_id=1207193817 node_paths=PackedStringArray("char_text", "char_name", "char_sprite", "BaseLayer", "ChoiceLayer")]
+script = ExtResource("1_k6sw3")
+char_text = NodePath("Base/Panel/Text")
+char_name = NodePath("Base/NameContainer/MarginContainer/Name")
+char_sprite = NodePath("Base/PanelContainer/CharacterSprite")
+BaseLayer = NodePath("Base")
+ChoiceLayer = NodePath("Choices")
+
+[node name="Base" type="CanvasLayer" parent="." unique_id=688202885]
+
+[node name="Server Rooms Background" type="TextureRect" parent="Base" unique_id=661194733]
+offset_right = 640.0
+offset_bottom = 360.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(120.39, -52.875)
+offset_transform_scale = Vector2(1.67, 1.67)
+texture = ExtResource("2_om1uo")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Server Rooms Background2" type="TextureRect" parent="Base" unique_id=1023704120]
+visible = false
+offset_left = -448.0
+offset_top = -184.0
+offset_right = 640.0
+offset_bottom = 360.0
+offset_transform_enabled = true
+texture = ExtResource("2_om1uo")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="NameContainer" type="PanelContainer" parent="Base" unique_id=827837633]
+offset_left = 100.0
+offset_top = 249.0
+offset_right = 174.0
+offset_bottom = 289.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/NameContainer" unique_id=1312699653]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Name" type="Label" parent="Base/NameContainer/MarginContainer" unique_id=1159985078]
+layout_mode = 2
+text = "Name"
+label_settings = SubResource("LabelSettings_3568o")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="Base" unique_id=1489272017]
+offset_top = 289.0
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3568o")
+
+[node name="Text" type="RichTextLabel" parent="Base/Panel" unique_id=80156007]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 9.0
+offset_right = 617.0
+offset_bottom = 58.0
+theme_override_fonts/normal_font = ExtResource("2_k6sw3")
+theme_override_fonts/bold_font = ExtResource("4_s64ie")
+theme_override_font_sizes/normal_font_size = 6
+theme_override_font_sizes/bold_font_size = 6
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+"
+scroll_active = false
+
+[node name="Hint" type="Label" parent="Base/Panel" unique_id=1767259664]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 58.0
+offset_right = 632.0
+offset_bottom = 66.0
+theme = SubResource("Theme_xttc1")
+text = "Press SPACE to continue >"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Base" unique_id=925014411]
+offset_top = 188.515
+offset_right = 100.0
+offset_bottom = 288.515
+theme_override_styles/panel = SubResource("StyleBoxFlat_6316o")
+
+[node name="CharacterSprite" type="TextureRect" parent="Base/PanelContainer" unique_id=2077299018]
+layout_mode = 2
+texture = ExtResource("6_om1uo")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="SkipButton" type="Button" parent="Base" unique_id=1760519081]
+offset_left = 590.0
+offset_top = 271.0
+offset_right = 639.0
+offset_bottom = 288.0
+size_flags_vertical = 3
+offset_transform_enabled = true
+theme_override_fonts/font = ExtResource("1_n4ymj")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_cxsk4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4j22i")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k8ige")
+theme_override_styles/focus = SubResource("StyleBoxFlat_kpnlu")
+text = "Skip
+"
+
+[node name="Choices" type="CanvasLayer" parent="." unique_id=1119643455]
+visible = false
+script = ExtResource("6_muaq0")
+b_group = SubResource("ButtonGroup_qdt5y")
+
+[node name="Dim" type="ColorRect" parent="Choices" unique_id=1879650081]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.10980392, 0.17254902, 0.627451)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Choices" unique_id=1389500944]
+offset_left = 246.0
+offset_top = 128.0
+offset_right = 394.0
+offset_bottom = 232.0
+
+[node name="Choice1" type="Button" parent="Choices/VBoxContainer" unique_id=329363185]
+layout_mode = 2
+size_flags_vertical = 3
+offset_transform_enabled = true
+theme_override_fonts/font = ExtResource("1_n4ymj")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_s64ie")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_muaq0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_om1uo")
+theme_override_styles/focus = SubResource("StyleBoxFlat_4ymsk")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_qdt5y")
+text = "Choice1"
+
+[node name="Choice2" type="Button" parent="Choices/VBoxContainer" unique_id=2044527213]
+layout_mode = 2
+size_flags_vertical = 3
+offset_transform_enabled = true
+theme_override_fonts/font = ExtResource("1_n4ymj")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_s64ie")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_muaq0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_om1uo")
+theme_override_styles/focus = SubResource("StyleBoxFlat_4ymsk")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_qdt5y")
+text = "Choice2"
+
+[node name="Choice3" type="Button" parent="Choices/VBoxContainer" unique_id=1323029125]
+layout_mode = 2
+size_flags_vertical = 3
+offset_transform_enabled = true
+theme_override_fonts/font = ExtResource("1_n4ymj")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_s64ie")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_muaq0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_om1uo")
+theme_override_styles/focus = SubResource("StyleBoxFlat_4ymsk")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_qdt5y")
+text = "Choice3"
+
+[node name="Choice4" type="Button" parent="Choices/VBoxContainer" unique_id=1070864187]
+layout_mode = 2
+size_flags_vertical = 3
+offset_transform_enabled = true
+theme_override_fonts/font = ExtResource("1_n4ymj")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_s64ie")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_muaq0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_om1uo")
+theme_override_styles/focus = SubResource("StyleBoxFlat_4ymsk")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_qdt5y")
+text = "Choice4"
+
+[connection signal="next_id" from="Choices" to="." method="_on_choices_next_id"]

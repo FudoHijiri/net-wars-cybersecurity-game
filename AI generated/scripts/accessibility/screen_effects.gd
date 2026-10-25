@@ -3,7 +3,7 @@ extends Node
 ## Autoload for the two screen-effect settings in Settings > General.
 ##
 ## Reduce Screen Effects: the only screen effect the game has is the short fade between
-## scenes (SceneFade). With this on, scenes change instantly. The Color Blind filter is an
+## scenes (the loading screen, scene_transitions.gd). With this on, scenes change instantly. The Color Blind filter is an
 ## accessibility tool and is not an "effect", so it is never reduced.
 ##
 ## Screen Shake: the game has no screen shake yet, so this setting only stores the player's

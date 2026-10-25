@@ -1,14 +1,14 @@
 extends Node
 
-@onready var stage_select: Control = $"Main Content/StageSelect"
-@onready var animation_player: AnimationPlayer = $"Main Content/AnimationPlayer"
-@onready var exit_confirmation: NinePatchRect = $"Main Content/ExitConfirmation"
+@onready var stage_select: Control = $"MainContent/StageSelect"
+@onready var animation_player: AnimationPlayer = $"MainContent/AnimationPlayer"
+@onready var exit_confirmation: NinePatchRect = $"MainContent/ExitConfirmation"
 
 
 func _ready() -> void:
 	stage_select.hide()
 	exit_confirmation.hide()
-	SceneTransitions.fade_in()
+	
 
 
 func _on_play_button_pressed() -> void:
@@ -18,8 +18,7 @@ func _on_play_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
-	await SceneTransitions.fade_out()
-	SceneTransitions.fade_in()
+	SceneManager.fade_through(Settings.open) # covers the whole screen: fade out, open, fade in
 
 
 func _on_exit_button_pressed() -> void:
@@ -29,8 +28,8 @@ func _on_exit_button_pressed() -> void:
 
 
 func _on_yes_button_pressed() -> void:
-	await SceneTransitions.fade_out()
 	get_tree().quit()
+
 
 
 func _on_no_button_pressed() -> void:
