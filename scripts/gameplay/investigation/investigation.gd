@@ -1,18 +1,23 @@
 extends Control
 
-## Tab bar of the Investigation screen. One AppViewPanel is reused for every tab.
+## Tab bar of the Investigation screen. One app view is reused for every tab.
 ## The shown app is also named in the panel's title, so the active tab is never
 ## signalled by the button's pressed color alone.
 ##
-## The buttons' `pressed` signals are connected in InvestigationMenu.tscn.
+## The buttons' `pressed` signals are connected in Investigation.tscn.
 
 const DEFAULT_APP := "email"
-const REPORT_PANEL_SCENE := preload("res://AI generated/scenes/report/ReportPanel.tscn")
+const OBJECTIVE_FIND_TEXT := "OBJECTIVE - INVESTIGATE AND FIND CLUES"
+const OBJECTIVE_REPORT_TEXT := "OBJECTIVE - WRITE THE REPORT"
 
-var _report_panel: ReportPanel # created the first time REPORT is pressed
-
+@onready var _objective: RichTextLabel = $FramePanel/MainPanel/Objective
 @onready var _clues_found: RichTextLabel = $FramePanel/MainPanel/CluesFound
-@onready var _app_view: AppViewPanel = $FramePanel/MainPanel/AppViewPanel 
+@onready var _app_view: AppViewPanel = $FramePanel/MainPanel/MainPanelAppView
+@onready var _report_button: Button = $FramePanel/MainPanel/ReportButton
+@onready var _report: ReportScreen = $ReportScreen
+@onready var _animation: AnimationPlayer = $AnimationPlayer
+@onready var _monologue: Monologue = $Monologue
+@onready var _finish: FinishScreen = $FinishScreen
 @onready var _email_button: Button = $FramePanel/MainPanel/HBoxContainer/EmailButton
 @onready var _logs_button: Button = $FramePanel/MainPanel/HBoxContainer/LogsButton
 @onready var _computers_button: Button = $FramePanel/MainPanel/HBoxContainer/ComputersButton
@@ -23,6 +28,8 @@ var _report_panel: ReportPanel # created the first time REPORT is pressed
 
 
 func _ready() -> void:
+	_app_view.monologue = _monologue
+
 	# One group, so exactly one tab shows as pressed.
 	var group := ButtonGroup.new()
 	for button: Button in [_email_button, _logs_button, _computers_button, _login_button,
@@ -36,6 +43,12 @@ func _ready() -> void:
 
 	GameState.clues_changed.connect(_update_clues_found)
 	_update_clues_found()
+
+	# REPORT unlocks after the monologue that follows the last clue.
+	_report_button.disabled = GameState.marked_count() < GameState.clues_required()
+	_app_view.all_clues_found.connect(func() -> void: _report_button.disabled = false)
+
+	_report.completed.connect(_on_report_completed)
 
 
 func _on_email_button_pressed() -> void:
@@ -66,17 +79,79 @@ func _on_servers_button_pressed() -> void:
 	_app_view.load_app("servers")
 
 
-func _on_reports_button_pressed() -> void:
-	if _report_panel == null:
-		_report_panel = REPORT_PANEL_SCENE.instantiate() as ReportPanel
-		add_child(_report_panel) # in the tree first, then size it
-		_report_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_report_panel.open()
+func _on_report_button_pressed() -> void:
+	_animation.play(&"ReportScreenOpening")
+	_animation.advance(0.0) # apply the first frame before the screen shows
+	_report.open()
+
+
+## The report is right and CONTINUE was pressed: the phase is over. The FinishScreen pays out and goes on.
+## Clues and mistakes are paid per the scenario's "finish" section; a report right on the first try
+## earns Joshua's bonus.
+func _on_report_completed() -> void:
+	var finish: Dictionary = GameState.scenario["finish"]
+	var clues := GameState.marked_count()
+	var mistakes := _report.mistakes()
+	var flawless := mistakes == 0
+	_report.hide()
+	_finish.show_results({
+		"rows": [
+			{"count": clues, "points": clues * int(finish["points_per_clue"])},
+			{"name": "Report Mistakes:", "count": mistakes, "points": -mistakes * int(finish["points_per_mistake"])},
+		],
+		"comment": finish["comments"]["flawless" if flawless else "done"],
+		"bonus": int(finish["bonus"]) if flawless else 0,
+	})
 
 
 func _update_clues_found() -> void:
-	_clues_found.text = "Found Clues: %02d" % GameState.marked_count()
+	_clues_found.text = "Found Clues: %d/%d" % [GameState.marked_count(), GameState.clues_required()]
+	# With every clue found, the next step is the REPORT button.
+	var done := GameState.marked_count() >= GameState.clues_required()
+	_objective.text = OBJECTIVE_REPORT_TEXT if done else OBJECTIVE_FIND_TEXT
 
 
-func _on_exit_button_pressed() -> void:
-	PauseMenu.open() # the title-bar X opens the pause menu
+func _on_pause_button_pressed() -> void:
+	PauseMenu.open()
+
+
+# --- Debug panel (F9) ---
+
+func debug_info() -> String:
+	return "CLUES %d/%d   REPORT MISTAKES %d" % [GameState.marked_count(), GameState.clues_required(), _report.mistakes()]
+
+
+func debug_actions() -> Array:
+	return [
+		["COMPLETE PHASE >", debug_complete],
+		["Find all clues", debug_find_all_clues],
+		["Clear all clues", debug_clear_clues],
+		["Open the report", debug_open_report],
+	]
+
+
+func debug_find_all_clues() -> void:
+	for app: Dictionary in GameState.scenario.get("investigation", {}).values():
+		for entry: Dictionary in app.get("entries", []):
+			if entry.get("is_clue", false):
+				GameState.set_investigated(str(entry["id"]))
+				GameState.set_marked(str(entry["id"]), true)
+	_report_button.disabled = false
+
+
+func debug_clear_clues() -> void:
+	GameState.marked_clues.clear()
+	GameState.investigated.clear()
+	GameState.clues_changed.emit()
+	_report_button.disabled = true
+
+
+func debug_open_report() -> void:
+	debug_find_all_clues()
+	_on_report_button_pressed()
+
+
+## Same outcome as a solved report with CONTINUE pressed: the FinishScreen.
+func debug_complete() -> void:
+	debug_find_all_clues()
+	_on_report_completed()

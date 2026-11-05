@@ -1,0 +1,69 @@
+{
+	"start": {
+		"text": "Report sent. Anna's password is reset and the unknown computer is blocked. But I doubt that's the end of it.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Ring ring...*",
+		"name": "Phone",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "IT desk, this is Joshua.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Joshua, it's Carla. I'm on call tonight. I read your report. Nice work.",
+		"name": "Carla",
+		"art": "Phone",
+		"next": "D"
+	},
+	"D": {
+		"text": "But whoever did this still knows how we sign in. They may try another account tonight.",
+		"name": "Carla",
+		"art": "Phone",
+		"choices": {
+			"What should I look for?": "E1",
+			"Can't we just block them?": "E2"
+		}
+	},
+	"E1": {
+		"text": "Sign-ins at strange hours, from computers we don't know, or from outside the office.",
+		"name": "Carla",
+		"art": "Phone",
+		"next": "F"
+	},
+	"E2": {
+		"text": "Not yet. We don't know which account they will use, so we watch every sign-in.",
+		"name": "Carla",
+		"art": "Phone",
+		"next": "F"
+	},
+	"F": {
+		"text": "The rules are in the [b][color=green]rulebook[/color][/b]. [b][color=red]Report[/color][/b] what breaks them, and let the rest pass.",
+		"name": "Carla",
+		"art": "Phone",
+		"next": "G"
+	},
+	"G": {
+		"text": "Got it. One sign-in at a time.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
+		"next": "H"
+	},
+	"H": {
+		"text": "A false alarm wastes our time, and a missed one lets them in. I have to be careful with both.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "I"
+	},
+	"I": {
+		"trigger": "start_phase"
+	}
+}

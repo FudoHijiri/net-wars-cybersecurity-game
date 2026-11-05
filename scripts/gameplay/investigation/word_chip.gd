@@ -5,7 +5,7 @@ extends Button
 ## Drag data: {type, chip_id, from_slot}. from_slot is 0 for a chip dragged out of the tray.
 
 const DRAG_TYPE := "case_chip"
-const THEME := preload("res://AI generated/scenes/investigation/case_theme.tres")
+const THEME := preload("res://scenes/gameplay/investigation/report_theme.tres")
 
 var chip_id := ""
 var chip_label := ""

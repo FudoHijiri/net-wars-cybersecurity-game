@@ -1,0 +1,294 @@
+[gd_scene format=3 uid="uid://dex7orhihby8b"]
+
+[ext_resource type="Script" uid="uid://cwkluw6hdw6oy" path="res://scripts/menus/save_select.gd" id="1_savesel"]
+[ext_resource type="Texture2D" uid="uid://byao028ojcr5d" path="res://assets/ui/Panel.png" id="2_hnuii"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_gclwt"]
+[ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="6_jrjl8"]
+[ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="9_3i7s8"]
+
+[sub_resource type="Theme" id="Theme_cvl1l"]
+default_font = ExtResource("3_gclwt")
+default_font_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnuii"]
+content_margin_left = 8.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gclwt"]
+content_margin_left = 8.0
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8043u"]
+content_margin_left = 8.0
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_del_normal"]
+bg_color = Color(0.2, 0.23529412, 0.34117648, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_del_hover"]
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_del_pressed"]
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_confirm"]
+atlas = ExtResource("2_hnuii")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yes_normal"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yes_pressed"]
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yes_hover"]
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yes_focus"]
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[node name="SaveSelect" type="Control" unique_id=1292606746]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_savesel")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2091680253]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.18055555
+anchor_right = 0.8
+anchor_bottom = 0.84166664
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_hnuii")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 11
+patch_margin_top = 11
+patch_margin_right = 11
+patch_margin_bottom = 11
+metadata/_edit_use_anchors_ = true
+
+[node name="SettingsLabel" type="Label" parent="NinePatchRect" unique_id=996859544]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.328125
+anchor_top = 0.029411756
+anchor_right = 0.671875
+anchor_bottom = 0.1302521
+size_flags_horizontal = 4
+theme = SubResource("Theme_cvl1l")
+text = "SELECT SAVE"
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" type="TextureButton" parent="NinePatchRect" unique_id=1698926410]
+custom_minimum_size = Vector2(17, 17)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.97437507
+anchor_top = 0.0462185
+anchor_right = 0.97437507
+anchor_bottom = 0.046386573
+offset_left = -17.160034
+offset_right = -0.16003418
+offset_bottom = 16.96
+texture_normal = ExtResource("9_3i7s8")
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect" unique_id=1213169821]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.046875
+anchor_top = 0.13025211
+anchor_right = 0.953125
+anchor_bottom = 0.8
+metadata/_edit_use_anchors_ = true
+
+[node name="Save1" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=112617866]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("6_jrjl8")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_hnuii")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gclwt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8043u")
+text = "SAVE SLOT 1 - EMPTY"
+alignment = 0
+
+[node name="DeleteButton" type="Button" parent="NinePatchRect/VBoxContainer/Save1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.86
+anchor_top = 0.22
+anchor_right = 0.98
+anchor_bottom = 0.78
+theme_override_fonts/font = ExtResource("3_gclwt")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_del_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_del_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_del_hover")
+text = "DELETE"
+
+[node name="Save2" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=1004769662]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("6_jrjl8")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_hnuii")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gclwt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8043u")
+text = "SAVE SLOT 2 - EMPTY"
+alignment = 0
+
+[node name="DeleteButton" type="Button" parent="NinePatchRect/VBoxContainer/Save2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.86
+anchor_top = 0.22
+anchor_right = 0.98
+anchor_bottom = 0.78
+theme_override_fonts/font = ExtResource("3_gclwt")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_del_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_del_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_del_hover")
+text = "DELETE"
+
+[node name="Save3" type="Button" parent="NinePatchRect/VBoxContainer" unique_id=829019542]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("6_jrjl8")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_hnuii")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gclwt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8043u")
+text = "SAVE SLOT 3 - EMPTY"
+alignment = 0
+
+[node name="DeleteButton" type="Button" parent="NinePatchRect/VBoxContainer/Save3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.86
+anchor_top = 0.22
+anchor_right = 0.98
+anchor_bottom = 0.78
+theme_override_fonts/font = ExtResource("3_gclwt")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_del_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_del_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_del_hover")
+text = "DELETE"
+
+[node name="MessageLabel" type="Label" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.046875
+anchor_top = 0.83
+anchor_right = 0.953125
+anchor_bottom = 0.975
+theme_override_colors/font_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+theme_override_fonts/font = ExtResource("6_jrjl8")
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="ConfirmDelete" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="ConfirmDelete"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.10980392, 0.17254902, 0.7)
+
+[node name="Panel" type="NinePatchRect" parent="ConfirmDelete"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -45.5
+offset_right = 112.0
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_confirm")
+patch_margin_left = 8
+patch_margin_top = 9
+patch_margin_right = 8
+patch_margin_bottom = 9
+
+[node name="Label" type="Label" parent="ConfirmDelete/Panel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 212.0
+offset_bottom = 38.0
+theme_override_fonts/font = ExtResource("6_jrjl8")
+theme_override_font_sizes/font_size = 8
+text = "DELETE SLOT 1? ALL ITS PROGRESS WILL BE LOST."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="YesButton" type="Button" parent="ConfirmDelete/Panel"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 46.0
+offset_right = 96.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("6_jrjl8")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_yes_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yes_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yes_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yes_focus")
+text = "YES"
+
+[node name="NoButton" type="Button" parent="ConfirmDelete/Panel"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 46.0
+offset_right = 184.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("6_jrjl8")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_yes_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yes_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yes_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yes_focus")
+text = "NO"

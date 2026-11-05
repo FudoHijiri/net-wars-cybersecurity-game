@@ -1,62 +1,75 @@
 {
 	"start": {
-		"text": "It's my first day as an IT. I hope no problems comes today.",
+		"text": "First day on the job in IT. I fix computer problems and keep everyone's accounts safe. Hopefully today is a quiet one.",
 		"name": "Joshua",
 		"art": "Joshua",
 		"next": "A"
 	},
 	"A": {
-		"text": "*Call Ringing*",
-		"name": "???",
+		"text": "*Ring ring...*",
+		"name": "Phone",
 		"art": "Phone",
 		"next": "B"
 	},
 	"B": {
-		"text": "*Accepts Call*",
+		"text": "IT desk, this is Joshua. How can I help?",
 		"name": "Joshua",
 		"art": "Joshua",
 		"next": "C"
 	},
 	"C": {
-		"text": "Help! Are you an IT?",
-		"name": "Client",
-		"art": "Client",
+		"text": "Hi, Joshua? It's Anna Reyes. Um... something weird is going on with my account.",
+		"name": "Anna",
+		"art": "Phone",
 		"choices": {
-			"Yes": "D",
-			"What's the problem?": "D"
+			"What happened?": "D1",
+			"Can you sign in now?": "D2"
 		}
 	},
-	"D": {
-		"text": "Yeah, I am. What's the problem?",
-		"name": "Joshua",
-		"art": "Joshua",
+	"D1": {
+		"text": "I got an email saying my password was changed. But I never changed it!",
+		"name": "Anna",
+		"art": "Phone",
+		"next": "E"
+	},
+	"D2": {
+		"text": "Yeah, the helpdesk got me back in this morning. But nobody can tell me who changed my password, or why.",
+		"name": "Anna",
+		"art": "Phone",
 		"next": "E"
 	},
 	"E": {
-		"text": "I can't [b][color=red]login[/color][/b] into my account. I'll be in trouble if I can't fix this today!",
-		"name": "Client",
-		"art": "Client",
+		"text": "What if [b][color=red]somebody else[/color][/b] got into my account? It can open the company's pay records. That really scares me.",
+		"name": "Anna",
+		"art": "Phone",
 		"next": "F"
 	},
 	"F": {
-		"text": "Don't worry, I'll investigate this further.",
+		"text": "Okay, Anna, take a breath. I'll go through the records and figure out what happened.",
 		"name": "Joshua",
 		"art": "Joshua",
 		"next": "G"
 	},
 	"G": {
-		"text": "Thank you so much! I hope it can be fixed before my shift ends. *Call End*",
-		"name": "Client",
-		"art": "Client",
+		"text": "Thank you so much. Please let me know as soon as you find something!",
+		"name": "Anna",
+		"art": "Phone",
+		"next": "H"
+	},
+	"H": {
+		"text": "Alright. Every email, sign-in and file leaves a record somewhere. I just have to know where to look.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
 		"next": "I"
 	},
 	"I": {
-		"text": "I'll have to [b][color=green]investigate[/color][/b] first what caused this.",
+		"text": "[b][color=green]4 clues[/color][/b] should be enough to show what really happened. Then I'll write it all up in my report.",
 		"name": "Joshua",
 		"art": "Joshua",
 		"next": "J"
 	},
 	"J": {
-		"trigger": "start_investigation"
+		"trigger": "start_phase"
 	}
 }

@@ -1,9 +1,21 @@
 {
 	"1": {
 		"title": "An Unusual Login",
-		"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeInvestigation.json",
-		"investigation_scene": "res://AI generated/scenes/investigation/Investigation.tscn",
 		"case": "res://AI generated/data/day1_investigation.json",
-		"scenario": "res://data/scenarios/day1_credential_abuse.json"
+		"phases": {
+			"investigation": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeInvestigation.json",
+				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
+				"data": "res://data/scenarios/day 1/investigation.json"
+			},
+			"monitoring": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeMonitoring.json",
+				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
+				"data": "res://data/scenarios/day 1/monitoring.json"
+			},
+			"hardening": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeHardening.json"
+			}
+		}
 	}
 }

@@ -1,0 +1,166 @@
+{
+	"id": "day1_monitoring",
+	"shift_seconds": 180,
+	"log_seconds": 33,
+	"inspect_percent_per_click": 25,
+	"points_correct": 10,
+	"finish": {
+		"points_wrong": 5,
+		"bonus": 30,
+		"flawless_min_correct": 5,
+		"good_accuracy": 0.7,
+		"comments": {
+			"flawless": "Joshua: Not one wrong call this shift. Bonus approved.",
+			"short": "Joshua: No mistakes, but too few logs to judge. Be quicker next shift.",
+			"good": "Joshua: Solid shift. One to review: {reason}",
+			"rough": "Joshua: Rough shift. Let's go over one: {reason}"
+		}
+	},
+	"guided_kinds": ["normal", "bad", "decoy"],
+	"story_odds": {"base": 0.05, "per_solved": 0.04, "max": 0.5},
+	"story_logs": [
+		{
+			"id": "anna_morning", "kind": "normal", "user": "Anna Reyes", "time": "08:30", "computer": "Anna's computer",
+			"where": "Office", "result": "Signed in"
+		},
+		{
+			"id": "anna_germany", "kind": "bad", "user": "Anna Reyes", "time": "02:43", "computer": "Unknown computer 7F3A",
+			"where": "Germany", "result": "Signed in"
+		},
+		{
+			"id": "anna_typo", "kind": "decoy", "user": "Anna Reyes", "time": "08:29", "computer": "Anna's computer",
+			"where": "Office", "result": "Failed (1 try)",
+			"reason": "Anna had just reset her password, so one mistyped try is not an attack."
+		}
+	],
+	"mix": {"normal": 6, "bad": 3, "decoy": 1},
+	"on_call": "Carla Patel",
+	"story_people": [
+		{"name": "Anna Reyes", "computer": "Anna's computer"},
+		{"name": "Carla Patel", "computer": "Carla's computer"}
+	],
+	"first_names": [
+		"Evan", "Farah", "Gabriel", "Hana", "Ivan", "Jada", "Kai", "Lena", "Marcus", "Nadia",
+		"Omar", "Priya", "Quentin", "Rosa", "Samir", "Tessa", "Umar", "Vera", "Wen", "Xavier",
+		"Yara", "Zane", "Aiden", "Bianca", "Callum", "Dalia", "Elias", "Freya", "Hugo", "Imani"
+	],
+	"last_names": [
+		"Brooks", "Ali", "Santos", "Ito", "Petrov", "Okafor", "Nakamura", "Novak", "Hughes", "Rossi",
+		"Haddad", "Singh", "Moreau", "Lindqvist", "Costa", "Oyelaran", "Fischer", "Kowalski", "Tanaka", "Mendoza",
+		"Abara", "Larsen", "Duarte", "Park", "Ivanova", "Walsh", "Cohen", "Bianchi", "Adeyemi", "Sato"
+	],
+	"unknown_computers": ["Unknown computer 2B91", "Unknown computer C04E"],
+	"outside_locations": [
+		"Germany", "Netherlands", "Brazil", "Vietnam", "Romania", "Nigeria", "Indonesia", "Turkey",
+		"Mexico", "India", "Poland", "Singapore", "Argentina", "Egypt", "Thailand", "Colombia"
+	],
+	"threat": {"computer": "Unknown computer 7F3A", "chance": 0.85, "computer_rule_chance": 0.8},
+	"events": {
+		"sign_in": {
+			"title": "SIGN-IN",
+			"parts": [
+				{"key": "user", "label": "User", "entity": "account"},
+				{"key": "time", "label": "Time"},
+				{"key": "computer", "label": "Computer", "entity": "computer"},
+				{"key": "where", "label": "Where"},
+				{"key": "result", "label": "Result"}
+			]
+		}
+	},
+	"rules": [
+		{
+			"id": "office_hours", "part": "time", "check": "range", "min": 480, "max": 1080, "odd_margin": 30,
+			"exception": "on_call",
+			"name": "Office hours",
+			"text": "Sign-ins happen between 08:00 and 18:00.",
+			"exception_text": "The person on call tonight may sign in at any hour.",
+			"example_ok": "09:15",
+			"example_bad": "02:14",
+			"why": "Staff work in the day, so a sign-in in the middle of the night is unusual.",
+			"broken": "was outside office hours"
+		},
+		{
+			"id": "company_list", "part": "computer", "check": "pattern", "pattern": "^[A-Z][a-z]+'s (computer|laptop)$", "allowed_extra": ["Floor 2 printer"],
+			"name": "Company computers",
+			"text": "Only computers on the company list may sign in.",
+			"details": ["Every company computer is named after its owner, like Ben's computer or Dana's laptop. The Floor 2 printer is shared and is also on the list."],
+			"example_ok": "Anna's computer",
+			"example_bad": "Unknown computer",
+			"why": "A computer the company does not know could belong to anyone.",
+			"broken": "came from a computer that is not on the company list"
+		},
+		{
+			"id": "location", "part": "where", "check": "allowed", "allowed": ["Office"],
+			"name": "Sign-in place",
+			"text": "Sign-ins come from the office.",
+			"example_ok": "Office",
+			"example_bad": "Germany",
+			"why": "Staff sign in at work. Another country can mean someone else has the password.",
+			"broken": "came from outside the office"
+		}
+	],
+	"decoys": [
+		{
+			"id": "on_call_night", "user": "@on_call", "time_range": [0, 300],
+			"reason": "{user} is on call tonight, so signing in at any hour is allowed."
+		},
+		{
+			"id": "near_closing", "time_range": [1051, 1079],
+			"reason": "It was close to closing time, but still inside office hours."
+		},
+		{
+			"id": "near_opening", "time_range": [480, 509],
+			"reason": "It was close to opening time, but still inside office hours."
+		},
+		{
+			"id": "one_typo", "result": "Failed (1 try)",
+			"reason": "One failed try is a typing mistake. It is not an attack."
+		}
+	],
+	"hints": {
+		"user": {
+			"ok": ["{first} works here.", "{first} is on the staff list.", "I know {first} from the staff directory."]
+		},
+		"time": {
+			"ok": ["{time} is during working hours.", "The office is open at {time}.", "Most people are at their desks at {time}."],
+			"odd": ["{time} is right at the edge of the working day.", "{time} is only a few minutes from when the office opens or closes."],
+			"oncall": ["{first} is on call tonight.", "{first} is the person on call tonight."],
+			"bad": ["The office is closed at {time}.", "Nobody works at {time}.", "{time} is outside working hours."]
+		},
+		"computer": {
+			"ok": ["{computer} is named after one of our staff.", "I have seen {computer} on our network before."],
+			"bad": ["I do not know {computer}.", "{computer} does not look like one of our computers."]
+		},
+		"where": {
+			"ok": ["That sign-in came from the office.", "The office is where staff usually sign in from."],
+			"bad": [
+				"That sign-in came from {where}.",
+				"Our office is not in {where}.",
+				"{first} would normally be in the office, not in {where}."
+			]
+		},
+		"result": {
+			"ok": ["The password worked.", "Signed in without any trouble."],
+			"odd": ["The password was wrong once.", "One try did not work."]
+		}
+	},
+	"guide": {
+		"1": [
+			"Night shift. Every sign-in comes through here, and you decide which ones are fine.",
+			"Click a line on the card and I will tell you what I know about it. It costs a big part of the log's time, but the clock is frozen while you learn.",
+			"The rules are in the RULEBOOK at the bottom left. When you are sure, press LET PASS or REPORT. After that I will tell you if each thing I said was normal or suspicious."
+		],
+		"2": ["Another one. Look at the whole card before you decide."],
+		"3": ["Some things look strange but are allowed. Before you report, check the RULEBOOK at the bottom left. The bar at the top shows the office hours and who is on call tonight."],
+		"4": ["I will stop holding your hand now. The clock runs from here. Good luck."]
+	},
+	"messages": {
+		"right": "Correct. {reason}",
+		"wrong": "Not quite. {reason}",
+		"timeout": "Time ran out, so it passed. {reason}",
+		"no_time": "Not enough time left on this log to check that. Decide with what you have.",
+		"start": "Ready when you are. Press NEXT LOG to bring in the first sign-in.",
+		"normal_reason": "It followed every rule.",
+		"end": "That is the end of the shift."
+	}
+}

@@ -1,0 +1,114 @@
+[gd_resource type="Theme" format=3 uid="uid://ch36y08ecu8j6"]
+
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="1_mc"]
+
+[sub_resource type="StyleBoxFlat" id="focus_ring"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="StyleBoxFlat" id="chip_hover"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="StyleBoxFlat" id="chip_normal"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="chip_picked"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="StyleBoxFlat" id="slot_filled"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="StyleBoxFlat" id="slot_locked"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[resource]
+default_font = ExtResource("1_mc")
+default_font_size = 6
+ChipButton/base_type = &"Button"
+ChipButton/colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+ChipButton/colors/font_focus_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+ChipButton/colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+ChipButton/font_sizes/font_size = 6
+ChipButton/styles/focus = SubResource("focus_ring")
+ChipButton/styles/hover = SubResource("chip_hover")
+ChipButton/styles/hover_pressed = SubResource("chip_hover")
+ChipButton/styles/normal = SubResource("chip_normal")
+ChipButton/styles/pressed = SubResource("chip_picked")
+ChipButtonPicked/base_type = &"Button"
+ChipButtonPicked/colors/font_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+ChipButtonPicked/colors/font_focus_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+ChipButtonPicked/colors/font_hover_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+ChipButtonPicked/font_sizes/font_size = 6
+ChipButtonPicked/styles/focus = SubResource("focus_ring")
+ChipButtonPicked/styles/hover = SubResource("chip_picked")
+ChipButtonPicked/styles/normal = SubResource("chip_picked")
+SlotButton/base_type = &"Button"
+SlotButton/colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+SlotButton/colors/font_focus_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+SlotButton/colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+SlotButton/styles/focus = SubResource("focus_ring")
+SlotButton/styles/hover = SubResource("chip_hover")
+SlotButton/styles/normal = SubResource("chip_normal")
+SlotButton/styles/pressed = SubResource("chip_picked")
+SlotButtonFilled/base_type = &"Button"
+SlotButtonFilled/colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+SlotButtonFilled/colors/font_focus_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+SlotButtonFilled/colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+SlotButtonFilled/styles/focus = SubResource("focus_ring")
+SlotButtonFilled/styles/hover = SubResource("chip_hover")
+SlotButtonFilled/styles/normal = SubResource("slot_filled")
+SlotButtonFilled/styles/pressed = SubResource("chip_picked")
+SlotButtonLocked/base_type = &"Button"
+SlotButtonLocked/colors/font_disabled_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+SlotButtonLocked/styles/disabled = SubResource("slot_locked")
+StoryLabel/base_type = &"Label"
+StoryLabel/colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)

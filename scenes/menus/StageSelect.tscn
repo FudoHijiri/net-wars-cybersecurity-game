@@ -166,10 +166,10 @@ metadata/_edit_use_anchors_ = true
 [node name="SettingsLabel" type="Label" parent="NinePatchRect" unique_id=996859544]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.375
-anchor_top = 0.030555556
-anchor_right = 0.625
-anchor_bottom = 0.097222224
+anchor_left = 0.328125
+anchor_top = 0.029411756
+anchor_right = 0.671875
+anchor_bottom = 0.1302521
 size_flags_horizontal = 4
 theme = SubResource("Theme_cvl1l")
 text = "STAGE SELECT"
@@ -184,7 +184,6 @@ anchor_left = 0.024774775
 anchor_top = 0.14166667
 anchor_right = 0.3581081
 anchor_bottom = 0.76890755
-metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="PanelContainer" parent="NinePatchRect/ScrollContainer" unique_id=1683070900]
 layout_mode = 2
@@ -301,7 +300,6 @@ anchor_right = 0.97522527
 anchor_bottom = 0.76953125
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_nsg2b")
-metadata/_edit_use_anchors_ = true
 
 [node name="Day Description" type="RichTextLabel" parent="NinePatchRect/PanelContainer" unique_id=767525978]
 layout_mode = 0
@@ -329,7 +327,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ope24")
 icon = SubResource("AtlasTexture_py727")
 icon_alignment = 1
 expand_icon = true
-metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="NinePatchRect/PlayButton" unique_id=1603855934]
 layout_mode = 1
@@ -341,7 +338,6 @@ anchor_bottom = -0.04374981
 text = "RESUME"
 label_settings = SubResource("LabelSettings_fnhdr")
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="NewGameButton" type="Button" parent="NinePatchRect" unique_id=2127811660]
 layout_mode = 1
@@ -360,7 +356,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ope24")
 icon = SubResource("AtlasTexture_7853p")
 icon_alignment = 1
 expand_icon = true
-metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="NinePatchRect/NewGameButton" unique_id=739152417]
 layout_mode = 1
@@ -372,7 +367,6 @@ anchor_bottom = -0.04374981
 text = "NEW GAME"
 label_settings = SubResource("LabelSettings_cvl1l")
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="ArchiveButton" type="Button" parent="NinePatchRect" unique_id=813366575]
 layout_mode = 1
@@ -391,7 +385,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ope24")
 icon = SubResource("AtlasTexture_csbtl")
 icon_alignment = 1
 expand_icon = true
-metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="NinePatchRect/ArchiveButton" unique_id=1955834318]
 layout_mode = 1
@@ -406,7 +399,6 @@ rotation = -3.7789243e-05
 text = "ARCHIVE"
 label_settings = SubResource("LabelSettings_w31c7")
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="Exit" type="TextureButton" parent="NinePatchRect" unique_id=1698926410]
 custom_minimum_size = Vector2(17, 17)
@@ -424,4 +416,5 @@ stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="NinePatchRect/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="NinePatchRect/ArchiveButton" to="." method="_on_archive_button_pressed"]
 [connection signal="pressed" from="NinePatchRect/Exit" to="." method="_on_exit_pressed"]

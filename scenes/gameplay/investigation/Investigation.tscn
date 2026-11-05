@@ -3,12 +3,17 @@
 [ext_resource type="Script" uid="uid://bsl7mgv7n8kcv" path="res://scripts/gameplay/investigation/investigation.gd" id="1_7wxf8"]
 [ext_resource type="Texture2D" uid="uid://i5qyuq7urtwx" path="res://assets/ui/Server Panel.png" id="2_24irc"]
 [ext_resource type="Texture2D" uid="uid://pry0okj8q6x1" path="res://assets/ui/Server Panel Inside 2.png" id="3_j8muj"]
-[ext_resource type="PackedScene" uid="uid://i6tx2uvn6e1m" path="res://scenes/gameplay/investigation/AppViewPanel.tscn" id="4_0limq"]
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="5_hcl70"]
 [ext_resource type="Texture2D" uid="uid://t26hmnng47qj" path="res://assets/ui/Pause Icon.png" id="6_7wxf8"]
 [ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="7_x2w4j"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="8_og70j"]
 [ext_resource type="Texture2D" uid="uid://ckhs6ajdsqlfl" path="res://assets/ui/Investigation Icon.png" id="9_k7q8k"]
+[ext_resource type="Texture2D" uid="uid://hjg0guptw8ib" path="res://assets/ui/Blank Panel.png" id="10_j8muj"]
+[ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="11_0limq"]
+[ext_resource type="PackedScene" uid="uid://dp4jll5i4fg3j" path="res://scenes/gameplay/investigation/ReportScreen.tscn" id="12_0limq"]
+[ext_resource type="Script" uid="uid://iced0phhadvj" path="res://scripts/gameplay/investigation/app_view_panel.gd" id="12_appview"]
+[ext_resource type="PackedScene" uid="uid://dvw4gl5e4m4of" path="res://scenes/gameplay/investigation/Monologue.tscn" id="13_hcl70"]
+[ext_resource type="Script" uid="uid://jii58qpfiadb" path="res://scripts/gameplay/finish_screen.gd" id="finish_screen_script"]
 
 [sub_resource type="Theme" id="Theme_rjwuq"]
 default_font = ExtResource("5_hcl70")
@@ -22,6 +27,222 @@ outline_color = Color(0, 0, 0, 1)
 default_font = ExtResource("8_og70j")
 default_font_size = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wxf8"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24irc"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j8muj"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0limq"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8s8p8"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 0.50980395)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hcl70"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="Theme" id="Theme_8s8p8"]
+default_font = ExtResource("8_og70j")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_og70j"]
+default_font = ExtResource("8_og70j")
+default_font_size = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_k7q8k"]
+color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 2
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vyukb"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0l15"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 0.5882353)
+expand_margin_bottom = 4.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_qe4wv"]
+font = ExtResource("8_og70j")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ew84"]
+font = ExtResource("8_og70j")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_hs5df"]
+font = ExtResource("8_og70j")
+font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjqds"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hihfn"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[sub_resource type="Theme" id="Theme_sjuf5"]
+default_font = ExtResource("11_0limq")
+default_font_size = 8
+
+[sub_resource type="Theme" id="Theme_3vg8m"]
+default_font = ExtResource("8_og70j")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_prwu0"]
+default_font = ExtResource("8_og70j")
+default_font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0ydn"]
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6bp8"]
+bg_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+border_color = Color(0.4509804, 0.9372549, 0.96862745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ndxp"]
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_755yo"]
+bg_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xttc1"]
+font = ExtResource("11_0limq")
+
+[sub_resource type="LabelSettings" id="LabelSettings_3568o"]
+font = ExtResource("8_og70j")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_0limq"]
+font = ExtResource("8_og70j")
+font_size = 6
+font_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mjqds"]
+font = ExtResource("8_og70j")
+font_size = 6
+font_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8s8p8"]
+font = ExtResource("11_0limq")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_og70j"]
+font = ExtResource("8_og70j")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_k7q8k"]
+font = ExtResource("8_og70j")
+font_size = 6
+font_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vyukb"]
+font = ExtResource("8_og70j")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_d0l15"]
+font = ExtResource("8_og70j")
+font_size = 6
+font_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="Animation" id="Animation_qe4wv"]
+resource_name = "CompleteInvestigation"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FinishScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hcl70"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ReportScreen:offset_transform_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FinishScreen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8s8p8"]
+resource_name = "ReportScreenOpening"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ReportScreen:offset_transform_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_og70j"]
+_data = {
+&"CompleteInvestigation": SubResource("Animation_qe4wv"),
+&"RESET": SubResource("Animation_hcl70"),
+&"ReportScreenOpening": SubResource("Animation_8s8p8")
+}
+
 [node name="Investigation" type="Control" unique_id=374564516]
 layout_mode = 3
 anchors_preset = 15
@@ -33,26 +254,23 @@ script = ExtResource("1_7wxf8")
 
 [node name="FramePanel" type="NinePatchRect" parent="." unique_id=744571823]
 layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource("2_24irc")
 region_rect = Rect2(0, 0, 33, 33)
 patch_margin_left = 11
 patch_margin_top = 11
 patch_margin_right = 11
 patch_margin_bottom = 11
+metadata/_edit_use_anchors_ = true
 
 [node name="MainPanel" type="NinePatchRect" parent="FramePanel" unique_id=520052223]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -314.0
-offset_top = -171.0
-offset_right = 314.0
-offset_bottom = 174.0
+anchors_preset = -1
+anchor_left = 0.009375
+anchor_top = 0.025
+anchor_right = 0.990625
+anchor_bottom = 0.98333335
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_j8muj")
@@ -61,48 +279,46 @@ patch_margin_left = 4
 patch_margin_top = 27
 patch_margin_right = 4
 patch_margin_bottom = 4
-
-[node name="AppViewPanel" parent="FramePanel/MainPanel" unique_id=1432646798 instance=ExtResource("4_0limq")]
-layout_mode = 1
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Objective" type="RichTextLabel" parent="FramePanel/MainPanel" unique_id=1537799411]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 4.0
-offset_right = 340.0
-offset_bottom = 25.0
+anchor_left = 0.03821656
+anchor_top = 0.011594203
+anchor_right = 0.54140127
+anchor_bottom = 0.072463766
 theme = SubResource("Theme_rjwuq")
-theme_override_colors/default_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+theme_override_colors/default_color = Color(1, 0.8039216, 0.45882353, 1)
 text = "OBJECTIVE - INVESTIGATE AND FIND CLUES"
 fit_content = true
 scroll_active = false
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="CluesFound" type="RichTextLabel" parent="FramePanel/MainPanel" unique_id=427928853]
-layout_mode = 0
-offset_left = 474.0
-offset_top = 28.0
-offset_right = 576.0
-offset_bottom = 54.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7818471
+anchor_top = 0.08115942
+anchor_right = 0.9044586
+anchor_bottom = 0.15652174
 theme = SubResource("Theme_rjwuq")
-theme_override_colors/default_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
-text = "Found Clues: 00"
+theme_override_colors/default_color = Color(1, 0.8039216, 0.45882353, 1)
+text = "Found Clues: 0/4"
 fit_content = true
 scroll_active = false
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="PauseButton" type="TextureButton" parent="FramePanel/MainPanel" unique_id=816621309]
 layout_mode = 0
-offset_left = 605.0
-offset_top = 6.0
-offset_right = 622.0
-offset_bottom = 23.0
+anchor_left = 0.9633758
+anchor_top = 0.017391304
+anchor_right = 0.99044585
+anchor_bottom = 0.06666667
 texture_normal = ExtResource("6_7wxf8")
 stretch_mode = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="TitleExe" type="Label" parent="FramePanel/MainPanel" unique_id=1326763157]
 layout_mode = 0
@@ -115,62 +331,99 @@ label_settings = SubResource("LabelSettings_76wf1")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FramePanel/MainPanel" unique_id=760668025]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 28.0
-offset_right = 456.0
-offset_bottom = 54.0
+anchor_left = 0.015923567
+anchor_top = 0.08115942
+anchor_right = 0.72611463
+anchor_bottom = 0.15652174
+metadata/_edit_use_anchors_ = true
 
 [node name="EmailButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=73067319]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_xttc1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxf8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_24irc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j8muj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0limq")
 text = "EMAIL"
 
 [node name="LogsButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=858452852]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_xttc1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxf8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_24irc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j8muj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0limq")
 text = "LOGS"
 
 [node name="ComputersButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1271615936]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_xttc1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxf8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_24irc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j8muj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0limq")
 text = "COMPUTERS"
 
 [node name="LoginButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1475047935]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_xttc1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxf8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_24irc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j8muj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0limq")
 text = "LOGIN"
 
 [node name="FilesButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1959169695]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_xttc1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxf8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_24irc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j8muj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0limq")
 text = "FILES"
 
 [node name="NetButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1312770801]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_xttc1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxf8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_24irc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j8muj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0limq")
 text = "NETWORK"
 
 [node name="ServersButton" type="Button" parent="FramePanel/MainPanel/HBoxContainer" unique_id=1362667695]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_xttc1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxf8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_24irc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j8muj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0limq")
 text = "SERVERS"
 
-[node name="ReportsButton" type="Button" parent="FramePanel/MainPanel" unique_id=106251227]
+[node name="ReportButton" type="Button" parent="FramePanel/MainPanel" unique_id=106251227]
 layout_mode = 0
-offset_left = 568.0
-offset_top = 28.0
-offset_right = 618.0
-offset_bottom = 54.0
+anchor_left = 0.9044586
+anchor_top = 0.08115942
+anchor_right = 0.98407644
+anchor_bottom = 0.15652174
 theme = SubResource("Theme_xttc1")
 theme_override_fonts/font = ExtResource("5_hcl70")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxf8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_24irc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j8muj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8s8p8")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_8s8p8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0limq")
+disabled = true
 text = "REPORT"
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="FramePanel/MainPanel" unique_id=1241522806]
 layout_mode = 0
@@ -180,7 +433,376 @@ offset_right = 22.0
 offset_bottom = 22.0
 texture = ExtResource("9_k7q8k")
 
-[connection signal="pressed" from="FramePanel/MainPanel/PauseButton" to="." method="_on_exit_button_pressed"]
+[node name="MainPanelAppView" type="NinePatchRect" parent="FramePanel/MainPanel" unique_id=942039932]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015923565
+anchor_top = 0.16521738
+anchor_right = 0.98407644
+anchor_bottom = 0.9710145
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j8muj")
+script = ExtResource("12_appview")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="FramePanel/MainPanel/MainPanelAppView" unique_id=63954021]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 0.07168459
+theme_override_styles/panel = SubResource("StyleBoxFlat_hcl70")
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="RichTextLabel" parent="FramePanel/MainPanel/MainPanelAppView/Panel" unique_id=1477503896]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 0.016447369
+anchor_right = 0.50328946
+anchor_bottom = 1.0035971
+theme = SubResource("Theme_8s8p8")
+text = "EMAIL > INBOX"
+scroll_active = false
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Guide" type="RichTextLabel" parent="FramePanel/MainPanel/MainPanelAppView/Panel" unique_id=1989540590]
+layout_mode = 0
+anchor_left = 0.79835737
+anchor_top = -0.010948181
+anchor_right = 0.9994972
+anchor_bottom = 1.0400643
+theme = SubResource("Theme_og70j")
+text = "Click a row to inspect it "
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HSplitContainer" type="HSplitContainer" parent="FramePanel/MainPanel/MainPanelAppView" unique_id=976971537]
+layout_mode = 0
+anchor_left = 0.0016447369
+anchor_top = 0.07168459
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 0
+theme_override_styles/split_bar_background = SubResource("StyleBoxLine_k7q8k")
+split_offsets = PackedInt32Array(420)
+dragging_enabled = false
+split_offset = 420
+metadata/_edit_use_anchors_ = true
+
+[node name="Left" type="Panel" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer" unique_id=2038400449]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vyukb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left" unique_id=496803748]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Panel" type="PanelContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer" unique_id=1498530133]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d0l15")
+
+[node name="HSplitContainer" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel" unique_id=1649555897]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label1" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel/HSplitContainer" unique_id=1563968124]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "From"
+label_settings = SubResource("LabelSettings_qe4wv")
+
+[node name="Label2" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel/HSplitContainer" unique_id=1695667949]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Subject"
+label_settings = SubResource("LabelSettings_8ew84")
+
+[node name="Label3" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel/HSplitContainer" unique_id=245010195]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Time"
+label_settings = SubResource("LabelSettings_hs5df")
+
+[node name="Label4" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel/HSplitContainer" unique_id=1686345734]
+layout_mode = 2
+size_flags_horizontal = 2
+label_settings = SubResource("LabelSettings_qe4wv")
+
+[node name="Label5" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel/HSplitContainer" unique_id=351718193]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "From"
+label_settings = SubResource("LabelSettings_qe4wv")
+
+[node name="SelectSpacer" type="Control" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel/HSplitContainer" unique_id=2048059035]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Panel2" type="PanelContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer" unique_id=1260221706]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_mjqds")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel2" unique_id=978720500]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel2/ScrollContainer" unique_id=432290190]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Right" type="Panel" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer" unique_id=1151554449]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_hihfn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right" unique_id=1356485539]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.016055321
+anchor_top = 0.016260162
+anchor_right = 0.98993266
+anchor_bottom = 0.90553814
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="RightTitle" type="RichTextLabel" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/VBoxContainer" unique_id=1875939887]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_sjuf5")
+text = "Re: I am stupid
+asdada"
+fit_content = true
+scroll_active = false
+
+[node name="Main Content" type="RichTextLabel" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/VBoxContainer" unique_id=674429062]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_3vg8m")
+text = "From: Anna Reyes
+To: IT Security
+Time: 00:00
+"
+fit_content = true
+scroll_active = false
+
+[node name="EvidenceHints" type="RichTextLabel" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/VBoxContainer" unique_id=1785833051]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_3vg8m")
+theme_override_colors/default_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+fit_content = true
+scroll_active = false
+
+[node name="MarkClueButton" type="Button" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right" unique_id=1184024980]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0019087113
+anchor_top = 0.90553814
+anchor_right = 0.9641729
+anchor_bottom = 0.98277396
+theme = SubResource("Theme_prwu0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_h0ydn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_x6bp8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7ndxp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_755yo")
+text = "INVESTIGATE THIS LOG"
+metadata/_edit_use_anchors_ = true
+
+[node name="ReportScreen" parent="." unique_id=1045346544 instance=ExtResource("12_0limq")]
+visible = false
+layout_mode = 1
+offset_transform_enabled = true
+
+[node name="FinishScreen" type="Control" parent="." unique_id=2090355639]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("finish_screen_script")
+
+[node name="ColorRect" type="ColorRect" parent="FinishScreen" unique_id=348709183]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="FinishScreen" unique_id=786090490]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2375
+anchor_top = 0.11111111
+anchor_right = 0.7625
+anchor_bottom = 0.17500001
+text = "Investigation Records"
+label_settings = SubResource("LabelSettings_xttc1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftContainer" type="VBoxContainer" parent="FinishScreen" unique_id=2138218773]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3875
+anchor_top = 0.24444444
+anchor_right = 0.6125
+anchor_bottom = 0.5361112
+metadata/_edit_use_anchors_ = true
+
+[node name="Row1" type="HBoxContainer" parent="FinishScreen/LeftContainer" unique_id=1069893026]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="FinishScreen/LeftContainer/Row1" unique_id=486788023]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Clues Found:"
+label_settings = SubResource("LabelSettings_3568o")
+
+[node name="Number" type="Label" parent="FinishScreen/LeftContainer/Row1" unique_id=1402054174]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "4"
+label_settings = SubResource("LabelSettings_3568o")
+
+[node name="PointsEarned" type="Label" parent="FinishScreen/LeftContainer/Row1" unique_id=619067230]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "+50SP"
+label_settings = SubResource("LabelSettings_0limq")
+
+[node name="Row2" type="HBoxContainer" parent="FinishScreen/LeftContainer" unique_id=2024824548]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="FinishScreen/LeftContainer/Row2" unique_id=53833035]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Clues Found:"
+label_settings = SubResource("LabelSettings_3568o")
+
+[node name="Number" type="Label" parent="FinishScreen/LeftContainer/Row2" unique_id=1586322959]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "4"
+label_settings = SubResource("LabelSettings_3568o")
+
+[node name="PointsEarned" type="Label" parent="FinishScreen/LeftContainer/Row2" unique_id=1832522094]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "+50SP"
+label_settings = SubResource("LabelSettings_mjqds")
+
+[node name="CommentTitle" type="Label" parent="FinishScreen" unique_id=635694759]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3875
+anchor_top = 0.53333336
+anchor_right = 0.475
+anchor_bottom = 0.6
+text = "Comment"
+label_settings = SubResource("LabelSettings_8s8p8")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CommentContent" type="Label" parent="FinishScreen/CommentTitle" unique_id=1880421013]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.39
+anchor_top = 0.6956518
+anchor_right = 3.96
+anchor_bottom = 1.7391307
+text = "Good job. Keep it up."
+label_settings = SubResource("LabelSettings_og70j")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BonusPointsEarned" type="Label" parent="FinishScreen/CommentTitle" unique_id=1410038655]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.2857143
+anchor_top = 1.7499994
+anchor_right = 2.4285715
+anchor_bottom = 2.7083328
+text = "( +50 SP)"
+label_settings = SubResource("LabelSettings_k7q8k")
+metadata/_edit_use_anchors_ = true
+
+[node name="SecurityPoints" type="VBoxContainer" parent="FinishScreen" unique_id=959395908]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.73333335
+anchor_right = 0.6
+anchor_bottom = 0.84444445
+metadata/_edit_use_anchors_ = true
+
+[node name="SecurityPointsGained" type="HBoxContainer" parent="FinishScreen/SecurityPoints" unique_id=1123730265]
+layout_mode = 2
+
+[node name="SPName" type="Label" parent="FinishScreen/SecurityPoints/SecurityPointsGained" unique_id=1849696050]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Security Points: "
+label_settings = SubResource("LabelSettings_vyukb")
+
+[node name="SPGained" type="Label" parent="FinishScreen/SecurityPoints/SecurityPointsGained" unique_id=1088177691]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "+150SP"
+label_settings = SubResource("LabelSettings_d0l15")
+
+[node name="SecurityPointsWalletRow" type="HBoxContainer" parent="FinishScreen/SecurityPoints" unique_id=1810570319]
+layout_mode = 2
+
+[node name="CurrentSecurityPoints" type="Label" parent="FinishScreen/SecurityPoints/SecurityPointsWalletRow" unique_id=1928247087]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "100SP"
+label_settings = SubResource("LabelSettings_vyukb")
+
+[node name="LogsButton" type="Button" parent="FinishScreen" unique_id=1139695990]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.8888889
+anchor_right = 0.55
+anchor_bottom = 0.93333334
+size_flags_horizontal = 3
+theme = SubResource("Theme_xttc1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7wxf8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_24irc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j8muj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0limq")
+text = "CONTINUE
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Monologue" parent="." unique_id=1610582371 instance=ExtResource("13_hcl70")]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1105326432]
+libraries/ = SubResource("AnimationLibrary_og70j")
+
+[connection signal="pressed" from="FramePanel/MainPanel/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]
 [connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/LogsButton" to="." method="_on_logs_button_pressed"]
 [connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/ComputersButton" to="." method="_on_computers_button_pressed"]
@@ -188,4 +810,5 @@ texture = ExtResource("9_k7q8k")
 [connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/FilesButton" to="." method="_on_files_button_pressed"]
 [connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/NetButton" to="." method="_on_net_button_pressed"]
 [connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/ServersButton" to="." method="_on_servers_button_pressed"]
-[connection signal="pressed" from="FramePanel/MainPanel/ReportsButton" to="." method="_on_reports_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/ReportButton" to="." method="_on_report_button_pressed"]
+[connection signal="pressed" from="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/MarkClueButton" to="FramePanel/MainPanel/MainPanelAppView" method="_on_mark_clue_button_pressed"]

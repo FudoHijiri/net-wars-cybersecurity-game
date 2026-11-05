@@ -1,28 +1,16 @@
 extends CanvasLayer
 
-## Developer shortcuts that sit on top of every screen: jump between phases, complete the
-## current phase, mark clues, reset the game state. Autoloaded; it removes itself in
-## release builds. Press F9 to open it.
+## Developer shortcuts that sit on top of every screen: play any phase of the day, complete the current
+## phase, and change the game state. Autoloaded; it removes itself in release builds. Press F9 to open it.
 ##
-## The panel is allowed to read `is_clue`: that is a developer tool, never shown to players.
+## A screen adds its own shortcuts under THIS SCREEN by having two methods:
+##   debug_actions() -> Array   a list of [button text, Callable]
+##   debug_info() -> String     one line shown under the title (optional)
+## The panel is allowed to know the answers (is_clue and so on): it is a developer tool, never shown to players.
 
-const TRANSITION_SCENE := preload("res://AI generated/scenes/transition/PhaseTransition.tscn")
 const TITLE_MENU_SCENE := "res://scenes/menus/TitleMenu.tscn"
 const COLOR_LIGHT := Color("94b0c2")
-
-## Where to jump to. Scenes that don't exist yet are listed as disabled and switch on by
-## themselves once the file exists.
-const DESTINATIONS := [
-	["Title Menu", TITLE_MENU_SCENE],
-	["Stage Select", ""], # special: the title menu with the stage select showing
-	["Dialogue (day intro)", "res://scenes/gameplay/visual novel/Dialogue.tscn"],
-	["Investigation", "res://AI generated/scenes/investigation/Investigation.tscn"],
-	["Investigation (old)", "res://scenes/gameplay/investigation/Investigation.tscn"],
-	["Monitoring", "res://AI generated/scenes/monitoring/Monitoring.tscn"],
-	["Hardening", "res://scenes/gameplay/hardening/Hardening.tscn"],
-	["Response", "res://scenes/gameplay/response/Response.tscn"],
-	["Recovery", "res://scenes/gameplay/recovery/Recovery.tscn"],
-]
+const BONUS_POINTS := 100
 
 var _shown_scene: Node # the scene the action list was built for
 
@@ -59,43 +47,48 @@ func _process(_delta: float) -> void:
 
 func _rebuild() -> void:
 	_shown_scene = get_tree().current_scene
-	PhaseTransition.clear_children(_actions)
-	var path := _shown_scene.scene_file_path if _shown_scene != null else ""
-	_add_section("THIS PHASE")
-	if _shown_scene != null and _shown_scene.has_method("debug_complete"):
-		# the new Investigation brings its own shortcuts
-		_add_action("COMPLETE PHASE >", _call_on_scene.bind("debug_complete"))
-		_add_action("Find all clues", _call_on_scene.bind("debug_find_all_clues"))
-		_add_action("Clear all clues", _call_on_scene.bind("debug_clear_clues"))
-		_add_action("Open the report", _call_on_scene.bind("debug_open_report"))
-	elif path.ends_with("Investigation.tscn"):
-		_add_action("COMPLETE PHASE >", _complete_investigation)
-		_add_action("Mark all real clues", _mark_real_clues)
-		_add_action("Clear all marks", _clear_marks)
-	elif path.ends_with("Monitoring.tscn"):
-		_add_action("COMPLETE PHASE (perfect run) >", _complete_monitoring.bind(true))
-		_add_action("Skip to results (no reports) >", _complete_monitoring.bind(false))
+	for child in _actions.get_children():
+		_actions.remove_child(child)
+		child.queue_free()
+
+	_add_section("THIS SCREEN")
+	if _shown_scene != null and _shown_scene.has_method("debug_actions"):
+		for action: Array in _shown_scene.debug_actions():
+			_add_action(action[0], _run_and_close.bind(action[1]))
 	else:
-		_add_note("Nothing to complete on this screen.")
+		_add_note("Nothing to do on this screen.")
+
+	# Each phase of the current day: its dialogue first, as in the game, or the phase itself.
+	_add_section("PLAY A PHASE (DAY %d)" % GameState.current_day)
+	for phase in GameState.PHASES:
+		var info := GameState.phase_info(phase)
+		var has_dialogue := not str(info.get("dialogue", "")).is_empty()
+		var has_scene := not str(info.get("scene", "")).is_empty()
+		if not has_dialogue and not has_scene:
+			_add_action("%s (not built)" % phase.capitalize(), _play_phase.bind(phase, true), true)
+			continue
+		_add_action(phase.capitalize() + (" (dialogue)" if has_dialogue else ""), _play_phase.bind(phase, true))
+		if has_scene and has_dialogue:
+			_add_action("%s (skip dialogue)" % phase.capitalize(), _play_phase.bind(phase, false))
+
 	_add_section("GO TO")
-	for destination: Array in DESTINATIONS:
-		var target: String = destination[1]
-		var exists := target.is_empty() or ResourceLoader.exists(target)
-		_add_action(destination[0] if exists else "%s (not built)" % destination[0], _go_to.bind(target), not exists)
+	_add_action("Title Menu", _go_to.bind(TITLE_MENU_SCENE))
+	_add_action("Stage Select", SceneManager.load_stage_select.bind())
+
 	_add_section("GAME STATE")
-	_add_action("Reset game state", _reset_state)
+	_add_action("+%d Security Points" % BONUS_POINTS, _add_points.bind(BONUS_POINTS))
+	_add_action("Reset game state", GameState.reset_progress)
 	_refresh_info()
 
 
 func _refresh_info() -> void:
 	var scene_name := str(_shown_scene.name) if _shown_scene != null else "none"
+	var line := ""
 	if _shown_scene != null and _shown_scene.has_method("debug_info"):
-		_info.text = "SCENE: %s\n%s\nSECURITY POINTS: %d" % [scene_name, _shown_scene.debug_info(), GameState.security_points]
-		return
-	_info.text = "SCENE: %s\nMARKED: %d (%d real)   THREAT: %s\nSECURITY POINTS: %d" % [
-		scene_name, GameState.marked_count(), ReportLogic.real_clue_count(),
-		GameState.identified_threat if not GameState.identified_threat.is_empty() else "-",
-		GameState.security_points]
+		line = _shown_scene.debug_info()
+	var slot := "SLOT %d" % (SaveManager.current_slot + 1) if SaveManager.current_slot >= 0 else "NO SLOT"
+	_info.text = "%s   DAY %d: %s\n%s\nSECURITY POINTS: %d (%s)" % [
+		scene_name, GameState.current_day, GameState.current_phase, line, GameState.wallet(), slot]
 
 
 func _add_section(text: String) -> void:
@@ -123,55 +116,31 @@ func _add_action(text: String, action: Callable, disabled: bool = false) -> void
 	_actions.add_child(button)
 
 
+## Runs one of the screen's own actions, then closes the panel.
+func _run_and_close(action: Callable) -> void:
+	toggle()
+	action.call()
+
+
 func _go_to(path: String) -> void:
 	toggle()
-	if path.is_empty():
-		PhaseTransition.go_to_stage_select(get_tree())
+	SceneManager.load_scene(path)
+
+
+## Plays a phase of the current day, as the game would: its dialogue and then the phase, or the
+## phase scene alone.
+func _play_phase(phase: String, with_dialogue: bool) -> void:
+	toggle()
+	GameState.set_phase(phase)
+	if with_dialogue:
+		SceneManager.open_current_phase()
 	else:
-		SceneManager.load_scene(path)
+		SceneManager.load_scene(str(GameState.phase_info()["scene"]))
 
 
-## Calls one of the scene's own debug_* methods, then closes the panel.
-func _call_on_scene(method: String) -> void:
-	if _shown_scene != null and _shown_scene.has_method(method):
-		_shown_scene.call(method)
-	toggle()
-
-
-func _mark_real_clues() -> void:
-	var investigation: Dictionary = GameState.scenario.get("investigation", {})
-	for app: Dictionary in investigation.values():
-		for entry: Dictionary in app.get("entries", []):
-			if entry.get("is_clue", false):
-				GameState.set_marked(str(entry["id"]), true)
-
-
-func _clear_marks() -> void:
-	for id: String in GameState.marked_clues.keys():
-		GameState.marked_clues[id] = false
-	GameState.clues_changed.emit()
-
-
-## Same outcome as a correct report: save the evidence and threat, then show the card
-## that leads to the next phase.
-func _complete_investigation() -> void:
-	_mark_real_clues()
-	var threat := str(GameState.scenario.get("threat_name", ""))
-	GameState.investigation_evidence = ReportLogic.marked_ids()
-	GameState.identified_threat = threat
-	var card := TRANSITION_SCENE.instantiate() as PhaseTransition
-	get_tree().current_scene.add_child(card) # in the tree first, then setup
-	card.setup(ReportLogic.build_transition_data(threat))
-	toggle()
-
-
-func _complete_monitoring(perfect_run: bool) -> void:
-	var menu := get_tree().current_scene.get_node_or_null("%MonitoringMenu") as MonitoringMenu
-	if menu == null:
-		return
-	menu.debug_complete(perfect_run)
-	toggle()
-
-
-func _reset_state() -> void:
-	GameState.reset_progress()
+## Not saved to disk: it is saved with the next phase.
+func _add_points(amount: int) -> void:
+	var total := GameState.wallet() + amount
+	GameState.security_points = total
+	if SaveManager.current_slot >= 0:
+		SaveManager.data["security_points"] = total

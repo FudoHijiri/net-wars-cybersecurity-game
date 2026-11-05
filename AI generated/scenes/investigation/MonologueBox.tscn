@@ -1,9 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://d0ci27sogbegl"]
 
-[ext_resource type="Script" path="res://AI generated/scripts/investigation/monologue_box.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://oeyugbl0dbrx" path="res://AI generated/scripts/investigation/monologue_box.gd" id="1_script"]
 
-[node name="MonologueBox" type="Control"]
-visible = false
+[node name="MonologueBox" type="Control" unique_id=640197940]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Dim" type="ColorRect" parent="."]
+[node name="Dim" type="ColorRect" parent="." unique_id=1763726598]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -22,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.101960786, 0.10980392, 0.17254902, 0.45)
 
-[node name="Box" type="PanelContainer" parent="."]
+[node name="Box" type="PanelContainer" parent="." unique_id=1460750940]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
@@ -37,28 +36,28 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_type_variation = &"MonologuePanel"
 
-[node name="Content" type="VBoxContainer" parent="Box"]
+[node name="Content" type="VBoxContainer" parent="Box" unique_id=398887260]
 layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="Speaker" type="Label" parent="Box/Content"]
+[node name="Speaker" type="Label" parent="Box/Content" unique_id=1650156218]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"SpeakerLabel"
 
-[node name="Text" type="RichTextLabel" parent="Box/Content"]
+[node name="Text" type="RichTextLabel" parent="Box/Content" unique_id=1787293009]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 2
 size_flags_vertical = 3
-theme_type_variation = &"MonologueText"
 focus_mode = 0
+mouse_filter = 2
+theme_type_variation = &"MonologueText"
 scroll_active = false
 
-[node name="Foot" type="HBoxContainer" parent="Box/Content"]
+[node name="Foot" type="HBoxContainer" parent="Box/Content" unique_id=1369019602]
 layout_mode = 2
 
-[node name="Hint" type="Label" parent="Box/Content/Foot"]
+[node name="Hint" type="Label" parent="Box/Content/Foot" unique_id=74259682]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -66,7 +65,7 @@ size_flags_vertical = 1
 theme_type_variation = &"HintLabel"
 vertical_alignment = 1
 
-[node name="ContinueButton" type="Button" parent="Box/Content/Foot"]
+[node name="ContinueButton" type="Button" parent="Box/Content/Foot" unique_id=460838375]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"MonologueButton"

@@ -1,10 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://1638cvcrlx73"]
 
-[ext_resource type="Script" path="res://AI generated/scripts/investigation/case_report.gd" id="1_script"]
-[ext_resource type="Theme" path="res://AI generated/scenes/investigation/case_theme.tres" id="2_theme"]
+[ext_resource type="Script" uid="uid://cmd86230jtab7" path="res://AI generated/scripts/investigation/case_report.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bnb1cms8vhegq" path="res://AI generated/scenes/investigation/case_theme.tres" id="2_theme"]
 
-[node name="CaseReport" type="Control"]
-visible = false
+[node name="CaseReport" type="Control" unique_id=1436811096]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +13,7 @@ grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("1_script")
 
-[node name="Dim" type="ColorRect" parent="."]
+[node name="Dim" type="ColorRect" parent="." unique_id=2073297175]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.101960786, 0.10980392, 0.17254902, 0.8)
 
-[node name="Window" type="PanelContainer" parent="."]
+[node name="Window" type="PanelContainer" parent="." unique_id=906946066]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,14 +36,14 @@ grow_vertical = 2
 mouse_filter = 1
 theme_type_variation = &"WindowPanel"
 
-[node name="Content" type="VBoxContainer" parent="Window"]
+[node name="Content" type="VBoxContainer" parent="Window" unique_id=65981132]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="TitleRow" type="HBoxContainer" parent="Window/Content"]
+[node name="TitleRow" type="HBoxContainer" parent="Window/Content" unique_id=1471381937]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="Window/Content/TitleRow"]
+[node name="TitleLabel" type="Label" parent="Window/Content/TitleRow" unique_id=1339656293]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -52,62 +51,62 @@ size_flags_vertical = 1
 theme_type_variation = &"HeadingLabel"
 vertical_alignment = 1
 
-[node name="BackButton" type="Button" parent="Window/Content/TitleRow"]
+[node name="BackButton" type="Button" parent="Window/Content/TitleRow" unique_id=1962183402]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="TopRow" type="HBoxContainer" parent="Window/Content"]
+[node name="TopRow" type="HBoxContainer" parent="Window/Content" unique_id=628228935]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="NotesPanel" type="PanelContainer" parent="Window/Content/TopRow"]
+[node name="NotesPanel" type="PanelContainer" parent="Window/Content/TopRow" unique_id=149511268]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 mouse_filter = 1
 theme_type_variation = &"DarkPanel"
 
-[node name="NotesBox" type="VBoxContainer" parent="Window/Content/TopRow/NotesPanel"]
+[node name="NotesBox" type="VBoxContainer" parent="Window/Content/TopRow/NotesPanel" unique_id=2142522932]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="NotesTitle" type="Label" parent="Window/Content/TopRow/NotesPanel/NotesBox"]
+[node name="NotesTitle" type="Label" parent="Window/Content/TopRow/NotesPanel/NotesBox" unique_id=519521691]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"HeadingLabel"
 
-[node name="NotesList" type="VBoxContainer" parent="Window/Content/TopRow/NotesPanel/NotesBox"]
+[node name="NotesList" type="VBoxContainer" parent="Window/Content/TopRow/NotesPanel/NotesBox" unique_id=577613740]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="StoryPanel" type="PanelContainer" parent="Window/Content/TopRow"]
+[node name="StoryPanel" type="PanelContainer" parent="Window/Content/TopRow" unique_id=366440600]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_type_variation = &"DarkPanel"
 
-[node name="StoryBox" type="VBoxContainer" parent="Window/Content/TopRow/StoryPanel"]
+[node name="StoryBox" type="VBoxContainer" parent="Window/Content/TopRow/StoryPanel" unique_id=1546851077]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="StoryFlow" type="HFlowContainer" parent="Window/Content/TopRow/StoryPanel/StoryBox"]
+[node name="StoryFlow" type="HFlowContainer" parent="Window/Content/TopRow/StoryPanel/StoryBox" unique_id=754437256]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 4
 theme_override_constants/v_separation = 8
 
-[node name="MessageBar" type="PanelContainer" parent="Window/Content"]
+[node name="MessageBar" type="PanelContainer" parent="Window/Content" unique_id=634555786]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 mouse_filter = 1
 theme_type_variation = &"MessagePanel"
 
-[node name="MessageRow" type="HBoxContainer" parent="Window/Content/MessageBar"]
+[node name="MessageRow" type="HBoxContainer" parent="Window/Content/MessageBar" unique_id=1296702801]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="MessageIcon" type="Label" parent="Window/Content/MessageBar/MessageRow"]
+[node name="MessageIcon" type="Label" parent="Window/Content/MessageBar/MessageRow" unique_id=1504645612]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
@@ -115,7 +114,7 @@ theme_type_variation = &"HeadingLabel"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MessageText" type="Label" parent="Window/Content/MessageBar/MessageRow"]
+[node name="MessageText" type="Label" parent="Window/Content/MessageBar/MessageRow" unique_id=359784772]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -123,31 +122,31 @@ theme_type_variation = &"BodyLabel"
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="TrayPanel" type="PanelContainer" parent="Window/Content"]
+[node name="TrayPanel" type="PanelContainer" parent="Window/Content" unique_id=330448384]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 theme_type_variation = &"DarkPanel"
 
-[node name="TrayBox" type="VBoxContainer" parent="Window/Content/TrayPanel"]
+[node name="TrayBox" type="VBoxContainer" parent="Window/Content/TrayPanel" unique_id=1478055346]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="WordsTitle" type="Label" parent="Window/Content/TrayPanel/TrayBox"]
+[node name="WordsTitle" type="Label" parent="Window/Content/TrayPanel/TrayBox" unique_id=959601760]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"HeadingLabel"
 
-[node name="TrayFlow" type="HFlowContainer" parent="Window/Content/TrayPanel/TrayBox"]
+[node name="TrayFlow" type="HFlowContainer" parent="Window/Content/TrayPanel/TrayBox" unique_id=1527310370]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 6
 theme_override_constants/v_separation = 6
 
-[node name="FootRow" type="HBoxContainer" parent="Window/Content"]
+[node name="FootRow" type="HBoxContainer" parent="Window/Content" unique_id=474560880]
 layout_mode = 2
 
-[node name="HelpLabel" type="Label" parent="Window/Content/FootRow"]
+[node name="HelpLabel" type="Label" parent="Window/Content/FootRow" unique_id=1783927300]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -156,6 +155,6 @@ theme_type_variation = &"MutedBodyLabel"
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="SubmitButton" type="Button" parent="Window/Content/FootRow"]
+[node name="SubmitButton" type="Button" parent="Window/Content/FootRow" unique_id=797973863]
 unique_name_in_owner = true
 layout_mode = 2

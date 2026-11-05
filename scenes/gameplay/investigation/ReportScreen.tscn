@@ -1,0 +1,302 @@
+[gd_scene format=3 uid="uid://dp4jll5i4fg3j"]
+
+[ext_resource type="Texture2D" uid="uid://pry0okj8q6x1" path="res://assets/ui/Server Panel Inside 2.png" id="1_mat0b"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="2_7wr0k"]
+[ext_resource type="Texture2D" uid="uid://t26hmnng47qj" path="res://assets/ui/Pause Icon.png" id="3_8wbef"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="4_vgd5u"]
+[ext_resource type="Texture2D" uid="uid://ckhs6ajdsqlfl" path="res://assets/ui/Investigation Icon.png" id="5_s8jo8"]
+[ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="8_gu6oc"]
+[ext_resource type="Script" uid="uid://436oop3ea01s" path="res://scripts/gameplay/investigation/report_screen.gd" id="9_report"]
+
+[sub_resource type="Theme" id="Theme_gihur"]
+default_font = ExtResource("2_7wr0k")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_3i0pr"]
+default_font = ExtResource("4_vgd5u")
+default_font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eymvu"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u66q6"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fov32"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mdmqo"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3568o"]
+font = ExtResource("4_vgd5u")
+font_size = 6
+font_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xttc1"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xttc1"]
+font = ExtResource("8_gu6oc")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_rjwuq"]
+font = ExtResource("8_gu6oc")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_hfbin"]
+font = ExtResource("8_gu6oc")
+
+[sub_resource type="LabelSettings" id="LabelSettings_njh8i"]
+font = ExtResource("8_gu6oc")
+font_size = 8
+
+[node name="ReportScreen" type="Control" unique_id=604311390]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_report")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=371423280]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.54901963)
+
+[node name="MainPanel" type="NinePatchRect" parent="." unique_id=1053841830]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0125
+anchor_top = 0.022222223
+anchor_right = 0.9875
+anchor_bottom = 0.9777778
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_mat0b")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 4
+patch_margin_top = 27
+patch_margin_right = 4
+patch_margin_bottom = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Objective" type="RichTextLabel" parent="MainPanel" unique_id=1803608692]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03821656
+anchor_top = 0.011594203
+anchor_right = 0.9102564
+anchor_bottom = 0.06976744
+theme = SubResource("Theme_gihur")
+theme_override_colors/default_color = Color(1, 0.8039216, 0.45882353, 1)
+text = "OBJECTIVE - FINISH THE INVESTIGATION REPORT BY ARRANGING THE CORRECT CLUES"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseButton" type="TextureButton" parent="MainPanel" unique_id=1313673941]
+layout_mode = 0
+anchor_left = 0.9633758
+anchor_top = 0.017391304
+anchor_right = 0.99044585
+anchor_bottom = 0.06666667
+texture_normal = ExtResource("3_8wbef")
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="FinishReportButton" type="Button" parent="MainPanel" unique_id=833455327]
+layout_mode = 0
+anchor_left = 0.8333333
+anchor_top = 0.90697676
+anchor_right = 0.9823718
+anchor_bottom = 0.98255813
+offset_right = -2.0
+theme = SubResource("Theme_3i0pr")
+theme_override_fonts/font = ExtResource("2_7wr0k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_eymvu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u66q6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fov32")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mdmqo")
+text = "SUBMIT REPORT"
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="MainPanel" unique_id=1398384648]
+layout_mode = 0
+anchor_left = 0.009615385
+anchor_top = 0.017441861
+anchor_right = 0.035256412
+anchor_bottom = 0.06395349
+texture = ExtResource("5_s8jo8")
+metadata/_edit_use_anchors_ = true
+
+[node name="Hint" type="Label" parent="MainPanel" unique_id=115097510]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025641026
+anchor_top = 0.90697676
+anchor_right = 0.8141026
+anchor_bottom = 0.9738372
+offset_right = -4.0000305
+text = "Select and drag the clues to the correct blank spaces in the case. You can use keyboard to select."
+label_settings = SubResource("LabelSettings_3568o")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ClueWords" type="Panel" parent="MainPanel" unique_id=849459014]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.012820511
+anchor_top = 0.6976744
+anchor_right = 0.98717946
+anchor_bottom = 0.8988204
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
+metadata/_edit_use_anchors_ = true
+
+[node name="ClueWordsTitle" type="Label" parent="MainPanel/ClueWords" unique_id=21741491]
+layout_mode = 0
+anchor_left = 0.004934212
+anchor_top = 0.043356437
+anchor_right = 0.13651316
+anchor_bottom = 0.15897301
+text = "Clue Words"
+label_settings = SubResource("LabelSettings_xttc1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ClueBox" type="VBoxContainer" parent="MainPanel/ClueWords" unique_id=288919992]
+layout_mode = 0
+anchor_left = 0.008223685
+anchor_top = 0.1734251
+anchor_right = 0.9917763
+anchor_bottom = 0.953837
+metadata/_edit_use_anchors_ = true
+
+[node name="Clues" type="HFlowContainer" parent="MainPanel/ClueWords/ClueBox" unique_id=591601879]
+layout_mode = 2
+
+[node name="Notes" type="Panel" parent="MainPanel" unique_id=262150154]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.012820511
+anchor_top = 0.09302327
+anchor_right = 0.2948718
+anchor_bottom = 0.53488374
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
+metadata/_edit_use_anchors_ = true
+
+[node name="NotesTitle" type="Label" parent="MainPanel/Notes" unique_id=1436204453]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01704546
+anchor_top = 0.019736817
+anchor_right = 0.24431819
+anchor_bottom = 0.0723684
+text = "Notes"
+label_settings = SubResource("LabelSettings_rjwuq")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPanel/Notes" unique_id=2044359827]
+layout_mode = 0
+anchor_left = 0.028409095
+anchor_top = 0.07894734
+anchor_right = 0.97159094
+anchor_bottom = 0.9802632
+theme_override_fonts/normal_font = ExtResource("4_vgd5u")
+theme_override_font_sizes/normal_font_size = 6
+text = "- Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+- Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+- Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+- Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+metadata/_edit_use_anchors_ = true
+
+[node name="Case" type="Panel" parent="MainPanel" unique_id=549665797]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.30769232
+anchor_top = 0.09302327
+anchor_right = 0.9871796
+anchor_bottom = 0.53488374
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
+metadata/_edit_use_anchors_ = true
+
+[node name="CaseVBoxContainer" type="VBoxContainer" parent="MainPanel/Case" unique_id=1013692114]
+layout_mode = 0
+anchor_left = 0.011792451
+anchor_top = 0.019736817
+anchor_right = 0.9882074
+anchor_bottom = 0.9802632
+metadata/_edit_use_anchors_ = true
+
+[node name="HFlowContainer" type="HFlowContainer" parent="MainPanel/Case/CaseVBoxContainer" unique_id=1790849587]
+layout_mode = 2
+
+[node name="Helper" type="Panel" parent="MainPanel" unique_id=1695277031]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.012820511
+anchor_top = 0.55813956
+anchor_right = 0.98717946
+anchor_bottom = 0.6744186
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
+metadata/_edit_use_anchors_ = true
+
+[node name="HelperRow" type="HBoxContainer" parent="MainPanel/Helper" unique_id=187731933]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013157897
+anchor_top = 0.19999962
+anchor_right = 0.9868421
+anchor_bottom = 0.7999996
+metadata/_edit_use_anchors_ = true
+
+[node name="MessageIcon" type="Label" parent="MainPanel/Helper/HelperRow" unique_id=884685681]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "?"
+label_settings = SubResource("LabelSettings_hfbin")
+
+[node name="MessageContent" type="Label" parent="MainPanel/Helper/HelperRow" unique_id=1725362075]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "That doesn't seem right"
+label_settings = SubResource("LabelSettings_njh8i")

@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cd4swcir106gx"]
 
 [ext_resource type="Script" uid="uid://bgeho30c01x14" path="res://scripts/menus/title_menu.gd" id="1_qscjq"]
+[ext_resource type="PackedScene" uid="uid://dex7orhihby8b" path="res://scenes/menus/SaveSelect.tscn" id="8_qscjq"]
 [ext_resource type="PackedScene" uid="uid://lfblfvkjhc36" path="res://scenes/menus/StageSelect.tscn" id="10_hfivi"]
+[ext_resource type="PackedScene" uid="uid://dlhv7jwuixgfb" path="res://scenes/menus/BookArchive.tscn" id="11_c17wx"]
 [ext_resource type="Texture2D" uid="uid://c5gnrru1dx408" path="res://assets/background/City/1.png" id="14_5cp2e"]
 [ext_resource type="Texture2D" uid="uid://bm4crxkyifler" path="res://assets/background/City/2.png" id="15_taitg"]
 [ext_resource type="Texture2D" uid="uid://b63bhf8bklhpt" path="res://assets/background/City/3.png" id="16_7ykrv"]
@@ -101,7 +103,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("VBoxContainer:offset_transform_position")
+tracks/4/path = NodePath("VBoxContainer/PlayButton:offset_transform_position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -113,7 +115,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("VBoxContainer/PlayButton:offset_transform_position")
+tracks/5/path = NodePath("VBoxContainer/SettingsButton:offset_transform_position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -125,7 +127,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("VBoxContainer/SettingsButton:offset_transform_position")
+tracks/6/path = NodePath("VBoxContainer/ExitButton:offset_transform_position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -137,7 +139,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("VBoxContainer/ExitButton:offset_transform_position")
+tracks/7/path = NodePath("ExitConfirmation:offset_transform_position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -149,7 +151,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("ExitConfirmation:offset_transform_position")
+tracks/8/path = NodePath("BookArchive:offset_transform_position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -157,6 +159,45 @@ tracks/8/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("SaveSelect:offset_transform_position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(536.15, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qscjq"]
+resource_name = "book_archive_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookArchive:offset_transform_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.16666667, 1),
+"transitions": PackedFloat32Array(3, 10),
+"update": 0,
+"values": [Vector2(-640, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StageSelect:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(-3, 10),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(640, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ysex8"]
@@ -176,110 +217,128 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_7ykrv"]
-resource_name = "Stage_Select_Animation"
-length = 0.5
+resource_name = "save_select_animation"
+length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("StageSelect:offset_transform_position")
+tracks/0/path = NodePath("NET:offset_transform_position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 10.196476),
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(-3, 10.01),
 "update": 0,
-"values": [Vector2(590.025, 0), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(-680.23, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("NET:offset_transform_position")
+tracks/1/path = NodePath("WARS:offset_transform_position")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 10.01),
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(-3, 0.08974203),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-400.685, 0)]
+"values": [Vector2(0, 0), Vector2(-680.23, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("WARS:offset_transform_position")
+tracks/2/path = NodePath("CreditsButton:offset_transform_position")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 0.08974203),
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(-3, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-400.685, 0)]
+"values": [Vector2(0, 0), Vector2(-680.23, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CreditsButton:offset_transform_position")
+tracks/3/path = NodePath("VBoxContainer/PlayButton:offset_transform_position")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(-3, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-400.685, 0)]
+"values": [Vector2(0, 0), Vector2(-680.23, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("VBoxContainer:offset_transform_position")
+tracks/4/path = NodePath("VBoxContainer/SettingsButton:offset_transform_position")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(-3, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-2, 0)]
+"values": [Vector2(0, 0), Vector2(-680.23, 0)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("VBoxContainer/PlayButton:offset_transform_position")
+tracks/5/path = NodePath("VBoxContainer/ExitButton:offset_transform_position")
 tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(-3, 5),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-400.685, 0)]
+"values": [Vector2(0, 0), Vector2(-680.23, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("VBoxContainer/SettingsButton:offset_transform_position")
+tracks/6/path = NodePath("SaveSelect:offset_transform_position")
 tracks/6/interp = 2
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(4, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-400.685, 0)]
+"values": [Vector2(536.15, 0), Vector2(0, 0)]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("VBoxContainer/ExitButton:offset_transform_position")
-tracks/7/interp = 2
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+
+[sub_resource type="Animation" id="Animation_anjp0"]
+resource_name = "stage_select_animation"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SaveSelect:offset_transform_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(-3, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-400.685, 0)]
+"values": [Vector2(0, 0), Vector2(-680, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StageSelect:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(4, 1),
+"update": 0,
+"values": [Vector2(640, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hfivi"]
 _data = {
 &"RESET": SubResource("Animation_taitg"),
+&"book_archive_animation": SubResource("Animation_qscjq"),
 &"exit_confirmation": SubResource("Animation_ysex8"),
-&"stage_select_animation": SubResource("Animation_7ykrv")
+&"save_select_animation": SubResource("Animation_7ykrv"),
+&"stage_select_animation": SubResource("Animation_anjp0")
 }
 
 [node name="TitleMenu" type="Node" unique_id=606655730]
@@ -393,7 +452,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "Credits
 "
-metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContent" unique_id=116645702]
 layout_mode = 0
@@ -402,7 +460,7 @@ anchor_top = 0.48055556
 anchor_right = 0.55625
 anchor_bottom = 0.68333334
 offset_transform_enabled = true
-metadata/_edit_use_anchors_ = true
+offset_transform_position = Vector2(-2, 0)
 
 [node name="PlayButton" type="Button" parent="MainContent/VBoxContainer" unique_id=1723912709]
 layout_mode = 2
@@ -441,18 +499,14 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "EXIT
 "
 
-[node name="StageSelect" parent="MainContent" unique_id=1292606746 instance=ExtResource("10_hfivi")]
-visible = false
+[node name="SaveSelect" parent="MainContent" unique_id=1292606746 instance=ExtResource("8_qscjq")]
+layout_mode = 1
+offset_transform_enabled = true
+offset_transform_position = Vector2(536.15, 0)
+
+[node name="StageSelect" parent="MainContent" unique_id=1854193022 instance=ExtResource("10_hfivi")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.05
-anchor_top = -0.11111111
-anchor_right = 0.95
-anchor_bottom = 0.8888889
-offset_left = 32.0
-offset_top = 40.0
-offset_right = 32.0
-offset_bottom = 40.0
 grow_horizontal = 1
 grow_vertical = 1
 offset_transform_enabled = true
@@ -515,6 +569,10 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_rjwuq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "NO"
+
+[node name="BookArchive" parent="MainContent" unique_id=771970757 instance=ExtResource("11_c17wx")]
+layout_mode = 1
+offset_transform_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MainContent" unique_id=911817797]
 libraries/ = SubResource("AnimationLibrary_hfivi")

@@ -1,0 +1,42 @@
+{
+	"start": {
+		"text": "The shift is over. I watched every sign-in, and the logs are quiet for now.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Ring ring...*",
+		"name": "Phone",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "Joshua here.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "It's Carla. Good work tonight. But quiet doesn't mean safe. They will come back, and they will not make the same mistake twice.",
+		"name": "Carla",
+		"art": "Phone",
+		"next": "D"
+	},
+	"D": {
+		"text": "So let's get ready before they do. Use the Security Points you earned to [b][color=green]harden[/color][/b] our defenses.",
+		"name": "Carla",
+		"art": "Phone",
+		"next": "E"
+	},
+	"E": {
+		"text": "Understood. Better defenses now means a better night later.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

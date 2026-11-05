@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cfm47beknpx04"]
 
+[ext_resource type="Script" uid="uid://f0danub0mc5v" path="res://scripts/gameplay/pause_menu.gd" id="1_ctnjq"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="1_ki4rk"]
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="2_ctnjq"]
 [ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="3_orvq2"]
@@ -65,7 +66,13 @@ border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3uoxj"]
 bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_tn0xk"]
+font = ExtResource("1_ki4rk")
+font_size = 6
+font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
 [node name="PauseMenu" type="CanvasLayer" unique_id=1418091602]
+script = ExtResource("1_ctnjq")
 
 [node name="Screen" type="Control" parent="." unique_id=796299987]
 layout_mode = 3
@@ -87,39 +94,48 @@ grow_vertical = 2
 color = Color(0.101960786, 0.10980392, 0.17254902, 0.7)
 
 [node name="Window" type="Panel" parent="Screen" unique_id=1801110728]
-layout_mode = 0
-offset_left = 230.0
-offset_top = 92.0
-offset_right = 410.0
-offset_bottom = 268.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.359375
+anchor_top = 0.2888889
+anchor_right = 0.640625
+anchor_bottom = 0.7638889
 theme_override_styles/panel = SubResource("StyleBoxFlat_kqmgt")
+metadata/_edit_use_anchors_ = true
 
 [node name="TitleBar" type="Panel" parent="Screen/Window" unique_id=1158093365]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 178.0
-offset_bottom = 25.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011111111
+anchor_top = 0.011363637
+anchor_right = 0.98888886
+anchor_bottom = 0.15789469
 theme_override_styles/panel = SubResource("StyleBoxFlat_3uoxj")
+metadata/_edit_use_anchors_ = true
 
 [node name="TitleLabel" type="Label" parent="Screen/Window/TitleBar" unique_id=1362202230]
-layout_mode = 0
-offset_right = 176.0
-offset_bottom = 20.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.1666667
+offset_bottom = -4.0
 theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("2_ctnjq")
 theme_override_font_sizes/font_size = 12
 text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Buttons" type="VBoxContainer" parent="Screen/Window" unique_id=1006821721]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 32.0
-offset_right = 166.0
-offset_bottom = 150.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07777778
+anchor_top = 0.19298239
+anchor_right = 0.9222222
+anchor_bottom = 0.81286544
 theme_override_constants/separation = 6
+metadata/_edit_use_anchors_ = true
 
 [node name="ResumeButton" type="Button" parent="Screen/Window/Buttons" unique_id=1060243721]
 custom_minimum_size = Vector2(0, 22)
@@ -131,25 +147,32 @@ custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 text = "SETTINGS"
 
-[node name="StageSelectButton" type="Button" parent="Screen/Window/Buttons" unique_id=2108528905]
+[node name="BackToStageSelectButton" type="Button" parent="Screen/Window/Buttons" unique_id=1105661174]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
-text = "STAGE SELECT"
+text = "BACK TO STAGE SELECT"
 
-[node name="MainMenuButton" type="Button" parent="Screen/Window/Buttons" unique_id=1668918681]
+[node name="BackToTitleButton" type="Button" parent="Screen/Window/Buttons" unique_id=1668918681]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
-text = "MAIN MENU"
+text = "BACK TO TITLE"
 
 [node name="HintLabel" type="Label" parent="Screen/Window" unique_id=514333195]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 154.0
-offset_right = 174.0
-offset_bottom = 170.0
+anchor_left = 0.033333335
+anchor_top = 0.875
+anchor_right = 0.96666664
+anchor_bottom = 0.96590906
 theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
 theme_override_fonts/font = ExtResource("3_orvq2")
 theme_override_font_sizes/font_size = 16
 text = "Esc to resume"
+label_settings = SubResource("LabelSettings_tn0xk")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Screen/Window/Buttons/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Screen/Window/Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Screen/Window/Buttons/BackToStageSelectButton" to="." method="_on_back_to_stage_select_button_pressed"]
+[connection signal="pressed" from="Screen/Window/Buttons/BackToTitleButton" to="." method="_on_back_to_title_button_pressed"]

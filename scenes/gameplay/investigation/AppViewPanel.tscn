@@ -3,8 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://hjg0guptw8ib" path="res://assets/ui/Blank Panel.png" id="1_18nj0"]
 [ext_resource type="Script" uid="uid://iced0phhadvj" path="res://scripts/gameplay/investigation/app_view_panel.gd" id="1_tqsl7"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="2_odnro"]
-[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_ew880"]
-[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="4_tqsl7"]
+[ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="4_ew880"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jljd"]
 bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
@@ -50,11 +49,12 @@ bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
 bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
 
 [sub_resource type="Theme" id="Theme_uyhkn"]
-default_font = ExtResource("3_ew880")
-default_font_size = 6
+default_font = ExtResource("4_ew880")
+default_font_size = 8
 
 [sub_resource type="Theme" id="Theme_rjwuq"]
-default_font = ExtResource("4_tqsl7")
+default_font = ExtResource("2_odnro")
+default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_6ytef"]
 default_font = ExtResource("2_odnro")
@@ -84,30 +84,30 @@ border_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
 
 [node name="AppViewPanel" type="Control" unique_id=1432646798]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = -11.0
-offset_right = 4.0
-offset_bottom = -11.0
+anchor_right = 0.98125
+anchor_bottom = 0.9583333
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tqsl7")
+metadata/_edit_use_anchors_ = true
 
 [node name="MainPanelAppView" type="NinePatchRect" parent="." unique_id=1176803971]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 55.0
-offset_right = 618.0
-offset_bottom = 334.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.18611111
+anchor_right = 0.975
+anchor_bottom = 0.95555556
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_18nj0")
 
 [node name="Panel" type="Panel" parent="MainPanelAppView" unique_id=1904971353]
 layout_mode = 0
-offset_right = 608.0
-offset_bottom = 20.0
+anchor_right = 1.0
+anchor_bottom = 0.07168459
 theme_override_styles/panel = SubResource("StyleBoxFlat_4jljd")
+metadata/_edit_use_anchors_ = true
 
 [node name="Title" type="RichTextLabel" parent="MainPanelAppView/Panel" unique_id=912362013]
 unique_name_in_owner = true
@@ -122,26 +122,29 @@ vertical_alignment = 1
 
 [node name="Guide" type="RichTextLabel" parent="MainPanelAppView/Panel" unique_id=319036805]
 layout_mode = 0
-offset_left = 482.0
-offset_right = 602.0
-offset_bottom = 20.0
+anchor_left = 0.79835737
+anchor_top = -0.010948181
+anchor_right = 0.9994972
+anchor_bottom = 1.0400643
 theme = SubResource("Theme_3568o")
 text = "Click a row to inspect it "
 scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="HSplitContainer" type="HSplitContainer" parent="MainPanelAppView" unique_id=825764364]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 20.0
-offset_right = 608.0
-offset_bottom = 279.0
+anchor_left = 0.0016447369
+anchor_top = 0.07168459
+anchor_right = 1.0
+anchor_bottom = 1.0
 theme_override_constants/separation = 0
 theme_override_styles/split_bar_background = SubResource("StyleBoxLine_odnro")
 split_offsets = PackedInt32Array(375)
 dragging_enabled = false
 split_offset = 375
+metadata/_edit_use_anchors_ = true
 
 [node name="Left" type="Panel" parent="MainPanelAppView/HSplitContainer" unique_id=565276336]
 layout_mode = 2

@@ -1,8 +1,44 @@
 [gd_scene format=3 uid="uid://dlhv7jwuixgfb"]
 
 [ext_resource type="Texture2D" uid="uid://baldap6bommpj" path="res://assets/spritesheet/Book/RADL_Book.png" id="1_icjlm"]
+[ext_resource type="Script" uid="uid://coove8ekl1ai1" path="res://scripts/menus/book_archive.gd" id="1_ts6uy"]
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="2_ts6uy"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="3_rtst2"]
+[ext_resource type="Texture2D" uid="uid://dop70er6hvpmc" path="res://assets/ui/Back Icon.png" id="5_rtst2"]
+[ext_resource type="Texture2D" uid="uid://cu8d5sfh1ksf" path="res://assets/ui/Back Icon Pressed.png" id="6_tn0xk"]
+[ext_resource type="Texture2D" uid="uid://br4b6ntbpoe53" path="res://assets/ui/Back Icon Hover.png" id="7_6uwa4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tn0xk"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(1140, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uwa4"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(950, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tw6yk"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(760, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a44i6"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(570, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnf6a"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(760, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iffjg"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(950, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oia8q"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(1140, 0, 190, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tt67q"]
+atlas = ExtResource("1_icjlm")
+region = Rect2(570, 0, 190, 160)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bl13t"]
 atlas = ExtResource("1_icjlm")
@@ -22,6 +58,40 @@ region = Rect2(570, 0, 190, 160)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3568o"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tn0xk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6uwa4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tw6yk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a44i6")
+}],
+"loop": 0,
+"name": &"BackPage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnf6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iffjg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oia8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tt67q")
+}],
+"loop": 0,
+"name": &"NextPage",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bl13t")
@@ -88,26 +158,46 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0, 0, 0, 0.1254902)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4ec8"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
 border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j5jx5"]
-bg_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4ec8"]
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 0.29803923)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
 
-[node name="BookArchive" type="Node" unique_id=621958137]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j5jx5"]
+bg_color = Color(0.95686275, 0.95686275, 0.95686275, 0.18039216)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_orvq2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_medfo"]
+atlas = ExtResource("6_tn0xk")
+region = Rect2(0, 0, 8, 9)
+margin = Rect2(0, 1.135, 0, 0)
+
+[node name="BookArchive" type="Control" unique_id=1406081307]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ts6uy")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=2067988582]
 
-[node name="BookOpeningAnimation" type="AnimatedSprite2D" parent="Node2D" unique_id=1620421418]
+[node name="BookAnimation" type="AnimatedSprite2D" parent="Node2D" unique_id=1620421418]
 position = Vector2(320, 168.99998)
 scale = Vector2(3.368421, 2.8000002)
 sprite_frames = SubResource("SpriteFrames_3568o")
-autoplay = "default"
-frame = 3
-frame_progress = 1.0
 
 [node name="NextPageAnimation" type="AnimatedSprite2D" parent="Node2D" unique_id=146523505]
 visible = false
@@ -117,17 +207,15 @@ sprite_frames = SubResource("SpriteFrames_xttc1")
 frame = 3
 frame_progress = 1.0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1597226856]
-
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=644981580]
-layout_mode = 3
+[node name="Content" type="Control" parent="." unique_id=644981580]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="CanvasLayer/Control" unique_id=1344877432]
+[node name="Title" type="Label" parent="Content" unique_id=1344877432]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.215625
@@ -143,14 +231,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control" unique_id=1762159463]
+[node name="VBoxContainer" type="VBoxContainer" parent="Content" unique_id=1762159463]
 layout_mode = 0
-offset_left = 95.0
-offset_top = 66.0
-offset_right = 272.0
-offset_bottom = 275.0
+anchor_left = 0.1484375
+anchor_top = 0.18333334
+anchor_right = 0.425
+anchor_bottom = 0.7638889
+metadata/_edit_use_anchors_ = true
 
-[node name="Label1" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=1517649544]
+[node name="CredentialThreat" type="Button" parent="Content/VBoxContainer" unique_id=1517649544]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_rtst2")
@@ -158,9 +247,11 @@ theme_override_font_sizes/font_size = 6
 theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_orvq2")
 text = "Credential Threat"
 
-[node name="Label2" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=1626123278]
+[node name="Malware" type="Button" parent="Content/VBoxContainer" unique_id=1626123278]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_rtst2")
@@ -168,9 +259,11 @@ theme_override_font_sizes/font_size = 6
 theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_orvq2")
 text = "Malware"
 
-[node name="Label3" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=89932782]
+[node name="Ransomware" type="Button" parent="Content/VBoxContainer" unique_id=89932782]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_rtst2")
@@ -178,9 +271,11 @@ theme_override_font_sizes/font_size = 6
 theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_orvq2")
 text = "Ransomware"
 
-[node name="Label4" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=2044046289]
+[node name="InsiderThreat" type="Button" parent="Content/VBoxContainer" unique_id=2044046289]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_rtst2")
@@ -188,9 +283,11 @@ theme_override_font_sizes/font_size = 6
 theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_orvq2")
 text = "Insider Threat"
 
-[node name="Label5" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=321529912]
+[node name="DataExfiltration" type="Button" parent="Content/VBoxContainer" unique_id=321529912]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_rtst2")
@@ -198,9 +295,11 @@ theme_override_font_sizes/font_size = 6
 theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_orvq2")
 text = "Data Exfiltration"
 
-[node name="Label6" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=1792571353]
+[node name="DDoS" type="Button" parent="Content/VBoxContainer" unique_id=1792571353]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_rtst2")
@@ -208,9 +307,11 @@ theme_override_font_sizes/font_size = 6
 theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_orvq2")
 text = "Distributed Denial-of-Service"
 
-[node name="Label7" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=774488045]
+[node name="Phishing" type="Button" parent="Content/VBoxContainer" unique_id=774488045]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_rtst2")
@@ -218,9 +319,11 @@ theme_override_font_sizes/font_size = 6
 theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_orvq2")
 text = "Phishing"
 
-[node name="Label8" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=153217406]
+[node name="WebApplicationAttack" type="Button" parent="Content/VBoxContainer" unique_id=153217406]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_rtst2")
@@ -228,4 +331,66 @@ theme_override_font_sizes/font_size = 6
 theme_override_styles/normal = SubResource("StyleBoxFlat_74lek")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_u4ec8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j5jx5")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_orvq2")
 text = "Web Application Attack"
+
+[node name="BackButton" type="TextureButton" parent="Content" unique_id=1549939962]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.128125
+anchor_top = 0.083333336
+anchor_right = 0.1609375
+anchor_bottom = 0.14166667
+texture_normal = ExtResource("5_rtst2")
+texture_pressed = SubResource("AtlasTexture_medfo")
+texture_hover = ExtResource("7_6uwa4")
+texture_focused = ExtResource("7_6uwa4")
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="ThreatName" type="Label" parent="Content" unique_id=539527503]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.51875
+anchor_top = 0.11388889
+anchor_right = 0.825
+anchor_bottom = 0.18055555
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3568o")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Archive"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Info" type="RichTextLabel" parent="Content" unique_id=2070523373]
+layout_mode = 0
+offset_left = 333.0
+offset_top = 65.0
+offset_right = 528.0
+offset_bottom = 285.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_rtst2")
+theme_override_font_sizes/normal_font_size = 6
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum facilisis mauris in ante dapibus tincidunt. Integer dolor lectus, lacinia eget nisi eu, porta tempus ipsum. Quisque ac quam tempor, iaculis magna at, rhoncus purus. Aliquam eleifend fermentum lectus, rhoncus tristique erat luctus vel. Proin vitae iaculis lectus, vitae aliquet lectus. Nam aliquet est felis, sed maximus libero viverra sit amet. Donec imperdiet, eros quis aliquet euismod, nulla ante ultricies lectus, ut tincidunt justo purus commodo orci. Donec ac lacus quis enim euismod semper ut interdum enim. Aliquam quis turpis neque. Duis tristique egestas elit sed tempor.
+
+Donec quis erat vitae arcu tristique suscipit. Quisque pretium lobortis elit vitae consequat. Nullam aliquam aliquam nunc, sed vulputate orci mollis ut. Nulla bibendum, enim eget fringilla viverra, ante nunc ornare justo, a condimentum quam odio sit amet arcu. Sed pellentesque, odio eu pulvinar mattis, mauris nisl finibus orci, ac imperdiet leo dolor et eros. Mauris non suscipit tellus, quis efficitur lorem. Donec sed cursus metus. Cras quis semper ante, et ultricies elit. Aenean eleifend posuere nulla, a dictum ligula elementum eget.
+
+Nullam interdum sagittis ex et mollis. Donec aliquam ultrices leo, quis aliquet est lacinia id. Phasellus at nibh a lacus dictum rhoncus non quis lorem. Vivamus eu sem in tortor ultricies tempus. Nullam quis ipsum maximus, eleifend neque vel, dapibus nisi. Morbi eu eros gravida, tincidunt diam eget, bibendum sapien. In feugiat consectetur nibh ut mattis. Cras imperdiet nibh ut urna mattis, eget egestas leo venenatis. Ut aliquam, orci quis sollicitudin ullamcorper, felis neque ultrices mi, sed aliquam justo lorem eu elit. Ut tempor id est in consectetur.
+
+Proin quis tortor at metus maximus efficitur vel ac justo. Nunc fringilla consequat turpis, sit amet fringilla lectus mollis condimentum. Suspendisse sed nisi quis turpis accumsan mattis. Pellentesque magna enim, dictum ac fringilla vel, aliquet quis leo. Donec lorem tortor, congue efficitur leo non, lobortis cursus sem. Aliquam egestas sagittis tortor quis facilisis. Morbi convallis efficitur ultricies. Vestibulum urna enim, fermentum quis sodales et, scelerisque ut leo. Phasellus efficitur metus eu diam luctus, vitae condimentum urna efficitur. Aenean vel ullamcorper eros, vitae vestibulum neque. Nam ullamcorper sodales eleifend. Integer sodales nunc quis cursus placerat. Aenean ac augue non ante feugiat sagittis vel mattis libero. Proin sed nibh augue.
+
+Aenean lobortis ante vitae lorem placerat, id molestie tellus gravida. Maecenas tincidunt, quam a tempor elementum, leo augue dapibus erat, eget mattis lorem nibh sed nunc. Proin at nulla risus. Phasellus ullamcorper bibendum faucibus. Donec tincidunt nulla at massa vulputate consectetur lacinia non arcu. Aliquam non tempus quam. Praesent sit amet massa laoreet, mattis sapien sit amet, rutrum est. Nunc porta lorem pharetra quam faucibus mattis. Morbi in arcu pretium, consectetur neque vitae, fringilla erat. Nam vitae metus sit amet diam dignissim sodales. Curabitur at tincidunt ligula."
+
+[connection signal="animation_finished" from="Node2D/BookAnimation" to="." method="_on_book_opening_animation_animation_finished"]
+[connection signal="toggled" from="Content/VBoxContainer/CredentialThreat" to="." method="_on_credential_threat_toggled"]
+[connection signal="toggled" from="Content/VBoxContainer/Malware" to="." method="_on_malware_toggled"]
+[connection signal="toggled" from="Content/VBoxContainer/Ransomware" to="." method="_on_ransomware_toggled"]
+[connection signal="toggled" from="Content/VBoxContainer/InsiderThreat" to="." method="_on_insider_threat_toggled"]
+[connection signal="toggled" from="Content/VBoxContainer/DataExfiltration" to="." method="_on_data_exfiltration_toggled"]
+[connection signal="toggled" from="Content/VBoxContainer/DDoS" to="." method="_on_d_do_s_toggled"]
+[connection signal="toggled" from="Content/VBoxContainer/Phishing" to="." method="_on_phishing_toggled"]
+[connection signal="toggled" from="Content/VBoxContainer/WebApplicationAttack" to="." method="_on_web_application_attack_toggled"]
+[connection signal="pressed" from="Content/BackButton" to="." method="_on_back_button_pressed"]

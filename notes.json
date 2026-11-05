@@ -1,0 +1,316 @@
+{
+	"economy": {
+		"security_points": {
+			"summary": "Grindable currency. Buys cards and consumables in the Hardening shop.",
+			"awarded": "Per phase, paid out on the FinishScreen (see finish_screens). Hardening has no FinishScreen.",
+			"decided": [
+				"Replays pay half. This still pushes the player to clear newer stages and to beat the Response fight if they have not.",
+				"A phase pays only when completed. Losing the Response fight restarts that phase with no penalty."
+			],
+			"rules": [
+				"Pay for performance (clues found, correct judgments), not for repetition.",
+				"Needs a sink or it piles up: consumables are one-use, bought before a stage, used in Hardening or Response."
+			]
+		},
+		"stage_clear_reward": {
+			"summary": "One-time permanent passives (2 per stage) on the first full clear of a stage. Cannot be ground. Replays do not pay them again.",
+			"design": "Loadout with a budget: every first clear unlocks 2 fixed passives, and the player equips passives up to a total budget in the Hardening phase.",
+			"why": "Owning every passive by Day 8 would make the player too powerful (power creep). The budget caps power, and nothing is missed because every passive is eventually unlocked. No pick-1-of-2 is needed.",
+			"timing": [
+				"Security Points are paid per phase, so the player has points to spend in the Hardening shop (phase 3) from Investigation and Monitoring.",
+				"The 2 passives are paid once, after Recovery, on the first clear of the stage. It is the reason to finish the stage.",
+				"The end of Recovery shows the repair record and points, then the passives and cards unlocked, then moves on to the next day."
+			],
+			"passive_budget": {
+				"decided": "Starts at 2 on Day 1 and grows by 2 for each stage cleared: Day N has 2N, so Day 8 has 16.",
+				"starter_passive": "Day 1 has a starter passive that costs 2, equipped from the start, which fills the Day 1 budget.",
+				"rewards_per_stage": "Decided: 2 new passives per stage cleared, so the player cannot equip them all at once. Day N then has 2N-1 passives (the starter plus 2 per cleared stage) against a budget of 2N.",
+				"cost_scale": {
+					"1": "Minimum passive. Does one niche thing.",
+					"2": "Decent. Niche or a basic effect.",
+					"3": "Average. Nice to have, or impactful in specific builds.",
+					"4": "Good. Has an impact on builds and could be the core of one.",
+					"5": "Really good. A must-have in most builds or integral to a specific build.",
+					"6": "Expensive luxury. Strong, with the most impact in specific builds."
+				},
+				"equip_on_arrival_rule_proposed": "A passive earned by clearing Day N should cost at most 2(N+1), the budget of the next day, or the player unlocks something they cannot equip yet. In practice only the Day 1 rewards are limited: they should cost 4 or less. Costs 5 and 6 start from the Day 2 rewards.",
+				"threat_counter_proposal": "A passive that only helps against one threat type is useful on 1 day of 8, so price it low (about 2 to 3) and make it strong when it applies. Show it as recommended on that day, as text. Reserve cost 6 for passives that bend a core rule (for example +1 draw or +1 energy per turn)."
+			},
+			"details": [
+				"Tag passives by threat type and show or recommend only the relevant ones, so choosing the right defense is the lesson.",
+				"Prefer sidegrades that change how you play over flat power, for example draw 1 extra card vs start with 1 free consumable.",
+				"Passives only touch the deck, hand and shop. The other phases are unaffected."
+			],
+			"stored_as": "unlocked_passives: [...] (two per cleared stage, one-time by construction) and equipped_passives: [...].",
+			"if_a_second_currency_is_wanted": "Award it from a claimed-per-stage flag, never from add-N-on-completion.",
+			"rejected": {
+				"pick_1_of_2": "Players may feel they miss out on the one they did not pick.",
+				"carry_over": "The unpicked passive joins the next pool. Every passive ends up owned, so power creeps up by Day 8.",
+				"fixed_slots": "Replaced by the cost budget."
+			}
+		},
+		"unlocks": [
+			"Unlock by day, not by price. Day N cards counter Day N's threat.",
+			"Locked shop items show the text \"Unlocks Day N\", not just a greyed color.",
+			"Each card links to an info-book entry; buying or unlocking the card unlocks the entry (functional requirement 7)."
+		]
+	},
+	"finish_screens": {
+		"investigation": "A record of the clues found, a completed case, and the Security Points received.",
+		"monitoring": "Left: how many logs were processed, and how many were denied and approved. Right: how many judgments were correct and how many were incorrect. Incorrect ones lower the total.",
+		"monitoring_suggestion": "Pay a base amount for completing the phase plus a bonus per correct judgment, and let mistakes only reduce the bonus. Never below the base or below zero, so a hard run never feels like a loss. Keep the comment, but show it only for the wrong judgments with a one-line reason why, which is the teaching.",
+		"comment_decision": "The Comment is Joshua's line (the speaker is named in the text) and the bonus is a commendation with a stated reason, for something the rows do not pay: no wrong call in the shift (Monitoring), a report right on the first try (Investigation). Any other comment is plain feedback with no bonus; in Monitoring it names the first wrong call and why it was wrong. Rejected: a bonus from an unnamed speaker that just pays for the same score twice.",
+		"built": {
+			"files": "scripts/gameplay/finish_screen.gd (class FinishScreen, attached to the FinishScreen node of Investigation.tscn and Monitoring.tscn). Each scene calls show_results({rows, comment, bonus}). Numbers and comments come from the \"finish\" section of the phase data (investigation.json, monitoring.json).",
+			"animation": "The screen fades to black, then the title, rows, comment (typed), bonus, points and wallet appear one by one from top to bottom. Numbers count up, the points gained add up row by row then the bonus, then count into the wallet. A click, Space or Enter finishes it at once. CONTINUE is enabled at the end.",
+			"payout": "Paid and saved when the screen opens (SaveManager.data security_points, complete_phase, save), so quitting mid-animation loses nothing. With no slot loaded the run's GameState.security_points is the wallet. A phase already completed pays half (replay), shown in the label. The total never goes below 0.",
+			"points": "Investigation: 20 per clue, -5 per wrong report word, bonus 25 for a first-try report. Monitoring: 10 per correct call, -5 per wrong call, bonus 30 for no wrong call with at least 5 correct.",
+			"continue": "CONTINUE sets the next phase (GameState.PHASES order) and opens its dialogue (days.json), or the phase scene when it has no dialogue, or the day select when nothing follows. Day 1 chain built: Investigation, BeforeMonitoring dialogue, Monitoring, BeforeHardening dialogue, then the day select (Hardening is not built yet; Dialogue goes to the day select when a phase has no scene)."
+		},
+		"hardening": "No FinishScreen. It still needs a save point: save when the player confirms the deck and passives (for example a Start Response button), otherwise the purchases are lost.",
+		"response": "Congratulates the player and rewards Security Points for eliminating the contained threat, to spend on the next day.",
+		"recovery": "Records the amount of repair done and gives additional Security Points. Then shows the passives and cards unlocked. Then the player proceeds to the next day: the same loop with a different threat and scenario."
+	},
+	"save_system": {
+		"flow": "Play -> Slot Select (New / Continue / Delete with confirm) -> Stage Select. The slot is loaded into GameState before Stage Select builds.",
+		"architecture": "SaveManager autoload (autoload/save_manager.gd), no UI. 3 slots. API: list_slots, slot_info, new_game, load_slot, save, delete_slot, complete_phase, resume_point. Skeleton written and tested. The slot screen (scenes/menus/SaveSelect.tscn + scripts/menus/save_select.gd) is connected: empty slot = new game, used slot = continue, DELETE asks first, tampered/corrupt/newer files are not loaded and say why (file kept), Exit slides back to the title. Not connected yet: GameState.security_points is still the old, separate counter, the Day Select does not read the slot (no day locking, RESUME is unwired), and the day select does not lock days by it. The FinishScreens call complete_phase()/save() and pay Security Points into the slot. RESUME on the day select (the button node PlayButton in StageSelect.tscn) opens the dialogue of the slot's resume_point() phase, with a clean run; it is disabled with no slot or when that phase is not built (hover text says which day and phase). SceneManager.open_current_phase() is the one place that opens a phase.",
+		"granularity": "Decided: phase boundaries only. Quitting mid-phase restarts that phase from the start, so clue state is not saved.",
+		"quit_warning": "Back to Title (and ideally any quit) shows a warning that all progress in the current gameplay will be lost.",
+		"slot_contents": [
+			"version",
+			"current day and phase",
+			"completed phases per day",
+			"sp",
+			"unlocked_passives, equipped_passives",
+			"owned cards, deck, consumables",
+			"metadata: slot name, day, playtime, last saved (readable for the slot list without a full load)"
+		],
+		"anti_tamper": [
+			"Detects casual edits only. A local offline save cannot be tamper-proof, the key ships inside the game.",
+			"Encrypt with Godot's encrypted FileAccess.",
+			"Own HMAC-SHA256 over the payload, so tampered and corrupted are different results with different messages.",
+			"Do not bind the key to the machine (OS.get_unique_id()), it breaks reinstalls and copied saves.",
+			"On a failed check: refuse to load, do not delete the file, fall back to the .bak if it verifies.",
+			"Say in the docs that this detects casual edits and does not stop a determined reverse-engineer."
+		],
+		"safety": [
+			"Store ids and numbers only, never nodes.",
+			"Write to a temp file, then rename. Keep a .bak on Windows, the rename is not guaranteed atomic.",
+			"Save under user://.",
+			"Settings live in a separate unsigned file so a tampered save cannot reset them (requirement 11)."
+		]
+	},
+	"deckbuilding": {
+		"reference": "Library of Ruina deck screen: 3x3 grid of 9 cards on the left, equippable passives on the right.",
+		"cards": [
+			"General, Slay the Spire style cards: Damage, Block, simple debuffs. No card is bound to one cybersecurity concept, and no jargon on the card.",
+			"The learning lives elsewhere: the threat and what it does (enemy intents), plainly named status effects, and the info book.",
+			"Each card shows a cost, a type icon and a short effect. Never color alone (the reference uses color for the cost and type)."
+		],
+		"deck": {
+			"size": "9 cards (the 9 card slots). Earlier I suggested 12, the user kept 9.",
+			"copy_cap": "At most 3 copies of a card with cost 0 to 3. Only 1 copy of each 4 cost card.",
+			"shuffle": "The deck is shuffled when the Response game starts.",
+			"source": "Cards come from the Security Points shop.",
+			"4_cost_cards": "They are not meant to be special finishers. The player has to plan ahead and use resource cards to afford them."
+		},
+		"hand_and_draw": {
+			"decided": [
+				"Hand cap is 8 cards.",
+				"The player draws 1 card per turn, so draw cards are important.",
+				"Unplayed cards stay in the hand for the next turn (like Library of Ruina, unlike Slay the Spire).",
+				"Played cards go to the discard pile, which is shuffled back into a draw cycle when the player must draw and the deck is empty."
+			],
+			"note": "With 1 draw per turn and a persistent hand, the deck does not cycle every 2 turns, so my earlier worry that draw cards would be worthless in a 9-card deck no longer applies."
+		},
+		"energy": "Energy is the currency for playing cards in the Response phase. Fixed at 3 per turn, it does not carry over. It only goes higher through a card that generates energy this turn or next turn. Cards cost 0 to 4.",
+		"archetypes": {
+			"bomb_core": "3 to 6 cards. The win condition: high-cost offensive cards.",
+			"counter_defensive": "1 to 2 cards. Block and answers to the threat's tricks.",
+			"energy_draw_value": "2 to 4 cards. Energy recovery, draw and value cards.",
+			"note": "The ranges add up to 6 to 12 cards, so in a 9-card deck the player has to pick a point in the middle of each range. Mix and match is the point.",
+			"idea": "The deck builder could show a plain tally such as 'Core 4 / Defense 2 / Value 3' as a balance hint, as text, not color."
+		},
+		"threat_gimmicks_idea": "Give each of the 8 threats one mechanic that rewards a different archetype (for example a threat that stacks pressure each turn rewards burst, one that applies debuffs rewards counters), so the player re-tunes the deck every day.",
+		"card_types": {
+			"offensive": "Mostly damage and debuffs.",
+			"utility": "Mostly block and buffs.",
+			"resource": "Generates energy this turn or next turn, or draws cards immediately or next turn.",
+			"note": "Show the type as an icon shape and a word in the tooltip, not by color alone."
+		},
+		"cost_tiers": {
+			"0": "Cheap to play. Mostly resource cards (extra energy, draw next turn). Weak in power and utility.",
+			"1": "The basics. Average power or utility, useful for the cheap cost. Can also be resource cards.",
+			"2": "Pretty good offense or utility. Can also be a rare resource card.",
+			"3": "Even better offense. Few resource cards.",
+			"4": "The most powerful. Greatest offense, sometimes utility, no resource cards. Only 1 copy of each in a deck."
+		},
+		"balance_ideas_unconfirmed": [
+			"A 0-cost card that gives extra energy is free profit. The cap of 3 copies and 1 draw per turn limit how often it can be played, but check it in testing.",
+			"Value per energy should rise with cost so that saving up for the big cards pays off. With numbers in the hundreds, for example 1 cost = 60 damage, 2 = 140, 3 = 220, 4 = 320+. Tune against enemy HP."
+		],
+		"ui": "On 640x360 nine cards leave little room for text. Show name, cost and icons on the card, and the full effect in a tooltip (also meets the tooltips requirement)."
+	},
+	"response_combat": {
+		"structure": "Response objective of every stage (Day 1 is Stage 1, the objectives are phases of it). Player's turn: play cards with 3 Energy. Enemy's turn: the game becomes a bullet hell (Deltarune/Undertale style) and the player dodges. Damage comes from the bullet sequence.",
+		"block": {
+			"decided": "Temporary HP. It expires at turn end. When the player is hit, the damage is absorbed by Block first, and the rest goes to HP.",
+			"to_confirm": "Whose turn end? If it expires at the end of the player's turn it would vanish before the enemy attacks. It must last through the enemy's attack and expire at the end of the round."
+		},
+		"dodge": {
+			"decided": "A buff with stacks. A hit that would damage the player is absorbed instead and the stack drops by 1. No damage goes to Block or HP.",
+			"proposed_order": "A hit is checked in this order: Dodge (negates the whole hit), then Block, then HP."
+		},
+		"invincibility": {
+			"decided": "Whenever the player is hit, they take the damage of the hit and then get an invincibility buffer so they are not hit several times in a row.",
+			"proposed": "The buffer also starts when a Dodge absorbs the hit, and when Block absorbs it. Length still to decide."
+		},
+		"debuffs": "Change the enemy's attack pattern or damage. Examples: Attack Down (less damage), Slow (slower bullets), Thin (fewer bullets, longer gaps), Stun (the enemy skips an attack wave), Exposed (the enemy takes more damage from cards).",
+		"scaling": "HP and damage in the hundreds so that percentage debuffs such as Attack Down (-25%) have a visible effect and do not round to nothing.",
+		"accessibility_scope": "Decided: no dedicated support for motor disabilities (out of scope, like most action games such as Undertale and Deltarune). Keep to cheap basics: bullets readable by shape or pattern and not only color, no heavy flashing, a difficulty setting, and optional key remapping for the dodge phase.",
+		"difficulty": [
+			"A difficulty setting is planned, with presets such as Story, Normal and Hard that bundle the numbers.",
+			"Difficulty changes the numbers (enemy HP and damage, bullet speed and density) and can also set the invincibility length after a hit. No separate assist toggles for now.",
+			"Do not lock rewards (Security Points, unlocks) behind Hard, or players who need Story are penalised. Reward Hard with a badge instead.",
+			"Every difficulty must let the player finish the stage and see the lesson. Story could shorten or soften the dodge phase, never remove the teaching.",
+			"With identical rewards, difficulty can be a global setting in the unsigned settings file, changeable between fights, so it needs no tamper protection."
+		],
+		"theme_idea": "Make each threat's bullet patterns act like the threat (for example a rapid repeating stream for guessing passwords, a flood for overload) so the fight shows how the threat behaves."
+	},
+	"monitoring": {
+		"flow": [
+			"Left: a log as a document card whose parts can be clicked. Right: Joshua's dialogue (a fixed-size scroll area, cleared at every NEXT LOG so the player only sees the current log's lines) with a hint per click. A hint is a plain fact about that line, never the verdict (the player has to apply the rulebook; a test checks that no hint contains a word like suspicious, normal, allowed, rule, report). The tag of each hint, NORMAL (38b764) or SUSPICIOUS (b13e53), a filled chip that always carries the word too (HintTag, scripts/gameplay/monitoring/hint_tag.gd), appears on the hint bubbles only after the call, next to the green or red verdict bubble. There is no in-between tag (A BIT ODD was dropped: the call is binary). Something unusual but allowed is tagged NORMAL. Bottom: REPORT and LET PASS.",
+			"Reference: The Imperial Gatekeeper (Call button, click parts of the document, approve or deny). Here the player reports or lets pass. A log the player does not touch passes.",
+			"The values on the card are readable without clicking. A click buys a hint from Joshua and costs bar time.",
+			"Logs are generated endlessly. After the shift, the player isolates the entity that keeps recurring in the reported logs (the suspects tally)."
+		],
+		"timers": {
+			"shift": "One total timer (3:00 on Day 1). When it ends the current log can finish and unreviewed logs count as passed. Opening the rules card pauses everything.",
+			"per_log_bar": "Each log has a patience bar that leaves the log as passed when empty, and the next log arrives after a short beat. An untouched log lasts about 33 seconds.",
+			"inspect_cost": "Each click costs 25% of the bar (inspect_percent_per_click), whatever the number of parts, so asking about everything is not possible: with a full bar at most 3 clicks. A click that would empty the bar is refused (Joshua says there is not enough time) so a question never times the log out. Decided after seeing that the earlier cost (40% split over the parts) made click-everything-then-read-the-tags a perfect strategy. The guided logs cost nothing.",
+			"display": "Show the bar with a text label (TIME ON THIS LOG 7/10), never color alone."
+		},
+		"generator": [
+			"A normal log is built from the shift's data, so it always follows the rules.",
+			"A bad log is a normal log with 1 or 2 rule violations. The correct answer and the reason line are computed from the rules, never written by hand.",
+			"A shuffle bag sets the mix (Day 1: 6 normal, 3 bad, 1 decoy per 10, reshuffled when empty).",
+			"Decoys look odd but follow the rules, and the reason it is fine must be visible on screen.",
+			"Special logs are authored by hand and unlock after N total inspections. They carry the story clues.",
+			"Most bad logs use the same unknown computer (the threat entity), so the pattern can be found and isolated. The country changes almost every time (a thief hides behind a VPN): 16 countries, so the computer is the clue that repeats, not the place."
+		],
+		"fairness_rule": "Every verdict must be decidable from the card, the HUD and the rules, or from earlier notes. Nothing may depend on hidden information.",
+		"design_goal": {
+			"goal": "Someone with no experience must be able to learn from it.",
+			"measures": [
+				"Every rule in the rulebook has plain wording, a good example, a bad example and a one-line why (for example: staff work in the day, so a sign-in at 02:00 is unusual).",
+				"A guided start: the first 3 logs are scripted (clearly fine, clearly bad, a decoy). Joshua shows how to inspect and decide, and the bars stay still until the player has done it. Then the generator takes over.",
+				"After a wrong verdict, the card marks the part that broke the rule (a text marker, not color only) and Joshua names the rule and why.",
+				"Plain words in the UI and a short definition the first time a term appears (sign-in, device, on call, suspicious). These feed the info book (FR 7).",
+				"A gentle ramp: Day 1 has 3 rules. Each later day adds at most one or two, and the briefing only explains what changed.",
+				"The end-of-shift screen explains what was caught and missed and why, and links the game to the real threat in one or two sentences.",
+				"No fail state. Day 1 is generous, and the difficulty setting has an easy preset."
+			],
+			"test": "Playtest with someone who has no cybersecurity background. Success means that after the Day 1 Monitoring they can say in their own words why a sign-in at 02:00 from an unknown computer is suspicious."
+		},
+		"log_structure_proposed": {
+			"summary": "A log is an event record made of parts. The parts are generic key, label and value triples, so the same structure serves all 8 threats. Each event type decides which parts it has.",
+			"fields": {
+				"id": "Unique within the shift.",
+				"event": "The event type (sign_in, file_access, email, web_request...). It gives the card its title and decides the parts.",
+				"parts": "An ordered list of 4 to 6 parts. Each inspect click costs the same share of the bar whatever the number of parts.",
+				"note": "Optional extra part shown on the card, used to explain a decoy (for example 'On call tonight').",
+				"truth": "Hidden. Never shown on the card."
+			},
+			"part_fields": {
+				"key": "Machine name used by the rules (user, time, device, where, result...).",
+				"label": "Shown on the card.",
+				"value": "Shown on the card.",
+				"state": "ok, odd or bad. Computed from the rules when the log is generated. It sets the hint tag: ok and odd (unusual but allowed, used for decoys) show NORMAL, bad shows SUSPICIOUS.",
+				"hint": "The line Joshua says on click: a plain fact about that part, never the verdict. Picked from the event's phrase table for that key and state, with 2 or 3 variants so lines do not repeat.",
+				"entity": "Optional type (account, device, address). Marks the part as something that can be a suspect and lets hints refer to earlier logs ('That device again')."
+			},
+			"truth_fields": {
+				"kind": "normal, bad, decoy or special.",
+				"suspicious": "True when any rule is violated and no exception applies.",
+				"violations": "Ids of the violated rules.",
+				"reason": "The one-line feedback after the verdict, built from the violations."
+			},
+			"example": {
+				"id": "log_014",
+				"event": "sign_in",
+				"parts": [
+					{"key": "user", "label": "User", "value": "Anna Reyes", "state": "ok", "hint": "Anna works in payroll.", "entity": "account"},
+					{"key": "time", "label": "Time", "value": "02:14", "state": "bad", "hint": "02:14 in the morning. The office is closed."},
+					{"key": "computer", "label": "Computer", "value": "Unknown computer", "state": "bad", "hint": "It is not on the company list.", "entity": "computer"},
+					{"key": "where", "label": "Where", "value": "Germany", "state": "bad", "hint": "Anna signs in from the office, not from another country."}
+				],
+				"note": null,
+				"truth": {"kind": "bad", "suspicious": true, "violations": ["office_hours", "company_list", "location"], "reason": "It was outside office hours, from a computer that is not on the company list, from outside the office."}
+			},
+			"events_across_days": {
+				"credential_abuse": "sign_in: user, time, computer, where, result",
+				"phishing": "email: from, to, subject, link, attachment",
+				"web_application_attack": "web_request: source address, page, request, response"
+			}
+		},
+		"shift_context_hud": "Day-level facts shown at the top of the screen that the rules point to, like the date in the reference. Day 1: office hours and who is on call tonight. Later days can add a staff directory item, which costs time to look up.",
+		"day_data_tables": [
+			"Event types and their parts",
+			"People (the Day 1 cast from the Investigation) and the company list of computers",
+			"Rules and exceptions",
+			"Hint phrase tables per part key and state",
+			"The threat's entities",
+			"Special logs and their unlock counts",
+			"Tuning numbers (bar, inspect cost, shift length, mix)"
+		],
+		"rules_day1_proposed": {
+			"rulebook": "An item the player can open (it pauses the clock). The day's briefing explains the rules before the shift, and each rule shows one good and one bad example.",
+			"time_format": "24-hour (HH:MM, like 02:14 and 18:00) everywhere, the same as the Investigation data. Decided after trying 12-hour with AM and PM, which was confusing. Plain-text mentions of a time of day can still say 2 AM.",
+			"company": "The story never names the company. Proposed: Brightwell. It is only needed as the rulebook header, and later as the email domain (brightwell.com) for the phishing day.",
+			"rules": [
+				{"id": "office_hours", "part": "time", "text": "Sign-ins happen between 08:00 and 18:00.", "check": "range 08:00-18:00", "exception": "The person on call tonight (shown in the HUD) may sign in at any hour.", "odd": "within 30 minutes of the limit, for example 17:58"},
+				{"id": "company_list", "part": "computer", "text": "Only computers on the company list may sign in.", "check": "allowed list: Anna's computer, Ben's computer, Carla's computer, Dana's laptop, Floor 2 printer", "example_ok": "Anna's computer", "example_bad": "Unknown computer", "note": "Reuses the company list the Investigation's Computers app already teaches."},
+				{"id": "location", "part": "where", "text": "Sign-ins come from the office.", "check": "allowed list: Office", "example_ok": "Office", "example_bad": "Germany", "note": "The Investigation's Login app already uses Office and Germany."}
+			],
+			"names": "No rule on names on Day 1 (the company allows any name). Names come from a pool and only feed the suspects tally. A later day can add a blocked list of former staff.",
+			"why_a_list": "The Investigation already teaches the company list, so Monitoring reuses it: a list checked by eye, with no per-person data, that works with free names. This replaces the earlier ACME-#### naming format and the idea that a device is named after its user. Logs say computer, not device, like the Investigation."
+		},
+		"rule_checks": "A small set of check types reused every day, so a day's rulebook is only data: range (times, sizes), pattern (device names, address formats), allowed list (locations, company domains), blocked list (former staff, bad addresses).",
+		"later_days_examples": {
+			"phishing": "The sender domain must be the company's, links must go to company domains, no executable attachments.",
+			"web_application_attack": "No quote marks or ../ in a requested page, only known pages.",
+			"credential_abuse_variant": "A blocked list of former staff, so the name suddenly matters."
+		},
+		"built": {
+			"files": "scripts/gameplay/monitoring/monitoring.gd (screen), log_generator.gd (rules engine and generator), hint_tag.gd; data/scenarios/day 1/monitoring.json; days.json has a monitoring phase.",
+			"works": "Guided first 3 logs (clocks frozen), shuffle bag 6/3/1, 3:00 shift clock, 33 s patience bar per log, inspect cost 25% of the bar per click (a click that would empty the bar is refused), hints as plain facts (tags revealed after the call), text marker [X] on the part that broke a rule after the verdict, rulebook card that stops the clocks, notes cleared at every NEXT LOG and scrolled to the newest, Correct/Wrong counter, 10 Security Points per correct call added to GameState.security_points.",
+			"assumptions": [
+				"After a verdict the player presses NEXT LOG (it is not automatic). The shift clock keeps running meanwhile. A log that times out passes and also waits for NEXT LOG.",
+				"When the shift clock ends, the current log can finish. The button then reads SEE RESULTS, emits shift_finished(result) and opens the FinishScreen (see finish_screens.built).",
+				"The first 3 logs are guided (normal, bad, decoy; random people and times) and both clocks are frozen for them. Story logs (monitoring.json story_logs) are written out and about Anna Reyes, the case victim: her normal 08:30 sign-in, the 02:43 sign-in from Germany on Unknown computer 7F3A, and her failed try at 08:29 right after the password reset. After the guided logs, each NEXT LOG has a chance to bring one: 5% + 4% for each log solved this shift, capped at 50% (story_odds). A story log shows at most once per shift, and is marked complete in GameState.completed_story_logs when answered correctly, so it never returns. One answered wrong can come back in a later shift. A new game clears them. Completion is not saved to the save slot yet. They go through the rules like every log.",
+				"Random people are a first name and a last name drawn from separate shuffled bags (30 each, 900 combinations), so a name does not return until the bag has cycled. The names of the story people (Anna Reyes, Carla Patel) are not in the pools. A company computer is named after its owner (Evan's computer, Lena's laptop; the Floor 2 printer is also allowed), which the computer rule checks by pattern instead of a fixed list. Carla Patel is on call tonight. The company name is not shown.",
+				"Decoys: on-call person at night, near opening or closing time, one failed try."
+			],
+			"not_built": "Suspects tally and isolate step, difficulty setting, saving completed_story_logs in the slot."
+		},
+		"next_step": "Playtest the Day 1 shift, then build the suspects tally."
+	},
+	"debug_panel": {
+		"summary": "F9 opens the developer panel (autoload, debug builds only): AI generated/scripts/debug/debug_panel.gd.",
+		"how_it_works": "A screen adds its own shortcuts under THIS SCREEN with debug_actions() -> [[text, Callable], ...] and an optional debug_info() -> String. Investigation, Monitoring and Dialogue have them (complete phase, find or clear clues, open the report, skip to results, skip dialogue). The panel also plays any phase of the current day (dialogue first, or the scene alone), jumps to the title or day select, adds 100 Security Points to the wallet (slot or run) and resets the game state. A phase with no dialogue and no scene shows as not built."
+	},
+	"requirements": {
+		"fr4": "The user will suggest the change to the panelists (card system in the Response objective of every stage, not only the first). Pending, a compromise for now.",
+		"fr5": "For now the movement is only dodging the enemy's bullets. A Recovery phase with map movement would take more time to make, so it is not planned."
+	},
+	"open_questions": [
+		"Deck: is it exactly 9 cards for the whole game, or can the slots grow later?",
+		"How many cards does the player start the Response fight with (the hand cap is 8 and 1 card is drawn per turn)?",
+		"Block: does it expire at the end of the enemy's attack (the end of the round)?",
+		"Invincibility after a hit: how many seconds? How long is an enemy turn?",
+		"Dodge controls: follow the mouse, arrow keys or WASD, or both? Is key remapping wanted?",
+		"Passives: Day 1 rewards cost 4 or less, and threat-specific passives are priced low (2 to 3)? Agree?",
+		"Monitoring FinishScreen: base amount plus bonus (mistakes never go below the base)?",
+		"Hardening has no FinishScreen: save when the player confirms the deck and passives?"
+	]
+}

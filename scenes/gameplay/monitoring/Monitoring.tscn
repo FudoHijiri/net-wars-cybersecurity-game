@@ -1,0 +1,1058 @@
+[gd_scene format=3 uid="uid://bjrgao20divfv"]
+
+[ext_resource type="Texture2D" uid="uid://i5qyuq7urtwx" path="res://assets/ui/Server Panel.png" id="1_4jtpl"]
+[ext_resource type="Texture2D" uid="uid://pry0okj8q6x1" path="res://assets/ui/Server Panel Inside 2.png" id="2_ypjh5"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_55bmu"]
+[ext_resource type="Texture2D" uid="uid://t26hmnng47qj" path="res://assets/ui/Pause Icon.png" id="4_1bw4n"]
+[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="5_mg8yo"]
+[ext_resource type="Texture2D" uid="uid://ckhs6ajdsqlfl" path="res://assets/ui/Investigation Icon.png" id="6_d08y4"]
+[ext_resource type="Texture2D" uid="uid://hjg0guptw8ib" path="res://assets/ui/Blank Panel.png" id="7_2hcmo"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="8_edlco"]
+[ext_resource type="Script" uid="uid://bnfab77o0p1n8" path="res://scripts/gameplay/monitoring/hint_tag.gd" id="9_hinttag"]
+[ext_resource type="Script" uid="uid://ba0gtldl7ke3f" path="res://scripts/gameplay/monitoring/monitoring.gd" id="10_monitoring"]
+[ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="11_55bmu"]
+[ext_resource type="Script" uid="uid://jii58qpfiadb" path="res://scripts/gameplay/finish_screen.gd" id="finish_screen_script"]
+
+[sub_resource type="Theme" id="Theme_26po0"]
+default_font = ExtResource("3_55bmu")
+default_font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_gcfq8"]
+font = ExtResource("5_mg8yo")
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjtwj"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="Theme" id="Theme_ktvym"]
+default_font = ExtResource("8_edlco")
+default_font_size = 6
+
+[sub_resource type="Theme" id="Theme_xr8ko"]
+default_font = ExtResource("8_edlco")
+default_font_size = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_106mp"]
+color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 2
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oavy4"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjwuq"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3568o"]
+font = ExtResource("8_edlco")
+font_size = 6
+font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u4ec8"]
+font = ExtResource("8_edlco")
+font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55bmu"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.23529412, 0.34117648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bw4n"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mg8yo"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_xttc1"]
+font = ExtResource("8_edlco")
+font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4ec8"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_farh1"]
+bg_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2ty3"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xttc1"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptohj"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3568o"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0.21960784, 0.7176471, 0.39215687, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rjwuq"]
+font = ExtResource("8_edlco")
+font_size = 6
+font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="Theme" id="Theme_hque8"]
+default_font = ExtResource("8_edlco")
+default_font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujkjf"]
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d08y4"]
+bg_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hcmo"]
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edlco"]
+bg_color = Color(0.14509805, 0.44313726, 0.4745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8gq8"]
+bg_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7e570"]
+bg_color = Color(0.21960784, 0.7176471, 0.39215687, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jtpl"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ypjh5"]
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnvbg"]
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.23529412, 0.34117648, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1bw4n"]
+font = ExtResource("11_55bmu")
+
+[sub_resource type="LabelSettings" id="LabelSettings_mg8yo"]
+font = ExtResource("8_edlco")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_2hcmo"]
+font = ExtResource("8_edlco")
+font_size = 6
+font_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_55bmu"]
+font = ExtResource("8_edlco")
+font_size = 6
+font_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_edlco"]
+font = ExtResource("11_55bmu")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_x8gq8"]
+font = ExtResource("8_edlco")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_7e570"]
+font = ExtResource("8_edlco")
+font_size = 6
+font_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l44bv"]
+font = ExtResource("8_edlco")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_0ulf0"]
+font = ExtResource("8_edlco")
+font_size = 6
+font_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="Theme" id="Theme_v527b"]
+default_font = ExtResource("8_edlco")
+default_font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4w003"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xu3ta"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jr67f"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3poc"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[sub_resource type="Animation" id="Animation_1bw4n"]
+resource_name = "CompleteMonitoring"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FinishScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ypjh5"]
+resource_name = "LogAnimation"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log:offset_transform_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_55bmu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log:offset_transform_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FinishScreen:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1bw4n"]
+_data = {
+&"CompleteMonitoring": SubResource("Animation_1bw4n"),
+&"LogAnimation": SubResource("Animation_ypjh5"),
+&"RESET": SubResource("Animation_55bmu")
+}
+
+[node name="Monitoring" type="Control" unique_id=1259550530]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_monitoring")
+metadata/_edit_use_anchors_ = true
+
+[node name="FramePanel" type="NinePatchRect" parent="." unique_id=1905492278]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4jtpl")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 11
+patch_margin_top = 11
+patch_margin_right = 11
+patch_margin_bottom = 11
+metadata/_edit_use_anchors_ = true
+
+[node name="MainPanel" type="NinePatchRect" parent="FramePanel" unique_id=1836072966]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.009375
+anchor_top = 0.025
+anchor_right = 0.990625
+anchor_bottom = 0.98333335
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ypjh5")
+region_rect = Rect2(0, 0, 33, 33)
+patch_margin_left = 4
+patch_margin_top = 27
+patch_margin_right = 4
+patch_margin_bottom = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Objective" type="RichTextLabel" parent="FramePanel/MainPanel" unique_id=214011819]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03821656
+anchor_top = 0.011594203
+anchor_right = 0.9601911
+anchor_bottom = 0.072463766
+theme = SubResource("Theme_26po0")
+theme_override_colors/default_color = Color(1, 0.8039216, 0.45882353, 1)
+text = "OBJECTIVE - MONITOR AND REPORT SUSPICIOUS LOGS WHILE LETTING NORMAL LOGS PASS THROUGH"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseButton" type="TextureButton" parent="FramePanel/MainPanel" unique_id=1261247717]
+layout_mode = 0
+anchor_left = 0.9633758
+anchor_top = 0.017391304
+anchor_right = 0.99044585
+anchor_bottom = 0.06666667
+texture_normal = ExtResource("4_1bw4n")
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="TitleExe" type="Label" parent="FramePanel/MainPanel" unique_id=769567402]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -11.0
+offset_right = 75.0
+offset_bottom = 2.0
+text = "MONITORING.exe"
+label_settings = SubResource("LabelSettings_gcfq8")
+
+[node name="TextureRect" type="TextureRect" parent="FramePanel/MainPanel" unique_id=477780321]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("6_d08y4")
+
+[node name="MainPanelAppView" type="NinePatchRect" parent="FramePanel/MainPanel" unique_id=1394791694]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015923567
+anchor_top = 0.089855075
+anchor_right = 0.98407644
+anchor_bottom = 0.8811594
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_2hcmo")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="FramePanel/MainPanel/MainPanelAppView" unique_id=746012647]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.07168459
+theme_override_styles/panel = SubResource("StyleBoxFlat_rjtwj")
+metadata/_edit_use_anchors_ = true
+
+[node name="Guide" type="RichTextLabel" parent="FramePanel/MainPanel/MainPanelAppView/Panel" unique_id=1871044726]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016447369
+anchor_right = 0.6052632
+anchor_bottom = 1.021978
+theme = SubResource("Theme_ktvym")
+text = "INSERT GUIDE"
+scroll_active = false
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="NumberOfCorrects" type="RichTextLabel" parent="FramePanel/MainPanel/MainPanelAppView/Panel" unique_id=1562235983]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.67105263
+anchor_right = 0.8552632
+anchor_bottom = 1.021978
+theme = SubResource("Theme_ktvym")
+text = "Correct 1 · Wrong 0"
+scroll_active = false
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TimeLeft" type="RichTextLabel" parent="FramePanel/MainPanel/MainPanelAppView/Panel" unique_id=774152100]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8684211
+anchor_right = 1.0
+anchor_bottom = 1.0219781
+theme = SubResource("Theme_xr8ko")
+text = "Time Left: 00:00"
+scroll_active = false
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HSplitContainer" type="HSplitContainer" parent="FramePanel/MainPanel/MainPanelAppView" unique_id=1135974159]
+layout_mode = 0
+anchor_left = 0.0016447369
+anchor_top = 0.07168459
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 0
+theme_override_styles/split_bar_background = SubResource("StyleBoxLine_106mp")
+split_offsets = PackedInt32Array(238)
+dragging_enabled = false
+split_offset = 238
+metadata/_edit_use_anchors_ = true
+
+[node name="Left" type="Panel" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer" unique_id=1913675595]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oavy4")
+
+[node name="Log" type="PanelContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left" unique_id=1783949616]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.13025212
+anchor_top = 0.1716605
+anchor_right = 0.8697479
+anchor_bottom = 0.2744273
+offset_top = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+offset_transform_enabled = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_rjwuq")
+metadata/_edit_use_anchors_ = true
+
+[node name="LogContainer" type="VBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log" unique_id=1789965403]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer" unique_id=214884875]
+layout_mode = 2
+text = "PASSWORD CHANGE · LOG #1"
+label_settings = SubResource("LabelSettings_3568o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Field1" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer" unique_id=2122989915]
+layout_mode = 2
+
+[node name="FieldLabel" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field1" unique_id=532101117]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "User:"
+label_settings = SubResource("LabelSettings_u4ec8")
+
+[node name="FieldButton" type="Button" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field1" unique_id=1775502121]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_55bmu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1bw4n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mg8yo")
+text = "Anna Reyes"
+alignment = 0
+
+[node name="Field2" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer" unique_id=2042069104]
+layout_mode = 2
+
+[node name="FieldLabel" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field2" unique_id=1917712967]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "User:"
+label_settings = SubResource("LabelSettings_u4ec8")
+
+[node name="FieldButton" type="Button" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field2" unique_id=1754948476]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_55bmu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1bw4n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mg8yo")
+text = "Anna Reyes"
+alignment = 0
+
+[node name="Field3" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer" unique_id=1670744628]
+layout_mode = 2
+
+[node name="FieldLabel" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field3" unique_id=1109467780]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "User:"
+label_settings = SubResource("LabelSettings_u4ec8")
+
+[node name="FieldButton" type="Button" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field3" unique_id=1046245424]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_55bmu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1bw4n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mg8yo")
+text = "Anna Reyes"
+alignment = 0
+
+[node name="Field4" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer" unique_id=1980254596]
+layout_mode = 2
+
+[node name="FieldLabel" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field4" unique_id=983250158]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "User:"
+label_settings = SubResource("LabelSettings_u4ec8")
+
+[node name="FieldButton" type="Button" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field4" unique_id=580899050]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_55bmu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1bw4n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mg8yo")
+text = "Anna Reyes"
+alignment = 0
+
+[node name="Field5" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer" unique_id=184361749]
+visible = false
+layout_mode = 2
+
+[node name="FieldLabel" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field5" unique_id=740130932]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "User:"
+label_settings = SubResource("LabelSettings_u4ec8")
+
+[node name="FieldButton" type="Button" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field5" unique_id=2041098025]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_55bmu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1bw4n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mg8yo")
+text = "Anna Reyes"
+alignment = 0
+
+[node name="Field6" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer" unique_id=426127948]
+visible = false
+layout_mode = 2
+
+[node name="FieldLabel" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field6" unique_id=1206088216]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "User:"
+label_settings = SubResource("LabelSettings_u4ec8")
+
+[node name="FieldButton" type="Button" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field6" unique_id=1846726702]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_55bmu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1bw4n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mg8yo")
+text = "Anna Reyes"
+alignment = 0
+
+[node name="Field7" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer" unique_id=1603385332]
+visible = false
+layout_mode = 2
+
+[node name="FieldLabel" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field7" unique_id=1029497661]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "User:"
+label_settings = SubResource("LabelSettings_u4ec8")
+
+[node name="FieldButton" type="Button" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field7" unique_id=806273281]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_55bmu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1bw4n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mg8yo")
+text = "Anna Reyes"
+alignment = 0
+
+[node name="Field8" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer" unique_id=467185964]
+visible = false
+layout_mode = 2
+
+[node name="FieldLabel" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field8" unique_id=218108701]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "User:"
+label_settings = SubResource("LabelSettings_u4ec8")
+
+[node name="FieldButton" type="Button" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/Log/LogContainer/Field8" unique_id=1596191548]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_55bmu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1bw4n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mg8yo")
+text = "Anna Reyes"
+alignment = 0
+
+[node name="BarLabel" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left" unique_id=2130819279]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.029411765
+anchor_top = 0.017510304
+anchor_right = 0.5882353
+anchor_bottom = 0.07114624
+offset_right = -50.0
+text = "TIME ON THIS LOG"
+label_settings = SubResource("LabelSettings_xttc1")
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left" unique_id=1085568118]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.029411765
+anchor_top = 0.07284627
+anchor_right = 0.9705882
+anchor_bottom = 0.10671937
+theme_override_styles/background = SubResource("StyleBoxFlat_u4ec8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_farh1")
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Right" type="Panel" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer" unique_id=663816594]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_c2ty3")
+
+[node name="NotesPanel" type="Panel" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right" unique_id=1355010885]
+layout_mode = 0
+anchor_top = 0.017510304
+anchor_right = 0.97783935
+anchor_bottom = 0.83964473
+theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
+metadata/_edit_use_anchors_ = true
+
+[node name="VScrollBar" type="ScrollContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/NotesPanel" unique_id=1758666180]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.014164306
+anchor_top = 0.0625
+anchor_right = 0.9858357
+anchor_bottom = 0.97596157
+metadata/_edit_use_anchors_ = true
+
+[node name="Notes" type="VBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/NotesPanel/VScrollBar" unique_id=1386966687]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+alignment = 2
+
+[node name="ChatBubble" type="PanelContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/NotesPanel/VScrollBar/Notes" unique_id=1157979416]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ptohj")
+
+[node name="NotesRow" type="HBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/NotesPanel/VScrollBar/Notes/ChatBubble" unique_id=1855168816]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Tag" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/NotesPanel/VScrollBar/Notes/ChatBubble/NotesRow" unique_id=1829747744]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_3568o")
+text = "NORMAL"
+uppercase = true
+script = ExtResource("9_hinttag")
+
+[node name="Content" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/NotesPanel/VScrollBar/Notes/ChatBubble/NotesRow" unique_id=1625694938]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_edlco")
+theme_override_font_sizes/font_size = 6
+text = "Miyabi my favourite"
+
+[node name="NotesTitle" type="Label" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right" unique_id=582852107]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016620498
+anchor_top = 0.017510304
+anchor_right = 0.11357341
+anchor_bottom = 0.07284627
+text = "NOTES"
+label_settings = SubResource("LabelSettings_rjwuq")
+metadata/_edit_use_anchors_ = true
+
+[node name="ReportButton" type="Button" parent="FramePanel" unique_id=1050560738]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.525
+anchor_top = 0.7777778
+anchor_right = 0.675
+anchor_bottom = 0.84444445
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hque8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ujkjf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_d08y4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2hcmo")
+text = "REPORT"
+metadata/_edit_use_anchors_ = true
+
+[node name="LetPassButton" type="Button" parent="FramePanel" unique_id=171416729]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.725
+anchor_top = 0.7777778
+anchor_right = 0.875
+anchor_bottom = 0.84444445
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hque8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_edlco")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_x8gq8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7e570")
+text = "-> LET PASS"
+metadata/_edit_use_anchors_ = true
+
+[node name="NextLogButton" type="Button" parent="FramePanel" unique_id=1535617564]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.7777778
+anchor_right = 0.27476406
+anchor_bottom = 0.84444445
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hque8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4jtpl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ypjh5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lnvbg")
+text = "NEXT LOG >"
+metadata/_edit_use_anchors_ = true
+
+[node name="RuleBookButton" type="Button" parent="FramePanel" unique_id=1498436971]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.040625
+anchor_top = 0.8888889
+anchor_right = 0.190625
+anchor_bottom = 0.95555556
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hque8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4jtpl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ypjh5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lnvbg")
+toggle_mode = true
+text = "RULEBOOK"
+metadata/_edit_use_anchors_ = true
+
+[node name="FinishScreen" type="Control" parent="." unique_id=1766359783]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("finish_screen_script")
+
+[node name="ColorRect" type="ColorRect" parent="FinishScreen" unique_id=1308366869]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="FinishScreen" unique_id=1730871096]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2375
+anchor_top = 0.11111111
+anchor_right = 0.7625
+anchor_bottom = 0.17500001
+text = "Monitoring Records"
+label_settings = SubResource("LabelSettings_1bw4n")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftContainer" type="VBoxContainer" parent="FinishScreen" unique_id=1743702474]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2625
+anchor_top = 0.24166666
+anchor_right = 0.4875
+anchor_bottom = 0.53333336
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftRow" type="HBoxContainer" parent="FinishScreen/LeftContainer" unique_id=1679153587]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="FinishScreen/LeftContainer/LeftRow" unique_id=1331076375]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Logs Processed"
+label_settings = SubResource("LabelSettings_mg8yo")
+
+[node name="Number" type="Label" parent="FinishScreen/LeftContainer/LeftRow" unique_id=2131249155]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "4"
+label_settings = SubResource("LabelSettings_mg8yo")
+
+[node name="RightContainer" type="VBoxContainer" parent="FinishScreen" unique_id=787010415]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5125
+anchor_top = 0.23888889
+anchor_right = 0.7375
+anchor_bottom = 0.5305556
+metadata/_edit_use_anchors_ = true
+
+[node name="RightRow1" type="HBoxContainer" parent="FinishScreen/RightContainer" unique_id=1313889990]
+layout_mode = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="FinishScreen/RightContainer/RightRow1" unique_id=1292405237]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Correct Calls"
+label_settings = SubResource("LabelSettings_mg8yo")
+
+[node name="Number" type="Label" parent="FinishScreen/RightContainer/RightRow1" unique_id=622310260]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "20"
+label_settings = SubResource("LabelSettings_mg8yo")
+
+[node name="PointsEarned" type="Label" parent="FinishScreen/RightContainer/RightRow1" unique_id=293784490]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "+50SP"
+label_settings = SubResource("LabelSettings_2hcmo")
+
+[node name="RightRow2" type="HBoxContainer" parent="FinishScreen/RightContainer" unique_id=404477479]
+layout_mode = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="FinishScreen/RightContainer/RightRow2" unique_id=726548164]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Incorrect Calls"
+label_settings = SubResource("LabelSettings_mg8yo")
+
+[node name="Number" type="Label" parent="FinishScreen/RightContainer/RightRow2" unique_id=1462901919]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "20"
+label_settings = SubResource("LabelSettings_mg8yo")
+
+[node name="PointsEarned" type="Label" parent="FinishScreen/RightContainer/RightRow2" unique_id=1726794598]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "-50SP"
+label_settings = SubResource("LabelSettings_55bmu")
+
+[node name="CommentTitle" type="Label" parent="FinishScreen" unique_id=2116181258]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3875
+anchor_top = 0.53333336
+anchor_right = 0.475
+anchor_bottom = 0.6
+text = "Comment"
+label_settings = SubResource("LabelSettings_edlco")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CommentContent" type="Label" parent="FinishScreen/CommentTitle" unique_id=445267064]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.39
+anchor_top = 0.6956518
+anchor_right = 3.96
+anchor_bottom = 1.7391307
+text = "Good job. Keep it up."
+label_settings = SubResource("LabelSettings_x8gq8")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BonusPointsEarned" type="Label" parent="FinishScreen/CommentTitle" unique_id=543427842]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.2857143
+anchor_top = 1.7499994
+anchor_right = 2.4285715
+anchor_bottom = 2.7083328
+text = "( +50 SP)"
+label_settings = SubResource("LabelSettings_7e570")
+metadata/_edit_use_anchors_ = true
+
+[node name="SecurityPoints" type="VBoxContainer" parent="FinishScreen" unique_id=1855348158]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.73333335
+anchor_right = 0.6
+anchor_bottom = 0.84444445
+metadata/_edit_use_anchors_ = true
+
+[node name="SecurityPointsGained" type="HBoxContainer" parent="FinishScreen/SecurityPoints" unique_id=1948702008]
+layout_mode = 2
+
+[node name="SPName" type="Label" parent="FinishScreen/SecurityPoints/SecurityPointsGained" unique_id=625223542]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Security Points: "
+label_settings = SubResource("LabelSettings_l44bv")
+
+[node name="SPGained" type="Label" parent="FinishScreen/SecurityPoints/SecurityPointsGained" unique_id=875582601]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "+100SP"
+label_settings = SubResource("LabelSettings_0ulf0")
+
+[node name="SecurityPointsWalletRow" type="HBoxContainer" parent="FinishScreen/SecurityPoints" unique_id=549018648]
+layout_mode = 2
+
+[node name="CurrentSecurityPoints" type="Label" parent="FinishScreen/SecurityPoints/SecurityPointsWalletRow" unique_id=8646014]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "100SP"
+label_settings = SubResource("LabelSettings_l44bv")
+
+[node name="LogsButton" type="Button" parent="FinishScreen" unique_id=1569616352]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.8888889
+anchor_right = 0.55
+anchor_bottom = 0.93333334
+size_flags_horizontal = 3
+theme = SubResource("Theme_v527b")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4w003")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xu3ta")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jr67f")
+theme_override_styles/focus = SubResource("StyleBoxFlat_x3poc")
+text = "CONTINUE
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FinishScreen" unique_id=1184171046]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_1bw4n")
+
+[connection signal="pressed" from="FramePanel/ReportButton" to="." method="_on_report_button_pressed"]
+[connection signal="pressed" from="FramePanel/LetPassButton" to="." method="_on_let_pass_button_pressed"]
+[connection signal="pressed" from="FramePanel/NextLogButton" to="." method="_on_next_log_button_pressed"]
+[connection signal="toggled" from="FramePanel/RuleBookButton" to="." method="_on_rule_book_button_toggled"]
