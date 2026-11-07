@@ -147,7 +147,7 @@
 		},
 		"balance_ideas_unconfirmed": [
 			"A 0-cost card that gives extra energy is free profit. The cap of 3 copies and 1 draw per turn limit how often it can be played, but check it in testing.",
-			"Value per energy should rise with cost so that saving up for the big cards pays off. With numbers in the hundreds, for example 1 cost = 60 damage, 2 = 140, 3 = 220, 4 = 320+. Tune against enemy HP."
+			"Value per energy should rise with cost so that saving up for the big cards pays off. With the small-number scale (see response_combat.scaling), for example 1 cost = 3 damage, 2 = 7, 3 = 11, 4 = 16 (the old 60 / 140 / 220 / 320 curve divided by 20, so the balance carries over). Tune against enemy HP."
 		],
 		"ui": "On 640x360 nine cards leave little room for text. Show name, cost and icons on the card, and the full effect in a tooltip (also meets the tooltips requirement)."
 	},
@@ -166,7 +166,12 @@
 			"proposed": "The buffer also starts when a Dodge absorbs the hit, and when Block absorbs it. Length still to decide."
 		},
 		"debuffs": "Change the enemy's attack pattern or damage. Examples: Attack Down (less damage), Slow (slower bullets), Thin (fewer bullets, longer gaps), Stun (the enemy skips an attack wave), Exposed (the enemy takes more damage from cards).",
-		"scaling": "HP and damage in the hundreds so that percentage debuffs such as Attack Down (-25%) have a visible effect and do not round to nothing.",
+		"scaling": {
+			"decided": "Small numbers. HP, damage and block are single digits for the player, and enemy HP is at most two digits, so the player never has to do arithmetic. The earlier hundreds scale is dropped (it existed so a -25% debuff would not round to nothing).",
+			"proposed_day_1": "Player HP 10. Enemy bullets hit for 1 (heavy bullets 2 or 3). Block cards give 2 / 4 / 6 for cost 1 / 2 / 3. Enemy HP 30 on Day 1, rising to about 70 by Day 8, tuned in playtest. A card that hits for 3 takes a 30 HP enemy to 27.",
+			"no_percentages": "No percentage effects. Buffs and debuffs are flat and stack-based so nothing rounds: Attack Down = each hit deals 1 less (minimum 1), Exposed = each card deals 2 more damage. Thin and Slow change the pattern, not a number. Card text and the enemy's intent show the final number after effects, so the player reads a number instead of computing one.",
+			"note": "With 1 damage hits, Attack Down only matters against heavier hits, so each threat needs a few 2 or 3 damage attacks (its tricks). Recovery repairs scale with HP lost out of 10, which is easy to show."
+		},
 		"accessibility_scope": "Decided: no dedicated support for motor disabilities (out of scope, like most action games such as Undertale and Deltarune). Keep to cheap basics: bullets readable by shape or pattern and not only color, no heavy flashing, a difficulty setting, and optional key remapping for the dodge phase.",
 		"difficulty": [
 			"A difficulty setting is planned, with presets such as Story, Normal and Hard that bundle the numbers.",

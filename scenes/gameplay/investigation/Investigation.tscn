@@ -177,72 +177,6 @@ font = ExtResource("8_og70j")
 font_size = 6
 font_color = Color(1, 0.8039216, 0.45882353, 1)
 
-[sub_resource type="Animation" id="Animation_qe4wv"]
-resource_name = "CompleteInvestigation"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FinishScreen:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_hcl70"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ReportScreen:offset_transform_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FinishScreen:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_8s8p8"]
-resource_name = "ReportScreenOpening"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ReportScreen:offset_transform_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_og70j"]
-_data = {
-&"CompleteInvestigation": SubResource("Animation_qe4wv"),
-&"RESET": SubResource("Animation_hcl70"),
-&"ReportScreenOpening": SubResource("Animation_8s8p8")
-}
-
 [node name="Investigation" type="Control" unique_id=374564516]
 layout_mode = 3
 anchors_preset = 15
@@ -425,13 +359,16 @@ disabled = true
 text = "REPORT"
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="FramePanel/MainPanel" unique_id=1241522806]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 22.0
-offset_bottom = 22.0
+[node name="Icon" type="TextureRect" parent="FramePanel/MainPanel" unique_id=1241522806]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.006369427
+anchor_top = 0.011594201
+anchor_right = 0.041401275
+anchor_bottom = 0.072463766
 texture = ExtResource("9_k7q8k")
+stretch_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="MainPanelAppView" type="NinePatchRect" parent="FramePanel/MainPanel" unique_id=942039932]
 layout_mode = 1
@@ -628,6 +565,7 @@ layout_mode = 1
 offset_transform_enabled = true
 
 [node name="FinishScreen" type="Control" parent="." unique_id=2090355639]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -798,9 +736,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Monologue" parent="." unique_id=1610582371 instance=ExtResource("13_hcl70")]
 visible = false
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1105326432]
-libraries/ = SubResource("AnimationLibrary_og70j")
 
 [connection signal="pressed" from="FramePanel/MainPanel/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]

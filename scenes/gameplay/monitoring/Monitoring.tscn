@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_55bmu"]
 [ext_resource type="Texture2D" uid="uid://t26hmnng47qj" path="res://assets/ui/Pause Icon.png" id="4_1bw4n"]
 [ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="5_mg8yo"]
-[ext_resource type="Texture2D" uid="uid://ckhs6ajdsqlfl" path="res://assets/ui/Investigation Icon.png" id="6_d08y4"]
+[ext_resource type="Texture2D" uid="uid://opw4fhnknawl" path="res://assets/ui/Monitoring Icon.png" id="7_1bw4n"]
 [ext_resource type="Texture2D" uid="uid://hjg0guptw8ib" path="res://assets/ui/Blank Panel.png" id="7_2hcmo"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="8_edlco"]
 [ext_resource type="Script" uid="uid://bnfab77o0p1n8" path="res://scripts/gameplay/monitoring/hint_tag.gd" id="9_hinttag"]
@@ -148,6 +148,10 @@ bg_color = Color(0.21960784, 0.7176471, 0.39215687, 1)
 font = ExtResource("8_edlco")
 font_size = 6
 font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_farh1"]
+font = ExtResource("8_edlco")
+font_size = 6
 
 [sub_resource type="Theme" id="Theme_hque8"]
 default_font = ExtResource("8_edlco")
@@ -398,9 +402,9 @@ metadata/_edit_use_anchors_ = true
 [node name="Objective" type="RichTextLabel" parent="FramePanel/MainPanel" unique_id=214011819]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.03821656
+anchor_left = 0.041401275
 anchor_top = 0.011594203
-anchor_right = 0.9601911
+anchor_right = 0.9633758
 anchor_bottom = 0.072463766
 theme = SubResource("Theme_26po0")
 theme_override_colors/default_color = Color(1, 0.8039216, 0.45882353, 1)
@@ -429,13 +433,16 @@ offset_bottom = 2.0
 text = "MONITORING.exe"
 label_settings = SubResource("LabelSettings_gcfq8")
 
-[node name="TextureRect" type="TextureRect" parent="FramePanel/MainPanel" unique_id=477780321]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 22.0
-offset_bottom = 22.0
-texture = ExtResource("6_d08y4")
+[node name="Icon" type="TextureRect" parent="FramePanel/MainPanel" unique_id=477780321]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.006369427
+anchor_top = 0.011594201
+anchor_right = 0.041401275
+anchor_bottom = 0.072463766
+texture = ExtResource("7_1bw4n")
+stretch_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="MainPanelAppView" type="NinePatchRect" parent="FramePanel/MainPanel" unique_id=1394791694]
 layout_mode = 1
@@ -788,6 +795,18 @@ text = "NOTES"
 label_settings = SubResource("LabelSettings_rjwuq")
 metadata/_edit_use_anchors_ = true
 
+[node name="AdditionalHints" type="Label" parent="FramePanel/MainPanel" unique_id=222327161]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.20700637
+anchor_top = 0.90144926
+anchor_right = 0.98407644
+anchor_bottom = 0.9681159
+text = "Iyot"
+label_settings = SubResource("LabelSettings_farh1")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="ReportButton" type="Button" parent="FramePanel" unique_id=1050560738]
 layout_mode = 1
 anchors_preset = -1
@@ -854,6 +873,7 @@ text = "RULEBOOK"
 metadata/_edit_use_anchors_ = true
 
 [node name="FinishScreen" type="Control" parent="." unique_id=1766359783]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

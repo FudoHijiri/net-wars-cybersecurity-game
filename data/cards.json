@@ -1,0 +1,12 @@
+{
+	"_note": "Placeholder cards for the six arts that exist. Numbers follow the proposed HP 10 scale. type is attack, defense or spell (picks the frame and the icon). The art file is assets/cards/art/art_<id>.png.",
+	"cards": {
+		"firewall": {"name": "Firewall", "type": "defense", "cost": 1, "text": "Gain 3 Block."},
+		"lock_out": {"name": "Lock Out", "type": "defense", "cost": 2, "text": "Gain 7 Block."},
+		"trace": {"name": "Trace", "type": "attack", "cost": 1, "text": "Deal 3 damage."},
+		"isolate": {"name": "Isolate", "type": "attack", "cost": 2, "text": "Deal 7 damage."},
+		"contain": {"name": "Contain", "type": "attack", "cost": 3, "text": "Deal 11 damage."},
+		"scan": {"name": "Scan", "type": "spell", "cost": 0, "text": "Draw 1 card."}
+	},
+	"starter_deck": ["firewall", "firewall", "trace", "trace", "scan", "isolate", "lock_out"]
+}
