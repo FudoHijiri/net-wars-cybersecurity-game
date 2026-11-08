@@ -8,6 +8,7 @@ extends Control
 @onready var book_content: Control = $"../BookArchive/Content"
 @onready var book_archive: Control = $"../BookArchive"
 @onready var resume_button: Button = $NinePatchRect/PlayButton # its label says RESUME
+@onready var open_deck_button: Button = $NinePatchRect/OpenDeckButton
 
 const GAMEPLAY_SCENE := "uid://3c7f3ifrv4i1" # the day's dialogue; it hands over to the investigation
 
@@ -21,6 +22,7 @@ func _ready() -> void:
 		day += 1
 	GameState.set_day(1)
 	resume_button.pressed.connect(_on_resume_pressed)
+	open_deck_button.pressed.connect(_on_open_deck_pressed)
 	visibility_changed.connect(_refresh_resume) # the slot may have changed since the last time
 
 
@@ -41,6 +43,33 @@ func _refresh_resume() -> void:
 	var point := SaveManager.resume_point() if SaveManager.current_slot >= 0 else {}
 	resume_button.disabled = point.is_empty() or not GameState.is_phase_built(point["phase"], point["day"])
 	resume_button.tooltip_text = "" if resume_button.disabled else "Day %d - %s" % [point["day"], str(point["phase"]).capitalize()]
+	open_deck_button.disabled = _deck_day() == 0
+
+
+## The day whose Hardening OPEN DECK opens: the day the save is at, or the last built one before it.
+## 0 when there is none, or no slot is loaded (nothing could be saved).
+func _deck_day() -> int:
+	if SaveManager.current_slot < 0:
+		return 0
+	for day in range(int(SaveManager.resume_point()["day"]), 0, -1):
+		if not str(GameState.phase_info("hardening", day).get("scene", "")).is_empty():
+			return day
+	return 0
+
+
+## Opens the deck and upgrade screens on their own, without the shop or the rest of the phase.
+func _on_open_deck_pressed() -> void:
+	var day := _deck_day()
+	if open_deck_button.disabled or day == 0:
+		return
+	open_deck_button.disabled = true
+	resume_button.disabled = true
+	new_game_button.disabled = true
+	GameState.reset_progress()
+	GameState.set_day(day)
+	GameState.set_phase("hardening")
+	SceneManager.build_only = true
+	SceneManager.load_scene(str(GameState.phase_info()["scene"]))
 
 
 ## Continues the slot at the first phase it has not finished: the dialogue before that phase, then the phase.

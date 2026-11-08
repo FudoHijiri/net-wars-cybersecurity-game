@@ -86,6 +86,11 @@ func _pay(gain: int, day: int, phase: String) -> void:
 	GameState.security_points = total
 	if SaveManager.current_slot >= 0:
 		SaveManager.data["security_points"] = total
+		if phase == "investigation": # later phases (Hardening) read what the player found
+			var found: Array = SaveManager.data["found_clues"]
+			for id: String in GameState.found_clue_ids():
+				if not found.has(id):
+					found.append(id)
 		SaveManager.complete_phase(day, phase)
 		SaveManager.save()
 

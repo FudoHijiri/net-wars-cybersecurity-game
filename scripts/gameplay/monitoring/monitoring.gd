@@ -105,6 +105,8 @@ func _ready() -> void:
 	_refresh_clock()
 	await get_tree().process_frame # the notes panel has its size only after the first layout pass
 	_add_note(_data["messages"]["start"]) # no log yet: the first one comes with NEXT LOG
+	await SceneManager.wait_for_transition()
+	Tutorial.maybe_show(self, "monitoring")
 
 
 func _process(delta: float) -> void:
@@ -449,7 +451,7 @@ func _rulebook_text() -> String:
 	return "\n".join(lines)
 
 
-# --- Debug panel (F9) ---
+# --- Debug panel (=) ---
 
 func debug_info() -> String:
 	return "LOG #%d   SHIFT %d s   CORRECT %d  WRONG %d" % [_log.get("number", 0), ceili(_shift_left), _correct, _wrong]

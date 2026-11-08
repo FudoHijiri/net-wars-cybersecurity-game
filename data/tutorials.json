@@ -1,0 +1,70 @@
+{
+	"_note": "The tutorials of the game, each shown once on Day 1 of a new save (see scripts/tutorial/tutorial.gd). A phase has one for the whole screen (investigation, monitoring, hardening, response) and some for a view the player opens later (investigation_report, hardening_shop, hardening_deck_editor, hardening_upgrade_editor): a view's tutorial shows the first time the player opens that view. A step is text plus a target: a node path from the scene the tutorial is shown in, or %Name for a node found by name, or empty for a step with nothing to point at. Keep a step to one or two short sentences.",
+	"investigation": [
+		{"text": "INVESTIGATION. Something went wrong at the office last night. Look through the records and find the clues that show what happened.", "target": ""},
+		{"text": "Each tab is a different set of records: email, logs, computers, logins, files, network and servers. Check them all.", "target": "FramePanel/MainPanel/HBoxContainer"},
+		{"text": "Click a row to read the whole entry here.", "target": "FramePanel/MainPanel/MainPanelAppView"},
+		{"text": "Press INVESTIGATE to look closer. A real clue is marked FOUND. An ordinary entry is only marked READ.", "target": "%MarkClueButton"},
+		{"text": "This counts the clues you have found. You need all of them.", "target": "FramePanel/MainPanel/CluesFound"},
+		{"text": "With every clue found, REPORT opens. There you say what happened, so take your time.", "target": "FramePanel/MainPanel/ReportButton"}
+	],
+	"monitoring": [
+		{"text": "MONITORING. You watch the sign-ins as they happen. For each one, decide: normal, or suspicious.", "target": ""},
+		{"text": "The guide shows the rules: office hours, and who is on call tonight. A sign-in that breaks them is suspicious.", "target": "FramePanel/MainPanel/MainPanelAppView/Panel/Guide"},
+		{"text": "NEXT LOG brings the next sign-in.", "target": "FramePanel/NextLogButton"},
+		{"text": "Read the log here. Click a part of it to ask about that part.", "target": "FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left"},
+		{"text": "LET PASS when the sign-in looks normal.", "target": "FramePanel/LetPassButton"},
+		{"text": "REPORT when it breaks a rule. A wrong call costs you points.", "target": "FramePanel/ReportButton"},
+		{"text": "The RULEBOOK has every rule, in case you forget one.", "target": "FramePanel/RuleBookButton"},
+		{"text": "Watch the clock. The shift ends when the time runs out.", "target": "FramePanel/MainPanel/MainPanelAppView/Panel/TimeLeft"}
+	],
+	"hardening": [
+		{"text": "HARDENING. Now you prepare. What you set up here decides how the fight goes.", "target": ""},
+		{"text": "This is your deck: the cards you will play. The panel next to it shows what kinds of cards it holds.", "target": "Deck/CardsPanel"},
+		{"text": "Upgrades are defenses against a real threat. They only work once you equip them, and each one takes some load.", "target": "Deck/Upgrades"},
+		{"text": "In the shop you spend Security Points on cards and upgrades. You earned them in the last two phases.", "target": "Deck/Buttons/OpenShop"},
+		{"text": "Equip the upgrades that answer what you found. The ones marked * match your clues.", "target": "Deck/Buttons/EditPassives"},
+		{"text": "Choose which cards are in your deck. You need at least 5.", "target": "Deck/Buttons/EditDeck"},
+		{"text": "When you are ready, move on to the fight.", "target": "Deck/NextPhase"}
+	],
+	"response": [
+		{"text": "RESPONSE. The threat attacks. Each round has two parts: you play cards, then you dodge its attack.", "target": ""},
+		{"text": "Your cards. Hover over one to read it, and click it to play it.", "target": "Hand"},
+		{"text": "Every card costs energy. Your energy is the limit on what you can play each turn.", "target": "EnergyLabel"},
+		{"text": "This shows the next attack before it comes, so you can plan.", "target": "Intent"},
+		{"text": "End your turn to let the threat attack.", "target": "EndTurn"},
+		{"text": "Then you steer the heart with the arrow keys or WASD, and dodge the bullets in the box.", "target": ""},
+		{"text": "The upgrades you equipped show here. Without the right one, an attack hits much harder.", "target": "UpgradeIcons"}
+	],
+	"investigation_report": [
+		{"text": "THE REPORT. Now you tell what happened. The story has blanks, and you fill them with what you found.", "target": ""},
+		{"text": "This is the story. Some of its words are missing.", "target": "MainPanel/Case"},
+		{"text": "Select a word and drag it into a blank (or use the keyboard). Some of these words do not belong, so choose carefully.", "target": "MainPanel/ClueWords"},
+		{"text": "Your notes on the clues you found are here. Use them to decide.", "target": "MainPanel/Notes"},
+		{"text": "When every blank is filled, submit the report. A wrong word costs you points, so check first.", "target": "MainPanel/FinishReportButton"}
+	],
+	"hardening_shop": [
+		{"text": "THE SHOP. Spend your Security Points on cards and upgrades. Click one to read it, then press BUY.", "target": ""},
+		{"text": "Carla runs the shop. Click anything and she explains it in plain words.", "target": "Shop/Dialogue"},
+		{"text": "Cards go into your collection. You can buy the same card more than once.", "target": "Shop/ShopContent/CardsScroll"},
+		{"text": "Upgrades are defenses. You can own each one once, so pick the ones that answer what you found.", "target": "Shop/ShopContent/UpgradeShopScroll"},
+		{"text": "What you clicked is described here, with its price. Press BUY to pay for it.", "target": "Shop/ShopContent/Panel"},
+		{"text": "Your Security Points are shown here.", "target": "TopBar/SPWallet"},
+		{"text": "Leave when you are done. You can come back before the fight.", "target": "Shop/Buttons/LeaveButton"}
+	],
+	"hardening_deck_editor": [
+		{"text": "THE DECK EDITOR. Choose which cards go into your deck.", "target": ""},
+		{"text": "This is your deck: 9 cards at most, and at least 5 to start the fight. Click a card to take it out.", "target": "DeckEditor/CardsPanel"},
+		{"text": "Your other cards are here. Click one to put it in the deck. The buttons above filter by type and cost.", "target": "DeckEditor/Collection"},
+		{"text": "Point at any card to read it here.", "target": "DeckEditor/Info"},
+		{"text": "Need more cards? The shop is one click away.", "target": "DeckEditor/Buttons/GoToShop"}
+	],
+	"hardening_upgrade_editor": [
+		{"text": "THE UPGRADE EDITOR. Choose the upgrades you will take into the fight.", "target": ""},
+		{"text": "Each upgrade uses some load, and your load is limited. You cannot equip everything.", "target": "UpgradeEditor/UpgradesTitle"},
+		{"text": "Your equipped upgrades are here. Click one to take it off.", "target": "UpgradeEditor/UpgradesPanel"},
+		{"text": "Your other upgrades are here. Click one to equip it. A * means it answers a clue you found.", "target": "UpgradeEditor/Collection"},
+		{"text": "RECOMMENDED shows only those.", "target": "UpgradeEditor/Collection/RecommendedFilter"},
+		{"text": "Point at an upgrade to read what it does.", "target": "UpgradeEditor/Info"}
+	]
+}

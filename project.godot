@@ -26,16 +26,16 @@ InterfaceColors="*res://AI generated/scripts/accessibility/interface_colors.gd"
 ScreenEffects="*res://AI generated/scripts/accessibility/screen_effects.gd"
 DebugPanel="*res://AI generated/scenes/debug/DebugPanel.tscn"
 PauseMenu="*res://scenes/gameplay/PauseMenu.tscn"
+GameCursor="*res://autoload/game_cursor.gd"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=1
 window/size/borderless=true
 window/size/extend_to_title=true
-window/size/window_width_override=1920
-window/size/window_height_override=1080
+window/size/window_width_override=1280
+window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
@@ -45,6 +45,7 @@ project/assembly_name="NetWars Cybersecurity Game"
 
 [gui]
 
+theme/custom="res://assets/ui/tooltip_theme.tres"
 theme/default_font_subpixel_positioning=0
 
 [physics]

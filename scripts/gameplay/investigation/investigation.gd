@@ -50,6 +50,9 @@ func _ready() -> void:
 
 	_report.completed.connect(_on_report_completed)
 
+	await SceneManager.wait_for_transition()
+	Tutorial.maybe_show(self, "investigation")
+
 
 func _on_email_button_pressed() -> void:
 	_app_view.load_app("email")
@@ -83,6 +86,8 @@ func _on_report_button_pressed() -> void:
 	_animation.play(&"ReportScreenOpening")
 	_animation.advance(0.0) # apply the first frame before the screen shows
 	_report.open()
+	await _animation.animation_finished # the tutorial pauses the game, so it waits for the screen to be there
+	Tutorial.maybe_show(_report, "investigation_report")
 
 
 ## The report is right and CONTINUE was pressed: the phase is over. The FinishScreen pays out and goes on.
@@ -115,7 +120,7 @@ func _on_pause_button_pressed() -> void:
 	PauseMenu.open()
 
 
-# --- Debug panel (F9) ---
+# --- Debug panel (=) ---
 
 func debug_info() -> String:
 	return "CLUES %d/%d   REPORT MISTAKES %d" % [GameState.marked_count(), GameState.clues_required(), _report.mistakes()]

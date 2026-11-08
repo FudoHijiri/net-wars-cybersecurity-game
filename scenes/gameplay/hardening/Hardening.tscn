@@ -8,6 +8,41 @@
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="6_bme43"]
 [ext_resource type="Script" uid="uid://c3faek12v086k" path="res://scripts/gameplay/hardening/hardening.gd" id="7_hardening"]
 [ext_resource type="Texture2D" uid="uid://cjoepvtg2vcmq" path="res://assets/ui/HeartIcon.png" id="8_5csqv"]
+[ext_resource type="Script" uid="uid://djaqbquktur7q" path="res://scripts/gameplay/hardening/deck.gd" id="8_iemnb"]
+[ext_resource type="Texture2D" uid="uid://c1m0kvcdasl62" path="res://assets/ui/Cost Orb S Icon.png" id="9_5csqv"]
+[ext_resource type="Texture2D" uid="uid://bwd5e1ut5jf8d" path="res://assets/cards/type_icons/type_icon_attack.png" id="10_ljqbp"]
+[ext_resource type="Texture2D" uid="uid://550t0j4lmvqb" path="res://assets/cards/type_icons/type_icon_defense.png" id="11_e7m5n"]
+[ext_resource type="Texture2D" uid="uid://cqrni186g2kaq" path="res://assets/cards/type_icons/type_icon_spell.png" id="12_vakpl"]
+[ext_resource type="Texture2D" uid="uid://qr51bu0mbh2" path="res://assets/ui/Archive File Icon.png" id="13_24475"]
+[ext_resource type="Texture2D" uid="uid://dwa4vfdikw6ea" path="res://assets/charactersprite/Carla-Sheet.png" id="13_e7m5n"]
+[ext_resource type="Theme" uid="uid://do41m1dxvwx1w" path="res://assets/ui/scrollbar/scrollbar_theme.tres" id="13_oyxaa"]
+[ext_resource type="Texture2D" uid="uid://ddriv7qomjvtu" path="res://assets/ui/scrollbar/scroll_left_normal.png" id="14_6pa12"]
+[ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="14_vakpl"]
+[ext_resource type="Texture2D" uid="uid://hm3yxoytb61k" path="res://assets/ui/scrollbar/scroll_left_hover.png" id="15_1vpa2"]
+[ext_resource type="Script" uid="uid://b3o4tua4djwbk" path="res://scripts/gameplay/hardening/shop.gd" id="15_gob5b"]
+[ext_resource type="Texture2D" uid="uid://drybfh0clr86r" path="res://assets/ui/scrollbar/scroll_left_pressed.png" id="16_yvvlx"]
+[ext_resource type="Texture2D" uid="uid://dcmok8i3xayf5" path="res://assets/ui/scrollbar/scroll_right_normal.png" id="17_7tyka"]
+[ext_resource type="Texture2D" uid="uid://ck17bseh1wbfn" path="res://assets/ui/scrollbar/scroll_right_hover.png" id="18_6c6kh"]
+[ext_resource type="Texture2D" uid="uid://biusg3p4hdwe3" path="res://assets/ui/scrollbar/scroll_right_pressed.png" id="19_0lno2"]
+[ext_resource type="Texture2D" uid="uid://8tm7l6eqgswd" path="res://assets/ui/scrollbar/scroll_grabber_normal_h.png" id="20_iemnb"]
+[ext_resource type="Script" uid="uid://cb6nbsyqe57ve" path="res://scripts/gameplay/hardening/deck_editor.gd" id="20_vx4hh"]
+[ext_resource type="Texture2D" uid="uid://cbe3a4jqk77ry" path="res://assets/ui/scrollbar/scroll_grabber_hover_h.png" id="21_gob5b"]
+[ext_resource type="Script" uid="uid://cvbibt5phb7qy" path="res://scripts/gameplay/hardening/upgrade_editor.gd" id="22_7yant"]
+[ext_resource type="Texture2D" uid="uid://b4j4afem5uhcm" path="res://assets/ui/scrollbar/scroll_grabber_pressed_h.png" id="22_vx4hh"]
+[ext_resource type="Texture2D" uid="uid://by1dran6egqf4" path="res://assets/ui/scrollbar/scroll_track_h.png" id="23_7yant"]
+[ext_resource type="Texture2D" uid="uid://dlwb2h6owa2ph" path="res://assets/ui/scrollbar/scroll_up_normal.png" id="24_ltl2o"]
+[ext_resource type="Texture2D" uid="uid://bvpetccwtwocb" path="res://assets/ui/scrollbar/scroll_up_hover.png" id="25_helua"]
+[ext_resource type="Texture2D" uid="uid://p0se4u80hyrq" path="res://assets/ui/scrollbar/scroll_up_pressed.png" id="26_16tiu"]
+[ext_resource type="Texture2D" uid="uid://ddhu1wxho62f2" path="res://assets/ui/scrollbar/scroll_down_normal.png" id="27_o34sf"]
+[ext_resource type="Texture2D" uid="uid://djfgwktsmunji" path="res://assets/ui/scrollbar/scroll_down_hover.png" id="28_1n5ds"]
+[ext_resource type="Texture2D" uid="uid://i5wgpe3e4xrr" path="res://assets/ui/scrollbar/scroll_down_pressed.png" id="29_lbd71"]
+[ext_resource type="Texture2D" uid="uid://btd3kedlyh0f0" path="res://assets/ui/scrollbar/scroll_grabber_normal_v.png" id="30_l273j"]
+[ext_resource type="Texture2D" uid="uid://cssmaxwvk0jur" path="res://assets/ui/scrollbar/scroll_grabber_hover_v.png" id="31_04rj4"]
+[ext_resource type="Texture2D" uid="uid://cfd14n3vrxtlt" path="res://assets/ui/scrollbar/scroll_grabber_pressed_v.png" id="32_c1bjo"]
+[ext_resource type="Texture2D" uid="uid://dgtkj5lij3m4q" path="res://assets/ui/scrollbar/scroll_track_v.png" id="33_l1gtf"]
+[ext_resource type="PackedScene" uid="uid://dmjcrovq7xnvo" path="res://scenes/gameplay/hardening/Card.tscn" id="37_6pa12"]
+[ext_resource type="Theme" uid="uid://d38ys1ts0cgv" path="res://assets/ui/optionbar/option_button_theme.tres" id="38_1vpa2"]
+[ext_resource type="Texture2D" uid="uid://drcg61hd22k4a" path="res://assets/upgrades/icon_twostep.png" id="38_yvvlx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3568o"]
 shader = ExtResource("1_ox2nw")
@@ -38,6 +73,11 @@ font = ExtResource("6_bme43")
 font_size = 6
 font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_yvvlx"]
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(1, 0.8039216, 0.45882353, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5csqv"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 1
@@ -65,6 +105,464 @@ border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3568o"]
 content_margin_left = 2.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_oyxaa"]
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gigji"]
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(0.4509804, 0.9372549, 0.96862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ywjb"]
+font = ExtResource("6_bme43")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_gqfwf"]
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xttc1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjwuq"]
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rjwuq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_24475"]
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ljqbp"]
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_e7m5n"]
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vakpl"]
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hg06o"]
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="Theme" id="Theme_wycbq"]
+default_font = ExtResource("6_bme43")
+default_font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7m5n"]
+bg_color = Color(0.14509805, 0.44313726, 0.4745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vakpl"]
+bg_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hg06o"]
+bg_color = Color(0.21960784, 0.7176471, 0.39215687, 1)
+
+[sub_resource type="Theme" id="Theme_5cuim"]
+default_font = ExtResource("6_bme43")
+default_font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24475"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyxaa"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gigji"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_color = Color(0.2, 0.23529412, 0.34117648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yob6y"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0yrv"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljqbp"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptohj"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vakpl"]
+atlas = ExtResource("13_e7m5n")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg06o"]
+atlas = ExtResource("13_e7m5n")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3568o"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_vakpl")
+}, {
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_hg06o")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xjx1w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4ec8"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+bg_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjx1w"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_farh1"]
+font = ExtResource("6_bme43")
+font_size = 6
+
+[sub_resource type="Theme" id="Theme_ljqbp"]
+default_font = ExtResource("6_bme43")
+default_font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pa12"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1vpa2"]
+bg_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvvlx"]
+bg_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u4ec8"]
+font = ExtResource("6_bme43")
+font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tyka"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6c6kh"]
+bg_color = Color(0.4509804, 0.9372549, 0.96862745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0lno2"]
+bg_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wmqr"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ptohj"]
+line_spacing = 0.0
+font = ExtResource("3_o1fc0")
+font_size = 8
+font_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uyhkn"]
+line_spacing = 0.0
+font = ExtResource("6_bme43")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_6pa12"]
+line_spacing = 0.0
+font = ExtResource("6_bme43")
+font_size = 6
+font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iemnb"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gob5b"]
+bg_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vx4hh"]
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16tiu"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o34sf"]
+bg_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1n5ds"]
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbd71"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l273j"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04rj4"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1bjo"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1gtf"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q64bp"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ytef"]
+font = ExtResource("6_bme43")
+font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ywjb"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqfwf"]
+bg_color = Color(0.9372549, 0.49019608, 0.34117648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0k737"]
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yant"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ltl2o"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_helua"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4ec8"]
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_normal_h"]
+texture = ExtResource("20_iemnb")
+texture_margin_left = 5.0
+texture_margin_top = 3.0
+texture_margin_right = 5.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_hover_h"]
+texture = ExtResource("21_gob5b")
+texture_margin_left = 5.0
+texture_margin_top = 3.0
+texture_margin_right = 5.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_pressed_h"]
+texture = ExtResource("22_vx4hh")
+texture_margin_left = 5.0
+texture_margin_top = 3.0
+texture_margin_right = 5.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_track_h"]
+texture = ExtResource("23_7yant")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_normal_v"]
+texture = ExtResource("30_l273j")
+texture_margin_left = 3.0
+texture_margin_top = 5.0
+texture_margin_right = 3.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_hover_v"]
+texture = ExtResource("31_04rj4")
+texture_margin_left = 3.0
+texture_margin_top = 5.0
+texture_margin_right = 3.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_pressed_v"]
+texture = ExtResource("32_c1bjo")
+texture_margin_left = 3.0
+texture_margin_top = 5.0
+texture_margin_right = 3.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_track_v"]
+texture = ExtResource("33_l1gtf")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="Theme" id="Theme_q64bp"]
+HScrollBar/icons/decrement = ExtResource("14_6pa12")
+HScrollBar/icons/decrement_highlight = ExtResource("15_1vpa2")
+HScrollBar/icons/decrement_pressed = ExtResource("16_yvvlx")
+HScrollBar/icons/increment = ExtResource("17_7tyka")
+HScrollBar/icons/increment_highlight = ExtResource("18_6c6kh")
+HScrollBar/icons/increment_pressed = ExtResource("19_0lno2")
+HScrollBar/styles/grabber = SubResource("sb_scroll_grabber_normal_h")
+HScrollBar/styles/grabber_highlight = SubResource("sb_scroll_grabber_hover_h")
+HScrollBar/styles/grabber_pressed = SubResource("sb_scroll_grabber_pressed_h")
+HScrollBar/styles/scroll = SubResource("sb_scroll_track_h")
+HScrollBar/styles/scroll_focus = SubResource("sb_scroll_track_h")
+VScrollBar/icons/decrement = ExtResource("24_ltl2o")
+VScrollBar/icons/decrement_highlight = ExtResource("25_helua")
+VScrollBar/icons/decrement_pressed = ExtResource("26_16tiu")
+VScrollBar/icons/increment = ExtResource("27_o34sf")
+VScrollBar/icons/increment_highlight = ExtResource("28_1n5ds")
+VScrollBar/icons/increment_pressed = ExtResource("29_lbd71")
+VScrollBar/styles/grabber = SubResource("sb_scroll_grabber_normal_v")
+VScrollBar/styles/grabber_highlight = SubResource("sb_scroll_grabber_hover_v")
+VScrollBar/styles/grabber_pressed = SubResource("sb_scroll_grabber_pressed_v")
+VScrollBar/styles/scroll = SubResource("sb_scroll_track_v")
+VScrollBar/styles/scroll_focus = SubResource("sb_scroll_track_v")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xttc1"]
 bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
 border_width_left = 1
@@ -90,54 +588,6 @@ font = ExtResource("6_bme43")
 font_size = 6
 font_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
 
-[sub_resource type="Theme" id="Theme_wycbq"]
-default_font = ExtResource("6_bme43")
-default_font_size = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7m5n"]
-bg_color = Color(0.14509805, 0.44313726, 0.4745098, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vakpl"]
-bg_color = Color(0.654902, 0.9411765, 0.4392157, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hg06o"]
-bg_color = Color(0.21960784, 0.7176471, 0.39215687, 1)
-
-[sub_resource type="Theme" id="Theme_5cuim"]
-default_font = ExtResource("6_bme43")
-default_font_size = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yob6y"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0yrv"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljqbp"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.23529412, 0.34117648, 1)
-
 [node name="Hardening" type="Control" unique_id=1112499646]
 layout_mode = 3
 anchors_preset = 15
@@ -157,7 +607,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TopBar" type="Panel" parent="." unique_id=2067701752]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.06666667
 theme_override_styles/panel = SubResource("StyleBoxFlat_3568o")
@@ -205,7 +656,7 @@ anchors_preset = -1
 anchor_left = 0.0125
 anchor_right = 0.1125
 anchor_bottom = 1.0
-text = "DECK"
+text = "Shop"
 label_settings = SubResource("LabelSettings_5cuim")
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -221,13 +672,27 @@ label_settings = SubResource("LabelSettings_xttc1")
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="SPWallet" type="Label" parent="TopBar" unique_id=1778693444]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.85
+anchor_right = 0.95
+anchor_bottom = 0.9583333
+text = "SP"
+label_settings = SubResource("LabelSettings_yvvlx")
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="Deck" type="Panel" parent="." unique_id=1973665176]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.06666667
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5csqv")
+script = ExtResource("8_iemnb")
 metadata/_edit_use_anchors_ = true
 
 [node name="DeckTitle" type="Label" parent="Deck" unique_id=1253486690]
@@ -268,30 +733,285 @@ metadata/_edit_use_anchors_ = true
 [node name="HPIcon" type="TextureRect" parent="Deck/Stats" unique_id=877109047]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.043478254
-anchor_top = 0.13636364
-anchor_right = 0.092391305
-anchor_bottom = 0.23863636
+anchor_left = 0.02173912
+anchor_top = 0.056818184
+anchor_right = 0.07065217
+anchor_bottom = 0.1590909
 offset_transform_enabled = true
 texture = ExtResource("8_5csqv")
 metadata/_edit_use_anchors_ = true
 
-[node name="HP" type="RichTextLabel" parent="Deck/Stats" unique_id=1541552900]
+[node name="HP" type="Label" parent="Deck/Stats" unique_id=1849319768]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.097826086
-anchor_top = 0.09090909
-anchor_right = 0.2717391
-anchor_bottom = 0.27272728
-theme_override_colors/default_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
-theme_override_fonts/normal_font = ExtResource("6_bme43")
-theme_override_font_sizes/normal_font_size = 6
+anchor_left = 0.06521739
+anchor_top = 0.03409091
+anchor_right = 0.25543478
+anchor_bottom = 0.17045455
 theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
-bbcode_enabled = true
-text = "HP 20"
-scroll_active = false
+text = "HP 90"
+label_settings = SubResource("LabelSettings_oyxaa")
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="EnergyIcon" type="TextureRect" parent="Deck/Stats" unique_id=1544866692]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25543478
+anchor_top = 0.056818184
+anchor_right = 0.30434784
+anchor_bottom = 0.1590909
+texture = ExtResource("9_5csqv")
+metadata/_edit_use_anchors_ = true
+
+[node name="Energy" type="Label" parent="Deck/Stats" unique_id=336292231]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.29891306
+anchor_top = 0.03409091
+anchor_right = 0.5543479
+anchor_bottom = 0.17045455
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
+text = "Energy 3"
+label_settings = SubResource("LabelSettings_gigji")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CardsInDeck" type="Label" parent="Deck/Stats" unique_id=82075950]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5706522
+anchor_top = 0.03409091
+anchor_right = 0.95652175
+anchor_bottom = 0.19318181
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
+text = "Cards in Deck:"
+label_settings = SubResource("LabelSettings_6ywjb")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DrawCards" type="Label" parent="Deck/Stats" unique_id=2098320543]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.010869565
+anchor_top = 0.20454545
+anchor_right = 0.45108697
+anchor_bottom = 0.3409091
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
+text = "Draw 1 per turn"
+label_settings = SubResource("LabelSettings_gqfwf")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CostCurve" type="Label" parent="Deck/Stats" unique_id=1892154571]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.010869565
+anchor_top = 0.35227272
+anchor_right = 0.3206522
+anchor_bottom = 0.48863637
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
+text = "Cost Curve"
+label_settings = SubResource("LabelSettings_gqfwf")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CostCurveRow" type="HBoxContainer" parent="Deck/Stats" unique_id=1737222824]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016304348
+anchor_top = 0.5
+anchor_right = 0.5054348
+anchor_bottom = 0.8863636
+metadata/_edit_use_anchors_ = true
+
+[node name="0" type="ProgressBar" parent="Deck/Stats/CostCurveRow" unique_id=794377393]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxEmpty_xttc1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rjwuq")
+max_value = 9.0
+value = 9.0
+fill_mode = 3
+show_percentage = false
+
+[node name="1" type="ProgressBar" parent="Deck/Stats/CostCurveRow" unique_id=1483944386]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxEmpty_xttc1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rjwuq")
+max_value = 9.0
+value = 4.0
+fill_mode = 3
+show_percentage = false
+
+[node name="2" type="ProgressBar" parent="Deck/Stats/CostCurveRow" unique_id=2117722817]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxEmpty_xttc1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rjwuq")
+max_value = 9.0
+value = 2.0
+fill_mode = 3
+show_percentage = false
+
+[node name="3" type="ProgressBar" parent="Deck/Stats/CostCurveRow" unique_id=1189138723]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxEmpty_xttc1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rjwuq")
+max_value = 9.0
+value = 2.0
+fill_mode = 3
+show_percentage = false
+
+[node name="4" type="ProgressBar" parent="Deck/Stats/CostCurveRow" unique_id=1399870894]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxEmpty_xttc1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rjwuq")
+max_value = 9.0
+value = 2.0
+fill_mode = 3
+show_percentage = false
+
+[node name="CostCurve Labels" type="Panel" parent="Deck/Stats" unique_id=1781219053]
+layout_mode = 0
+anchor_left = 0.0054347827
+anchor_top = 0.8863636
+anchor_right = 0.5217391
+anchor_bottom = 0.9886364
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rjwuq")
+metadata/_edit_use_anchors_ = true
+
+[node name="0" type="Label" parent="Deck/Stats/CostCurve Labels" unique_id=1703253596]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05263158
+anchor_top = -0.22222227
+anchor_right = 0.1368421
+anchor_bottom = 1.1111112
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
+text = "0"
+label_settings = SubResource("LabelSettings_24475")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="1" type="Label" parent="Deck/Stats/CostCurve Labels" unique_id=174827504]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25263157
+anchor_top = -0.22222227
+anchor_right = 0.33684212
+anchor_bottom = 1.1111112
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
+text = "1"
+label_settings = SubResource("LabelSettings_24475")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="2" type="Label" parent="Deck/Stats/CostCurve Labels" unique_id=223623652]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4526316
+anchor_top = -0.22222227
+anchor_right = 0.5368421
+anchor_bottom = 1.1111112
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
+text = "2"
+label_settings = SubResource("LabelSettings_24475")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="3" type="Label" parent="Deck/Stats/CostCurve Labels" unique_id=991635327]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6526316
+anchor_top = -0.22222227
+anchor_right = 0.7368421
+anchor_bottom = 1.1111112
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
+text = "3"
+label_settings = SubResource("LabelSettings_24475")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="4" type="Label" parent="Deck/Stats/CostCurve Labels" unique_id=918053779]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.85263157
+anchor_top = -0.22222227
+anchor_right = 0.9368421
+anchor_bottom = 1.1111112
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
+text = "4"
+label_settings = SubResource("LabelSettings_24475")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DeckStats" type="VBoxContainer" parent="Deck/Stats" unique_id=1038363983]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 17.0
+offset_right = 182.0
+offset_bottom = 86.0
+
+[node name="DamageInDeck" type="HBoxContainer" parent="Deck/Stats/DeckStats" unique_id=1086019744]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Deck/Stats/DeckStats/DamageInDeck" unique_id=2133665783]
+layout_mode = 2
+texture = ExtResource("10_ljqbp")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Deck/Stats/DeckStats/DamageInDeck" unique_id=1595966056]
+layout_mode = 2
+text = "# Offensive"
+label_settings = SubResource("LabelSettings_ljqbp")
+
+[node name="DefenseInDeck" type="HBoxContainer" parent="Deck/Stats/DeckStats" unique_id=1469819257]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Deck/Stats/DeckStats/DefenseInDeck" unique_id=308104314]
+layout_mode = 2
+texture = ExtResource("11_e7m5n")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Deck/Stats/DeckStats/DefenseInDeck" unique_id=1689006566]
+layout_mode = 2
+text = "# Defensive"
+label_settings = SubResource("LabelSettings_e7m5n")
+
+[node name="UtilityInDeck" type="HBoxContainer" parent="Deck/Stats/DeckStats" unique_id=1851300930]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Deck/Stats/DeckStats/UtilityInDeck" unique_id=839174746]
+layout_mode = 2
+texture = ExtResource("12_vakpl")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Deck/Stats/DeckStats/UtilityInDeck" unique_id=1698131519]
+layout_mode = 2
+text = "# Utility"
+label_settings = SubResource("LabelSettings_vakpl")
+
+[node name="Average Cost" type="HBoxContainer" parent="Deck/Stats/DeckStats" unique_id=1576663931]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Deck/Stats/DeckStats/Average Cost" unique_id=2083969049]
+layout_mode = 2
+text = "Avg, Cost - #.#"
+label_settings = SubResource("LabelSettings_hg06o")
 
 [node name="Upgrades" type="Panel" parent="Deck" unique_id=1653190336]
 layout_mode = 1
@@ -315,110 +1035,29 @@ label_settings = SubResource("LabelSettings_bme43")
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="UpgradesList" type="VBoxContainer" parent="Deck/Upgrades" unique_id=1428578839]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 24.0
-offset_right = 384.0
-offset_bottom = 200.0
-
-[node name="Row1" type="HBoxContainer" parent="Deck/Upgrades/UpgradesList" unique_id=1789396757]
-layout_mode = 2
-
-[node name="UpgradeLeft" type="PanelContainer" parent="Deck/Upgrades/UpgradesList/Row1" unique_id=33702138]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
-
-[node name="Label" type="Label" parent="Deck/Upgrades/UpgradesList/Row1/UpgradeLeft" unique_id=1443589174]
-layout_mode = 2
-text = "Asdad"
-label_settings = SubResource("LabelSettings_rjwuq")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="UpgradeRight" type="PanelContainer" parent="Deck/Upgrades/UpgradesList/Row1" unique_id=2018587973]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
-
-[node name="Label" type="Label" parent="Deck/Upgrades/UpgradesList/Row1/UpgradeRight" unique_id=1572780123]
-layout_mode = 2
-text = "Asdad"
-label_settings = SubResource("LabelSettings_rjwuq")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Row2 (Empty)" type="HBoxContainer" parent="Deck/Upgrades/UpgradesList" unique_id=2679334]
-layout_mode = 2
-
-[node name="UpgradeLeft" type="PanelContainer" parent="Deck/Upgrades/UpgradesList/Row2 (Empty)" unique_id=466895352]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
-
-[node name="Label" type="Label" parent="Deck/Upgrades/UpgradesList/Row2 (Empty)/UpgradeLeft" unique_id=1793011859]
-layout_mode = 2
-text = "Asdad"
-label_settings = SubResource("LabelSettings_wycbq")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="UpgradeRight" type="PanelContainer" parent="Deck/Upgrades/UpgradesList/Row2 (Empty)" unique_id=2077873392]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
-
-[node name="Label" type="Label" parent="Deck/Upgrades/UpgradesList/Row2 (Empty)/UpgradeRight" unique_id=1624870743]
-layout_mode = 2
-text = "Asdad"
-label_settings = SubResource("LabelSettings_wycbq")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Shop" type="Panel" parent="." unique_id=1262047765]
-visible = false
+[node name="UpgradesScroll" type="ScrollContainer" parent="Deck/Upgrades" unique_id=1613318664]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.06666667
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_5csqv")
+anchor_left = 0.020408163
+anchor_top = 0.115384616
+anchor_right = 0.97959185
+anchor_bottom = 0.96153843
+theme = ExtResource("13_oyxaa")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
+scroll_hint_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="DeckEditor" type="Panel" parent="." unique_id=830914103]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.06666667
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_5csqv")
-metadata/_edit_use_anchors_ = true
+[node name="GridContainer" type="GridContainer" parent="Deck/Upgrades/UpgradesScroll" unique_id=1199471061]
+layout_mode = 2
 
-[node name="UpgradeEditor" type="Panel" parent="." unique_id=743040321]
-visible = false
+[node name="NextPhase" type="Button" parent="Deck" unique_id=43166446]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.06666667
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -22.400002
-offset_bottom = -22.399994
-theme_override_styles/panel = SubResource("StyleBoxFlat_5csqv")
-metadata/_edit_use_anchors_ = true
-
-[node name="NextPhase" type="Button" parent="." unique_id=43166446]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0054685595
-anchor_top = 0.016666668
-anchor_right = 0.14296857
-anchor_bottom = 0.12777776
-offset_left = 540.5001
-offset_top = 58.0
-offset_right = 540.5001
-offset_bottom = 58.000008
+anchor_left = 0.85
+anchor_top = 0.11904762
+anchor_right = 0.9875
+anchor_bottom = 0.23015873
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_wycbq")
@@ -429,25 +1068,25 @@ text = "MOVE TO NEXT
 PHASE"
 metadata/_edit_use_anchors_ = true
 
-[node name="Buttons" type="VBoxContainer" parent="." unique_id=1117481906]
+[node name="Buttons" type="VBoxContainer" parent="Deck" unique_id=1117481906]
 layout_mode = 0
 anchor_left = 0.7
-anchor_top = 0.11111111
-anchor_right = 0.825
-anchor_bottom = 0.35555556
+anchor_top = 0.04761904
+anchor_right = 0.8296875
+anchor_bottom = 0.29206347
 metadata/_edit_use_anchors_ = true
 
-[node name="OpenShop" type="Button" parent="Buttons" unique_id=1605707848]
+[node name="OpenShop" type="Button" parent="Deck/Buttons" unique_id=1605707848]
 layout_mode = 2
 size_flags_vertical = 6
 theme = SubResource("Theme_5cuim")
-theme_override_styles/normal = SubResource("StyleBoxFlat_yob6y")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_g0yrv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ljqbp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
 text = "OPEN SHOP"
 metadata/_edit_use_anchors_ = true
 
-[node name="EditDeck" type="Button" parent="Buttons" unique_id=2046672431]
+[node name="EditDeck" type="Button" parent="Deck/Buttons" unique_id=2046672431]
 layout_mode = 2
 size_flags_vertical = 6
 theme = SubResource("Theme_5cuim")
@@ -457,7 +1096,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ljqbp")
 text = "EDIT DECK"
 metadata/_edit_use_anchors_ = true
 
-[node name="EditPassives" type="Button" parent="Buttons" unique_id=1321017969]
+[node name="EditPassives" type="Button" parent="Deck/Buttons" unique_id=1321017969]
 layout_mode = 2
 size_flags_vertical = 6
 theme = SubResource("Theme_5cuim")
@@ -466,3 +1105,1025 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_g0yrv")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ljqbp")
 text = "EDIT UPGRADES"
 metadata/_edit_use_anchors_ = true
+
+[node name="Shop" type="Panel" parent="." unique_id=1262047765]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.06666667
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5csqv")
+script = ExtResource("15_gob5b")
+metadata/_edit_use_anchors_ = true
+
+[node name="ShopKeeper" type="Panel" parent="Shop" unique_id=1763294096]
+layout_mode = 0
+anchor_left = 0.0125
+anchor_top = 0.023809519
+anchor_right = 0.1625
+anchor_bottom = 0.30952382
+theme_override_styles/panel = SubResource("StyleBoxFlat_ptohj")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shop/ShopKeeper" unique_id=1819445781]
+position = Vector2(48, 47)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_3568o")
+autoplay = "default"
+frame_progress = 0.730286
+
+[node name="Dialogue" type="Panel" parent="Shop" unique_id=1184107590]
+layout_mode = 0
+anchor_left = 0.0125
+anchor_top = 0.33333334
+anchor_right = 0.1625
+anchor_bottom = 0.5
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xjx1w")
+metadata/_edit_use_anchors_ = true
+
+[node name="Content" type="RichTextLabel" parent="Shop/Dialogue" unique_id=363408905]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 0.71428573
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_bme43")
+theme_override_fonts/bold_font = ExtResource("14_vakpl")
+theme_override_font_sizes/normal_font_size = 6
+theme_override_font_sizes/bold_font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_u4ec8")
+text = "I love Hoshimi Miyabi"
+fit_content = true
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="ShopContent" type="Panel" parent="Shop" unique_id=1015413961]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.175
+anchor_top = 0.023809519
+anchor_right = 0.9875
+anchor_bottom = 0.97619045
+theme_override_styles/panel = SubResource("StyleBoxFlat_xjx1w")
+metadata/_edit_use_anchors_ = true
+
+[node name="CardsShop" type="Label" parent="Shop/ShopContent" unique_id=410352295]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015625
+anchor_right = 0.12695313
+anchor_bottom = 0.051282052
+text = "Cards Shop"
+label_settings = SubResource("LabelSettings_farh1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CardsScroll" type="ScrollContainer" parent="Shop/ShopContent" unique_id=1094218731]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015625
+anchor_top = 0.051282056
+anchor_right = 0.984375
+anchor_bottom = 0.45753208
+theme = ExtResource("13_oyxaa")
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopContent/CardsScroll" unique_id=468320803]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop/ShopContent/CardsScroll/HBoxContainer" unique_id=1544604011]
+layout_mode = 2
+
+[node name="Card" parent="Shop/ShopContent/CardsScroll/HBoxContainer/VBoxContainer" unique_id=905572189 instance=ExtResource("37_6pa12")]
+layout_mode = 2
+
+[node name="PriceButton" type="Button" parent="Shop/ShopContent/CardsScroll/HBoxContainer/VBoxContainer" unique_id=963285398]
+layout_mode = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_ljqbp")
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_6pa12")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1vpa2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yvvlx")
+text = "40 SP"
+metadata/_edit_use_anchors_ = true
+
+[node name="Line2D" type="Line2D" parent="Shop/ShopContent" unique_id=1492238207]
+points = PackedVector2Array(0, 152, 520, 152)
+width = 1.0
+default_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[node name="ItemShop" type="Label" parent="Shop/ShopContent" unique_id=1277060998]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015384615
+anchor_top = 0.475
+anchor_right = 0.15961538
+anchor_bottom = 0.5125
+text = "Upgrades Shop"
+label_settings = SubResource("LabelSettings_farh1")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradeShopScroll" type="ScrollContainer" parent="Shop/ShopContent" unique_id=536671373]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015624994
+anchor_top = 0.525
+anchor_right = 0.984375
+anchor_bottom = 0.8
+offset_left = -0.12499714
+offset_right = 0.125
+theme = ExtResource("13_oyxaa")
+draw_focus_border = true
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 0
+scroll_horizontal_by_default = true
+
+[node name="UpgradesColumn" type="HBoxContainer" parent="Shop/ShopContent/UpgradeShopScroll" unique_id=1641064705]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Item" type="VBoxContainer" parent="Shop/ShopContent/UpgradeShopScroll/UpgradesColumn" unique_id=1106690327]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="UpgradeImage" type="TextureRect" parent="Shop/ShopContent/UpgradeShopScroll/UpgradesColumn/Item" unique_id=1084021910]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("38_yvvlx")
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Shop/ShopContent/UpgradeShopScroll/UpgradesColumn/Item" unique_id=1133329806]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Example"
+label_settings = SubResource("LabelSettings_u4ec8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PriceButton" type="Button" parent="Shop/ShopContent/UpgradeShopScroll/UpgradesColumn/Item" unique_id=1204877766]
+layout_mode = 2
+size_flags_vertical = 10
+theme = SubResource("Theme_ljqbp")
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_7tyka")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6c6kh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0lno2")
+text = "40 SP"
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="Shop/ShopContent" unique_id=1368111587]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015625
+anchor_top = 0.8
+anchor_right = 0.9846154
+anchor_bottom = 0.975
+theme_override_styles/panel = SubResource("StyleBoxFlat_5wmqr")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopContent/Panel" unique_id=1160959720]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 391.875
+offset_bottom = 59.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop/ShopContent/Panel/HBoxContainer" unique_id=1911754536]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Title" type="Label" parent="Shop/ShopContent/Panel/HBoxContainer/VBoxContainer" unique_id=252204453]
+layout_mode = 2
+text = "Example"
+label_settings = SubResource("LabelSettings_ptohj")
+
+[node name="Description" type="Label" parent="Shop/ShopContent/Panel/HBoxContainer/VBoxContainer" unique_id=567910984]
+layout_mode = 2
+text = "Lorem Ipsum"
+label_settings = SubResource("LabelSettings_uyhkn")
+
+[node name="Hint" type="Label" parent="Shop/ShopContent/Panel/HBoxContainer/VBoxContainer" unique_id=1378074594]
+layout_mode = 2
+text = "You own 0.  Press Z to buy."
+label_settings = SubResource("LabelSettings_6pa12")
+
+[node name="PriceButton" type="Button" parent="Shop/ShopContent/Panel" unique_id=2056228038]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.80947655
+anchor_top = 0.375
+anchor_right = 0.9702307
+anchor_bottom = 0.65625
+size_flags_horizontal = 10
+size_flags_vertical = 6
+theme = SubResource("Theme_ljqbp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_iemnb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gob5b")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vx4hh")
+text = "BUY 40 SP"
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="VBoxContainer" parent="Shop" unique_id=654062134]
+layout_mode = 0
+anchor_top = 0.6904762
+anchor_right = 0.15
+anchor_bottom = 0.95238096
+metadata/_edit_use_anchors_ = true
+
+[node name="LeaveButton" type="Button" parent="Shop/Buttons" unique_id=1656878986]
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_ljqbp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_16tiu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o34sf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1n5ds")
+text = "LEAVE"
+metadata/_edit_use_anchors_ = true
+
+[node name="EditDeck" type="Button" parent="Shop/Buttons" unique_id=1604735632]
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lbd71")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l273j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_04rj4")
+text = "EDIT DECK"
+metadata/_edit_use_anchors_ = true
+
+[node name="EditUpgrades" type="Button" parent="Shop/Buttons" unique_id=1239903671]
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_c1bjo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l1gtf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q64bp")
+text = "EDIT UPGRADES"
+metadata/_edit_use_anchors_ = true
+
+[node name="DeckEditor" type="Panel" parent="." unique_id=830914103]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.06666667
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5csqv")
+script = ExtResource("20_vx4hh")
+metadata/_edit_use_anchors_ = true
+
+[node name="DeckTitle" type="Label" parent="DeckEditor" unique_id=1379103566]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0125
+anchor_right = 0.096875
+anchor_bottom = 0.04761904
+text = "DECK  0 / 9"
+label_settings = SubResource("LabelSettings_bme43")
+vertical_alignment = 1
+
+[node name="CardsPanel" type="PanelContainer" parent="DeckEditor" unique_id=1121549723]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0125
+anchor_top = 0.04761904
+anchor_right = 0.3625
+anchor_bottom = 0.95238096
+theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
+
+[node name="CardGrid" type="GridContainer" parent="DeckEditor/CardsPanel" unique_id=1716681433]
+layout_mode = 2
+columns = 3
+
+[node name="CollectionTitle" type="Label" parent="DeckEditor" unique_id=541497671]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_right = 0.459375
+anchor_bottom = 0.047619037
+text = "COLLECTION"
+label_settings = SubResource("LabelSettings_bme43")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Collection" type="Panel" parent="DeckEditor" unique_id=908165258]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.04761904
+anchor_right = 0.7375
+anchor_bottom = 0.95238096
+theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DeckEditor/Collection" unique_id=69979982]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00862069
+anchor_top = 0.078947365
+anchor_right = 0.9913793
+anchor_bottom = 0.9934211
+metadata/_edit_use_anchors_ = true
+
+[node name="CardGrid" type="ItemList" parent="DeckEditor/Collection/ScrollContainer" unique_id=722941854]
+layout_mode = 2
+
+[node name="OffensiveFilter" type="Button" parent="DeckEditor/Collection" unique_id=1308873666]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.004310345
+anchor_top = 0.0032894737
+anchor_right = 0.27155173
+anchor_bottom = 0.078947365
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "OFFENSIVE"
+metadata/_edit_use_anchors_ = true
+
+[node name="DefensiveFilter" type="Button" parent="DeckEditor/Collection" unique_id=964839203]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.27586207
+anchor_top = 0.0032894737
+anchor_right = 0.54310346
+anchor_bottom = 0.078947365
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "DEFENSIVE"
+metadata/_edit_use_anchors_ = true
+
+[node name="UtilityFilter" type="Button" parent="DeckEditor/Collection" unique_id=965242322]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.54741377
+anchor_top = 0.0032894737
+anchor_right = 0.7586207
+anchor_bottom = 0.078947365
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "UTILITY"
+metadata/_edit_use_anchors_ = true
+
+[node name="CostFilter" type="OptionButton" parent="DeckEditor/Collection" unique_id=1769766474]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.76293105
+anchor_top = 0.0032894737
+anchor_right = 0.99568963
+anchor_bottom = 0.078947365
+theme = ExtResource("38_1vpa2")
+theme_override_fonts/font = ExtResource("6_bme43")
+theme_override_font_sizes/font_size = 6
+selected = 0
+item_count = 6
+popup/item_0/text = "-"
+popup/item_0/id = 5
+popup/item_1/text = "0"
+popup/item_1/id = 0
+popup/item_2/text = "1"
+popup/item_2/id = 1
+popup/item_3/text = "2"
+popup/item_3/id = 2
+popup/item_4/text = "3"
+popup/item_4/id = 3
+popup/item_5/text = "4"
+popup/item_5/id = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Info" type="Panel" parent="DeckEditor" unique_id=56401870]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.04761905
+anchor_right = 0.9875
+anchor_bottom = 0.64285713
+theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
+metadata/_edit_use_anchors_ = true
+
+[node name="Card" parent="DeckEditor/Info" unique_id=1847211197 instance=ExtResource("37_6pa12")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2631579
+anchor_top = 0.016304348
+anchor_right = 0.7368421
+anchor_bottom = 0.5597826
+offset_right = 0.0
+offset_bottom = -7.6293945e-06
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="DeckEditor/Info" unique_id=10691263]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.10526316
+anchor_top = 0.5652174
+anchor_right = 0.8947368
+anchor_bottom = 0.65217394
+text = "Example"
+label_settings = SubResource("LabelSettings_6ytef")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Description" type="RichTextLabel" parent="DeckEditor/Info" unique_id=1555914365]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05263158
+anchor_top = 0.65217394
+anchor_right = 0.94736844
+anchor_bottom = 0.95652175
+theme_override_fonts/normal_font = ExtResource("6_bme43")
+theme_override_font_sizes/normal_font_size = 6
+text = "Example"
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="VBoxContainer" parent="DeckEditor" unique_id=1143070054]
+layout_mode = 0
+anchor_left = 0.85
+anchor_top = 0.6904762
+anchor_right = 1.0
+anchor_bottom = 0.95238096
+metadata/_edit_use_anchors_ = true
+
+[node name="LeaveButton" type="Button" parent="DeckEditor/Buttons" unique_id=1495306474]
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_ljqbp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6ywjb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gqfwf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0k737")
+text = "LEAVE"
+metadata/_edit_use_anchors_ = true
+
+[node name="GoToShop" type="Button" parent="DeckEditor/Buttons" unique_id=1923239728]
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7yant")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ltl2o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_helua")
+text = "GO TO SHOP"
+metadata/_edit_use_anchors_ = true
+
+[node name="EditUpgrades" type="Button" parent="DeckEditor/Buttons" unique_id=1313155821]
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7yant")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ltl2o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_helua")
+text = "EDIT UPGRADES"
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradeEditor" type="Panel" parent="." unique_id=743040321]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.06666667
+anchor_right = 1.0
+anchor_bottom = 0.9377778
+theme_override_styles/panel = SubResource("StyleBoxFlat_5csqv")
+script = ExtResource("22_7yant")
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradesTitle" type="Label" parent="UpgradeEditor" unique_id=939302514]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0125
+anchor_right = 0.171875
+anchor_bottom = 0.04761904
+offset_right = -48.0
+text = "UPGRADES LOAD 0 / 2"
+label_settings = SubResource("LabelSettings_bme43")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradesPanel" type="PanelContainer" parent="UpgradeEditor" unique_id=25349249]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0125
+anchor_top = 0.04761904
+anchor_right = 0.3625
+anchor_bottom = 1.0204082
+theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UpgradeEditor/UpgradesPanel" unique_id=842489422]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradesGrid" type="GridContainer" parent="UpgradeEditor/UpgradesPanel/ScrollContainer" unique_id=2006365028]
+layout_mode = 2
+columns = 3
+
+[node name="CollectionTitle" type="Label" parent="UpgradeEditor" unique_id=73780008]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_right = 0.459375
+anchor_bottom = 0.047619037
+text = "COLLECTION"
+label_settings = SubResource("LabelSettings_bme43")
+vertical_alignment = 1
+
+[node name="Collection" type="Panel" parent="UpgradeEditor" unique_id=855808098]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.04761904
+anchor_right = 0.7375
+anchor_bottom = 1.0204082
+theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UpgradeEditor/Collection" unique_id=515767355]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00862069
+anchor_top = 0.078947365
+anchor_right = 0.9913793
+anchor_bottom = 0.9934211
+metadata/_edit_use_anchors_ = true
+
+[node name="UpgradesGrid" type="ItemList" parent="UpgradeEditor/Collection/ScrollContainer" unique_id=713531084]
+layout_mode = 2
+
+[node name="RecommendedFilter" type="Button" parent="UpgradeEditor/Collection" unique_id=1467500797]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.004310345
+anchor_top = 0.0032894737
+anchor_right = 0.7586207
+anchor_bottom = 0.078947365
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "RECOMMENDED"
+metadata/_edit_use_anchors_ = true
+
+[node name="CostFilter" type="OptionButton" parent="UpgradeEditor/Collection" unique_id=1686911874]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.76293105
+anchor_top = 0.0032894737
+anchor_right = 0.99568963
+anchor_bottom = 0.078947365
+theme = ExtResource("38_1vpa2")
+theme_override_fonts/font = ExtResource("6_bme43")
+theme_override_font_sizes/font_size = 6
+selected = 0
+item_count = 8
+popup/item_0/text = "-"
+popup/item_0/id = 0
+popup/item_1/text = "0"
+popup/item_1/id = 1
+popup/item_2/text = "1"
+popup/item_2/id = 2
+popup/item_3/text = "2"
+popup/item_3/id = 3
+popup/item_4/text = "3"
+popup/item_4/id = 4
+popup/item_5/text = "4"
+popup/item_5/id = 5
+popup/item_6/text = "5"
+popup/item_6/id = 6
+popup/item_7/text = "6"
+popup/item_7/id = 7
+metadata/_edit_use_anchors_ = true
+
+[node name="Info" type="Panel" parent="UpgradeEditor" unique_id=2044123114]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.04761905
+anchor_right = 0.9875
+anchor_bottom = 0.6887755
+theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite" type="TextureRect" parent="UpgradeEditor/Info" unique_id=1557308960]
+layout_mode = 0
+anchor_left = 0.2631579
+anchor_top = 0.045092832
+anchor_right = 0.7368421
+anchor_bottom = 0.3633952
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="UpgradeEditor/Info" unique_id=509149541]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.10526316
+anchor_top = 0.3633952
+anchor_right = 0.8947368
+anchor_bottom = 0.45035177
+text = "Example"
+label_settings = SubResource("LabelSettings_6ytef")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Description" type="RichTextLabel" parent="UpgradeEditor/Info" unique_id=331057999]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05263158
+anchor_top = 0.4429708
+anchor_right = 0.94736844
+anchor_bottom = 0.9565218
+theme_override_fonts/normal_font = ExtResource("6_bme43")
+theme_override_font_sizes/normal_font_size = 6
+text = "Example"
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="VBoxContainer" parent="UpgradeEditor" unique_id=1826148756]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 232.0
+offset_right = 640.0
+offset_bottom = 320.0
+
+[node name="LeaveButton" type="Button" parent="UpgradeEditor/Buttons" unique_id=607590101]
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_ljqbp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6ywjb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gqfwf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0k737")
+text = "LEAVE"
+metadata/_edit_use_anchors_ = true
+
+[node name="GoToShop" type="Button" parent="UpgradeEditor/Buttons" unique_id=1122298562]
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7yant")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ltl2o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_helua")
+text = "GO TO SHOP"
+metadata/_edit_use_anchors_ = true
+
+[node name="EditDeck" type="Button" parent="UpgradeEditor/Buttons" unique_id=1722600799]
+layout_mode = 2
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7yant")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ltl2o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_helua")
+text = "EDIT DECK"
+metadata/_edit_use_anchors_ = true
+
+[node name="Removed content" type="Panel" parent="." unique_id=2005656391]
+visible = false
+layout_mode = 0
+anchor_top = 0.06666667
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_u4ec8")
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemShop" type="Label" parent="Removed content" unique_id=468826876]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015384615
+anchor_top = 0.475
+anchor_right = 0.23608774
+anchor_bottom = 0.52628213
+offset_left = 110.15385
+offset_top = 0.40000916
+offset_right = 214.32571
+offset_bottom = 10.34874
+text = "Consumable Items Shop"
+label_settings = SubResource("LabelSettings_farh1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemsShopScroll" type="ScrollContainer" parent="Removed content" unique_id=1606716732]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015624994
+anchor_top = 0.525
+anchor_right = 0.984375
+anchor_bottom = 0.8
+offset_left = 110.125
+offset_top = -0.3999939
+offset_right = 110.125
+offset_bottom = 50.600006
+theme = ExtResource("13_oyxaa")
+draw_focus_border = true
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 0
+scroll_horizontal_by_default = true
+
+[node name="ItemColumn" type="HBoxContainer" parent="Removed content/ItemsShopScroll" unique_id=1945359175]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Item" type="VBoxContainer" parent="Removed content/ItemsShopScroll/ItemColumn" unique_id=2112632218]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="ItemImage" type="TextureRect" parent="Removed content/ItemsShopScroll/ItemColumn/Item" unique_id=1132972108]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("13_24475")
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Removed content/ItemsShopScroll/ItemColumn/Item" unique_id=779130203]
+layout_mode = 2
+text = "Example"
+label_settings = SubResource("LabelSettings_u4ec8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PriceButton" type="Button" parent="Removed content/ItemsShopScroll/ItemColumn/Item" unique_id=977102433]
+layout_mode = 2
+size_flags_vertical = 10
+theme = SubResource("Theme_ljqbp")
+theme_override_colors/font_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_7tyka")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6c6kh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0lno2")
+text = "40 SP"
+metadata/_edit_use_anchors_ = true
+
+[node name="Items" type="Label" parent="Removed content" unique_id=1585699216]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.020408163
+anchor_top = 0.5769231
+anchor_right = 0.12244898
+anchor_bottom = 0.63461536
+offset_left = 234.93878
+offset_top = 38.153854
+offset_right = 234.93878
+offset_bottom = 38.153854
+text = "ITEMS"
+label_settings = SubResource("LabelSettings_bme43")
+vertical_alignment = 1
+
+[node name="ItemsScroll" type="ScrollContainer" parent="Removed content" unique_id=335147337]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.020408163
+anchor_top = 0.65384614
+anchor_right = 0.97959185
+anchor_bottom = 0.9807692
+offset_left = 234.93878
+offset_top = 28.307693
+offset_right = 234.93878
+offset_bottom = 28.307678
+theme = ExtResource("13_oyxaa")
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 0
+scroll_horizontal_by_default = true
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemColumn" type="HBoxContainer" parent="Removed content/ItemsScroll" unique_id=1442112587]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Item" type="VBoxContainer" parent="Removed content/ItemsScroll/ItemColumn" unique_id=1725691544]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="ItemImage" type="TextureRect" parent="Removed content/ItemsScroll/ItemColumn/Item" unique_id=1327092645]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("13_24475")
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Removed content/ItemsScroll/ItemColumn/Item" unique_id=1334679668]
+layout_mode = 2
+text = "Example"
+label_settings = SubResource("LabelSettings_u4ec8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Amount" type="Label" parent="Removed content/ItemsScroll/ItemColumn/Item" unique_id=1049875757]
+layout_mode = 2
+size_flags_vertical = 8
+text = "x1"
+label_settings = SubResource("LabelSettings_u4ec8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="Removed content" unique_id=691317764]
+position = Vector2(240, 112)
+points = PackedVector2Array(0, 120, 392, 120)
+width = 1.0
+default_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+
+[node name="UpgradesList" type="VBoxContainer" parent="Removed content" unique_id=1428578839]
+visible = false
+layout_mode = 0
+offset_left = 248.0
+offset_top = 136.0
+offset_right = 616.0
+offset_bottom = 312.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_q64bp")
+
+[node name="Row1" type="HBoxContainer" parent="Removed content/UpgradesList" unique_id=1789396757]
+layout_mode = 2
+
+[node name="UpgradeLeft" type="PanelContainer" parent="Removed content/UpgradesList/Row1" unique_id=33702138]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row1/UpgradeLeft" unique_id=1443589174]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_rjwuq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeRight" type="PanelContainer" parent="Removed content/UpgradesList/Row1" unique_id=2018587973]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row1/UpgradeRight" unique_id=1572780123]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_rjwuq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2 (Empty)" type="HBoxContainer" parent="Removed content/UpgradesList" unique_id=2679334]
+layout_mode = 2
+
+[node name="UpgradeLeft" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)" unique_id=466895352]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)/UpgradeLeft" unique_id=1793011859]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeRight" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)" unique_id=2077873392]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)/UpgradeRight" unique_id=1624870743]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2 (Empty)2" type="HBoxContainer" parent="Removed content/UpgradesList" unique_id=1165308964]
+layout_mode = 2
+
+[node name="UpgradeLeft" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)2" unique_id=2144530771]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)2/UpgradeLeft" unique_id=1455734041]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeRight" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)2" unique_id=1919969438]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)2/UpgradeRight" unique_id=1439511206]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2 (Empty)3" type="HBoxContainer" parent="Removed content/UpgradesList" unique_id=1850093927]
+layout_mode = 2
+
+[node name="UpgradeLeft" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)3" unique_id=1275967510]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)3/UpgradeLeft" unique_id=725177941]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeRight" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)3" unique_id=795485438]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)3/UpgradeRight" unique_id=1321933617]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2 (Empty)4" type="HBoxContainer" parent="Removed content/UpgradesList" unique_id=221686735]
+layout_mode = 2
+
+[node name="UpgradeLeft" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)4" unique_id=548759396]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)4/UpgradeLeft" unique_id=1494662258]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeRight" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)4" unique_id=1037451767]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)4/UpgradeRight" unique_id=1465034888]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2 (Empty)5" type="HBoxContainer" parent="Removed content/UpgradesList" unique_id=2088320787]
+layout_mode = 2
+
+[node name="UpgradeLeft" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)5" unique_id=1405238955]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)5/UpgradeLeft" unique_id=1925358815]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeRight" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)5" unique_id=844817890]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)5/UpgradeRight" unique_id=781951211]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2 (Empty)6" type="HBoxContainer" parent="Removed content/UpgradesList" unique_id=1380763528]
+layout_mode = 2
+
+[node name="UpgradeLeft" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)6" unique_id=714875023]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)6/UpgradeLeft" unique_id=949498991]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeRight" type="PanelContainer" parent="Removed content/UpgradesList/Row2 (Empty)6" unique_id=518318144]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cuim")
+
+[node name="Label" type="Label" parent="Removed content/UpgradesList/Row2 (Empty)6/UpgradeRight" unique_id=680077902]
+layout_mode = 2
+text = "Asdad"
+label_settings = SubResource("LabelSettings_wycbq")
+horizontal_alignment = 1
+vertical_alignment = 1

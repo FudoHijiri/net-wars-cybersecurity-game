@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="3_5u131"]
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_o7ld8"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="5_kd222"]
+[ext_resource type="Theme" uid="uid://do41m1dxvwx1w" path="res://assets/ui/scrollbar/scrollbar_theme.tres" id="5_t7be2"]
 [ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="6_17ua5"]
 
 [sub_resource type="Theme" id="Theme_yr6qk"]
@@ -113,6 +114,7 @@ anchor_top = 0.13333334
 anchor_right = 0.98125
 anchor_bottom = 0.975
 mouse_filter = 2
+theme = ExtResource("5_t7be2")
 follow_focus = true
 horizontal_scroll_mode = 0
 scroll_horizontal_by_default = true

@@ -177,6 +177,72 @@ font = ExtResource("8_og70j")
 font_size = 6
 font_color = Color(1, 0.8039216, 0.45882353, 1)
 
+[sub_resource type="Animation" id="Animation_qe4wv"]
+resource_name = "CompleteInvestigation"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FinishScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hcl70"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ReportScreen:offset_transform_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FinishScreen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8s8p8"]
+resource_name = "ReportScreenOpening"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ReportScreen:offset_transform_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_og70j"]
+_data = {
+&"CompleteInvestigation": SubResource("Animation_qe4wv"),
+&"RESET": SubResource("Animation_hcl70"),
+&"ReportScreenOpening": SubResource("Animation_8s8p8")
+}
+
 [node name="Investigation" type="Control" unique_id=374564516]
 layout_mode = 3
 anchors_preset = 15
@@ -596,7 +662,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="LeftContainer" type="VBoxContainer" parent="FinishScreen" unique_id=2138218773]
+[node name="Container" type="VBoxContainer" parent="FinishScreen" unique_id=2138218773]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3875
@@ -605,43 +671,43 @@ anchor_right = 0.6125
 anchor_bottom = 0.5361112
 metadata/_edit_use_anchors_ = true
 
-[node name="Row1" type="HBoxContainer" parent="FinishScreen/LeftContainer" unique_id=1069893026]
+[node name="Row1" type="HBoxContainer" parent="FinishScreen/Container" unique_id=1069893026]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="FinishScreen/LeftContainer/Row1" unique_id=486788023]
+[node name="Name" type="Label" parent="FinishScreen/Container/Row1" unique_id=486788023]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Clues Found:"
 label_settings = SubResource("LabelSettings_3568o")
 
-[node name="Number" type="Label" parent="FinishScreen/LeftContainer/Row1" unique_id=1402054174]
+[node name="Number" type="Label" parent="FinishScreen/Container/Row1" unique_id=1402054174]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "4"
 label_settings = SubResource("LabelSettings_3568o")
 
-[node name="PointsEarned" type="Label" parent="FinishScreen/LeftContainer/Row1" unique_id=619067230]
+[node name="PointsEarned" type="Label" parent="FinishScreen/Container/Row1" unique_id=619067230]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "+50SP"
 label_settings = SubResource("LabelSettings_0limq")
 
-[node name="Row2" type="HBoxContainer" parent="FinishScreen/LeftContainer" unique_id=2024824548]
+[node name="Row2" type="HBoxContainer" parent="FinishScreen/Container" unique_id=2024824548]
 layout_mode = 2
 
-[node name="Name" type="Label" parent="FinishScreen/LeftContainer/Row2" unique_id=53833035]
+[node name="Name" type="Label" parent="FinishScreen/Container/Row2" unique_id=53833035]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Clues Found:"
 label_settings = SubResource("LabelSettings_3568o")
 
-[node name="Number" type="Label" parent="FinishScreen/LeftContainer/Row2" unique_id=1586322959]
+[node name="Number" type="Label" parent="FinishScreen/Container/Row2" unique_id=1586322959]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "4"
 label_settings = SubResource("LabelSettings_3568o")
 
-[node name="PointsEarned" type="Label" parent="FinishScreen/LeftContainer/Row2" unique_id=1832522094]
+[node name="PointsEarned" type="Label" parent="FinishScreen/Container/Row2" unique_id=1832522094]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "+50SP"
@@ -736,6 +802,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Monologue" parent="." unique_id=1610582371 instance=ExtResource("13_hcl70")]
 visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=888210254]
+libraries/ = SubResource("AnimationLibrary_og70j")
 
 [connection signal="pressed" from="FramePanel/MainPanel/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="FramePanel/MainPanel/HBoxContainer/EmailButton" to="." method="_on_email_button_pressed"]

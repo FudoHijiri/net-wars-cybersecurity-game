@@ -1,0 +1,401 @@
+[gd_scene format=3 uid="uid://b2gy1ffeqa2n6"]
+
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="font"]
+[ext_resource type="SpriteFrames" uid="uid://dih58uswcygn5" path="res://assets/charactersprite/enemies/credential_abuse_frames.tres" id="frames_enemy"]
+[ext_resource type="SpriteFrames" uid="uid://c6h0qfa3fmqgo" path="res://assets/charactersprite/player/hero_frames.tres" id="frames_hero"]
+[ext_resource type="Script" uid="uid://b0hp30kmkia7" path="res://AI generated/scripts/response/bullet_arena.gd" id="script_arena"]
+[ext_resource type="Script" uid="uid://biuqruvyww2pw" path="res://AI generated/scripts/response/hand_fan.gd" id="script_hand"]
+[ext_resource type="Script" uid="uid://b7xape3r01d3k" path="res://AI generated/scripts/response/response.gd" id="script_response"]
+[ext_resource type="Texture2D" uid="uid://d0g31opx14kjt" path="res://assets/background/response/response_bg_static_640x360.png" id="tex_bg"]
+[ext_resource type="Texture2D" uid="uid://dxvaykwhmk2n" path="res://assets/background/response/response_vignette.png" id="tex_vignette"]
+
+[sub_resource type="StyleBoxFlat" id="panel_amber"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="bar_bg"]
+bg_color = Color(0.2, 0.23529412, 0.34117648, 1)
+
+[sub_resource type="StyleBoxFlat" id="bar_green"]
+bg_color = Color(0.21960784, 0.7176471, 0.39215687, 1)
+
+[sub_resource type="StyleBoxFlat" id="bar_red"]
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="btn_normal"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="btn_pressed"]
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="btn_hover"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="btn_off"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxEmpty" id="empty"]
+
+[node name="Response" type="Control" unique_id=351041019]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("script_response")
+
+[node name="Background" type="TextureRect" parent="." unique_id=2050369752]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+texture = ExtResource("tex_bg")
+
+[node name="Vignette" type="TextureRect" parent="." unique_id=1183973974]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+texture = ExtResource("tex_vignette")
+
+[node name="Hero" type="AnimatedSprite2D" parent="." unique_id=577129515]
+position = Vector2(150, 222)
+sprite_frames = ExtResource("frames_hero")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Enemy" type="AnimatedSprite2D" parent="." unique_id=2080418126]
+position = Vector2(490, 222)
+sprite_frames = ExtResource("frames_enemy")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Arena" type="Node2D" parent="." unique_id=1764986898]
+visible = false
+position = Vector2(200, 78)
+script = ExtResource("script_arena")
+
+[node name="Teach" type="Panel" parent="." unique_id=158661667]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 6.0
+offset_right = 490.0
+offset_bottom = 64.0
+theme_override_styles/panel = SubResource("panel_amber")
+
+[node name="Title" type="Label" parent="Teach" unique_id=1300793717]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 334.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(1, 0.8039216, 0.45882353, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "THREAT"
+
+[node name="Body" type="Label" parent="Teach" unique_id=77471281]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 15.0
+offset_right = 334.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+autowrap_mode = 3
+
+[node name="Defense" type="Label" parent="Teach" unique_id=1372416734]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 44.0
+offset_right = 334.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.4509804, 0.9372549, 0.96862745, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+autowrap_mode = 3
+
+[node name="TurnLabel" type="Label" parent="." unique_id=1796516861]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 66.0
+offset_right = 490.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "YOUR TURN"
+horizontal_alignment = 1
+
+[node name="PlayerName" type="Label" parent="." unique_id=1444633118]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 146.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(1, 0.8039216, 0.45882353, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "YOUR SYSTEM"
+
+[node name="PlayerBar" type="ProgressBar" parent="." unique_id=1407224103]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 18.0
+offset_right = 140.0
+offset_bottom = 26.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("bar_bg")
+theme_override_styles/fill = SubResource("bar_green")
+value = 100.0
+show_percentage = false
+
+[node name="PlayerHp" type="Label" parent="." unique_id=1203287553]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 28.0
+offset_right = 140.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "90 / 90"
+
+[node name="BlockLabel" type="Label" parent="." unique_id=506715677]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 140.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0.4509804, 0.9372549, 0.96862745, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "BLOCK 0"
+
+[node name="BossName" type="Label" parent="." unique_id=815950801]
+layout_mode = 0
+offset_left = 498.0
+offset_top = 8.0
+offset_right = 634.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(1, 0.8039216, 0.45882353, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "THREAT"
+
+[node name="BossBar" type="ProgressBar" parent="." unique_id=1735200467]
+layout_mode = 0
+offset_left = 498.0
+offset_top = 18.0
+offset_right = 630.0
+offset_bottom = 26.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("bar_bg")
+theme_override_styles/fill = SubResource("bar_red")
+value = 100.0
+show_percentage = false
+
+[node name="BossHp" type="Label" parent="." unique_id=1574485975]
+layout_mode = 0
+offset_left = 498.0
+offset_top = 28.0
+offset_right = 630.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "85 / 85"
+
+[node name="Intent" type="Control" parent="." unique_id=451163705]
+anchors_preset = 0
+offset_left = 498.0
+offset_top = 42.0
+offset_right = 634.0
+offset_bottom = 64.0
+
+[node name="Icon" type="Control" parent="Intent" unique_id=1412157420]
+anchors_preset = 0
+offset_right = 14.0
+offset_bottom = 14.0
+mouse_filter = 2
+
+[node name="Name" type="Label" parent="Intent" unique_id=796555579]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 136.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "NEXT"
+autowrap_mode = 3
+
+[node name="Speech" type="Panel" parent="." unique_id=1864622169]
+visible = false
+z_index = 20
+layout_mode = 0
+offset_left = 330.0
+offset_top = 138.0
+offset_right = 472.0
+offset_bottom = 186.0
+theme_override_styles/panel = SubResource("panel_amber")
+
+[node name="Text" type="Label" parent="Speech" unique_id=1843602374]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 136.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+autowrap_mode = 3
+
+[node name="EnergyLabel" type="Label" parent="." unique_id=619580852]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 300.0
+offset_right = 150.0
+offset_bottom = 310.0
+theme_override_colors/font_color = Color(1, 0.8039216, 0.45882353, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "ENERGY 3 / 3"
+
+[node name="PilesLabel" type="Label" parent="." unique_id=1354235084]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 312.0
+offset_right = 150.0
+offset_bottom = 322.0
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "DRAW 0  DISCARD 0"
+
+[node name="EndTurn" type="Button" parent="." unique_id=645837299]
+layout_mode = 0
+offset_left = 548.0
+offset_top = 318.0
+offset_right = 632.0
+offset_bottom = 342.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_pressed_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_disabled_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("btn_normal")
+theme_override_styles/pressed = SubResource("btn_pressed")
+theme_override_styles/hover = SubResource("btn_hover")
+theme_override_styles/disabled = SubResource("btn_off")
+theme_override_styles/focus = SubResource("empty")
+text = "END TURN"
+
+[node name="Hand" type="Control" parent="." unique_id=177317729]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("script_hand")
+
+[node name="Result" type="Panel" parent="." unique_id=379388320]
+visible = false
+z_index = 200
+layout_mode = 0
+offset_left = 170.0
+offset_top = 110.0
+offset_right = 470.0
+offset_bottom = 230.0
+theme_override_styles/panel = SubResource("panel_amber")
+
+[node name="Title" type="Label" parent="Result" unique_id=188850853]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 12.0
+offset_right = 290.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(1, 0.8039216, 0.45882353, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+text = "RESULT"
+horizontal_alignment = 1
+
+[node name="Body" type="Label" parent="Result" unique_id=1499730391]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 32.0
+offset_right = 290.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Retry" type="Button" parent="Result" unique_id=1617933097]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 88.0
+offset_right = 140.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_pressed_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_disabled_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("btn_normal")
+theme_override_styles/pressed = SubResource("btn_pressed")
+theme_override_styles/hover = SubResource("btn_hover")
+theme_override_styles/disabled = SubResource("btn_off")
+theme_override_styles/focus = SubResource("empty")
+text = "TRY AGAIN"
+
+[node name="Leave" type="Button" parent="Result" unique_id=1518105164]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 88.0
+offset_right = 250.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_pressed_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
+theme_override_colors/font_disabled_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("btn_normal")
+theme_override_styles/pressed = SubResource("btn_pressed")
+theme_override_styles/hover = SubResource("btn_hover")
+theme_override_styles/disabled = SubResource("btn_off")
+theme_override_styles/focus = SubResource("empty")
+text = "LEAVE"

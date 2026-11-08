@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 ## Developer shortcuts that sit on top of every screen: play any phase of the day, complete the current
-## phase, and change the game state. Autoloaded; it removes itself in release builds. Press F9 to open it.
+## phase, and change the game state. Autoloaded; it removes itself in release builds. Press = to open it.
 ##
 ## A screen adds its own shortcuts under THIS SCREEN by having two methods:
 ##   debug_actions() -> Array   a list of [button text, Callable]
@@ -32,7 +32,7 @@ func toggle() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F9:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_EQUAL:
 		toggle()
 		get_viewport().set_input_as_handled()
 

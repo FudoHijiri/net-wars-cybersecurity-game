@@ -1,7 +1,6 @@
 {
 	"1": {
 		"title": "An Unusual Login",
-		"case": "res://AI generated/data/day1_investigation.json",
 		"phases": {
 			"investigation": {
 				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeInvestigation.json",
@@ -14,7 +13,11 @@
 				"data": "res://data/scenarios/day 1/monitoring.json"
 			},
 			"hardening": {
-				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeHardening.json"
+				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeHardening.json",
+				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
+			},
+			"response": {
+				"scene": "res://AI generated/scenes/response/Response.tscn"
 			}
 		}
 	}

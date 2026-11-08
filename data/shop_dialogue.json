@@ -1,0 +1,30 @@
+{
+	"_note": "What Carla says in the Hardening shop (Shop/Dialogue). She says a greeting when the shop opens, a line when the player clicks a card or an upgrade, and a line after a purchase. Keep a line short (the box is narrow): about 90 letters at most. The upgrade lines say in everyday words what the upgrade is for.",
+	"greeting": [
+		"Welcome! Have a look around, and spend your points wisely.",
+		"Hi! Pick what fits the problem you found, not what looks coolest.",
+		"Back again? Remember: the fix should match the problem."
+	],
+	"bought_card": [
+		"Good pick! Put it in your deck with EDIT DECK.",
+		"Done. Add it to your deck when you are ready."
+	],
+	"bought_upgrade": [
+		"Good choice! Now equip it under EDIT UPGRADES, or it will not help you.",
+		"Remember: an upgrade only works once it is equipped."
+	],
+	"upgrades": {
+		"unique": "One key for every door is risky. Give each account its own password.",
+		"twostep": "A stolen password is not enough if the thief also needs your phone.",
+		"lockout": "After a few wrong tries, lock the account. Guessing gets them nowhere.",
+		"alerts": "A strange sign-in at 3 AM? This tells you at once, while there is still time."
+	},
+	"cards": {
+		"probe": "A quick poke to see what is out there. Cheap, and it adds up.",
+		"patch": "Fix a weak spot before someone uses it. You even draw a card.",
+		"audit": "Check everything on the list. You will spot more and draw 3 cards.",
+		"hunt": "Go looking for the intruder instead of waiting. Hits hard, draws a card.",
+		"encrypt": "Scrambled data is useless to a thief. A good block, and a card.",
+		"shutdown": "Cut the attacker off completely. A big hit, and a little block."
+	}
+}

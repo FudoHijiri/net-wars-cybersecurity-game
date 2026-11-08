@@ -22,6 +22,9 @@ var _screen: Node # the loading screen of the scene change in progress
 ## The title menu reads this when it opens (title_menu.gd) and, when set, starts on the day select
 ## with no animation, so the player does not go through Play and the save slots again.
 var open_stage_select := false
+## Set by the day select (OPEN DECK) before it opens the Hardening scene: the scene then offers only the deck
+## and the upgrades, with no shop, no objective and no move to the next phase. Hardening clears it.
+var build_only := false
 
 
 func _ready() -> void:

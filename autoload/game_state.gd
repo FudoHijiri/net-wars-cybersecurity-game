@@ -97,6 +97,11 @@ func get_app(app_id: String) -> Dictionary:
 	return app
 
 
+## The ids of the clues found so far in this run.
+func found_clue_ids() -> Array:
+	return marked_clues.keys().filter(func(id: String) -> bool: return marked_clues[id])
+
+
 func is_marked(id: String) -> bool:
 	return marked_clues.get(id, false)
 
@@ -153,6 +158,23 @@ func wallet() -> int:
 	if SaveManager.current_slot >= 0:
 		return int(SaveManager.data["security_points"])
 	return security_points
+
+
+## Takes points out of the wallet. False, and nothing taken, when the wallet holds less than `amount`.
+## It does not save: the phase that spends calls SaveManager.save() when it ends.
+func spend_points(amount: int) -> bool:
+	if amount < 0 or wallet() < amount:
+		return false
+	add_points(-amount)
+	return true
+
+
+## Puts points into the wallet (or takes them out, with a negative amount). It does not save.
+func add_points(amount: int) -> void:
+	if SaveManager.current_slot >= 0:
+		SaveManager.data["security_points"] = int(SaveManager.data["security_points"]) + amount
+	else:
+		security_points += amount
 
 
 ## Clears everything the player has done so far. Used when a new game starts.

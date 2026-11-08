@@ -1,12 +1,19 @@
 {
-	"_note": "Placeholder cards for the six arts that exist. Numbers follow the proposed HP 10 scale. type is attack, defense or spell (picks the frame and the icon). The art file is assets/cards/art/art_<id>.png.",
+	"_note": "Placeholder cards for the six arts that exist. Numbers follow the HP 80 point model in notes.json (card_balance). type is offensive, defensive or utility (picks the frame and the icon). The art file is assets/cards/art/art_<id>.png. effects is what the card does in the Response phase (damage, block, draw).",
 	"cards": {
-		"firewall": {"name": "Firewall", "type": "defense", "cost": 1, "text": "Gain 3 Block."},
-		"lock_out": {"name": "Lock Out", "type": "defense", "cost": 2, "text": "Gain 7 Block."},
-		"trace": {"name": "Trace", "type": "attack", "cost": 1, "text": "Deal 3 damage."},
-		"isolate": {"name": "Isolate", "type": "attack", "cost": 2, "text": "Deal 7 damage."},
-		"contain": {"name": "Contain", "type": "attack", "cost": 3, "text": "Deal 11 damage."},
-		"scan": {"name": "Scan", "type": "spell", "cost": 0, "text": "Draw 1 card."}
+		"firewall": {"name": "Firewall", "type": "defensive", "cost": 1, "text": "Gain 5 Block.", "effects": {"block": 5}},
+		"lock_out": {"name": "Lock Out", "type": "defensive", "cost": 2, "text": "Gain 10 Block.", "effects": {"block": 10}},
+		"trace": {"name": "Trace", "type": "offensive", "cost": 1, "text": "Deal 6 damage.", "effects": {"damage": 6}},
+		"isolate": {"name": "Isolate", "type": "offensive", "cost": 2, "text": "Deal 12 damage.", "effects": {"damage": 12}},
+		"contain": {"name": "Contain", "type": "offensive", "cost": 3, "text": "Deal 20 damage.", "effects": {"damage": 20}},
+		"scan": {"name": "Scan", "type": "utility", "cost": 0, "text": "Draw 1 card.", "effects": {"draw": 1}},
+		"probe": {"name": "Probe", "type": "offensive", "cost": 0, "text": "Deal 3 damage.", "effects": {"damage": 3}, "price": 20},
+		"patch": {"name": "Patch", "type": "defensive", "cost": 1, "text": "Gain 4 Block. Draw 1 card.", "effects": {"block": 4, "draw": 1}, "price": 30},
+		"audit": {"name": "Audit", "type": "utility", "cost": 1, "text": "Draw 3 cards.", "effects": {"draw": 3}, "price": 30},
+		"hunt": {"name": "Hunt", "type": "offensive", "cost": 2, "text": "Deal 9 damage. Draw 1.", "effects": {"damage": 9, "draw": 1}, "price": 45},
+		"encrypt": {"name": "Encrypt", "type": "defensive", "cost": 2, "text": "Gain 8 Block. Draw 1 card.", "effects": {"block": 8, "draw": 1}, "price": 45},
+		"shutdown": {"name": "Shutdown", "type": "offensive", "cost": 3, "text": "Deal 14 damage. Gain 6 Block.", "effects": {"damage": 14, "block": 6}, "price": 60}
 	},
-	"starter_deck": ["firewall", "firewall", "trace", "trace", "scan", "isolate", "lock_out"]
+	"starter_deck": ["firewall", "firewall", "trace", "trace", "scan", "isolate", "lock_out"],
+	"shop": ["probe", "patch", "audit", "hunt", "encrypt", "shutdown"]
 }

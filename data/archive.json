@@ -1,0 +1,89 @@
+{
+	"_note": "The text of the Book Archive (scripts/menus/book_archive.gd). The threats are in the order of the buttons in BookArchive.tscn, and threat number N belongs to Day N: it opens when the Investigation of that day is finished. Every threat has pages; a page has a title and a text (BBCode: [b]bold[/b]). A page can also carry 'patterns': true (adds the attack patterns of the Response phase, from response_day1.json) or 'upgrades': [ids] (adds those upgrades from upgrades.json as recommended). Keep a page to about 600 letters: the book's page is small. A threat can have more pages when the game has more to say about it (Credential Abuse has the attack patterns and the upgrades). 'short' is a shorter name for the title of the right page, for a name too long for it.",
+	"intro": "[b]Welcome to the Archive.[/b]\n\nPick a threat on the left page to read about it.\n\nEvery threat has five pages: what it is, its warning signs, how it attacks, how to stop it, and words to know.\n\nTurn the pages with NEXT and BACK, or with the arrow keys.\n\nA threat opens when you finish its Investigation.",
+	"locked": "This threat is still a mystery.\n\nFinish the Investigation on Day {day} to learn about it.",
+	"threats": [
+		{
+			"id": "credential", "name": "Credential Abuse", "day": 1,
+			"pages": [
+				{"title": "WHAT IT IS", "text": "Your credentials are the keys to your accounts: a username and a password.\n\nCredential abuse is when someone else uses them to get in. They may have stolen the password, guessed it, or found it in a leak from another website.\n\nOnce inside, they look like a normal user, which is what makes it hard to notice."},
+				{"title": "WARNING SIGNS", "text": "- A sign-in from a country or a computer you never use.\n- A sign-in at a strange hour, like 3 AM.\n- A password that changed when you did not change it.\n- Many failed sign-in tries in a row.\n- Files opened or copied that the person never touches.\n\nOne sign alone can be innocent. A few together are a warning."},
+				{"title": "HOW IT ATTACKS", "text": "There are three common ways in.\n\n[b]Guessing:[/b] a program tries thousands of passwords, very fast.\n\n[b]Reuse:[/b] one stolen password is tried on many accounts, because people reuse passwords.\n\n[b]Stolen:[/b] a leaked password is simply used, and works on the first try."},
+				{"title": "ATTACK PATTERNS", "text": "These are the three attacks of Credential Abuse as you meet them in a fight.\n\n", "patterns": true},
+				{"title": "HOW TO STOP IT", "text": "- Use a different password for every account.\n- Turn on two-step sign-in, so a password alone is not enough.\n- Lock an account after a few wrong tries.\n- Get an alert when a sign-in looks strange.\n\nNone of these is perfect on its own. Together they make an attack much harder."},
+				{"title": "RECOMMENDED UPGRADES", "text": "These upgrades answer this threat. Equip the ones that match what you found.\n\n", "upgrades": ["unique", "twostep", "lockout", "alerts"]},
+				{"title": "WORDS TO KNOW", "text": "[b]Credential[/b]: a username together with its password.\n\n[b]Two-step sign-in[/b]: a second proof after the password, like a code on your phone.\n\n[b]Brute force[/b]: guessing passwords again and again until one works.\n\n[b]Tip:[/b] a long password is a strong one. Three random words beat one clever word with a number."}
+			]
+		},
+		{
+			"id": "malware", "name": "Malware", "day": 2,
+			"pages": [
+				{"title": "WHAT IT IS", "text": "Malware is harmful software: a program made to damage a computer, spy on its owner, or take it over.\n\nIt gets in when someone opens an infected file, installs a fake program, or visits a bad website.\n\nViruses, trojans and spyware are all kinds of malware."},
+				{"title": "WARNING SIGNS", "text": "- The computer is suddenly slow.\n- Programs you did not install appear.\n- Pop-ups show up, even with the browser closed.\n- The antivirus turns itself off.\n- Files go missing or change their names.\n\nA slow computer alone is not proof. Several signs together are."},
+				{"title": "HOW IT ATTACKS", "text": "[b]Trojan:[/b] looks like something useful, like a free game, but hides harm inside.\n\n[b]Spyware:[/b] hides and watches what you type.\n\n[b]Worm:[/b] copies itself to other computers on the network.\n\nMost of it arrives as an email attachment or a download."},
+				{"title": "HOW TO STOP IT", "text": "- Install programs only from places you trust.\n- Keep the computer and its apps updated. Updates close the holes malware uses.\n- Use antivirus software.\n- Do not open attachments you did not expect.\n- Back up your files, in case the worst happens."},
+				{"title": "WORDS TO KNOW", "text": "[b]Virus[/b]: malware that spreads by attaching itself to files.\n\n[b]Trojan[/b]: malware disguised as something harmless.\n\n[b]Update (patch)[/b]: a fix for a weak spot in software.\n\n[b]Tip:[/b] when a program asks for more power than it needs, like a flashlight app asking for your contacts, say no."}
+			]
+		},
+		{
+			"id": "ransomware", "name": "Ransomware", "day": 3,
+			"pages": [
+				{"title": "WHAT IT IS", "text": "Ransomware locks your files with a secret code (encryption) and demands money to unlock them.\n\nThe attacker's message is simple: pay, or lose your data.\n\nPaying does not promise that you get the files back, and it pays for the next attack."},
+				{"title": "WARNING SIGNS", "text": "- Files cannot be opened and have strange new endings.\n- A message on the screen demands payment.\n- Many files change within minutes.\n- Shared folders on the network are locked too.\n\nWhen it is this clear, it is already late. The early sign is often a bad link someone clicked."},
+				{"title": "HOW IT ATTACKS", "text": "It usually starts with one click on a bad link or attachment.\n\nThe program then spreads across the network and scrambles the files of every computer and server it can reach.\n\nOnly then does the ransom note appear.\n\nSome attackers also steal a copy first, and threaten to publish it."},
+				{"title": "HOW TO STOP IT", "text": "- Keep backups, offline or somewhere the computer cannot change them.\n- Test that you can really restore from them.\n- Keep software updated.\n- Be careful with links and attachments.\n- Let only the people who need it change shared files.\n\nA good backup turns a disaster into an annoying day."},
+				{"title": "WORDS TO KNOW", "text": "[b]Encryption[/b]: scrambling data so only someone with the key can read it.\n\n[b]Backup[/b]: a spare copy of your files, kept apart.\n\n[b]Ransom[/b]: the money demanded to give your files back.\n\n[b]Tip:[/b] the 3-2-1 rule: three copies, on two kinds of storage, with one kept somewhere else."}
+			]
+		},
+		{
+			"id": "insider", "name": "Insider Threat", "day": 4,
+			"pages": [
+				{"title": "WHAT IT IS", "text": "An insider threat is a person with real access who misuses it: an employee, a contractor or a partner.\n\nSome do it on purpose, for money or out of anger.\n\nMany do it by accident, like sending a file to the wrong person.\n\nBoth are called insider threats, because the access is real."},
+				{"title": "WARNING SIGNS", "text": "- Someone opens files that have nothing to do with their job.\n- Large downloads or copies, especially at night or just before they leave.\n- Using accounts or computers that are not theirs.\n- Trying to get around security rules.\n\nMost people who do these things have a harmless reason. Ask before you accuse."},
+				{"title": "HOW IT ATTACKS", "text": "[b]On purpose:[/b] copying data to take to a new job, or damaging systems out of anger.\n\n[b]By mistake:[/b] clicking a bad link, losing a laptop, or emailing the wrong person.\n\nInsiders are hard to spot because their sign-ins look completely normal."},
+				{"title": "HOW TO STOP IT", "text": "- Give each person only the access their job needs.\n- Close a person's access the day they leave.\n- Keep a log of who opened what, and read it.\n- Teach everyone the rules, so mistakes are rarer.\n- Make it easy and safe to report a mistake."},
+				{"title": "WORDS TO KNOW", "text": "[b]Least privilege[/b]: giving only the access needed, and no more.\n\n[b]Access log[/b]: a record of who opened what, and when.\n\n[b]Offboarding[/b]: closing a person's access when they leave.\n\n[b]Tip:[/b] a team that is not afraid to say 'I made a mistake' stops many problems early."}
+			]
+		},
+		{
+			"id": "exfiltration", "name": "Data Exfiltration", "day": 5,
+			"pages": [
+				{"title": "WHAT IT IS", "text": "Exfiltration means stealing data out of a network: copying private files and sending them to the attacker.\n\nIt is often the last step of an attack.\n\nThe damage is a leak of private information, such as customer records or payroll."},
+				{"title": "WARNING SIGNS", "text": "- A big amount of data leaving at night.\n- A server talking to an unknown computer outside.\n- Files gathered into one big archive.\n- Data leaving by an unusual route.\n\nThe network usually looks quiet at night. A busy night is worth a look."},
+				{"title": "HOW IT ATTACKS", "text": "The attacker first gets in, then looks around for valuable files.\n\nThey copy them into one place and pack them into a single archive.\n\nThen they send it out, often slowly and in small pieces, so nobody notices the traffic."},
+				{"title": "HOW TO STOP IT", "text": "- Watch what leaves the network, not only what comes in.\n- Mark private data, and limit who can reach it.\n- Block unknown places outside.\n- Encrypt sensitive files, so a stolen copy is useless.\n- Raise an alert on large transfers."},
+				{"title": "WORDS TO KNOW", "text": "[b]Exfiltration[/b]: secretly moving stolen data out.\n\n[b]Data leak[/b]: private data seen by people who should not see it.\n\n[b]Outbound traffic[/b]: data that leaves your network.\n\n[b]Tip:[/b] you cannot protect what you cannot find. Know where your private data lives."}
+			]
+		},
+		{
+			"id": "ddos", "name": "Distributed Denial-of-Service", "day": 6, "short": "DDoS",
+			"pages": [
+				{"title": "WHAT IT IS", "text": "A DDoS attack floods a website or service with so much traffic that real users cannot get in.\n\nIt is like thousands of people crowding a shop door so no customer can enter.\n\nThe traffic comes from many hacked computers at once, so it cannot be stopped by blocking one sender."},
+				{"title": "WARNING SIGNS", "text": "- The site becomes very slow, or does not load at all.\n- A huge rise in visitors out of nowhere.\n- Many requests that look the same.\n- Other services on the same network slow down too.\n\nA real rush of customers can look the same, so check the source of the traffic."},
+				{"title": "HOW IT ATTACKS", "text": "The attacker controls a network of hacked devices, called a botnet.\n\nOn command, all of them send requests to one target at the same time.\n\nThe target runs out of power and room, and the real users are turned away.\n\nNo password is stolen: the goal is only to cause a stop."},
+				{"title": "HOW TO STOP IT", "text": "- Use a service that spreads traffic out and filters the bad requests.\n- Keep spare capacity ready for sudden rises.\n- Limit how many requests one visitor can send.\n- Have a plan: who to call, and what to switch on.\n- Keep your own devices secure, so they are not used in a botnet."},
+				{"title": "WORDS TO KNOW", "text": "[b]Botnet[/b]: many hacked devices controlled by one attacker.\n\n[b]Traffic[/b]: the data going to and from a website.\n\n[b]Rate limit[/b]: a cap on the requests one visitor may send.\n\n[b]Tip:[/b] change the default password of cameras and routers. Those weak devices are what botnets are made of."}
+			]
+		},
+		{
+			"id": "phishing", "name": "Phishing", "day": 7,
+			"pages": [
+				{"title": "WHAT IT IS", "text": "Phishing is a trick message that pretends to be someone you trust, like your bank, your boss or a delivery company.\n\nIts goal is to make you give up a password or click a bad link.\n\nIt works by rushing you or scaring you, so that you act before you think."},
+				{"title": "WARNING SIGNS", "text": "- A message that creates panic: 'Your account closes today!'\n- A sender address that is slightly wrong.\n- A link whose real address does not match its text.\n- A request for a password, a code or a payment.\n- Spelling mistakes and a strange greeting."},
+				{"title": "HOW IT ATTACKS", "text": "The attacker sends the same message to thousands of people, or writes a careful one just for you (spear phishing).\n\nThe link opens a fake page that looks real. When you type your password, they get it.\n\nSome messages carry malware instead of a link."},
+				{"title": "HOW TO STOP IT", "text": "- Stop and look before you click. Were you expecting this?\n- Check the real sender address and where a link goes.\n- Never share a code or a password by message.\n- Go to the website yourself instead of using the link.\n- Report suspicious messages, and turn on two-step sign-in."},
+				{"title": "WORDS TO KNOW", "text": "[b]Spear phishing[/b]: a phishing message written for one person.\n\n[b]Spoofing[/b]: faking who a message comes from.\n\n[b]Link preview[/b]: checking where a link really goes before you click it.\n\n[b]Tip:[/b] a real company will not ask for your password by message. Ever."}
+			]
+		},
+		{
+			"id": "webapp", "name": "Web Application Attack", "day": 8,
+			"pages": [
+				{"title": "WHAT IT IS", "text": "A web application attack abuses a weakness in a website or web app, such as a login form or a search box.\n\nThe attacker types tricky text that the site does not expect, and the site does something it should not, like showing private data."},
+				{"title": "WARNING SIGNS", "text": "- Strange text in forms and addresses, like pieces of code.\n- Many odd requests to the same page.\n- Error messages that reveal how the site works.\n- Data or accounts changed for no reason.\n- Pages that show content nobody posted."},
+				{"title": "HOW IT ATTACKS", "text": "[b]Injection:[/b] code typed into a form is run by the site, such as a database command.\n\n[b]Cross-site scripting:[/b] a harmful script is placed on a page and runs in other visitors' browsers.\n\n[b]Broken access:[/b] changing a number in the address to open someone else's page."},
+				{"title": "HOW TO STOP IT", "text": "- Keep websites and their parts updated.\n- Check everything a visitor types. Never trust it.\n- Show each user only their own data.\n- Use a web application firewall to filter bad requests.\n- Test your own site for weak spots before attackers do."},
+				{"title": "WORDS TO KNOW", "text": "[b]Injection[/b]: sneaking commands into a form or an address.\n\n[b]Input validation[/b]: checking that typed text is what the site expects.\n\n[b]Web application firewall[/b]: a filter that blocks harmful web requests.\n\n[b]Tip:[/b] treat every box on a website as a door. Decide what is allowed through."}
+			]
+		}
+	]
+}

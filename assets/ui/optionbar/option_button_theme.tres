@@ -1,0 +1,121 @@
+[gd_resource type="Theme" format=3 uid="uid://d38ys1ts0cgv"]
+
+[ext_resource type="Texture2D" uid="uid://67rdyok4gimg" path="res://assets/ui/optionbar/option_normal.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cpoa4ax5xske5" path="res://assets/ui/optionbar/option_hover.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bawd6yi0m87el" path="res://assets/ui/optionbar/option_pressed.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bdjyqjyjqb3xp" path="res://assets/ui/optionbar/option_disabled.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bu0rs6kec7jp3" path="res://assets/ui/optionbar/option_focus.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://4bb138iptj8b" path="res://assets/ui/optionbar/option_arrow.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://ben2wvvdb7v1j" path="res://assets/ui/optionbar/option_popup_panel.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://2boh2cyx13ah" path="res://assets/ui/optionbar/option_popup_hover.png" id="8"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="font_mc"]
+[ext_resource type="Texture2D" uid="uid://b8cvlnn4ydgpd" path="res://assets/ui/optionbar/option_radio_checked.png" id="option_radio_checked"]
+[ext_resource type="Texture2D" uid="uid://larbobjxxuxt" path="res://assets/ui/optionbar/option_radio_checked_disabled.png" id="option_radio_checked_disabled"]
+[ext_resource type="Texture2D" uid="uid://b2ckq6d4nyo5w" path="res://assets/ui/optionbar/option_radio_unchecked.png" id="option_radio_unchecked"]
+[ext_resource type="Texture2D" uid="uid://dsrlxl25rd86c" path="res://assets/ui/optionbar/option_radio_unchecked_disabled.png" id="option_radio_unchecked_disabled"]
+
+[sub_resource type="StyleBoxTexture" id="sb_disabled"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 16.0
+content_margin_bottom = 3.0
+texture = ExtResource("4")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="sb_focus"]
+texture = ExtResource("5")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="sb_hover"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 16.0
+content_margin_bottom = 3.0
+texture = ExtResource("2")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="sb_pressed"]
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 2.0
+texture = ExtResource("3")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="sb_normal"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 16.0
+content_margin_bottom = 3.0
+texture = ExtResource("1")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="sb_popup_hover"]
+texture = ExtResource("8")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="sb_popup"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture = ExtResource("7")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxLine" id="sb_sep"]
+color = Color(0.337, 0.424, 0.525, 1)
+
+[resource]
+OptionButton/colors/font_color = Color(0.957, 0.957, 0.957, 1)
+OptionButton/colors/font_disabled_color = Color(0.337, 0.424, 0.525, 1)
+OptionButton/colors/font_focus_color = Color(0.957, 0.957, 0.957, 1)
+OptionButton/colors/font_hover_color = Color(1, 1, 1, 1)
+OptionButton/colors/font_pressed_color = Color(0.396, 0.651, 0.965, 1)
+OptionButton/constants/arrow_margin = 4
+OptionButton/constants/h_separation = 2
+OptionButton/font_sizes/font_size = 6
+OptionButton/fonts/font = ExtResource("font_mc")
+OptionButton/icons/arrow = ExtResource("6")
+OptionButton/styles/disabled = SubResource("sb_disabled")
+OptionButton/styles/focus = SubResource("sb_focus")
+OptionButton/styles/hover = SubResource("sb_hover")
+OptionButton/styles/hover_pressed = SubResource("sb_pressed")
+OptionButton/styles/normal = SubResource("sb_normal")
+OptionButton/styles/pressed = SubResource("sb_pressed")
+PopupMenu/colors/font_color = Color(0.957, 0.957, 0.957, 1)
+PopupMenu/colors/font_disabled_color = Color(0.337, 0.424, 0.525, 1)
+PopupMenu/colors/font_hover_color = Color(1, 1, 1, 1)
+PopupMenu/constants/h_separation = 3
+PopupMenu/constants/item_end_padding = 4
+PopupMenu/constants/item_start_padding = 2
+PopupMenu/constants/v_separation = 4
+PopupMenu/font_sizes/font_size = 6
+PopupMenu/fonts/font = ExtResource("font_mc")
+PopupMenu/icons/radio_checked = ExtResource("option_radio_checked")
+PopupMenu/icons/radio_checked_disabled = ExtResource("option_radio_checked_disabled")
+PopupMenu/icons/radio_unchecked = ExtResource("option_radio_unchecked")
+PopupMenu/icons/radio_unchecked_disabled = ExtResource("option_radio_unchecked_disabled")
+PopupMenu/styles/hover = SubResource("sb_popup_hover")
+PopupMenu/styles/panel = SubResource("sb_popup")
+PopupMenu/styles/separator = SubResource("sb_sep")

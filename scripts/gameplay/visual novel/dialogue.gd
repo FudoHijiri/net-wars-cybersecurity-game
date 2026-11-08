@@ -175,7 +175,7 @@ func _on_skip_button_pressed() -> void:
 	skip()
 
 
-# --- Debug panel (F9) ---
+# --- Debug panel (=) ---
 
 func debug_actions() -> Array:
 	return [["Skip dialogue >", skip]]

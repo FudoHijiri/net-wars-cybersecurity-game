@@ -409,7 +409,7 @@ text = "ARCHIVE"
 label_settings = SubResource("LabelSettings_w31c7")
 horizontal_alignment = 1
 
-[node name="ArchiveButton2" type="Button" parent="NinePatchRect" unique_id=2119958501]
+[node name="OpenDeckButton" type="Button" parent="NinePatchRect" unique_id=2119958501]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.265625
@@ -428,7 +428,7 @@ icon_alignment = 1
 expand_icon = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="NinePatchRect/ArchiveButton2" unique_id=205440449]
+[node name="Label" type="Label" parent="NinePatchRect/OpenDeckButton" unique_id=205440449]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.96

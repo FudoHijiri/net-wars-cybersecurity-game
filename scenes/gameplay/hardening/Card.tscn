@@ -14,6 +14,7 @@ font = ExtResource("4_font")
 font_size = 6
 
 [sub_resource type="LabelSettings" id="LabelSettings_text"]
+line_spacing = 0.0
 font = ExtResource("4_font")
 font_size = 6
 font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)

@@ -11,8 +11,7 @@ const MENU_LAYER := 90 # above the gameplay screens, below the loading screen (1
 ## A scene counts as gameplay when its path starts with one of these.
 const GAMEPLAY_PATHS: Array[String] = [
 	"res://scenes/gameplay/",
-	"res://AI generated/scenes/investigation/",
-	"res://AI generated/scenes/monitoring/Monitoring.tscn",
+	"res://AI generated/scenes/response/",
 ]
 
 var _settings: CanvasLayer # the settings overlay, created the first time it is needed

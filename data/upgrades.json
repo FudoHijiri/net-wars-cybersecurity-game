@@ -1,0 +1,10 @@
+{
+	"_note": "Upgrades (passives) sold in the Hardening shop. load is what the upgrade uses of the upgrade load (2 on Day 1, 2N on Day N). price is in Security Points. The icon is assets/upgrades/icon_<id>.png. The ids match the defenses in the Response phase. clues are the ids of the Investigation clues the upgrade answers: when the player found one, the Upgrade Editor recommends the upgrade.",
+	"upgrades": {
+		"unique": {"name": "Unique Passwords", "load": 1, "price": 30, "text": "One stolen password opens nothing else.", "clues": ["file_payroll_download", "net_outbound_transfer"]},
+		"twostep": {"name": "Two-step Sign-in", "load": 1, "price": 30, "text": "A stolen password alone is not enough to sign in.", "clues": ["login_germany", "email_anna_reply"]},
+		"lockout": {"name": "Lock After Failed Tries", "load": 2, "price": 50, "text": "Too many wrong guesses lock the account.", "clues": []},
+		"alerts": {"name": "Unusual Sign-in Alerts", "load": 2, "price": 50, "text": "You are warned when a sign-in looks strange.", "clues": ["login_germany"]}
+	},
+	"shop": ["unique", "twostep", "lockout", "alerts"]
+}

@@ -26,6 +26,9 @@ const DAY_COUNT := 8
 const SAVE_VERSION := 1
 
 const _GameState := preload("res://autoload/game_state.gd")
+## Keys that saves made before the key existed do not have, and what such a save gets for them. A new game
+## gets the value of _new_data() instead: for "tutorial" that is the difference between a new save and an old one.
+const _OLD_SAVE_DEFAULTS := {"tutorial": [], "found_clues": []}
 const _TAG := "NWSV"
 const _IV_SIZE := 16
 const _MAC_SIZE := 32
@@ -156,6 +159,11 @@ func _new_data() -> Dictionary:
 		"owned_cards": [],
 		"deck": [],
 		"consumables": {},
+		"found_clues": [], # ids of the Investigation clues the player found, kept when Investigation ends
+		"tutorial": [ # the tutorials still to come: a phase, or a view inside it (see data/tutorials.json)
+			"investigation", "investigation_report", "monitoring", "hardening",
+			"hardening_shop", "hardening_deck_editor", "hardening_upgrade_editor", "response",
+		],
 	}
 
 
@@ -235,6 +243,9 @@ func _decode(bytes: PackedByteArray) -> Dictionary:
 		return {"status": Status.CORRUPT}
 	if int(parsed["version"]) > SAVE_VERSION:
 		return {"status": Status.NEWER}
+	for key: String in _OLD_SAVE_DEFAULTS:
+		if not parsed.has(key):
+			parsed[key] = _OLD_SAVE_DEFAULTS[key].duplicate()
 	if not _has_shape(parsed, _new_data()):
 		return {"status": Status.CORRUPT}
 	return {"status": Status.OK, "data": parsed}

@@ -1,0 +1,110 @@
+[gd_resource type="Theme" format=3 uid="uid://do41m1dxvwx1w"]
+
+[ext_resource type="Texture2D" uid="uid://dgtkj5lij3m4q" path="res://assets/ui/scrollbar/scroll_track_v.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://btd3kedlyh0f0" path="res://assets/ui/scrollbar/scroll_grabber_normal_v.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cssmaxwvk0jur" path="res://assets/ui/scrollbar/scroll_grabber_hover_v.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://cfd14n3vrxtlt" path="res://assets/ui/scrollbar/scroll_grabber_pressed_v.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://by1dran6egqf4" path="res://assets/ui/scrollbar/scroll_track_h.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://8tm7l6eqgswd" path="res://assets/ui/scrollbar/scroll_grabber_normal_h.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://cbe3a4jqk77ry" path="res://assets/ui/scrollbar/scroll_grabber_hover_h.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://b4j4afem5uhcm" path="res://assets/ui/scrollbar/scroll_grabber_pressed_h.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://dlwb2h6owa2ph" path="res://assets/ui/scrollbar/scroll_up_normal.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://ddhu1wxho62f2" path="res://assets/ui/scrollbar/scroll_down_normal.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://ddriv7qomjvtu" path="res://assets/ui/scrollbar/scroll_left_normal.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://dcmok8i3xayf5" path="res://assets/ui/scrollbar/scroll_right_normal.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://bvpetccwtwocb" path="res://assets/ui/scrollbar/scroll_up_hover.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://djfgwktsmunji" path="res://assets/ui/scrollbar/scroll_down_hover.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://hm3yxoytb61k" path="res://assets/ui/scrollbar/scroll_left_hover.png" id="15"]
+[ext_resource type="Texture2D" uid="uid://ck17bseh1wbfn" path="res://assets/ui/scrollbar/scroll_right_hover.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://p0se4u80hyrq" path="res://assets/ui/scrollbar/scroll_up_pressed.png" id="17"]
+[ext_resource type="Texture2D" uid="uid://i5wgpe3e4xrr" path="res://assets/ui/scrollbar/scroll_down_pressed.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://drybfh0clr86r" path="res://assets/ui/scrollbar/scroll_left_pressed.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://biusg3p4hdwe3" path="res://assets/ui/scrollbar/scroll_right_pressed.png" id="20"]
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_normal_h"]
+texture = ExtResource("6")
+texture_margin_left = 5.0
+texture_margin_top = 3.0
+texture_margin_right = 5.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_hover_h"]
+texture = ExtResource("7")
+texture_margin_left = 5.0
+texture_margin_top = 3.0
+texture_margin_right = 5.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_pressed_h"]
+texture = ExtResource("8")
+texture_margin_left = 5.0
+texture_margin_top = 3.0
+texture_margin_right = 5.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_track_h"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("5")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_normal_v"]
+texture = ExtResource("2")
+texture_margin_left = 3.0
+texture_margin_top = 5.0
+texture_margin_right = 3.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_hover_v"]
+texture = ExtResource("3")
+texture_margin_left = 3.0
+texture_margin_top = 5.0
+texture_margin_right = 3.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_grabber_pressed_v"]
+texture = ExtResource("4")
+texture_margin_left = 3.0
+texture_margin_top = 5.0
+texture_margin_right = 3.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="sb_scroll_track_v"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("1")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[resource]
+HScrollBar/icons/decrement = ExtResource("11")
+HScrollBar/icons/decrement_highlight = ExtResource("15")
+HScrollBar/icons/decrement_pressed = ExtResource("19")
+HScrollBar/icons/increment = ExtResource("12")
+HScrollBar/icons/increment_highlight = ExtResource("16")
+HScrollBar/icons/increment_pressed = ExtResource("20")
+HScrollBar/styles/grabber = SubResource("sb_scroll_grabber_normal_h")
+HScrollBar/styles/grabber_highlight = SubResource("sb_scroll_grabber_hover_h")
+HScrollBar/styles/grabber_pressed = SubResource("sb_scroll_grabber_pressed_h")
+HScrollBar/styles/scroll = SubResource("sb_scroll_track_h")
+HScrollBar/styles/scroll_focus = SubResource("sb_scroll_track_h")
+VScrollBar/icons/decrement = ExtResource("9")
+VScrollBar/icons/decrement_highlight = ExtResource("13")
+VScrollBar/icons/decrement_pressed = ExtResource("17")
+VScrollBar/icons/increment = ExtResource("10")
+VScrollBar/icons/increment_highlight = ExtResource("14")
+VScrollBar/icons/increment_pressed = ExtResource("18")
+VScrollBar/styles/grabber = SubResource("sb_scroll_grabber_normal_v")
+VScrollBar/styles/grabber_highlight = SubResource("sb_scroll_grabber_hover_v")
+VScrollBar/styles/grabber_pressed = SubResource("sb_scroll_grabber_pressed_v")
+VScrollBar/styles/scroll = SubResource("sb_scroll_track_v")
+VScrollBar/styles/scroll_focus = SubResource("sb_scroll_track_v")

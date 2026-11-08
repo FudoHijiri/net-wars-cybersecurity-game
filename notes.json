@@ -116,12 +116,12 @@
 		},
 		"hand_and_draw": {
 			"decided": [
+				"Slay the Spire rules. The player draws 5 cards at the start of every turn and the whole hand is discarded at the end of the turn. The Library of Ruina mechanics (a persistent hand, 1 draw per turn) are dropped.",
 				"Hand cap is 8 cards.",
-				"The player draws 1 card per turn, so draw cards are important.",
-				"Unplayed cards stay in the hand for the next turn (like Library of Ruina, unlike Slay the Spire).",
-				"Played cards go to the discard pile, which is shuffled back into a draw cycle when the player must draw and the deck is empty."
+				"Played cards go to the discard pile, which is shuffled back into the draw pile when the player must draw and the draw pile is empty.",
+				"Draw and Energy effects come in two timings: this turn (immediately) and next turn (a one-time effect at the start of the next turn). There is no baseline draw 2; extra draw comes from cards or from a high cost upgrade."
 			],
-			"note": "With 1 draw per turn and a persistent hand, the deck does not cycle every 2 turns, so my earlier worry that draw cards would be worthless in a 9-card deck no longer applies."
+			"note": "A 9-card deck is drawn 5 at a time, so the deck cycles about every 2 turns. A Retain keyword (keep a card in hand) is an option for a few cards. A passive like \"if your hand is below 3, draw 3 next turn\" would always trigger, so reword it, for example \"if you end your turn with 2 or fewer unplayed cards, draw 3 more next turn\"."
 		},
 		"energy": "Energy is the currency for playing cards in the Response phase. Fixed at 3 per turn, it does not carry over. It only goes higher through a card that generates energy this turn or next turn. Cards cost 0 to 4.",
 		"archetypes": {
@@ -134,9 +134,88 @@
 		"threat_gimmicks_idea": "Give each of the 8 threats one mechanic that rewards a different archetype (for example a threat that stacks pressure each turn rewards burst, one that applies debuffs rewards counters), so the player re-tunes the deck every day.",
 		"card_types": {
 			"offensive": "Mostly damage and debuffs.",
-			"utility": "Mostly block and buffs.",
-			"resource": "Generates energy this turn or next turn, or draws cards immediately or next turn.",
+			"defensive": "Block, healing, or anything else that stops damage.",
+			"utility": "Energy, draw, healing, buffs and other setup that neither hits nor blocks. Replaces the old resource type: resource effects (draw, energy) are also an extra effect that any card of any type can carry. A hybrid card takes the type of its main effect.",
 			"note": "Show the type as an icon shape and a word in the tooltip, not by color alone."
+		},
+		"card_categories": {
+			"note": "The three types (offensive, defensive, utility) are the only fixed structure. The lists below are ideas to design from, not slots to fill. Categories can be added, merged or dropped as cards are made.",
+			"offensive": ["Just damage", "Damage plus utility (debuffs or resources)", "RNG damage, or a downside for a bigger reward"],
+			"defensive": ["Just block", "Block plus utility (buffs or resources)", "Block plus a bit of offense (counter damage when hit)"],
+			"utility": ["Special buffs or effects", "Conditional effects", "Boosts for specific cards (aimed at a type or a cost, not at named cards, because a 9-card deck rarely holds the one partner a named boost needs)"],
+			"healing": "Cards can restore HP. A direct heal is a Utility card (a flat amount, no percentages). Lifesteal is an Offensive card that heals a flat amount when it hits. Healing should be weaker per energy than Block, since it undoes damage already taken.",
+			"dodge": "Defensive cards can give Dodge stacks (see response_combat.dodge). One Dodge stops a whole hit, so price it like one bullet hit (about 4 HP at the HP 80 scale): a cost 1 card gives 1 Dodge plus a little Block, not 2 Dodge.",
+			"resource": "Resource effects (Draw N cards and Gain Energy) are an extra effect that a card of any type can carry. They are not a type or a category. Each comes in two timings, this turn and next turn (a one-time effect at the start of the next turn). Energy is worth much more than draw (see card_balance.effect_values), so a card that gives Energy gets a smaller main number.",
+			"hybrid_rule": "A card takes the type of its main effect."
+		},
+		"card_effect_ideas": {
+			"note": "Ideas only, priced with the point model in card_balance. Each line is cost, effect, and in brackets its value against the cost budget.",
+			"offensive": [
+				"Strike: cost 1, deal 6 [6 of 6].",
+				"Cycle strike: cost 1, deal 5, draw 1 card [7 of 6, payoff].",
+				"Lifesteal: cost 2, deal 9, heal 3 [13.5 of 13].",
+				"Gamble: cost 1, deal 3 or 12, 50 / 50 [7.5 of 6, +25% for the risk].",
+				"Reckless: cost 2, deal 20, lose 5 HP [12.5 of 13].",
+				"Rapid fire: cost 1, deal 2 three times [6 of 6, strong with Exposed].",
+				"Finisher: cost 3, deal 16, deal 8 more if the enemy is below half HP [about 20 of 21].",
+				"Momentum: cost 2, deal 12, draw 1 card next turn [14 of 13, payoff]."
+			],
+			"defensive": [
+				"Defend: cost 1, gain 5 Block [6 of 6].",
+				"Sidestep: cost 1, gain 1 Dodge [5 of 6].",
+				"Evasive maneuvers: cost 2, gain 2 Dodge and 2 Block [12.4 of 13].",
+				"Counter: cost 2, gain 6 Block, the next time you are hit this turn deal 6 [13 of 13].",
+				"Hold the line: cost 1, gain 4 Block, half of it stays next turn [about 7 of 6].",
+				"Patch up: cost 1, gain 2 Block and heal 2 at the end of the turn [5.4 of 6].",
+				"Brace and plan: cost 2, gain 10 Block, draw 1 card next turn [14 of 13, payoff].",
+				"Power save: cost 2, gain 7 Block, gain 1 Energy next turn [14.4 of 13, payoff]."
+			],
+			"utility": [
+				"Quick repair: cost 1, heal 4 [6 of 6].",
+				"Recharge: cost 1, gain 1 Energy next turn [6 of 6].",
+				"Scan: cost 0, draw 1 card [2 of 3].",
+				"Skim: cost 0, draw 1 card next turn [2 of 3].",
+				"Overclock: cost 0, gain 1 Energy this turn, lose 4 HP [1 of 3].",
+				"Surge: cost 1, gain 2 Energy this turn [7 of 6].",
+				"Adrenaline strike: cost 2, deal 8, gain 1 Energy this turn [15 of 13, payoff, plays like cost 1].",
+				"Reboot: cost 2, draw 2 cards, gain 3 Block and gain 1 Energy next turn [13.6 of 13, payoff].",
+				"Focus: cost 1, your next Offensive card deals 5 more damage [about 5 of 6, needs an attack in hand].",
+				"Triage: cost 1, heal 2 for each Dodge you have [needs setup, 6 with 2 Dodge]."
+			]
+		},
+		"card_balance": {
+			"model": "Every card is priced in points, where 1 point = 1 damage at Tier 1. A card should spend about its cost budget: cost 0 = 3, cost 1 = 6, cost 2 = 13, cost 3 = 21, cost 4 = 32 (it rises faster than cost so saving up pays off). Cards with a risk or a condition (category 3, conditional utilities) may spend about 25% more. A card with a resource extra (draw or Energy) is a payoff card: it keeps most of its plain main number, so it ends up about 10 to 15% above the plain budget. The premium is balanced by a higher shop price (about +25%) and by unlocking later, not by making it weaker than a card that does only one thing.",
+			"effect_values": {
+				"damage": "1 per point",
+				"block": "1.2 per point",
+				"heal": "1.5 per HP healed (weaker per energy than Block, as decided)",
+				"lifesteal": "1.5 per HP healed, on top of the damage",
+				"dodge": "5 per stack at Day 1 bullet sizes (it stops one whole hit, so it grows with bullet damage)",
+				"draw": "About 2 per card, this turn or next turn (a second card is worth about 1). Weak, because 5 cards in hand already exceed 3 Energy and drawing more only adds cards that cannot be played.",
+				"energy_now": "About 7 per Energy gained this turn. It lowers the card's net cost this turn, so cost 2 with Gain 1 Energy plays like a cost 1 card. Energy gained next turn does not lower the cost: it is a delayed bonus worth about 6 (see energy_next).",
+				"energy_next": "About 6 per Energy gained next turn (a one-time effect at the start of the next turn).",
+				"exposed": "2 per stack that lasts one turn (stacks are worth more if they last longer)",
+				"counter_damage": "about 1 per damage, since hits are frequent",
+				"self_damage": "minus 1.5 per HP lost"
+			},
+			"passives": "A passive's cost is about the points per turn it adds. Examples: +2 Block each turn = cost 2, +1 damage on each Offensive card = cost 2, start each turn with 1 Dodge = cost 5, +1 draw per turn = cost 6. So the budget 2N gives 2N points per turn of passive power on Day N (against a base of about 18 per turn).",
+			"findings": [
+				"Simulated with a simple AI player, not a human, so it shows direction and not exact numbers. Rules: 3 Energy, 9-card deck, draw 5 and discard the hand.",
+				"With the persistent hand and draw 1 per turn (dropped), the game was limited by cards and not by Energy, and damage decks won about 3 turns faster than block decks.",
+				"With the Slay the Spire rule, Energy is the limit, costs matter, and the damage, block and mixed decks land within 0.02 to 0.15 of each other. Offense is still a little ahead, which is normal.",
+				"Energy is the premium resource: Gain 1 Energy this turn is worth about 7 points and next turn about 6, so a free card that gives Energy this turn is far over budget.",
+				"Draw is weak in this setup: with 5 cards in hand and 3 Energy you already hold more cards than you can play, so a draw card is worth about 2 points, and drawing 2 or more at once can even hurt by cycling a 9-card deck. If draw should feel strong, give it a payoff on the same card (for example deal 4 and draw 1), or change the hand size or Energy.",
+				"A 9-card deck cycles about every 2 turns, so a fight sees the whole deck several times and card numbers stay reliable.",
+				"Making Block cards 25% bigger did not help in the simulation (the AI then over-blocks and fights drag on to 12 turns), so Block stays at 5 / 10 / 15 and defense gets help from Dodge, counter damage and healing."
+			],
+			"enemies": "See response_combat.scaling.enemy_progression for enemy HP and bullets per day.",
+			"hand_rule": "Decided: Slay the Spire rules (see deckbuilding.hand_and_draw)."
+		},
+		"card_pool": {
+			"proposed": "About 48 cards, 6 unlocked per day over 8 days (Day 1 is the 6 cards that already have art). A 9-card deck and the art needed for every card (64x44) favor fewer, deeper cards over a pool the size of Slay the Spire 2.",
+			"per_category": "About 5 to 6 cards for each of the 9 base categories (17 offensive, 16 defensive, 15 utility). It is a starting estimate, not a quota, and healing cards come out of it or on top of it.",
+			"cost_spread": "About 6 cards at cost 0, 17 at 1, 15 at 2, 8 at 3 and 2 at 4. Cost 4 cards are limited to 1 copy.",
+			"reference": "Slay the Spire 2 has 80 cards per character (20 Common, 35 Uncommon, 25 Rare) plus 2 Ancient and a 10-card starter. The wiki card pages do not list costs."
 		},
 		"cost_tiers": {
 			"0": "Cheap to play. Mostly resource cards (extra energy, draw next turn). Weak in power and utility.",
@@ -147,12 +226,23 @@
 		},
 		"balance_ideas_unconfirmed": [
 			"A 0-cost card that gives extra energy is free profit. The cap of 3 copies and 1 draw per turn limit how often it can be played, but check it in testing.",
-			"Value per energy should rise with cost so that saving up for the big cards pays off. With the small-number scale (see response_combat.scaling), for example 1 cost = 3 damage, 2 = 7, 3 = 11, 4 = 16 (the old 60 / 140 / 220 / 320 curve divided by 20, so the balance carries over). Tune against enemy HP."
+			"Value per energy should rise with cost so that saving up for the big cards pays off. With the HP 80 scale (see response_combat.scaling), for example 1 cost = 6 damage, 2 = 12, 3 = 20, 4 = 32. Tune against enemy HP."
 		],
 		"ui": "On 640x360 nine cards leave little room for text. Show name, cost and icons on the card, and the full effect in a tooltip (also meets the tooltips requirement)."
 	},
 	"response_combat": {
 		"structure": "Response objective of every stage (Day 1 is Stage 1, the objectives are phases of it). Player's turn: play cards with 3 Energy. Enemy's turn: the game becomes a bullet hell (Deltarune/Undertale style) and the player dodges. Damage comes from the bullet sequence.",
+		"boss_patterns": {
+			"day_1_mockup": "A playable mockup of the Day 1 Response fight is in AI generated/ (scenes/response/Response.tscn, scripts/response/, data/response_day1.json). Fanned hand that pops up and doubles on hover, click to play; energy 3, draw 5. The enemy turn is a box with the heart (arrows or WASD). Three Credential Abuse patterns with their own pixel-art bullets and a teaching line each: Rapid guesses (password fields), One password many accounts (account icons in a wall with a gap), Stolen password (a key shot along a warned line, 8 damage). Fight numbers: player HP 90, boss HP 85. It does not pay Security Points or save yet. Design rule: the player learns from what happens in play, not from text above the arena. Before the fight the player picks defenses with a budget (2 on Day 1), and each defense changes one pattern in a way the player can see: Lock after failed tries (cost 2) counts the guesses that fly past and, after 6, locks the attacker out for 3 seconds and clears its bullets (a FAILED TRIES counter shows above the box); Unique passwords (cost 1) keeps a hit on one account from opening the rest, while without it one hit makes every other account in the wall turn red and rush in; Two-step sign-in (cost 1) cuts a stolen-password hit from 8 to 2 and says CODE NEEDED, while without it the hit says the password was enough; Unusual sign-in alerts (cost 2) lengthens the warning line before each key by 0.6 s and says ALERT. A short message appears in the box at the moment it happens. After the pattern one line names what the defense did, or, if the defense that counters the pattern was not picked, what was missing; this comes after the player felt the problem. The pattern text above the box is one line only. Patterns: Rapid guesses is a stream of guesses at random heights, all flying the same way at the same speed (no spray); One password many accounts is a slow wall whose gap walks top, middle, bottom, middle; Stolen password is a key along a blinking line, with a fan of 3 keys every third shot. The arena box is a small square (112 by 112 pixels, like Undertale and Deltarune), and each pattern has a lead time: its bullets start outside the box so the player sees them coming. Bullets are slow (110, 80 and 110 pixels a second). Checked with test bots (no defenses): one that sees everything takes 0 to 1 hits per pattern, one that reacts late takes up to 2, a heart that stands still takes 3 to 5. From the references (delta-battle, xxxxtale-engine, undertale_godot) the mockup also has: the arena box glides to a size set per pattern, the threat says a line before each pattern (typed text, a click skips it), a result line after it (hits and damage that got through, plus the real defense), and hit feedback (screen shake, floating numbers, a burst of pixels at the heart). Not done yet: grazing (a near miss charges a meter), follower bullets (a key that steers a little), and a different heart mode per threat.",
+			"decided": "Every Response phase is a boss battle, so every threat type has 2 to 5 patterns. Patterns change how the enemy attacks, like Undertale and Deltarune (shape, speed, direction of the bullets), and the boss rotates through them, one per enemy turn. Every pattern is unique to the theme of its threat type and is not reused by another threat.",
+			"proposed": [
+				"The number of patterns grows with the day: 2 on Day 1, 3 on Days 2 and 3, 4 on Days 4 and 5, 5 from Day 6.",
+				"The rotation is in a fixed order and the next pattern is shown as the enemy's intent, so the player can plan: Block and Dodge cards on a heavy turn, attacks on a light one. A random order would make Block and Dodge guesses.",
+				"Patterns differ in weight. Over a full rotation they average to the damage per turn in scaling.enemy_progression: for example a light pattern about 0.6x, a normal one 1x, a heavy one about 1.5x, so the table stays valid.",
+				"Each pattern acts like the threat (see theme_idea). Credential Abuse on Day 1 could be a rapid repeating stream (guessing passwords) and a wide slow sweep (trying one password on many accounts)."
+			],
+			"balance": "Because the player sees the next pattern, a Block or Dodge card is worth more on a heavy turn and almost nothing on a light one. That rewards planning, and it keeps the card prices in card_balance right on average. Check it in playtest: if heavy turns are too deadly, give the bosses a lighter heavy pattern instead of changing the cards."
+		},
 		"block": {
 			"decided": "Temporary HP. It expires at turn end. When the player is hit, the damage is absorbed by Block first, and the rest goes to HP.",
 			"to_confirm": "Whose turn end? If it expires at the end of the player's turn it would vanish before the enemy attacks. It must last through the enemy's attack and expire at the end of the round."
@@ -167,10 +257,17 @@
 		},
 		"debuffs": "Change the enemy's attack pattern or damage. Examples: Attack Down (less damage), Slow (slower bullets), Thin (fewer bullets, longer gaps), Stun (the enemy skips an attack wave), Exposed (the enemy takes more damage from cards).",
 		"scaling": {
-			"decided": "Small numbers. HP, damage and block are single digits for the player, and enemy HP is at most two digits, so the player never has to do arithmetic. The earlier hundreds scale is dropped (it existed so a -25% debuff would not round to nothing).",
-			"proposed_day_1": "Player HP 10. Enemy bullets hit for 1 (heavy bullets 2 or 3). Block cards give 2 / 4 / 6 for cost 1 / 2 / 3. Enemy HP 30 on Day 1, rising to about 70 by Day 8, tuned in playtest. A card that hits for 3 takes a 30 HP enemy to 27.",
-			"no_percentages": "No percentage effects. Buffs and debuffs are flat and stack-based so nothing rounds: Attack Down = each hit deals 1 less (minimum 1), Exposed = each card deals 2 more damage. Thin and Slow change the pattern, not a number. Card text and the enemy's intent show the final number after effects, so the player reads a number instead of computing one.",
-			"note": "With 1 damage hits, Attack Down only matters against heavier hits, so each threat needs a few 2 or 3 damage attacks (its tricks). Recovery repairs scale with HP lost out of 10, which is easy to show."
+			"decided": "StS-sized numbers, few on screen. The earlier single-digit scale (HP 10) is dropped. Players are overwhelmed by how many numbers are on screen at once, not by how big they are, so HP can be 80 or more as long as each screen shows only a few numbers.",
+			"player_hp": "Decided: 90 base (Kris in Deltarune has 90). Max HP grows by 30 after every stage so the player does not stay stuck at the starting HP: Day N = 90 + 30 x (N - 1), so 300 on Day 8.",
+			"enemy_progression": {
+				"decided": "Each stage has one enemy, so it is a boss: a longer fight with much more HP than a normal enemy. Judge the HP by fight length (about 8 turns on Day 1, rising to about 10 to 12), not against the player's HP.",
+				"method": "A first pass from the combat simulation under the Slay the Spire hand rule (draw 5, discard the hand). Player power grows only through the passive budget (about +N/2 damage on each attack and +N Block per turn on Day N). Boss HP is fitted so a mixed deck wins in the target number of turns and loses about 45% of its HP, assuming the player is hit by 40% of the bullets.",
+				"days": "Day (player HP): boss HP, bullets per turn x damage per bullet. 1 (90): 85, 6 x 5. 2 (120): 100, 6 x 6. 3 (150): 115, 7 x 6. 4 (180): 130, 7 x 7. 5 (210): 145, 8 x 7. 6 (240): 160, 8 x 8. 7 (270): 175, 9 x 8. 8 (300): 190, 9 x 8.",
+				"notes": "The simulation fitted boss HP at 84 on Day 1 and 149 on Day 8 with passives only. The table adds about 15 a day instead of 9 to allow for new cards and combos shortening the fight; tune it in playtest. At those numbers a damage deck wins in 5 to 7 turns and a block deck in 9 to 13, and all of them lose 35 to 55% of their HP, so no archetype is far ahead. Bullet damage grows from 5 to 8, so a Dodge stack is worth about 5 on Day 1 and 8 on Day 8, while Block stays flat: passives (+Block per turn) have to carry Block as the days go on. A boss should also change its pattern during the fight, not only deal more damage."
+			},
+			"proposed_card_numbers": "A plain card is about 6 damage or 5 block per energy: damage 3 / 6 / 12 / 20 / 32 for cost 0 / 1 / 2 / 3 / 4, block 5 / 10 / 15 for cost 1 / 2 / 3. Extra effects are priced in card_balance (draw is expensive, Energy is cheap). Enemy HP and bullet damage are guesses from a simulation (about 45 HP, 6 bullets of 4 on Day 1) and must grow with the player's HP.",
+			"no_percentages": "No percentage effects. Buffs and debuffs are flat and stack-based so nothing rounds: Attack Down = each hit deals a flat amount less (minimum 1), Exposed = each card deals a flat amount more damage. Thin and Slow change the pattern, not a number. Card text and the enemy's intent show the final number after effects, so the player reads a number instead of computing one.",
+			"keep_numbers_few": "Show only HP, energy, the cost and main number on each card, and the enemy's intent. Anything else goes in a tooltip. Recovery repairs scale with HP lost out of the day's max HP, shown as a bar with one number."
 		},
 		"accessibility_scope": "Decided: no dedicated support for motor disabilities (out of scope, like most action games such as Undertale and Deltarune). Keep to cheap basics: bullets readable by shape or pattern and not only color, no heavy flashing, a difficulty setting, and optional key remapping for the dodge phase.",
 		"difficulty": [
@@ -301,12 +398,30 @@
 		"next_step": "Playtest the Day 1 shift, then build the suspects tally."
 	},
 	"debug_panel": {
-		"summary": "F9 opens the developer panel (autoload, debug builds only): AI generated/scripts/debug/debug_panel.gd.",
+		"summary": "The = key opens the developer panel (autoload, debug builds only): AI generated/scripts/debug/debug_panel.gd.",
 		"how_it_works": "A screen adds its own shortcuts under THIS SCREEN with debug_actions() -> [[text, Callable], ...] and an optional debug_info() -> String. Investigation, Monitoring and Dialogue have them (complete phase, find or clear clues, open the report, skip to results, skip dialogue). The panel also plays any phase of the current day (dialogue first, or the scene alone), jumps to the title or day select, adds 100 Security Points to the wallet (slot or run) and resets the game state. A phase with no dialogue and no scene shows as not built."
 	},
 	"requirements": {
 		"fr4": "The user will suggest the change to the panelists (card system in the Response objective of every stage, not only the first). Pending, a compromise for now.",
-		"fr5": "For now the movement is only dodging the enemy's bullets. A Recovery phase with map movement would take more time to make, so it is not planned."
+		"fr5": "Movement: dodging the enemy's bullets in Response, and a small map in Recovery where the player goes to specific parts and repairs them with simple Among Us style pattern minigames (color-coded wires, following a pattern). A teammate is building Recovery; it is not in this repo yet. The minigames teach nothing about security by themselves, so each repair needs a line saying what broke and why it matters. Wires matched by color alone break the color-alone rule: add shapes, numbers or labels."
+	},
+	"upgrades": {
+		"summary": "Upgrades replace the old passives. An upgrade is a real security control (Unique Passwords, Two-step Sign-in, Lock After Failed Tries, Unusual Sign-in Alerts). The player buys it in the Hardening shop (once), equips it in the Upgrade Editor within the upgrade load (2 on Day 1, 2N on Day N), and takes it into Response. Data: data/upgrades.json. The old passives text in deckbuilding.card_balance.passives is out of date.",
+		"counter_rule": "Each Response pattern has one upgrade that counters it (counter in data/response_day1.json). With it the pattern plays as written. Without it the pattern uses its harsh numbers instead (denser stream and 6 damage, a narrower gap and 8 damage, a 0.25 s warning and 14 damage), so a skipped counter costs HP even for a player who dodges well. Measured with test bots: an average bot loses about 10 HP to Rapid Guesses without Lock After Failed Tries (4 with it) and 16 to One Password Many Accounts without Unique Passwords (0 with it). The bots read the warning line whatever its length, so the shorter warning is not in those numbers.",
+		"recommended": "In the Upgrade Editor an upgrade is recommended (marked *, and shown by the RECOMMENDED filter) when the player found one of the Investigation clues it answers (clues in upgrades.json). Lock After Failed Tries has no clue yet: nothing in the Day 1 evidence shows password guessing. Clues are not saved, so a save resumed in Hardening has no recommendations.",
+		"response_link": "Response reads the deck and the equipped upgrades from Hardening (HardeningState) and has no loadout screen. The equipped upgrades show as small icons under BLOCK and light up when they do their job. After a loss the second result button is CHANGE BUILD: it opens Hardening, whose NEXT PHASE leads back to the fight.",
+		"open_deck": "OPEN DECK on the day select opens Hardening in a deck-only visit (SceneManager.build_only): the deck and upgrade editors only, with no shop, no objective and no NEXT PHASE. It saves when the scene is left. A deck below 5 cards cannot end the Hardening phase (NEXT PHASE warns), but the deck-only visit can leave one."
+	},
+	"tutorial": {
+		"summary": "Each of Investigation, Monitoring, Hardening and Response has a short step-by-step tutorial (scripts/tutorial/, text in data/tutorials.json). It lights one control at a time and pauses the game. Views the player opens later have their own, shown the first time the view opens: the Investigation report (after its opening animation), and the Hardening shop, Deck Editor and Upgrade Editor. The Hardening hub's comes with the phase. Saves made before the view tutorials existed only have the four phase tutorials in their list, so they never show a view tutorial.",
+		"rules": "It shows on Day 1 of a new save only, once per phase. A phase leaves the save's tutorial list as soon as it starts, and the save is written when the tutorial ends, so it never comes back, even if the phase is repeated or the player quits halfway. Saves made before the tutorial list existed get an empty list when loaded (SaveManager._OLD_SAVE_DEFAULTS), so they never see it. It does not show in the deck-only Hardening visit or without a save. Recovery has none yet (that phase is built by a teammate).",
+		"editing": "A step is a text and a target: a node path from the phase scene, %Name for a node found by name, or empty. A target that is not visible is skipped and the panel sits in the middle."
+	},
+	"archive": {
+		"summary": "The Book Archive is a book about the eight threats. The left page lists them; the right page shows the pages of the chosen threat. NEXT and BACK (or the arrow keys) turn the pages with the book's own NextPage and BackPage animations. Text: data/archive.json. Script: scripts/menus/book_archive.gd.",
+		"pages": "Each threat has five pages: what it is, warning signs, how it attacks, how to stop it, words to know. Credential Abuse has seven: the game also adds a page with its attack patterns (read from response_day1.json, each with the upgrade that stops it) and a page with the recommended upgrades (read from upgrades.json), so they cannot drift from the game. The other threats get the same two pages when the game has patterns and upgrades for them.",
+		"unlocking": "Threat N belongs to Day N and opens when the Investigation of that day is finished in the save, so the book never gives a case away. A closed threat shows ??? with its day. With no save loaded everything is open.",
+		"navigation": "If the scene has no NextPageButton, PreviousPageButton or PageLabel under Content, the script makes them under the right page (copying the look of the threat buttons); nodes with those names take their place."
 	},
 	"open_questions": [
 		"Deck: is it exactly 9 cards for the whole game, or can the slots grow later?",
@@ -316,6 +431,7 @@
 		"Dodge controls: follow the mouse, arrow keys or WASD, or both? Is key remapping wanted?",
 		"Passives: Day 1 rewards cost 4 or less, and threat-specific passives are priced low (2 to 3)? Agree?",
 		"Monitoring FinishScreen: base amount plus bonus (mistakes never go below the base)?",
-		"Hardening has no FinishScreen: save when the player confirms the deck and passives?"
+		"Hardening has no FinishScreen: save when the player confirms the deck and passives?",
+		"Healing: Recovery scales its repairs with HP lost. Should that count HP lost before healing (so healing is a free buffer) or after it (so healing also shrinks the repair work and its Security Points)?"
 	]
 }
