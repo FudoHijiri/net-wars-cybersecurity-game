@@ -1,0 +1,732 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/AccessTerminal.tscn" id="AccessTerminal"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/ArmchairBack.tscn" id="ArmchairBack"]
+[ext_resource type="Texture2D" path="res://assets/recovery/office/props/armchair_back_brown.png" id="ArmchairBrown"]
+[ext_resource type="Texture2D" path="res://assets/recovery/office/office-background.png" id="Background"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/BackupStorage.tscn" id="BackupStorage"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/BookshelfSide.tscn" id="BookshelfSide"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/CoffeeTable.tscn" id="CoffeeTable"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/DigitalClock.tscn" id="DigitalClock"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/RecoveryInteractable.tscn" id="Exit"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/LeafyPlant.tscn" id="LeafyPlant"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/LoungeSofa.tscn" id="LoungeSofa"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/MonitoringDesk.tscn" id="MonitoringDesk"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/NetworkSwitch.tscn" id="NetworkSwitch"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/PalmPlant.tscn" id="PalmPlant"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/RecoveryPlayer.tscn" id="Player"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/PrinterCabinet.tscn" id="PrinterCabinet"]
+[ext_resource type="Texture2D" path="res://assets/recovery/office/props/print_orange.png" id="PrintOrange"]
+[ext_resource type="Texture2D" path="res://assets/recovery/office/props/print_yellow.png" id="PrintYellow"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/RearFilingCabinet.tscn" id="RearFilingCabinet"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/RepairWorkbench.tscn" id="RepairWorkbench"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/ServerRack.tscn" id="ServerRack"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/SmallPlant.tscn" id="SmallPlant"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/SpareDesk.tscn" id="SpareDesk"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/SunClock.tscn" id="SunClock"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/WallPrint.tscn" id="WallPrint"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/Wastebasket.tscn" id="Wastebasket"]
+
+[sub_resource type="RectangleShape2D" id="NorthWall"]
+size = Vector2(1275, 230)
+
+[sub_resource type="RectangleShape2D" id="WestUpper"]
+size = Vector2(30, 140)
+
+[sub_resource type="RectangleShape2D" id="WestLower"]
+size = Vector2(30, 161)
+
+[sub_resource type="RectangleShape2D" id="EntranceLimit"]
+size = Vector2(20, 84)
+
+[sub_resource type="RectangleShape2D" id="EastOffice"]
+size = Vector2(35, 385)
+
+[sub_resource type="RectangleShape2D" id="OfficeFrontLeft"]
+size = Vector2(1005, 75)
+
+[sub_resource type="RectangleShape2D" id="OfficeFrontRight"]
+size = Vector2(193, 75)
+
+[sub_resource type="RectangleShape2D" id="RepairWest"]
+size = Vector2(30, 262)
+
+[sub_resource type="RectangleShape2D" id="RepairEast"]
+size = Vector2(35, 262)
+
+[sub_resource type="RectangleShape2D" id="RepairSouth"]
+size = Vector2(640, 30)
+
+[sub_resource type="RectangleShape2D" id="PlantPot"]
+size = Vector2(50, 24)
+
+[sub_resource type="RectangleShape2D" id="WaterCooler"]
+size = Vector2(110, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyija"]
+resource_local_to_scene = true
+size = Vector2(126, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8jj8"]
+resource_local_to_scene = true
+size = Vector2(148, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adiah"]
+resource_local_to_scene = true
+size = Vector2(126, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vrua3"]
+resource_local_to_scene = true
+size = Vector2(148, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jtly4"]
+resource_local_to_scene = true
+size = Vector2(96, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ea2k4"]
+resource_local_to_scene = true
+size = Vector2(136, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7eb0k"]
+resource_local_to_scene = true
+size = Vector2(96, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07bly"]
+resource_local_to_scene = true
+size = Vector2(136, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pn30h"]
+resource_local_to_scene = true
+size = Vector2(94, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_df5ku"]
+resource_local_to_scene = true
+size = Vector2(110, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gyort"]
+resource_local_to_scene = true
+size = Vector2(100, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_01v78"]
+resource_local_to_scene = true
+size = Vector2(100, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6yem"]
+resource_local_to_scene = true
+size = Vector2(62, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oudl1"]
+resource_local_to_scene = true
+size = Vector2(98, 108)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkrcn"]
+resource_local_to_scene = true
+size = Vector2(62, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ms2l1"]
+resource_local_to_scene = true
+size = Vector2(98, 108)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbsf3"]
+resource_local_to_scene = true
+size = Vector2(62, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hboe"]
+resource_local_to_scene = true
+size = Vector2(98, 108)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6olsk"]
+resource_local_to_scene = true
+size = Vector2(76, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5iyfl"]
+resource_local_to_scene = true
+size = Vector2(22, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_peqpl"]
+resource_local_to_scene = true
+size = Vector2(22, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3yke"]
+resource_local_to_scene = true
+size = Vector2(104, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chtht"]
+resource_local_to_scene = true
+size = Vector2(60, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kedps"]
+resource_local_to_scene = true
+size = Vector2(34, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4f0a"]
+resource_local_to_scene = true
+size = Vector2(19, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vm730"]
+resource_local_to_scene = true
+size = Vector2(42, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06vt5"]
+resource_local_to_scene = true
+size = Vector2(42, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ughcu"]
+resource_local_to_scene = true
+size = Vector2(34, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ncjlg"]
+resource_local_to_scene = true
+size = Vector2(48, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wcqt"]
+resource_local_to_scene = true
+size = Vector2(20, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nndh"]
+resource_local_to_scene = true
+size = Vector2(48, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cakyy"]
+resource_local_to_scene = true
+size = Vector2(34, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_af8fd"]
+resource_local_to_scene = true
+size = Vector2(34, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5uu5r"]
+resource_local_to_scene = true
+size = Vector2(132, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2vryk"]
+resource_local_to_scene = true
+size = Vector2(34, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sycjr"]
+resource_local_to_scene = true
+size = Vector2(42, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4dldu"]
+resource_local_to_scene = true
+size = Vector2(42, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pi52s"]
+resource_local_to_scene = true
+size = Vector2(24, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pev83"]
+resource_local_to_scene = true
+size = Vector2(126, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ers3e"]
+resource_local_to_scene = true
+size = Vector2(42, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l026y"]
+resource_local_to_scene = true
+size = Vector2(8, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bsl43"]
+resource_local_to_scene = true
+size = Vector2(19, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3sr3n"]
+resource_local_to_scene = true
+size = Vector2(104, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqurk"]
+resource_local_to_scene = true
+size = Vector2(60, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbg4i"]
+resource_local_to_scene = true
+size = Vector2(190, 140)
+
+[node name="RecoveryWorld" type="Node2D" unique_id=1516295585]
+editor_description = "Author props in the 1536x1024 source coordinate space. Camera fits both rooms into the existing viewport. Move prop roots to carry art, footprint, interaction and marker together."
+texture_filter = 1
+
+[node name="OutsideRoom" type="Polygon2D" parent="." unique_id=1653180000]
+color = Color(0.10196079, 0.10980392, 0.17254902, 1)
+polygon = PackedVector2Array(-1024, -512, 2560, -512, 2560, 1536, -1024, 1536)
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=939231627]
+texture = ExtResource("Background")
+centered = false
+
+[node name="WallDecor" type="Node2D" parent="." unique_id=1168744414]
+editor_description = "Pictures and clocks hung on the wall face. Drawn behind people and furniture; no collision."
+
+[node name="NorthPrint01" parent="WallDecor" unique_id=1162966456 instance=ExtResource("WallPrint")]
+position = Vector2(675, 200)
+texture = ExtResource("PrintOrange")
+
+[node name="NorthPrint02" parent="WallDecor" unique_id=314190779 instance=ExtResource("WallPrint")]
+position = Vector2(1069, 200)
+texture = ExtResource("PrintYellow")
+
+[node name="OfficeClock" parent="WallDecor" unique_id=1505962191 instance=ExtResource("SunClock")]
+position = Vector2(1378, 160)
+
+[node name="ServerRoomClock" parent="WallDecor" unique_id=682093908 instance=ExtResource("DigitalClock")]
+position = Vector2(1070, 682)
+
+[node name="RepairPrint01" parent="WallDecor" unique_id=316944025 instance=ExtResource("WallPrint")]
+position = Vector2(1250, 684)
+
+[node name="RepairPrint02" parent="WallDecor" unique_id=554229027 instance=ExtResource("WallPrint")]
+position = Vector2(1300, 684)
+texture = ExtResource("PrintYellow")
+
+[node name="RepairPrint03" parent="WallDecor" unique_id=1882522199 instance=ExtResource("WallPrint")]
+position = Vector2(1350, 684)
+texture = ExtResource("PrintOrange")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1685760188]
+position = Vector2(768, 505.51898)
+zoom = Vector2(0.30859375, 0.30859375)
+
+[node name="Boundaries" type="Node2D" parent="." unique_id=925871720]
+
+[node name="NorthWall" type="StaticBody2D" parent="Boundaries" unique_id=1312521323]
+position = Vector2(767.5, 115)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/NorthWall" unique_id=589448682]
+shape = SubResource("NorthWall")
+
+[node name="WestUpper" type="StaticBody2D" parent="Boundaries" unique_id=1942810355]
+position = Vector2(115, 300)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/WestUpper" unique_id=1639485648]
+shape = SubResource("WestUpper")
+
+[node name="WestLower" type="StaticBody2D" parent="Boundaries" unique_id=487083007]
+position = Vector2(115, 534.5)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/WestLower" unique_id=1507305137]
+shape = SubResource("WestLower")
+
+[node name="EntranceLimit" type="StaticBody2D" parent="Boundaries" unique_id=672300638]
+position = Vector2(70, 412)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/EntranceLimit" unique_id=43936248]
+shape = SubResource("EntranceLimit")
+
+[node name="EastOffice" type="StaticBody2D" parent="Boundaries" unique_id=2146377171]
+position = Vector2(1422.5, 422.5)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/EastOffice" unique_id=633018936]
+shape = SubResource("EastOffice")
+
+[node name="OfficeFrontLeft" type="StaticBody2D" parent="Boundaries" unique_id=1784481218]
+position = Vector2(632.5, 652.5)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/OfficeFrontLeft" unique_id=792095167]
+shape = SubResource("OfficeFrontLeft")
+
+[node name="OfficeFrontRight" type="StaticBody2D" parent="Boundaries" unique_id=6237951]
+position = Vector2(1308.5, 652.5)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/OfficeFrontRight" unique_id=894390164]
+shape = SubResource("OfficeFrontRight")
+
+[node name="RepairWest" type="StaticBody2D" parent="Boundaries" unique_id=1110714070]
+position = Vector2(750, 821)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RepairWest" unique_id=1643598369]
+shape = SubResource("RepairWest")
+
+[node name="RepairEast" type="StaticBody2D" parent="Boundaries" unique_id=763620875]
+position = Vector2(1422.5, 821)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RepairEast" unique_id=1972755780]
+shape = SubResource("RepairEast")
+
+[node name="RepairSouth" type="StaticBody2D" parent="Boundaries" unique_id=1424934981]
+position = Vector2(1085, 967)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RepairSouth" unique_id=571799084]
+shape = SubResource("RepairSouth")
+
+[node name="PlantPot" type="StaticBody2D" parent="Boundaries" unique_id=547322992]
+position = Vector2(199, 250)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/PlantPot" unique_id=1907030654]
+shape = SubResource("PlantPot")
+
+[node name="WaterCooler" type="StaticBody2D" parent="Boundaries" unique_id=880608933]
+position = Vector2(1150, 250)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/WaterCooler" unique_id=347413516]
+shape = SubResource("WaterCooler")
+
+[node name="Actors" type="Node2D" parent="." unique_id=1918688332]
+editor_description = "Everything that stands on the floor. Y-sorted by each root (the floor point under the prop), so the player walks in front of and behind furniture correctly."
+y_sort_enabled = true
+
+[node name="Monitoring01" parent="Actors" unique_id=1922863439 instance=ExtResource("MonitoringDesk")]
+position = Vector2(364, 318)
+equipment_id = "monitoring_01"
+display_name = "Monitoring 01"
+
+[node name="CollisionShape2D" parent="Actors/Monitoring01/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_dyija")
+
+[node name="Interaction" parent="Actors/Monitoring01" index="2"]
+target = "file_server"
+title = "Monitoring 01"
+
+[node name="CollisionShape2D" parent="Actors/Monitoring01/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_h8jj8")
+
+[node name="Monitoring02" parent="Actors" unique_id=1131477600 instance=ExtResource("MonitoringDesk")]
+position = Vector2(544, 316)
+equipment_id = "monitoring_02"
+display_name = "Monitoring 02"
+
+[node name="CollisionShape2D" parent="Actors/Monitoring02/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_adiah")
+
+[node name="Interaction" parent="Actors/Monitoring02" index="2"]
+target = "file_server"
+title = "Monitoring 02"
+
+[node name="CollisionShape2D" parent="Actors/Monitoring02/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_vrua3")
+
+[node name="Access01" parent="Actors" unique_id=220724365 instance=ExtResource("AccessTerminal")]
+position = Vector2(740, 296)
+equipment_id = "access_01"
+display_name = "Access 01"
+
+[node name="CollisionShape2D" parent="Actors/Access01/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_jtly4")
+
+[node name="Interaction" parent="Actors/Access01" index="2"]
+target = "file_server"
+title = "Access 01"
+
+[node name="CollisionShape2D" parent="Actors/Access01/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_ea2k4")
+
+[node name="Access02" parent="Actors" unique_id=190353986 instance=ExtResource("AccessTerminal")]
+position = Vector2(892, 296)
+equipment_id = "access_02"
+display_name = "Access 02"
+
+[node name="CollisionShape2D" parent="Actors/Access02/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_7eb0k")
+
+[node name="Interaction" parent="Actors/Access02" index="2"]
+target = "file_server"
+title = "Access 02"
+
+[node name="CollisionShape2D" parent="Actors/Access02/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_07bly")
+
+[node name="BackupStorage" parent="Actors" unique_id=1622348565 instance=ExtResource("BackupStorage")]
+position = Vector2(1035, 295)
+equipment_id = "backup_nas"
+
+[node name="CollisionShape2D" parent="Actors/BackupStorage/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_pn30h")
+
+[node name="Interaction" parent="Actors/BackupStorage" index="2"]
+target = "backup_database"
+title = "Backup storage"
+
+[node name="CollisionShape2D" parent="Actors/BackupStorage/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_df5ku")
+
+[node name="NetworkSwitch" parent="Actors" unique_id=1420268005 instance=ExtResource("NetworkSwitch")]
+position = Vector2(1346, 279)
+equipment_id = "network_switch"
+
+[node name="CollisionShape2D" parent="Actors/NetworkSwitch/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_gyort")
+
+[node name="Interaction" parent="Actors/NetworkSwitch" index="2"]
+title = "Network switch"
+
+[node name="CollisionShape2D" parent="Actors/NetworkSwitch/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_01v78")
+
+[node name="Server01" parent="Actors" unique_id=681494524 instance=ExtResource("ServerRack")]
+position = Vector2(814, 756)
+equipment_id = "server_01"
+display_name = "Server 01"
+
+[node name="Sprite2D" parent="Actors/Server01" index="0"]
+visible = false
+
+[node name="CollisionShape2D" parent="Actors/Server01/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_v6yem")
+
+[node name="Interaction" parent="Actors/Server01" index="2"]
+target = "file_server"
+title = "Server 01"
+
+[node name="CollisionShape2D" parent="Actors/Server01/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_oudl1")
+
+[node name="Server02" parent="Actors" unique_id=1402634680 instance=ExtResource("ServerRack")]
+position = Vector2(912, 756)
+equipment_id = "server_02"
+display_name = "Server 02"
+
+[node name="Sprite2D" parent="Actors/Server02" index="0"]
+visible = false
+
+[node name="CollisionShape2D" parent="Actors/Server02/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_dkrcn")
+
+[node name="Interaction" parent="Actors/Server02" index="2"]
+target = "file_server"
+title = "Server 02"
+
+[node name="CollisionShape2D" parent="Actors/Server02/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_ms2l1")
+
+[node name="Server03" parent="Actors" unique_id=1481131013 instance=ExtResource("ServerRack")]
+position = Vector2(1011, 755)
+equipment_id = "server_03"
+display_name = "Server 03"
+
+[node name="Sprite2D" parent="Actors/Server03" index="0"]
+visible = false
+
+[node name="CollisionShape2D" parent="Actors/Server03/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_bbsf3")
+
+[node name="Interaction" parent="Actors/Server03" index="2"]
+target = "file_server"
+title = "Server 03"
+
+[node name="CollisionShape2D" parent="Actors/Server03/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_7hboe")
+
+[node name="PrinterCabinet" parent="Actors" unique_id=1338341227 instance=ExtResource("PrinterCabinet")]
+position = Vector2(1248, 277)
+
+[node name="CollisionShape2D" parent="Actors/PrinterCabinet/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_6olsk")
+
+[node name="WestBookshelf" parent="Actors" unique_id=645280331 instance=ExtResource("BookshelfSide")]
+position = Vector2(150, 600)
+
+[node name="CollisionShape2D" parent="Actors/WestBookshelf/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_5iyfl")
+
+[node name="EastBookshelf" parent="Actors" unique_id=869492722 instance=ExtResource("BookshelfSide")]
+position = Vector2(1390, 540)
+
+[node name="CollisionShape2D" parent="Actors/EastBookshelf/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_peqpl")
+
+[node name="LoungeSofa" parent="Actors" unique_id=1757665897 instance=ExtResource("LoungeSofa")]
+position = Vector2(397, 615)
+
+[node name="CollisionShape2D" parent="Actors/LoungeSofa/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_d3yke")
+
+[node name="LoungeTable" parent="Actors" unique_id=1946897633 instance=ExtResource("CoffeeTable")]
+position = Vector2(398, 523)
+
+[node name="CollisionShape2D" parent="Actors/LoungeTable/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_chtht")
+
+[node name="LoungePlant" parent="Actors" unique_id=593474533 instance=ExtResource("PalmPlant")]
+position = Vector2(491, 610)
+
+[node name="CollisionShape2D" parent="Actors/LoungePlant/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_kedps")
+
+[node name="OfficeBin" parent="Actors" unique_id=1732731995 instance=ExtResource("Wastebasket")]
+position = Vector2(955, 293.99997)
+
+[node name="CollisionShape2D" parent="Actors/OfficeBin/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_r4f0a")
+
+[node name="RearCabinet01" parent="Actors" unique_id=1123095416 instance=ExtResource("RearFilingCabinet")]
+position = Vector2(631, 300.00003)
+
+[node name="CollisionShape2D" parent="Actors/RearCabinet01/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_vm730")
+
+[node name="RearCabinet02" parent="Actors" unique_id=24985913 instance=ExtResource("RearFilingCabinet")]
+position = Vector2(448.99997, 298.99997)
+
+[node name="CollisionShape2D" parent="Actors/RearCabinet02/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_06vt5")
+
+[node name="OfficePlant01" parent="Actors" unique_id=1383617356 instance=ExtResource("LeafyPlant")]
+position = Vector2(530, 610)
+
+[node name="CollisionShape2D" parent="Actors/OfficePlant01/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_ughcu")
+
+[node name="WaitingChair01" parent="Actors" unique_id=543342604 instance=ExtResource("ArmchairBack")]
+position = Vector2(990, 609)
+
+[node name="CollisionShape2D" parent="Actors/WaitingChair01/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_ncjlg")
+
+[node name="WaitingPlant" parent="Actors" unique_id=646097164 instance=ExtResource("SmallPlant")]
+position = Vector2(949, 611)
+
+[node name="CollisionShape2D" parent="Actors/WaitingPlant/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_4wcqt")
+
+[node name="WaitingChair02" parent="Actors" unique_id=1379406203 instance=ExtResource("ArmchairBack")]
+position = Vector2(1051, 615)
+
+[node name="Sprite2D" parent="Actors/WaitingChair02" index="0"]
+texture = ExtResource("ArmchairBrown")
+
+[node name="CollisionShape2D" parent="Actors/WaitingChair02/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_0nndh")
+
+[node name="OfficePlant02" parent="Actors" unique_id=249855226 instance=ExtResource("PalmPlant")]
+position = Vector2(1105, 605)
+
+[node name="CollisionShape2D" parent="Actors/OfficePlant02/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_cakyy")
+
+[node name="OfficePlant04" parent="Actors" unique_id=209624017 instance=ExtResource("PalmPlant")]
+position = Vector2(1384, 610)
+
+[node name="CollisionShape2D" parent="Actors/OfficePlant04/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_af8fd")
+
+[node name="RepairWorkbench" parent="Actors" unique_id=2133101782 instance=ExtResource("RepairWorkbench")]
+position = Vector2(1313, 758)
+
+[node name="CollisionShape2D" parent="Actors/RepairWorkbench/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_5uu5r")
+
+[node name="RepairPlant01" parent="Actors" unique_id=31663298 instance=ExtResource("LeafyPlant")]
+position = Vector2(792, 945)
+
+[node name="CollisionShape2D" parent="Actors/RepairPlant01/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_2vryk")
+
+[node name="RepairCabinet01" parent="Actors" unique_id=985947846 instance=ExtResource("RearFilingCabinet")]
+position = Vector2(880, 945)
+
+[node name="CollisionShape2D" parent="Actors/RepairCabinet01/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_sycjr")
+
+[node name="RepairCabinet02" parent="Actors" unique_id=2107757543 instance=ExtResource("RearFilingCabinet")]
+position = Vector2(925, 945)
+
+[node name="CollisionShape2D" parent="Actors/RepairCabinet02/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_4dldu")
+
+[node name="RepairBin" parent="Actors" unique_id=2118835048 instance=ExtResource("Wastebasket")]
+position = Vector2(975, 943)
+
+[node name="CollisionShape2D" parent="Actors/RepairBin/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_pi52s")
+
+[node name="TechDesk" parent="Actors" unique_id=2078457629 instance=ExtResource("SpareDesk")]
+position = Vector2(1284, 951)
+
+[node name="CollisionShape2D" parent="Actors/TechDesk/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_pev83")
+
+[node name="RepairCabinet03" parent="Actors" unique_id=1207883211 instance=ExtResource("RearFilingCabinet")]
+position = Vector2(1376, 949)
+
+[node name="CollisionShape2D" parent="Actors/RepairCabinet03/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_ers3e")
+
+[node name="Player" parent="Actors" unique_id=2008036713 instance=ExtResource("Player")]
+position = Vector2(170, 415)
+scale = Vector2(3.2405064, 3.2405064)
+speed = 290.0
+
+[node name="CollisionShape2D" parent="Actors/Player" index="2"]
+shape = SubResource("RectangleShape2D_l026y")
+
+[node name="OfficeBin2" parent="Actors" unique_id=696919243 instance=ExtResource("Wastebasket")]
+position = Vector2(801.99994, 297.00003)
+
+[node name="CollisionShape2D" parent="Actors/OfficeBin2/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_bsl43")
+
+[node name="LoungeSofa2" parent="Actors" unique_id=1497792656 instance=ExtResource("LoungeSofa")]
+position = Vector2(286, 615)
+
+[node name="CollisionShape2D" parent="Actors/LoungeSofa2/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_3sr3n")
+
+[node name="LoungeTable2" parent="Actors" unique_id=1584167525 instance=ExtResource("CoffeeTable")]
+position = Vector2(285, 522)
+
+[node name="CollisionShape2D" parent="Actors/LoungeTable2/SolidBody" index="0"]
+shape = SubResource("RectangleShape2D_qqurk")
+
+[node name="OfficeExit" type="Node2D" parent="." unique_id=1061599742]
+position = Vector2(110, 415)
+
+[node name="Interaction" parent="OfficeExit" unique_id=1765717998 instance=ExtResource("Exit")]
+kind = "work_order"
+target = "work_order"
+title = "Office exit / work order"
+
+[node name="CollisionShape2D" parent="OfficeExit/Interaction" index="0"]
+shape = SubResource("RectangleShape2D_lbg4i")
+
+[node name="StatusMarker" parent="OfficeExit/Interaction" index="1"]
+position = Vector2(0, -45)
+scale = Vector2(3.2405064, 3.2405064)
+
+[editable path="Actors/Monitoring01"]
+[editable path="Actors/Monitoring02"]
+[editable path="Actors/Access01"]
+[editable path="Actors/Access02"]
+[editable path="Actors/BackupStorage"]
+[editable path="Actors/NetworkSwitch"]
+[editable path="Actors/Server01"]
+[editable path="Actors/Server02"]
+[editable path="Actors/Server03"]
+[editable path="Actors/PrinterCabinet"]
+[editable path="Actors/WestBookshelf"]
+[editable path="Actors/EastBookshelf"]
+[editable path="Actors/LoungeSofa"]
+[editable path="Actors/LoungeTable"]
+[editable path="Actors/LoungePlant"]
+[editable path="Actors/OfficeBin"]
+[editable path="Actors/RearCabinet01"]
+[editable path="Actors/RearCabinet02"]
+[editable path="Actors/OfficePlant01"]
+[editable path="Actors/WaitingChair01"]
+[editable path="Actors/WaitingPlant"]
+[editable path="Actors/WaitingChair02"]
+[editable path="Actors/OfficePlant02"]
+[editable path="Actors/OfficePlant04"]
+[editable path="Actors/RepairWorkbench"]
+[editable path="Actors/RepairPlant01"]
+[editable path="Actors/RepairCabinet01"]
+[editable path="Actors/RepairCabinet02"]
+[editable path="Actors/RepairBin"]
+[editable path="Actors/TechDesk"]
+[editable path="Actors/RepairCabinet03"]
+[editable path="Actors/Player"]
+[editable path="Actors/OfficeBin2"]
+[editable path="Actors/LoungeSofa2"]
+[editable path="Actors/LoungeTable2"]
+[editable path="OfficeExit/Interaction"]

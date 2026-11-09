@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/ui/recovery_drag_item.gd" id="1_item"]
+
+[node name="DragItem" type="Button"]
+custom_minimum_size = Vector2(72, 24)
+mouse_default_cursor_shape = 6
+text = "item"
+script = ExtResource("1_item")

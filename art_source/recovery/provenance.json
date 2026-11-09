@@ -1,0 +1,380 @@
+{
+  "updated": "2026-11-05",
+  "status": "Recovery migrated into latest main; existing phase and save flow retained",
+  "image_generation_used": false,
+  "sources": [
+    {
+      "id": "office_v2_supplied",
+      "pack": "NET WARS Recovery office v2",
+      "supplier": "Project owner supplied this pack",
+      "creator": "Not specified in supplied files",
+      "license": "Not specified in supplied files",
+      "image_generation_provenance": "Not supplied; this integration used no image generation",
+      "originals": [
+        {
+          "file": "art_source/recovery/office_v2/originals/access-terminal.png",
+          "sha256": "8c7cddacfb6bd9d9e41a8107b9be855ebb2a289ef088d874d6ee77558f300149",
+          "bytes": 670352
+        },
+        {
+          "file": "art_source/recovery/office_v2/originals/backup-nas.png",
+          "sha256": "89f1055ed6f61ece17eb535429085831114ddd1e73c256ede6d5d002cbb1b963",
+          "bytes": 612621
+        },
+        {
+          "file": "art_source/recovery/office_v2/originals/dual-monitor-desk.png",
+          "sha256": "4e7a01e3a51a148405082c14739e57bfe4a2e66264a787fa291fbaf365e2f5d5",
+          "bytes": 1179114
+        },
+        {
+          "file": "art_source/recovery/office_v2/originals/network-switch.png",
+          "sha256": "2cb265bf9be352b9e812023dd4dfe8b736b20ce1e22cfda77eeff8347b3b1415",
+          "bytes": 1095089
+        },
+        {
+          "file": "art_source/recovery/office_v2/originals/office-background.png",
+          "sha256": "ede1147ef03f70066d73d4f1a55c06278e1cf4f7fe82b3ea669cc6ee48bfa3c1",
+          "bytes": 1489845
+        },
+        {
+          "file": "art_source/recovery/office_v2/originals/printer-and-cabinet.png",
+          "sha256": "436408c0070dd80c1a2579f1901eddbf7d43cd7cc71b59fd3810f070f054e522",
+          "bytes": 971832
+        },
+        {
+          "file": "art_source/recovery/office_v2/originals/repair-workbench.png",
+          "sha256": "a11b063c29e3337888d72b81b97e642d05cf8a7d1e074cca7f4529e153492d14",
+          "bytes": 869536
+        },
+        {
+          "file": "art_source/recovery/office_v2/originals/server-rack-blink.gif",
+          "sha256": "e2f3679888db59b9200876bac39b0e5e9c11e629c67168bf08446a340b10c781",
+          "bytes": 153579
+        },
+        {
+          "file": "art_source/recovery/office_v2/originals/server-rack.png",
+          "sha256": "7b5615c8c54fdcc6f902824d7a55b64e0c3010e888ad182549637a653a6e3a8f",
+          "bytes": 732241
+        },
+        {
+          "file": "art_source/recovery/office_v2/originals/sofa-and-side-table.png",
+          "sha256": "a890a0e7685837f3f24f6dd75841d90b82d78f520c5f265f753bbcaff0a1d48e",
+          "bytes": 521022
+        },
+        {
+          "file": "art_source/recovery/office_v2/START-HERE.md",
+          "sha256": "225add7dd6caf5d3ea5558534881f64419a5a56d958799eb21264d1fdf93edff",
+          "bytes": 4566
+        },
+        {
+          "file": "art_source/recovery/office_v2/placement-blueprint.svg",
+          "sha256": "f4e44ca2fe0d9e3984b3ac743fd43bfb20b23acf99bfe6eb7436c28ec1e2c5ea",
+          "bytes": 5767
+        }
+      ],
+      "processing": "Original colours and aspect ratios retained. Props cropped to the alpha>=16 visible bounds to exclude distant transparent glow/padding. Backdrop unchanged. Six GIF frames extracted to a transparent sheet with one common crop, original centisecond delays and bottom-centre registration.",
+      "gif_common_crop": [
+        64,
+        53,
+        232,
+        386
+      ],
+      "gif_delays_centiseconds": [
+        60,
+        19,
+        33,
+        19,
+        26,
+        14
+      ]
+    },
+    {
+      "id": "metrocity",
+      "author": "JIK-A-4",
+      "pack": "MetroCity - Free Top Down Character Pack",
+      "url": "https://jik-a-4.itch.io/metrocity-free-topdown-character-pack",
+      "license": "CC0-1.0",
+      "license_evidence": "Public creator page lists CC0 and No generative AI was used.",
+      "originals": [
+        {
+          "file": "art_source/recovery/licensed/MetroCity.rar",
+          "sha256": "fdfb5061564b2b4ad7e962cf481d2c583ea6f543f15a69161d54df700141467d",
+          "bytes": 45774
+        },
+        {
+          "file": "art_source/recovery/licensed/metrocity/MetroCity/CharacterModel/Character Model.png",
+          "sha256": "8abcddb8265ec5effc02ee4b3c7dbd455a02dd33378e02c664a729b885eec6a2",
+          "bytes": 25698
+        },
+        {
+          "file": "art_source/recovery/licensed/metrocity/MetroCity/Outfits/Outfit5.png",
+          "sha256": "ea1132ed7cce7da43fdb72c24bb9d263614eb795d3043de71a73b2f229f33c42",
+          "bytes": 2245
+        },
+        {
+          "file": "art_source/recovery/licensed/metrocity/MetroCity/Hair/Hairs.png",
+          "sha256": "04a3d5171babc59c8a17b20d7040e76bfb018cf59271eb0f79bc5384752b6737",
+          "bytes": 11225
+        },
+        {
+          "file": "art_source/recovery/licensed/metrocity/MetroCity/Outfits/Outfit6.png",
+          "note": "CC0 layer extracted unchanged from MetroCity.rar"
+        }
+      ],
+      "edits": "2026-11-06: rebuilt as Joshua by tools/build_technician.gd. Body row 0 + Outfit6 + Hairs row 3 composited at native pixel scale, each layer recoloured to Joshua's portrait palette (assets/charactersprite/Joshua.png), light shirt stripe added down the front-view jacket. 20x32 crop at source x=6; MetroCity groups down/right/up/left become rows down/left/right/up with left = exact mirror of right. Previous YU-NO sprite kept at .godot/recovery-import-backup/2026-11-06-technician-joshua/."
+    },
+    {
+      "id": "pixel_office",
+      "author": "2dPig",
+      "pack": "Pixel Office",
+      "url": "https://2dpig.itch.io/pixel-office",
+      "license": "CC0-1.0",
+      "license_evidence": "Original LICENSE.txt included with the locally archived pack; creator page retained as pixel-office-page.html.",
+      "originals": [
+        {
+          "file": "art_source/recovery/licensed/pixel-office/PixelOfficeAssets.png",
+          "sha256": "797bec77277d0e1144ed6dd536758deef6cabb84d3a0df42b6866c205c146598"
+        },
+        {
+          "file": "art_source/recovery/licensed/pixel-office/LICENSE.txt",
+          "sha256": "80488124564a5c58d24d5718883c8bb30a76710103d64ad7a0f758d9b9b85705"
+        }
+      ],
+      "sprite_regions": {
+        "plant": [
+          169,
+          63,
+          16,
+          22
+        ],
+        "bookcase": [
+          184,
+          126,
+          25,
+          32
+        ],
+        "wastebasket": [
+          159,
+          91,
+          9,
+          12
+        ],
+        "clock": [
+          158,
+          107,
+          23,
+          8
+        ]
+      },
+      "edits": "Exact transparent sprite crops; no generation, recolouring or resampling. Native source pixels map one-to-one to viewport pixels."
+    },
+    {
+      "id": "imersa-office-free",
+      "author": "Imersa Studios",
+      "pack": "Office Pixel Art Free v1.0",
+      "url": "https://imersastudios.itch.io/office-pixel-art",
+      "license": "Creator licence; personal/commercial game projects, edits permitted, required credit: Office Pixel Art by Imersa Studios. No standalone asset/pack/template redistribution.",
+      "license_evidence": "art_source/recovery/licensed/imersa-office-free/LICENSE.txt",
+      "originals": [
+        {
+          "file": "art_source/recovery/licensed/imersa-office-free/Props/Desks/office_desk/office_desk_back.png",
+          "sha256": "e46c43c207fa4c41213c1d340a73bfdae6cef168b9e32304936cb3dca3fb22b1"
+        },
+        {
+          "file": "art_source/recovery/licensed/imersa-office-free/Props/Seating/office_chair/office_chair_front.png",
+          "sha256": "3e7712a357cb130e9401e302b324d5e6aa6923bed87b5bd37e539b8a5f7e46ca"
+        },
+        {
+          "file": "art_source/recovery/licensed/imersa-office-free/Props/Tech/computer/computer_back.png",
+          "sha256": "111b0c181484f071b75e486d0cd9e6065f3fb825f66a0fc873b66a3b42ba7a71"
+        },
+        {
+          "file": "art_source/recovery/licensed/imersa-office-free/Props/Storage/filing_cabinet/filing_cabinet_back.png",
+          "sha256": "9aca5459be38fb26fff36a8589b351d23249d19cf2fa75a44dc86f6efb7d2bfe"
+        }
+      ],
+      "edits": "Source-authored directional views. Pad to even canvas dimensions with transparency, then uniform nearest 2:1 normalization. Compose north-facing desk/chair/monitor assembly in Godot. No generated images or flips."
+    },
+    {
+      "id": "midcentury",
+      "author": "0_mem0ry",
+      "pack": "Midcentury Modern Furniture Set free",
+      "url": "https://0-mem0ry.itch.io/midcentury-modern-furniture-set-free",
+      "license": "Creator licence: use/modify in commercial/non-commercial projects; asset pack may not be resold or redistributed; credit appreciated.",
+      "license_evidence": "art_source/recovery/licensed/midcentury/LICENSE-source.txt",
+      "originals": [
+        {
+          "file": "art_source/recovery/licensed/midcentury/midcentury_modern_furnitureset.png",
+          "sha256": "109a87e2cbc2261c598d9d2fcadd40c2bcadcf6140564a0eb44a5e4e9424ddf1"
+        }
+      ],
+      "sprite_regions": {
+        "sofa_back": [
+          448,
+          384,
+          48,
+          32
+        ]
+      },
+      "edits": "Exact crop of the source-authored rear sofa, preserving original pixels, palette, orientation and scale. No generation or flips."
+    }
+  ],
+  "runtime_assets": [
+    {
+      "file": "assets/recovery/office/access-terminal.png",
+      "sha256": "1b9700128dbf5fbdf6f3613f4d74b78aca4de728a286561feb137991524d3c5d",
+      "bytes": 761222
+    },
+    {
+      "file": "assets/recovery/office/backup-nas.png",
+      "sha256": "2beaed8769643ce37df24530ee4e29d59007321d3a99f944c46230a0181f6777",
+      "bytes": 693621
+    },
+    {
+      "file": "assets/recovery/office/dual-monitor-desk.png",
+      "sha256": "d3b17dd7a94282a760893ca40f28d15287060a46cdfd3d0885d4c9f7c1cbe72a",
+      "bytes": 911168
+    },
+    {
+      "file": "assets/recovery/office/network-switch.png",
+      "sha256": "217bdf3ce630b4ebde569dd976e13187e1973ef6cb4135bd395bafd1ef302925",
+      "bytes": 702483
+    },
+    {
+      "file": "assets/recovery/office/office-background.png",
+      "sha256": "ede1147ef03f70066d73d4f1a55c06278e1cf4f7fe82b3ea669cc6ee48bfa3c1",
+      "bytes": 1489845
+    },
+    {
+      "file": "assets/recovery/office/printer-and-cabinet.png",
+      "sha256": "3888685cf05d85269f74a505e723b94547f2978d6c8f178ee2ae9e8dced5b9f3",
+      "bytes": 485935
+    },
+    {
+      "file": "assets/recovery/office/repair-workbench.png",
+      "sha256": "3ce577891562bcbad60fe2a0f40ade0788c067127d5cad53c7b959b02a97a056",
+      "bytes": 1146068
+    },
+    {
+      "file": "assets/recovery/office/server-rack-frames.png",
+      "sha256": "233192119ff85ee671e65eac9c66da84ce7a7964e57751bfbdd8f947e72bfac0",
+      "bytes": 99377
+    },
+    {
+      "file": "assets/recovery/office/server-rack.png",
+      "sha256": "2729f62cf1ffd92dd01866cb71ffd74ac8318a3f9e919ea1c0cb010f8f18fa92",
+      "bytes": 738786
+    },
+    {
+      "file": "assets/recovery/office/sofa-and-side-table.png",
+      "sha256": "b52c819337803e883883fe7613a4b526e2d0c6d1226190b8f0ba397f805aafe8",
+      "bytes": 602822
+    },
+    {
+      "file": "assets/recovery/technician.png",
+      "sha256": "c13394a22f9479f743603330dac51376872d2462e5697b177fb9decec500c38b",
+      "bytes": 2958
+    },
+    {
+      "file": "assets/recovery/office/decor/plant.png",
+      "sha256": "3e7bc51a93649b0a2ef9baa168f268aabfe39012a7354bbf515246b8ea26b79a",
+      "bytes": 251
+    },
+    {
+      "file": "assets/recovery/office/decor/bookcase.png",
+      "sha256": "d69150b29edabdbc23f0657c2619a4fbd40bf1b81c5eb193b49da3522d088500",
+      "bytes": 377
+    },
+    {
+      "file": "assets/recovery/office/decor/wastebasket.png",
+      "sha256": "6f413d47c2d245737c34842143d8cfeefe20df00a1bf8ac5338e512de26b3caf",
+      "bytes": 191
+    },
+    {
+      "file": "assets/recovery/office/decor/clock.png",
+      "sha256": "8c5272a04fc1a948ffc9c9972a6293b6a36f1dc96f3bdbf185eb1e06e5afb90f",
+      "bytes": 185
+    },
+    {
+      "file": "assets/recovery/office/rear/computer_back.png",
+      "sha256": "09335401d12eba14ee9c4a5223a8e12a2ca6de038ec042827afcfe841a75c071",
+      "bytes": 276
+    },
+    {
+      "file": "assets/recovery/office/rear/filing_cabinet_back.png",
+      "sha256": "12a4f89def7a0e1b40790ed4cbdf462f63f7780cd2ccfcd8afb670cd6e5f22ef",
+      "bytes": 326
+    },
+    {
+      "file": "assets/recovery/office/rear/office_chair_front.png",
+      "sha256": "046059714853454642b5eda1b3d34a716c84caa74e223375eba111f6f4fef7c1",
+      "bytes": 446
+    },
+    {
+      "file": "assets/recovery/office/rear/office_desk_back.png",
+      "sha256": "945d2fa255b7809f6489db0af33293c67582e7de456568b584c820649103b5d9",
+      "bytes": 396
+    },
+    {
+      "file": "assets/recovery/office/rear/sofa_back.png",
+      "sha256": "d17f0c22ba7a08a9c320a5a842831edafbb0cfff6e9fb055632f4237e1ccc39b",
+      "bytes": 341
+    }
+  ],
+  "processing_tool": "tools/prepare_recovery_office.ps1",
+  "layout": "scenes/gameplay/recovery/RecoveryWorld.tscn; twenty authored props, enlarged separate approach zones and clearer aisles, updated 2026-11-05",
+  "character": {
+    "frame_size": [
+      20,
+      32
+    ],
+    "columns": 6,
+    "rows": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ],
+    "opaque_figure_approx": [
+      16,
+      28
+    ],
+    "scale": 1,
+    "source_cell_size": [
+      32,
+      32
+    ],
+    "foot_pivot": [
+      10,
+      31
+    ]
+  },
+  "camera": {
+    "zoom": 0.30859375,
+    "reference_viewport": [
+      640,
+      360
+    ],
+    "room_frame": [
+      83,
+      24,
+      474,
+      316
+    ],
+    "player_source_scale": 3.240506329113924,
+    "player_speed_source_units": 290
+  },
+  "scene_authoring": {
+    "equipment_types": "scenes/gameplay/recovery/props/{equipment,furniture,decor}/",
+    "structure": "Furniture and decor inherit props/RecoveryProp.tscn (Sprite2D + SolidBody footprint, no interaction). Repairable equipment inherits props/RecoveryEquipment.tscn (RecoveryProp + Interaction reach + shared RecoveryStatusMarker.tscn). Wall items inherit props/RecoveryDecal.tscn under RecoveryWorld/WallDecor.",
+    "source_anchors": "Current placements are authored in RecoveryWorld.tscn; the original office_v2 placement guide is retained as historical source reference.",
+    "runtime_coordinates_generated": false,
+    "equipment_ids": "Unique per placed instance; assigned_task and eligible_group exposed on root",
+    "collision": "Editable source-coordinate footprints and wall rectangles; no runtime collision builder",
+    "foreground_orientation": "2026-11-06: wall furniture faces into the room with its back to the wall. North walls show fronts; south walls show backs (SpareDesk with the chair on the wall side, LoungeSofa, ArmchairBack, RearFilingCabinet); west/east walls show sides. Seats never face the camera.",
+    "extra_props_tool": "tools/prepare_recovery_props.ps1 crops assets/recovery/office/props/*.png from art_source/recovery/licensed/ (exact crops, no scaling or flipping)."
+  },
+  "directional_processing_tool": "tools/prepare_recovery_rear_views.ps1",
+  "prop_library": "scenes/gameplay/recovery/RecoveryPropLibrary.tscn",
+  "technician_fix_2026_11_06": "assets/recovery/technician.png: left-walk row frame 0 (also the left idle pose) faced right. Replaced with the exact horizontal mirror of right-walk frame 0, matching left frames 1-5, which were already exact mirrors of the right row. Original kept at .godot/recovery-import-backup/2026-11-06-technician-left-idle/."
+}

@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" uid="uid://dhe5pvllhsr8f" path="res://scripts/gameplay/recovery/recovery_dialog.gd" id="1_dialog"]
+[ext_resource type="Theme" path="res://assets/recovery/ui/recovery_theme.tres" id="2_theme"]
+
+[node name="RecoveryDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_dialog")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.10980392, 0.17254902, 0.9)
+
+[node name="Frame" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 24.0
+offset_right = -32.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"RecoveryFrame"
+
+[node name="Layout" type="VBoxContainer" parent="Frame"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Frame/Layout"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Frame/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"RecoveryHeading"
+text = "Work order"
+
+[node name="ScrollHint" type="Label" parent="Frame/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "Wheel / PgUp / PgDn"
+
+[node name="Scroll" type="ScrollContainer" parent="Frame/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Content" type="VBoxContainer" parent="Frame/Layout/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ParagraphTemplate" type="Label" parent="Frame/Layout/Scroll/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+text = "Paragraph text. Every paragraph in the dialog copies this label."
+autowrap_mode = 3
+
+[node name="Footer" type="HBoxContainer" parent="Frame/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ActionTemplate" type="Button" parent="Frame/Layout/Footer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Action"

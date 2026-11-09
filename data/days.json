@@ -18,6 +18,10 @@
 			},
 			"response": {
 				"scene": "res://AI generated/scenes/response/Response.tscn"
+			},
+			"recovery": {
+				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
+				"data": "res://data/recovery/day1_recovery.json"
 			}
 		}
 	}

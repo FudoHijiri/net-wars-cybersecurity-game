@@ -1,35 +1,44 @@
 {
-	"_note": "Mockup of the Day 1 Response fight. Numbers come from notes.json (response_combat.scaling): player HP 90, boss HP 85. The deck and the upgrades come from Hardening (the save's deck and equipped_passives); there is no choice here. Each pattern has one upgrade that counters it (counter). With it the pattern plays as written; without it the pattern uses its harsh numbers instead (denser, harder-hitting, or a shorter warning), so a skipped counter costs HP even for a player who dodges well. lockout stops the stream after a number of failed tries, unique stops one hit from opening every account, twostep blocks most of a stolen-password hit, alerts gives a longer warning. A pattern's kind picks how the bullets are made: stream (random heights, one by one, all in one direction), sweep (a wall with a gap that walks through gaps), aimed (a line warns, then a key flies along it; every volley_every shots a fan of volley_count keys). works / missing are the lines shown after the pattern when that upgrade was / was not equipped. say is what the threat says first. box is the size of the arena, lead the seconds a bullet is in sight before it reaches the box.",
+	"_note": "Mockup of the Day 1 Response fight. Numbers come from notes.json (response_combat.scaling): player HP 90, boss HP 85. The deck and the upgrades come from Hardening (the save's deck and equipped_passives); there is no choice here. Each pattern has one upgrade that counters it (counter). With it the pattern plays as written; without it the pattern uses its harsh numbers instead (denser, harder-hitting, or a shorter warning), so a skipped counter costs HP even for a player who dodges well. lockout stops the stream after a number of failed tries, unique stops one hit from opening every account, twostep blocks most of a stolen-password hit, alerts gives a longer warning. A pattern's kind picks how the bullets are made: stream (random heights, one by one, all in one direction), sweep (a wall with a gap that walks through gaps), aimed (a line warns, then a key flies along it; every volley_every shots a fan of volley_count keys). works is the line shown after the pattern when that upgrade did its job; harder (of a defense) is the line shown before a pattern whose counter is not equipped, because then the pattern is played in its harder version: its harsh numbers replace the normal ones (interval, speed, damage, gap, spacing, warning, volley_every, volley_count, spread, box), the box turns red and says HARDER VERSION, and the next-attack preview says (HARDER). say is what the threat says first. box is the size of the arena, lead the seconds a bullet is in sight before it reaches the box. finish is the results screen (FinishScreen): a win pays one reward for defeating the threat; a lost fight shows the same figures and pays nothing. {threat} and {names} (the attacks that got through) are filled into the comments.",
 	"threat": "Credential Abuse",
 	"enemy_frames": "res://assets/charactersprite/enemies/credential_abuse_frames.tres",
 	"player_hp": 90,
 	"boss_hp": 85,
 	"energy": 3,
 	"hand_size": 5,
+	"finish": {
+		"reward": 60,
+		"title_lost": "Response Failed",
+		"unpaid_text": "Fight lost, not paid: ",
+		"comments": {
+			"flawless": "Joshua: Nothing got through. Recovery only needs a final check.",
+			"won": "Joshua: {threat} is stopped. These got through: {names}. Recovery will repair them.",
+			"lost": "Joshua: {threat} got through. Check your upgrades and your deck, then try again."
+		}
+	},
 	"defenses": [
 		{
 			"id": "unique",
 			"name": "Unique passwords",
 			"works": "Only one account was hit. Every other account kept its own password, so the damage stayed small.",
-			"missing": "One password opened every account. Unique passwords would have kept the damage to one."
+			"harder": "No Unique Passwords: one password opens every account, so the walls are tighter, faster and hit harder."
 		},
 		{
 			"id": "twostep",
 			"name": "Two-step sign-in",
 			"works": "The stolen password was not enough. The second step (a code) stopped most of each hit.",
-			"missing": "The stolen password opened the door alone. A second sign-in step would have stopped it."
+			"harder": "No Two-step Sign-in: a stolen password is enough, so keys come in big fans, fast, with little warning."
 		},
 		{
 			"id": "lockout",
 			"name": "Lock after failed tries",
 			"works": "The account locked after a few wrong tries and the guessing stopped.",
-			"missing": "The attacker guessed all turn long. Locking the account after a few wrong tries would have stopped it."
+			"harder": "No Lock After Failed Tries: the guesses never stop, and they come much faster."
 		},
 		{
 			"id": "alerts",
 			"name": "Unusual sign-in alerts",
-			"works": "The alert gave you extra time to react to the stolen password.",
-			"missing": "Nothing warned you early. An alert for unusual sign-ins would have given you time."
+			"works": "The alert gave you extra time to react to the stolen password."
 		}
 	],
 	"patterns": [
@@ -54,7 +63,8 @@
 			],
 			"lead": 0.7,
 			"harsh": {
-				"interval": 0.1,
+				"interval": 0.08,
+				"speed": 140,
 				"damage": 6
 			}
 		},
@@ -85,7 +95,9 @@
 			],
 			"lead": 1.0,
 			"harsh": {
-				"gap": 26,
+				"gap": 22,
+				"interval": 1.1,
+				"speed": 100,
 				"damage": 8
 			}
 		},
@@ -116,8 +128,13 @@
 			],
 			"lead": 0.5,
 			"harsh": {
-				"warning": 0.25,
-				"damage": 14
+				"warning": 0.2,
+				"speed": 150,
+				"interval": 0.9,
+				"volley_every": 1,
+				"volley_count": 5,
+				"spread": 14,
+				"damage": 10
 			}
 		}
 	]

@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[node name="RecoveryDecal" type="Sprite2D"]
+editor_description = "Base for wall and floor decoration with no collision or interaction. Place copies under RecoveryWorld/WallDecor so they draw behind people and furniture. The node position is the bottom-centre of the artwork."
+texture_filter = 1
+centered = false

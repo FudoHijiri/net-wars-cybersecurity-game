@@ -12,10 +12,21 @@ extends Control
 ##
 ## show_results() takes {
 ##   "rows": [{"name": optional text, "count": int, "points": optional int, negative for a penalty}, ...],
-##   "comment": text, "bonus": int
+##   "comment": text, "bonus": int,
+##   "practice": optional bool, true = show the points without paying or saving them
 ## }. The rows go to the rows of the scene in order: first the ones in LeftContainer, then RightContainer.
+## A phase can also change the texts of the scene: "title", "button" (the CONTINUE text), "gained_text"
+## (the text before the points) and "extra_button" (shows the scene's ExtraButton with that text; it
+## needs an ExtraButton node and emits extra_requested).
+
+## Emitted by CONTINUE when a phase connects to it (Recovery practice returns to its menu).
+## With nothing connected, CONTINUE opens the next phase as before.
+signal continue_requested
+## Emitted by the ExtraButton, the second choice next to CONTINUE (Response: TRY AGAIN).
+signal extra_requested
 
 const REPLAY_TEXT := "Replay, half pay: "
+const PRACTICE_TEXT := "Practice, not paid: "
 
 const FADE_TIME := 0.6 # to black
 const REVEAL_TIME := 0.15 # one element appears
@@ -25,6 +36,7 @@ const COUNT_TIME := 0.4
 var _rows: Array[HBoxContainer] = []
 var _playing := false
 var _skipping := false
+var _practice := false
 
 @onready var _title: Label = $Title
 @onready var _comment_title: Label = $CommentTitle
@@ -36,17 +48,20 @@ var _skipping := false
 @onready var _wallet_row: HBoxContainer = $SecurityPoints/SecurityPointsWalletRow
 @onready var _wallet: Label = $SecurityPoints/SecurityPointsWalletRow/CurrentSecurityPoints
 @onready var _continue: Button = $LogsButton
+@onready var _extra: Button = get_node_or_null("ExtraButton")
 
 
 func _ready() -> void:
 	hide() # it is visible in the scene editor so it can be laid out
-	for container_name in ["LeftContainer", "RightContainer"]:
+	for container_name in ["LeftContainer", "RightContainer", "Container"]: # Investigation uses one "Container"
 		var container := get_node_or_null(container_name)
 		if container != null:
 			for row in container.get_children():
 				if row is HBoxContainer:
 					_rows.append(row)
 	_continue.pressed.connect(_on_continue_pressed)
+	if _extra != null:
+		_extra.pressed.connect(_on_extra_pressed)
 	_comment.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 
@@ -70,14 +85,18 @@ func show_results(summary: Dictionary) -> void:
 	# during it loses nothing.
 	var day := GameState.current_day
 	var phase := GameState.current_phase
-	var replay := SaveManager.current_slot >= 0 and SaveManager.is_phase_complete(day, phase)
+	_practice = summary.get("practice", false) == true
+	var replay := not _practice and SaveManager.current_slot >= 0 and SaveManager.is_phase_complete(day, phase)
 	if replay:
 		gain = int(gain / 2.0)
 		steps.append(gain)
 	var before := GameState.wallet()
-	_pay(gain, day, phase)
+	if not _practice:
+		GameState.capture_phase_findings(phase, summary.get("monitoring_answers", []))
+		_pay(gain, day, phase)
 
 	_fill(lines, str(summary.get("comment", "")), bonus, replay)
+	_apply_texts(summary)
 	await _play(lines, bonus, steps, gain, before)
 
 
@@ -115,10 +134,30 @@ func _fill(lines: Array, comment: String, bonus: int, replay: bool) -> void:
 	_comment.visible_ratio = 0.0
 	_bonus.visible = bonus > 0
 	_bonus.text = "( +0 SP)"
-	_gained_name.text = REPLAY_TEXT if replay else "Security Points: "
+	_gained_name.text = PRACTICE_TEXT if _practice else (REPLAY_TEXT if replay else "Security Points: ")
 	_gained.text = _signed(0)
 	_wallet.text = "%dSP" % GameState.wallet()
 	_continue.text = "CONTINUE"
+
+
+## The optional texts of the summary (see the top). With an ExtraButton the two buttons sit side by side.
+func _apply_texts(summary: Dictionary) -> void:
+	if summary.has("title"):
+		_title.text = str(summary["title"])
+	if summary.has("button"):
+		_continue.text = str(summary["button"])
+	if summary.has("gained_text"):
+		_gained_name.text = str(summary["gained_text"])
+	if _extra == null:
+		return
+	_extra.text = str(summary.get("extra_button", ""))
+	_extra.visible = not _extra.text.is_empty()
+	if _extra.visible:
+		var shift := (_continue.anchor_right - _continue.anchor_left) / 2.0 + 0.01
+		_extra.anchor_left = _continue.anchor_left - shift
+		_extra.anchor_right = _continue.anchor_right - shift
+		_continue.anchor_left += shift
+		_continue.anchor_right += shift
 
 
 func _play(lines: Array, bonus: int, steps: Array[int], gain: int, before: int) -> void:
@@ -126,6 +165,8 @@ func _play(lines: Array, bonus: int, steps: Array[int], gain: int, before: int) 
 	_skipping = false
 	_hide_content()
 	_continue.disabled = true
+	if _extra != null:
+		_extra.disabled = true
 	modulate.a = 0.0
 	show()
 
@@ -166,9 +207,12 @@ func _play(lines: Array, bonus: int, steps: Array[int], gain: int, before: int) 
 	# Then into the wallet.
 	await _fade(_wallet_row, REVEAL_TIME)
 	await _wait(GAP)
-	await _count(_wallet, before, before + gain, COUNT_TIME * 2.0, "%dSP")
+	await _count(_wallet, before, before + (0 if _practice else gain), COUNT_TIME * 2.0, "%dSP")
 	await _wait(GAP)
 
+	if _extra != null and _extra.visible:
+		await _fade(_extra, REVEAL_TIME)
+		_extra.disabled = false
 	await _fade(_continue, REVEAL_TIME)
 	_continue.disabled = false
 	_continue.grab_focus()
@@ -179,6 +223,8 @@ func _play(lines: Array, bonus: int, steps: Array[int], gain: int, before: int) 
 func _hide_content() -> void:
 	for node: CanvasItem in [_title, _comment_title, _comment, _bonus, _gained_row, _wallet_row, _continue]:
 		node.modulate.a = 0.0
+	if _extra != null:
+		_extra.modulate.a = 0.0
 	for row in _rows:
 		for child in row.get_children():
 			(child as CanvasItem).modulate.a = 0.0
@@ -244,8 +290,19 @@ func _input(event: InputEvent) -> void:
 
 ## Opens what comes next: the dialogue of the next phase, or the phase itself when it has no dialogue,
 ## or the day select when nothing follows (the phase is not built yet, or the day is over).
+func _on_extra_pressed() -> void:
+	_continue.disabled = true
+	_extra.disabled = true
+	extra_requested.emit()
+
+
 func _on_continue_pressed() -> void:
 	_continue.disabled = true
+	if _extra != null:
+		_extra.disabled = true
+	if not continue_requested.get_connections().is_empty():
+		continue_requested.emit()
+		return
 	var next := GameState.PHASES.find(GameState.current_phase) + 1
 	if next >= GameState.PHASES.size():
 		SceneManager.load_stage_select()

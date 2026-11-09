@@ -33,6 +33,12 @@ var _equipped: Array[String] = [] # the upgrades equipped in Hardening
 var _used := {} # upgrade id -> how many times it worked during the last enemy turn
 var _won := false
 var _upgrade_icons := {} # upgrade id -> its icon in the corner of the screen
+var _worked: Array[String] = [] # ids of the upgrades that did their job at least once
+var _fx: ResponseFx # the effects of the fight: bolts, sparks, the shield, the animations of the two fighters
+var _busy := false # a played card's effect is still flying: no other card, no end of turn until it lands
+## Ids of the attack patterns whose damage got through (not fully blocked or dodged). Recovery
+## repairs one thing per pattern here (data/recovery/dayN_recovery.json "attacks").
+var hit_patterns: Array[String] = []
 
 @onready var _hand_fan: HandFan = $Hand
 @onready var _arena: BulletArena = $Arena
@@ -55,9 +61,7 @@ var _upgrade_icons := {} # upgrade id -> its icon in the corner of the screen
 @onready var _piles_label: Label = $PilesLabel
 @onready var _speech: Panel = $Speech
 @onready var _speech_text: Label = $Speech/Text
-@onready var _result: Panel = $Result
-@onready var _result_title: Label = $Result/Title
-@onready var _result_body: Label = $Result/Body
+@onready var _finish_screen: FinishScreen = $FinishScreen
 
 
 func _ready() -> void:
@@ -76,6 +80,12 @@ func _ready() -> void:
 	_enemy.sprite_frames = load(str(_boss["enemy_frames"]))
 	_enemy.play(&"idle")
 	_hero.play(&"idle")
+	_fx = ResponseFx.new()
+	_fx.z_index = 120 # above the fighters and the hand, below the floating numbers and the results
+	_fx.reduced = ScreenEffects.reduce_effects
+	add_child(_fx)
+	_fx.prepare(_hero)
+	_fx.prepare(_enemy)
 	_boss_name.text = str(_boss["threat"]).to_upper()
 	_intent_icon.draw.connect(_draw_intent_icon)
 	_hand_fan.card_clicked.connect(_on_card_clicked)
@@ -84,11 +94,10 @@ func _ready() -> void:
 	_arena.pattern_finished.connect(_on_pattern_finished)
 	_arena.note.connect(_on_arena_note)
 	_arena.defense_used.connect(_on_defense_used)
-	$Result/Retry.pressed.connect(func() -> void: SceneManager.load_scene(scene_file_path))
-	$Result/Leave.pressed.connect(_on_leave_pressed)
+	_finish_screen.extra_requested.connect(func() -> void: SceneManager.load_scene(scene_file_path))
+	_finish_screen.continue_requested.connect(_on_leave_pressed)
 	_arena.hide()
 	_speech.hide()
-	_result.hide()
 	_draw_pile = _deck.duplicate()
 	_draw_pile.shuffle()
 	_build_upgrade_icons(build)
@@ -155,34 +164,72 @@ func _draw_one() -> String:
 	return id
 
 
+## A played card: its effect flies from the card to its target and does its job when it lands.
+## Damage is a red bolt to the enemy, Block a cyan bolt to the player (the shield then stays around them),
+## Draw gold sparks that rise from the card.
 func _on_card_clicked(index: int) -> void:
 	var id := _hand[index]
 	var card: Dictionary = _cards[id]
 	var cost := int(card["cost"])
-	if _over or cost > _energy:
+	if _over or _busy or cost > _energy:
 		return
+	_busy = true
 	_energy -= cost
 	var effects: Dictionary = card.get("effects", {})
+	var from := _hand_fan.card_center(index)
 	_discard.append(id)
 	_hand.remove_at(index)
 	_hand_fan.remove_card(index)
-	_boss_hp = maxi(_boss_hp - int(effects.get("damage", 0)), 0)
-	_block += int(effects.get("block", 0))
-	if effects.has("damage"):
-		_flash(_enemy)
-		_float_text("-%d" % int(effects["damage"]), _enemy.position + Vector2(-6, -44), Color.WHITE)
-		_shake(2.0)
-	for i in int(effects.get("draw", 0)):
+	var damage := int(effects.get("damage", 0))
+	var block := int(effects.get("block", 0))
+	var draw := int(effects.get("draw", 0))
+	var wait := 0.1
+	if damage > 0:
+		_fx.attack(_hero, _enemy.global_position, ResponseFx.RED, 10.0)
+		wait = maxf(wait, _fx.bolt(from, _enemy.global_position + Vector2(0, -4), ResponseFx.RED, damage / 20.0, func() -> void: _apply_damage(damage)))
+	if block > 0:
+		if damage == 0:
+			_fx.cast(_hero, ResponseFx.CYAN)
+		wait = maxf(wait, _fx.bolt(from, _hero.global_position, ResponseFx.CYAN, block / 10.0, func() -> void: _apply_block(block), 4.0))
+	for i in draw:
 		var drawn := _draw_one()
 		if not drawn.is_empty():
 			_hand_fan.add_card(drawn, _cards[drawn])
+	if draw > 0:
+		if damage == 0 and block == 0:
+			_fx.cast(_hero, ResponseFx.GOLD)
+		_fx.rise(from, ResponseFx.GOLD, 8 + draw * 3)
+		_fx.ring(from, ResponseFx.GOLD, 4.0, 22.0)
+		_float_text("DRAW %d" % draw, from + Vector2(0, -20), ResponseFx.GOLD, 0.6, 6, true)
 	_hand_fan.energy = _energy
+	_refresh()
+	await get_tree().create_timer(wait).timeout
+	_busy = false
+
+
+## The red bolt landed.
+func _apply_damage(amount: int) -> void:
+	_boss_hp = maxi(_boss_hp - amount, 0)
+	_fx.slash(_enemy.global_position, ResponseFx.RED)
+	_fx.hurt(_enemy, Vector2.RIGHT)
+	_float_text("-%d" % amount, _enemy.position + Vector2(0, -44), Color.WHITE, 0.6, 12, true)
+	_shake(2.0)
 	_refresh()
 	if _boss_hp <= 0:
 		_finish(true)
 
 
+## The cyan bolt landed: the shield goes up around the player (_refresh shows it).
+func _apply_block(amount: int) -> void:
+	_block += amount
+	_fx.pulse_aura()
+	_float_text("+%d BLOCK" % amount, _hero.position + Vector2(0, -44), ResponseFx.CYAN, 0.6, 6, true)
+	_refresh()
+
+
 func _on_end_turn_pressed() -> void:
+	if _busy:
+		return
 	_discard.append_array(_hand)
 	_hand.clear()
 	_hand_fan.set_hand(_hand, _cards)
@@ -202,10 +249,42 @@ func _on_end_turn_pressed() -> void:
 	await _say(str(pattern["say"]))
 	if _over:
 		return
+	await _fx.attack(_enemy, _hero.global_position, ResponseFx.RED, 16.0).finished # the threat strikes, then the bullets come
+	if _over:
+		return
+	if _harder(pattern):
+		await _announce_harder(pattern)
+		if _over:
+			return
 	_turn_label.text = "ENEMY TURN - dodge with the arrow keys or WASD"
 	_arena.defenses = _equipped
 	_arena.start(pattern)
 	_type(_teach_body, str(pattern["teach"])) # keeps typing while the pattern runs
+
+
+## True when the pattern is played in its harder version: the upgrade that counters it is not equipped.
+func _harder(pattern: Dictionary) -> bool:
+	return not _equipped.has(str(pattern["counter"]))
+
+
+## The upgrade that counters a pattern: {id, name, works, harder} from the data.
+func _counter_of(pattern: Dictionary) -> Dictionary:
+	for defense: Dictionary in _boss["defenses"]:
+		if str(defense["id"]) == str(pattern["counter"]):
+			return defense
+	return {}
+
+
+## Before a harder version starts the player is told that it is harder and why, so the missing upgrade is
+## not something to guess: the title says it, the line under it names what is different.
+func _announce_harder(pattern: Dictionary) -> void:
+	_teach_title.text = "%s - HARDER VERSION" % str(pattern["name"]).to_upper()
+	_teach_defense.text = str(_counter_of(pattern).get("harder", ""))
+	_fx.ring(_enemy.global_position, ResponseFx.RED, 10.0, 60.0, 0.5)
+	_fx.burst(_enemy.global_position, ResponseFx.RED, 18, 110.0, 0.5)
+	_float_text("HARDER", _enemy.position + Vector2(0, -52), ResponseFx.RED, 1.0, 6, true)
+	_shake(3.0)
+	await get_tree().create_timer(1.4).timeout # time to read why
 
 
 ## What the player should take from the enemy turn, from what actually happened in it.
@@ -215,18 +294,18 @@ func _lessons(pattern: Dictionary) -> Array[String]:
 		var id := str(defense["id"])
 		if _used.has(id):
 			lines.append(str(defense["works"]))
-		elif id == str(pattern["counter"]) and not _equipped.has(id):
-			lines.append(str(defense["missing"]))
 	return lines
 
 
 func _on_arena_note(text: String, good: bool) -> void:
 	var color := Color(0.654902, 0.9411765, 0.4392157, 1) if good else Color(1, 0.6, 0.45, 1)
-	_float_text(text, Vector2(320.0 - text.length() * 2.6, _arena.position.y + _arena.size.y + 22.0), color, 1.4) # under the box (it is narrower than the text)
+	_float_text(text, Vector2(320.0, _arena.position.y + _arena.size.y + 22.0), color, 1.4, 6, true) # under the box (it is narrower than the text)
 
 
 func _on_defense_used(id: String) -> void:
 	_used[id] = int(_used.get(id, 0)) + 1
+	if not _worked.has(id):
+		_worked.append(id)
 	if _upgrade_icons.has(id):
 		_flash(_upgrade_icons[id])
 
@@ -240,12 +319,19 @@ func _on_hit(damage: int) -> void:
 	_blocked += absorbed
 	_through += damage - absorbed
 	_player_hp = maxi(_player_hp - (damage - absorbed), 0)
-	_flash(_hero)
+	if damage - absorbed > 0:
+		var pattern_id := str(_patterns[_turn % _patterns.size()].get("id", ""))
+		if not pattern_id.is_empty() and not hit_patterns.has(pattern_id):
+			hit_patterns.append(pattern_id)
+	if damage - absorbed > 0:
+		_fx.hurt(_hero, Vector2.LEFT)
+	if absorbed > 0:
+		_fx.pulse_aura()
 	_shake(3.0 if absorbed == damage else 4.0 + damage * 0.25)
 	if absorbed > 0:
-		_float_text("BLOCKED %d" % absorbed, _hero.position + Vector2(-26, -50), Color(0.4509804, 0.9372549, 0.96862745, 1))
+		_float_text("BLOCKED %d" % absorbed, _hero.position + Vector2(0, -50), ResponseFx.CYAN, 0.6, 6, true)
 	if damage - absorbed > 0:
-		_float_text("-%d" % (damage - absorbed), _hero.position + Vector2(-8, -38), Color.WHITE)
+		_float_text("-%d" % (damage - absorbed), _hero.position + Vector2(0, -38), Color.WHITE, 0.6, 12, true)
 	_refresh()
 	if _player_hp <= 0:
 		_arena.stop()
@@ -278,10 +364,12 @@ func _on_pattern_finished() -> void:
 
 func _show_next_pattern() -> void:
 	var pattern: Dictionary = _patterns[_turn % _patterns.size()]
-	_intent_name.text = "NEXT: %s" % str(pattern["name"])
+	var harder := _harder(pattern)
+	_intent_name.text = "NEXT: %s%s" % [str(pattern["name"]), " (HARDER)" if harder else ""]
+	_intent_name.add_theme_color_override("font_color", Color(1.0, 0.45, 0.45) if harder else Color(0.95686275, 0.95686275, 0.95686275))
 	_teach_title.text = "THREAT: %s" % str(_boss["threat"]).to_upper()
 	_teach_body.text = "Next attack: %s. It is shown here before it comes, so you can plan your cards." % str(pattern["name"])
-	_teach_defense.text = ""
+	_teach_defense.text = str(_counter_of(pattern).get("harder", "")) if harder else ""
 	_intent_icon.queue_redraw()
 
 
@@ -329,27 +417,31 @@ func _wait(seconds: float) -> void:
 		left -= get_process_delta_time()
 
 
-## A number or word that bounces up from a spot and fades.
-func _float_text(text: String, at: Vector2, color: Color, life: float = 0.6) -> void:
+## A number or word that bounces up from a spot and fades. size must be 6 or 12 (whole multiples of the
+## font's 6px, or the text blurs). centered puts the middle of the text at `at`.
+func _float_text(text: String, at: Vector2, color: Color, life: float = 0.6, size: int = 6, centered: bool = false) -> void:
 	var label := Label.new()
 	label.text = text
-	label.position = at
+	var width := FONT.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
+	label.position = (at - Vector2(width / 2.0 if centered else 0.0, 0.0)).round()
 	label.z_index = 150
 	label.add_theme_font_override("font", FONT)
-	label.add_theme_font_size_override("font_size", 8)
+	label.add_theme_font_size_override("font_size", size)
 	label.add_theme_color_override("font_color", color)
 	label.add_theme_color_override("font_outline_color", Color(0.101960786, 0.10980392, 0.17254902, 1))
 	label.add_theme_constant_override("outline_size", 3)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(label)
 	var tween := create_tween().set_parallel(true)
-	tween.tween_property(label, "position:y", at.y - 18.0, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(label, "position:y", label.position.y - 18.0, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(label, "modulate:a", 0.0, 0.3).set_delay(life)
 	tween.chain().tween_callback(label.queue_free)
 
 
-## A short shake of the whole screen.
+## A short shake of the whole screen (Settings > Screen Shake turns it off).
 func _shake(strength: float) -> void:
+	if not ScreenEffects.shake_allowed():
+		return
 	var tween := create_tween()
 	for i in 4:
 		tween.tween_property(self, "position", Vector2(randf_range(-strength, strength), randf_range(-strength, strength)).round(), 0.04)
@@ -359,21 +451,82 @@ func _shake(strength: float) -> void:
 # --- the end of the fight ---
 
 func _finish(won: bool) -> void:
+	if _over:
+		return
 	_over = true
 	_won = won
 	_hand_fan.enabled = false
 	_end_turn.disabled = true
-	$Result/Leave.text = "LEAVE" if won else "CHANGE BUILD"
-	_result_title.text = "THREAT CONTAINED" if won else "SYSTEM COMPROMISED"
-	_result_body.text = "%s is stopped. Nice work." % str(_boss["threat"]) if won else "%s got through. Check your upgrades and your deck, then try again." % str(_boss["threat"])
-	_result.show()
+	await _play_ending()
+	_finish_screen.show_results(_finish_summary())
 
 
-## After a win, back to the day select. After a loss, back to Hardening to change the build: its NEXT PHASE
-## leads here again.
+## What happens before the results: the threat falls apart and the player celebrates, or the player goes down.
+func _play_ending() -> void:
+	if _won:
+		_shake(6.0)
+		await _fx.defeat(_enemy).finished
+		_float_text("VICTORY!", _hero.position + Vector2(0, -52), ResponseFx.GOLD, 1.2, 12, true)
+		await _fx.victory(_hero).finished
+	else:
+		_fx.set_aura(false, _hero.global_position)
+		await _fx.knock_out(_hero).finished
+	await get_tree().create_timer(0.5).timeout
+
+
+## The figures of the FinishScreen. Winning pays one reward for defeating the threat; the other figures
+## only show how the fight went. A lost fight shows the same figures and pays nothing: its screen offers
+## TRY AGAIN and CHANGE BUILD.
+func _finish_summary() -> Dictionary:
+	var finish: Dictionary = _boss["finish"]
+	var comments: Dictionary = finish["comments"]
+	var rows: Array[Dictionary] = [
+		{"count": _player_max - _player_hp}, # the damage taken
+		{"count": _worked.size()},
+		{"count": 1 if _won else 0},
+	]
+	if not _won:
+		return {
+			"rows": rows,
+			"comment": str(comments["lost"]).replace("{threat}", str(_boss["threat"])),
+			"title": str(finish["title_lost"]),
+			"practice": true,
+			"gained_text": str(finish["unpaid_text"]),
+			"button": "CHANGE BUILD",
+			"extra_button": "TRY AGAIN",
+		}
+	rows[2]["points"] = int(finish["reward"])
+	var comment: String = str(comments["flawless"] if hit_patterns.is_empty() else comments["won"])
+	return {
+		"rows": rows,
+		"comment": comment.replace("{threat}", str(_boss["threat"])).replace("{names}", ", ".join(_hit_names())),
+	}
+
+
+## The names of the attacks whose damage got through: it is what Recovery will have to repair.
+func _hit_names() -> Array[String]:
+	var names: Array[String] = []
+	for pattern: Dictionary in _patterns:
+		if hit_patterns.has(str(pattern.get("id", ""))):
+			names.append(str(pattern["name"]))
+	return names
+
+
+## After a win (the FinishScreen already paid the points and saved Response as complete): the attacks
+## that got through become the Recovery repairs (GameState.begin_recovery). After a loss, back to
+## Hardening to change the build: its NEXT PHASE leads here again.
 func _on_leave_pressed() -> void:
 	if _won:
-		SceneManager.load_stage_select()
+		var recovery: Dictionary = GameState.phase_info("recovery")
+		if recovery.is_empty():
+			SceneManager.load_stage_select()
+			return
+		var data := RecoveryData.load_data(str(recovery.get("data", RecoveryData.DEFAULT_PATH)))
+		var outcome: Dictionary = data.get("response_outcome", data.get("sample_outcome", {})).duplicate(true)
+		outcome["contained"] = true
+		GameState.begin_recovery(RecoveryData.components_for_attacks(data, hit_patterns), outcome)
+		GameState.set_phase("recovery")
+		SceneManager.open_current_phase()
 		return
 	GameState.set_phase("hardening")
 	SceneManager.load_scene(str(GameState.phase_info()["scene"]))
@@ -394,6 +547,8 @@ func _refresh() -> void:
 	_block_label.text = "BLOCK %d" % _block
 	_energy_label.text = "ENERGY %d / %d" % [_energy, int(_boss["energy"])]
 	_piles_label.text = "DRAW %d  DISCARD %d" % [_draw_pile.size(), _discard.size()]
+	if not _over:
+		_fx.set_aura(_block > 0, _hero.global_position) # the shield is up while there is Block
 
 
 # --- for the Debug panel (=) ---

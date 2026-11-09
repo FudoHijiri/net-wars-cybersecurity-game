@@ -257,6 +257,7 @@ func _finish_summary() -> Dictionary:
 			{"count": _correct, "points": _correct * int(_data["points_correct"])},
 			{"count": _wrong, "points": -_wrong * int(finish["points_wrong"])},
 		],
+		"monitoring_answers": _answers, # retain actual generated-log verdicts for Recovery
 		"comment": str(finish["comments"][key]).replace("{reason}", first_reason),
 		"bonus": int(finish["bonus"]) if key == "flawless" else 0,
 	}
@@ -430,9 +431,10 @@ func _build_rulebook() -> void:
 
 
 func _rulebook_text() -> String:
+	var book: Dictionary = _data.get("rulebook", {}) # the two sentences around the rules, from the scenario
 	var lines: Array[String] = [
 		"[color=%s]RULEBOOK[/color]" % YELLOW,
-		"REPORT a sign-in that breaks a rule. LET IT PASS if it follows every rule.",
+		str(book.get("intro", "REPORT a sign-in that breaks a rule. LET IT PASS if it follows every rule.")),
 		"",
 	]
 	var number := 1
@@ -443,7 +445,7 @@ func _rulebook_text() -> String:
 		if rule.has("exception_text"):
 			lines.append(rule["exception_text"])
 		if rule.has("odd_margin"):
-			lines.append("Within %d minutes of the limit is a bit odd, but still allowed." % rule["odd_margin"])
+			lines.append(str(book.get("margin", "Within %d minutes of the limit is a bit odd, but still allowed.")) % rule["odd_margin"])
 		lines.append("Good: %s    Bad: %s" % [rule["example_ok"], rule["example_bad"]])
 		lines.append("Why: %s" % rule["why"])
 		lines.append("")

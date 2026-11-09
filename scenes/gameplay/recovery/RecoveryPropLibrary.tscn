@@ -1,0 +1,383 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="HeadingFont"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="BodyFont"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/AccessTerminal.tscn" id="Prop0"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/BackupStorage.tscn" id="Prop1"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/MonitoringDesk.tscn" id="Prop2"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/NetworkSwitch.tscn" id="Prop3"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/equipment/ServerRack.tscn" id="Prop4"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/ArmchairBack.tscn" id="Prop5"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/Bookshelf.tscn" id="Prop6"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/BookshelfSide.tscn" id="Prop7"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/BreakCorner.tscn" id="Prop8"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/CoffeeTable.tscn" id="Prop9"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/DrinksFridge.tscn" id="Prop10"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/LoungeSofa.tscn" id="Prop11"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/PrinterCabinet.tscn" id="Prop12"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/RearFilingCabinet.tscn" id="Prop13"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/RepairWorkbench.tscn" id="Prop14"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/furniture/SpareDesk.tscn" id="Prop15"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/DigitalClock.tscn" id="Prop16"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/FloorLamp.tscn" id="Prop17"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/LeafyPlant.tscn" id="Prop18"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/PalmPlant.tscn" id="Prop19"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/Plant.tscn" id="Prop20"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/SmallPlant.tscn" id="Prop21"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/SunClock.tscn" id="Prop22"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/WallPrint.tscn" id="Prop23"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/decor/Wastebasket.tscn" id="Prop24"]
+
+[node name="RecoveryPropLibrary" type="Node2D"]
+editor_description = "Asset catalogue only. Drag a scene from props/equipment, props/furniture or props/decor into RecoveryWorld (floor items under Actors, wall items under WallDecor). This library does not change the game room."
+texture_filter = 1
+
+[node name="Background" type="Polygon2D" parent="."]
+color = Color(0.10196079, 0.10980392, 0.17254902, 1)
+polygon = PackedVector2Array(-1024, -1024, 3072, -1024, 3072, 2048, -1024, 2048)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(800, 650)
+zoom = Vector2(0.25, 0.25)
+
+[node name="Title" type="Label" parent="."]
+offset_left = 100.0
+offset_top = -20.0
+theme_override_fonts/font = ExtResource("HeadingFont")
+theme_override_font_sizes/font_size = 32
+text = "RECOVERY PROP LIBRARY"
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 100.0
+offset_top = 42.0
+offset_right = 1700.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 24
+text = "Equipment inherits props/RecoveryEquipment.tscn (has E reach); furniture and decor inherit props/RecoveryProp.tscn (no interaction). Wall furniture faces into the room."
+autowrap_mode = 3
+
+[node name="EquipmentHeading" type="Label" parent="."]
+offset_left = 100.0
+offset_top = 80.0
+theme_override_fonts/font = ExtResource("HeadingFont")
+theme_override_font_sizes/font_size = 24
+text = "EQUIPMENT"
+
+[node name="AccessTerminal" parent="." instance=ExtResource("Prop0")]
+position = Vector2(200, 300)
+interaction_enabled = false
+
+[node name="Label0" type="Label" parent="."]
+offset_left = 105.0
+offset_top = 335.0
+offset_right = 295.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "AccessTerminal"
+horizontal_alignment = 1
+
+[node name="BackupStorage" parent="." instance=ExtResource("Prop1")]
+position = Vector2(400, 300)
+interaction_enabled = false
+
+[node name="Label1" type="Label" parent="."]
+offset_left = 305.0
+offset_top = 335.0
+offset_right = 495.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "BackupStorage"
+horizontal_alignment = 1
+
+[node name="MonitoringDesk" parent="." instance=ExtResource("Prop2")]
+position = Vector2(600, 300)
+interaction_enabled = false
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 505.0
+offset_top = 335.0
+offset_right = 695.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "MonitoringDesk"
+horizontal_alignment = 1
+
+[node name="NetworkSwitch" parent="." instance=ExtResource("Prop3")]
+position = Vector2(800, 300)
+interaction_enabled = false
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 705.0
+offset_top = 335.0
+offset_right = 895.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "NetworkSwitch"
+horizontal_alignment = 1
+
+[node name="ServerRack" parent="." instance=ExtResource("Prop4")]
+position = Vector2(1000, 300)
+interaction_enabled = false
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 905.0
+offset_top = 335.0
+offset_right = 1095.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "ServerRack"
+horizontal_alignment = 1
+
+[node name="FurnitureHeading" type="Label" parent="."]
+offset_left = 100.0
+offset_top = 410.0
+theme_override_fonts/font = ExtResource("HeadingFont")
+theme_override_font_sizes/font_size = 24
+text = "FURNITURE"
+
+[node name="ArmchairBack" parent="." instance=ExtResource("Prop5")]
+position = Vector2(200, 630)
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 105.0
+offset_top = 665.0
+offset_right = 295.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "ArmchairBack"
+horizontal_alignment = 1
+
+[node name="Bookshelf" parent="." instance=ExtResource("Prop6")]
+position = Vector2(400, 630)
+
+[node name="Label6" type="Label" parent="."]
+offset_left = 305.0
+offset_top = 665.0
+offset_right = 495.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "Bookshelf"
+horizontal_alignment = 1
+
+[node name="BookshelfSide" parent="." instance=ExtResource("Prop7")]
+position = Vector2(600, 630)
+
+[node name="Label7" type="Label" parent="."]
+offset_left = 505.0
+offset_top = 665.0
+offset_right = 695.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "BookshelfSide"
+horizontal_alignment = 1
+
+[node name="BreakCorner" parent="." instance=ExtResource("Prop8")]
+position = Vector2(800, 630)
+
+[node name="Label8" type="Label" parent="."]
+offset_left = 705.0
+offset_top = 665.0
+offset_right = 895.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "BreakCorner"
+horizontal_alignment = 1
+
+[node name="CoffeeTable" parent="." instance=ExtResource("Prop9")]
+position = Vector2(1000, 630)
+
+[node name="Label9" type="Label" parent="."]
+offset_left = 905.0
+offset_top = 665.0
+offset_right = 1095.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "CoffeeTable"
+horizontal_alignment = 1
+
+[node name="DrinksFridge" parent="." instance=ExtResource("Prop10")]
+position = Vector2(1200, 630)
+
+[node name="Label10" type="Label" parent="."]
+offset_left = 1105.0
+offset_top = 665.0
+offset_right = 1295.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "DrinksFridge"
+horizontal_alignment = 1
+
+[node name="LoungeSofa" parent="." instance=ExtResource("Prop11")]
+position = Vector2(1400, 630)
+
+[node name="Label11" type="Label" parent="."]
+offset_left = 1305.0
+offset_top = 665.0
+offset_right = 1495.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "LoungeSofa"
+horizontal_alignment = 1
+
+[node name="PrinterCabinet" parent="." instance=ExtResource("Prop12")]
+position = Vector2(1600, 630)
+
+[node name="Label12" type="Label" parent="."]
+offset_left = 1505.0
+offset_top = 665.0
+offset_right = 1695.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "PrinterCabinet"
+horizontal_alignment = 1
+
+[node name="RearFilingCabinet" parent="." instance=ExtResource("Prop13")]
+position = Vector2(200, 960)
+
+[node name="Label13" type="Label" parent="."]
+offset_left = 105.0
+offset_top = 995.0
+offset_right = 295.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "RearFilingCabinet"
+horizontal_alignment = 1
+
+[node name="RepairWorkbench" parent="." instance=ExtResource("Prop14")]
+position = Vector2(400, 960)
+
+[node name="Label14" type="Label" parent="."]
+offset_left = 305.0
+offset_top = 995.0
+offset_right = 495.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "RepairWorkbench"
+horizontal_alignment = 1
+
+[node name="SpareDesk" parent="." instance=ExtResource("Prop15")]
+position = Vector2(600, 960)
+
+[node name="Label15" type="Label" parent="."]
+offset_left = 505.0
+offset_top = 995.0
+offset_right = 695.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "SpareDesk"
+horizontal_alignment = 1
+
+[node name="DecorHeading" type="Label" parent="."]
+offset_left = 100.0
+offset_top = 1070.0
+theme_override_fonts/font = ExtResource("HeadingFont")
+theme_override_font_sizes/font_size = 24
+text = "DECOR"
+
+[node name="DigitalClock" parent="." instance=ExtResource("Prop16")]
+position = Vector2(200, 1290)
+
+[node name="Label16" type="Label" parent="."]
+offset_left = 105.0
+offset_top = 1325.0
+offset_right = 295.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "DigitalClock"
+horizontal_alignment = 1
+
+[node name="FloorLamp" parent="." instance=ExtResource("Prop17")]
+position = Vector2(400, 1290)
+
+[node name="Label17" type="Label" parent="."]
+offset_left = 305.0
+offset_top = 1325.0
+offset_right = 495.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "FloorLamp"
+horizontal_alignment = 1
+
+[node name="LeafyPlant" parent="." instance=ExtResource("Prop18")]
+position = Vector2(600, 1290)
+
+[node name="Label18" type="Label" parent="."]
+offset_left = 505.0
+offset_top = 1325.0
+offset_right = 695.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "LeafyPlant"
+horizontal_alignment = 1
+
+[node name="PalmPlant" parent="." instance=ExtResource("Prop19")]
+position = Vector2(800, 1290)
+
+[node name="Label19" type="Label" parent="."]
+offset_left = 705.0
+offset_top = 1325.0
+offset_right = 895.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "PalmPlant"
+horizontal_alignment = 1
+
+[node name="Plant" parent="." instance=ExtResource("Prop20")]
+position = Vector2(1000, 1290)
+
+[node name="Label20" type="Label" parent="."]
+offset_left = 905.0
+offset_top = 1325.0
+offset_right = 1095.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "Plant"
+horizontal_alignment = 1
+
+[node name="SmallPlant" parent="." instance=ExtResource("Prop21")]
+position = Vector2(1200, 1290)
+
+[node name="Label21" type="Label" parent="."]
+offset_left = 1105.0
+offset_top = 1325.0
+offset_right = 1295.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "SmallPlant"
+horizontal_alignment = 1
+
+[node name="SunClock" parent="." instance=ExtResource("Prop22")]
+position = Vector2(1400, 1290)
+
+[node name="Label22" type="Label" parent="."]
+offset_left = 1305.0
+offset_top = 1325.0
+offset_right = 1495.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "SunClock"
+horizontal_alignment = 1
+
+[node name="WallPrint" parent="." instance=ExtResource("Prop23")]
+position = Vector2(1600, 1290)
+
+[node name="Label23" type="Label" parent="."]
+offset_left = 1505.0
+offset_top = 1325.0
+offset_right = 1695.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "WallPrint"
+horizontal_alignment = 1
+
+[node name="Wastebasket" parent="." instance=ExtResource("Prop24")]
+position = Vector2(200, 1620)
+
+[node name="Label24" type="Label" parent="."]
+offset_left = 105.0
+offset_top = 1655.0
+offset_right = 295.0
+theme_override_fonts/font = ExtResource("BodyFont")
+theme_override_font_sizes/font_size = 18
+text = "Wastebasket"
+horizontal_alignment = 1

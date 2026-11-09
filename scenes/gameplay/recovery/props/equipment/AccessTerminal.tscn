@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/RecoveryEquipment.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://assets/recovery/office/access-terminal.png" id="2_art"]
+
+[sub_resource type="RectangleShape2D" id="Footprint"]
+resource_local_to_scene = true
+size = Vector2(96, 48)
+
+[sub_resource type="RectangleShape2D" id="Reach"]
+resource_local_to_scene = true
+size = Vector2(136, 120)
+
+[node name="AccessTerminal" instance=ExtResource("1_base")]
+interaction_enabled = true
+assigned_task = "password"
+eligible_group = "access"
+display_name = "Access terminal"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_art")
+offset = Vector2(-404.5, -870)
+scale = Vector2(0.129789864, 0.129789864)
+
+[node name="CollisionShape2D" parent="SolidBody" index="0"]
+position = Vector2(0, -24)
+shape = SubResource("Footprint")
+
+[node name="Interaction" parent="." index="2"]
+position = Vector2(0, 62)
+
+[node name="CollisionShape2D" parent="Interaction" index="0"]
+shape = SubResource("Reach")
+
+[node name="StatusMarker" parent="Interaction" index="1"]
+position = Vector2(0, -220.284)

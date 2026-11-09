@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/recovery_player.gd" id="1"]
+[ext_resource type="SpriteFrames" path="res://assets/recovery/resources/TechnicianFrames.tres" id="2"]
+[sub_resource type="RectangleShape2D" id="BodyShape"]
+resource_local_to_scene = true
+size = Vector2(8, 6)
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 2
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("1")
+sprite = NodePath("AnimatedSprite2D")
+[node name="Shadow" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-5, -1, 5, -1, 5, 1, -5, 1)
+color = Color(0.10196079, 0.10980392, 0.17254902, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -15)
+sprite_frames = ExtResource("2")
+animation = &"down"
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("BodyShape")

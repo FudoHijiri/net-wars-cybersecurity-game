@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/RecoveryProp.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://assets/recovery/office/dual-monitor-desk.png" id="2_art"]
+
+[sub_resource type="RectangleShape2D" id="Footprint"]
+resource_local_to_scene = true
+size = Vector2(126, 66)
+
+[node name="SpareDesk" instance=ExtResource("1_base")]
+editor_description = "Desk with its chair on the near side, so the worker faces into the room. Use it against either the north wall (as the monitoring desks are) or the south wall."
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_art")
+offset = Vector2(-379.5, -782)
+scale = Vector2(0.1778656126, 0.1778656126)
+
+[node name="CollisionShape2D" parent="SolidBody" index="0"]
+position = Vector2(0, -33)
+shape = SubResource("Footprint")

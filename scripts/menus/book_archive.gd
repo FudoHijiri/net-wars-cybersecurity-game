@@ -10,6 +10,7 @@ const PATTERNS_PATH := "res://AI generated/data/response_day1.json"
 const UPGRADES_PATH := "res://data/upgrades.json"
 const FONT := preload("res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf")
 const BOLD := preload("res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf")
+const TITLE_SLACK := 4.0 # the title is centered and may pass its box by a few pixels, so a name that is 2px too wide does not drop a whole size
 const FLIP_SPEED := 2.0 # the page animation is 0.8 s at normal speed: too slow for every click
 
 var _data: Dictionary = {}
@@ -205,13 +206,16 @@ func _render() -> void:
 
 
 ## The title is as big as the box allows: a long name like Distributed Denial-of-Service gets a smaller font.
+## It only steps down by whole multiples of the font's pixel size (6 for Minecraft Standard), because any
+## other size blurs the text.
 func _fit_title() -> void:
 	_threat_name.remove_theme_font_size_override("font_size")
 	var font := _threat_name.get_theme_font("font")
 	var size := _threat_name.get_theme_font_size("font_size")
-	var width := (_threat_name.anchor_right - _threat_name.anchor_left) * content.size.x # the label grows with its text, so its anchors give the box
-	while size > 8 and font.get_string_size(_threat_name.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x > width:
-		size -= 1
+	var step := 6
+	var width := (_threat_name.anchor_right - _threat_name.anchor_left) * content.size.x + TITLE_SLACK # the label grows with its text, so its anchors give the box
+	while size > step and font.get_string_size(_threat_name.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x > width:
+		size -= step
 	_threat_name.add_theme_font_size_override("font_size", size)
 
 

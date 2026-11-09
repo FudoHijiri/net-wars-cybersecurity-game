@@ -1,0 +1,122 @@
+[
+  {
+    "type": "MonitoringDesk",
+    "node": "Monitoring01",
+    "equipment_id": "monitoring_01",
+    "position": [
+      365,
+      362
+    ],
+    "visible_width": 135
+  },
+  {
+    "type": "MonitoringDesk",
+    "node": "Monitoring02",
+    "equipment_id": "monitoring_02",
+    "position": [
+      545,
+      362
+    ],
+    "visible_width": 135
+  },
+  {
+    "type": "AccessTerminal",
+    "node": "Access01",
+    "equipment_id": "access_01",
+    "position": [
+      740,
+      362
+    ],
+    "visible_width": 105
+  },
+  {
+    "type": "AccessTerminal",
+    "node": "Access02",
+    "equipment_id": "access_02",
+    "position": [
+      905,
+      362
+    ],
+    "visible_width": 105
+  },
+  {
+    "type": "PrinterCabinet",
+    "node": "PrinterCabinet",
+    "equipment_id": "",
+    "position": [
+      1255,
+      362
+    ],
+    "visible_width": 85
+  },
+  {
+    "type": "BreakCorner",
+    "node": "BreakCorner",
+    "equipment_id": "",
+    "position": [
+      244,
+      565
+    ],
+    "visible_width": 174
+  },
+  {
+    "type": "ServerRack",
+    "node": "Server01",
+    "equipment_id": "server_01",
+    "position": [
+      830,
+      805
+    ],
+    "visible_width": 65
+  },
+  {
+    "type": "ServerRack",
+    "node": "Server02",
+    "equipment_id": "server_02",
+    "position": [
+      930,
+      805
+    ],
+    "visible_width": 65
+  },
+  {
+    "type": "ServerRack",
+    "node": "Server03",
+    "equipment_id": "server_03",
+    "position": [
+      1030,
+      805
+    ],
+    "visible_width": 65
+  },
+  {
+    "type": "NetworkSwitch",
+    "node": "NetworkSwitch",
+    "equipment_id": "network_switch",
+    "position": [
+      875,
+      925
+    ],
+    "visible_width": 104
+  },
+  {
+    "type": "BackupStorage",
+    "node": "BackupStorage",
+    "equipment_id": "backup_nas",
+    "position": [
+      1315,
+      805
+    ],
+    "visible_width": 100
+  },
+  {
+    "type": "RepairWorkbench",
+    "node": "RepairWorkbench",
+    "equipment_id": "repair_workbench",
+    "position": [
+      1315,
+      925
+    ],
+    "visible_width": 145
+  }
+]

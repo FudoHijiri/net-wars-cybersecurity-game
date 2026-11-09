@@ -1,0 +1,210 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" uid="uid://csyoje44vr7rk" path="res://scripts/gameplay/recovery/recovery_task.gd" id="1_task"]
+[ext_resource type="Theme" path="res://assets/recovery/ui/recovery_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://assets/ui/Windows Icon.png" id="3_access"]
+[ext_resource type="Texture2D" path="res://assets/ui/Monitoring Icon.png" id="4_monitoring"]
+[ext_resource type="Texture2D" path="res://assets/ui/Windows Server Icon.png" id="5_servers"]
+[ext_resource type="Texture2D" path="res://assets/ui/Archive File Icon.png" id="6_backup"]
+[ext_resource type="Texture2D" path="res://assets/ui/Settings Icon.png" id="7_default"]
+
+[node name="RecoveryTask" type="Control"]
+editor_description = "Shared repair screen, drawn as the monitor of the machine the player opened. Bezel = the plastic, Frame = the screen, TitleBar = machine name + system (content.machine, content.system), Stamp = the REPAIRED pop-up. Task scenes add their controls under Frame/Layout/Body."
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_task")
+group_icons = {
+"access": ExtResource("3_access"),
+"backup": ExtResource("6_backup"),
+"default": ExtResource("7_default"),
+"monitoring": ExtResource("4_monitoring"),
+"network": ExtResource("5_servers"),
+"servers": ExtResource("5_servers")
+}
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.10980392, 0.17254902, 0.9)
+
+[node name="Bezel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 10.0
+offset_right = -16.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryBezel"
+
+[node name="Frame" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 16.0
+offset_right = -22.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"RecoveryFrame"
+
+[node name="Layout" type="VBoxContainer" parent="Frame"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Heading" type="HBoxContainer" parent="Frame/Layout"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Frame/Layout/Heading"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"RecoveryHeading"
+text = "Task title"
+
+[node name="Instruction" type="Label" parent="Frame/Layout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "Task instruction from the JSON work order."
+autowrap_mode = 3
+
+[node name="Body" type="VBoxContainer" parent="Frame/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Feedback" type="Label" parent="Frame/Layout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"FeedbackHint"
+text = "Take your time. Read the labels before choosing."
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Footer" type="HBoxContainer" parent="Frame/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="Frame/Layout/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 22)
+layout_mode = 2
+text = "Back"
+
+[node name="Spacer" type="Control" parent="Frame/Layout/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="RetryButton" type="Button" parent="Frame/Layout/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+text = "Start over"
+
+[node name="TitleBar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 23.0
+offset_top = 17.0
+offset_right = -23.0
+offset_bottom = 39.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryTitleBar"
+
+[node name="Row" type="HBoxContainer" parent="TitleBar"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MachineIcon" type="TextureRect" parent="TitleBar/Row"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("7_default")
+stretch_mode = 3
+
+[node name="Machine" type="Label" parent="TitleBar/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryHeading"
+text = "WORKSTATION"
+vertical_alignment = 1
+
+[node name="System" type="Label" parent="TitleBar/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryAccent"
+text = "/ SYSTEM"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="TitleBar/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Status" type="Label" parent="TitleBar/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "Practice"
+vertical_alignment = 1
+
+[node name="Stamp" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StampPanel" type="PanelContainer" parent="Stamp"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryStamp"
+
+[node name="StampLabel" type="Label" parent="Stamp/StampPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryHeading"
+theme_override_colors/font_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+theme_override_font_sizes/font_size = 16
+text = "REPAIRED"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Frame/Layout/Footer/BackButton" to="." method="close_task"]
+[connection signal="pressed" from="Frame/Layout/Footer/RetryButton" to="." method="reset_task"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/recovery_status_marker.gd" id="1"]
+[ext_resource type="FontFile" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="2"]
+
+[node name="StatusMarker" type="Marker2D" node_paths=PackedStringArray("bubble", "outline", "face", "glyph", "check_mark")]
+script = ExtResource("1")
+bubble = NodePath("Bubble")
+outline = NodePath("Bubble/Outline")
+face = NodePath("Bubble/Face")
+glyph = NodePath("Bubble/Glyph")
+check_mark = NodePath("Bubble/Check")
+
+[node name="Bubble" type="Node2D" parent="."]
+
+[node name="Outline" type="Polygon2D" parent="Bubble"]
+color = Color(0.10196079, 0.10980392, 0.17254902, 1)
+polygon = PackedVector2Array(-9, -11, 9, -11, 9, 7, 4, 7, 0, 11, -4, 7, -9, 7)
+
+[node name="Face" type="Polygon2D" parent="Bubble"]
+color = Color(1, 0.8039216, 0.45882353, 1)
+polygon = PackedVector2Array(-8, -10, 8, -10, 8, 6, 3, 6, 0, 9, -3, 6, -8, 6)
+
+[node name="Glyph" type="Label" parent="Bubble"]
+offset_left = -8.0
+offset_top = -13.0
+offset_right = 8.0
+offset_bottom = 7.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.10196079, 0.10980392, 0.17254902, 1)
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 8
+text = "!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Check" type="Line2D" parent="Bubble"]
+visible = false
+points = PackedVector2Array(-4, -1, -1, 2, 5, -4)
+width = 2.0
+default_color = Color(0.10196079, 0.10980392, 0.17254902, 1)

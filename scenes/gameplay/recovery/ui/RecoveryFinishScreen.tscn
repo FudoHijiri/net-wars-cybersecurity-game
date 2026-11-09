@@ -1,0 +1,286 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="Script" uid="uid://jii58qpfiadb" path="res://scripts/gameplay/finish_screen.gd" id="1_finish"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="2_body"]
+[ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="3_menu"]
+
+[sub_resource type="LabelSettings" id="title"]
+font = ExtResource("3_menu")
+
+[sub_resource type="LabelSettings" id="row"]
+font = ExtResource("2_body")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="points"]
+font = ExtResource("2_body")
+font_size = 6
+font_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+
+[sub_resource type="LabelSettings" id="comment_title"]
+font = ExtResource("3_menu")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="comment"]
+font = ExtResource("2_body")
+font_size = 6
+
+[sub_resource type="LabelSettings" id="gained"]
+font = ExtResource("2_body")
+font_size = 6
+font_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="Theme" id="button_theme"]
+default_font = ExtResource("2_body")
+default_font_size = 6
+
+[sub_resource type="StyleBoxFlat" id="button_normal"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="button_pressed"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="button_hover"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="button_focus"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[node name="RecoveryFinishScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_finish")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2375
+anchor_top = 0.11111111
+anchor_right = 0.7625
+anchor_bottom = 0.175
+text = "Recovery Records"
+label_settings = SubResource("title")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2625
+anchor_top = 0.24166666
+anchor_right = 0.4875
+anchor_bottom = 0.53333336
+
+[node name="LeftRow1" type="HBoxContainer" parent="LeftContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="LeftContainer/LeftRow1"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Repairs Done"
+label_settings = SubResource("row")
+
+[node name="Number" type="Label" parent="LeftContainer/LeftRow1"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "4"
+label_settings = SubResource("row")
+
+[node name="LeftRow2" type="HBoxContainer" parent="LeftContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="LeftContainer/LeftRow2"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Mistakes"
+label_settings = SubResource("row")
+
+[node name="Number" type="Label" parent="LeftContainer/LeftRow2"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "1"
+label_settings = SubResource("row")
+
+[node name="RightContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5125
+anchor_top = 0.23888889
+anchor_right = 0.7375
+anchor_bottom = 0.5305556
+
+[node name="RightRow1" type="HBoxContainer" parent="RightContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="RightContainer/RightRow1"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Fixes"
+label_settings = SubResource("row")
+
+[node name="Number" type="Label" parent="RightContainer/RightRow1"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "3"
+label_settings = SubResource("row")
+
+[node name="PointsEarned" type="Label" parent="RightContainer/RightRow1"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "+45SP"
+label_settings = SubResource("points")
+
+[node name="RightRow2" type="HBoxContainer" parent="RightContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="RightContainer/RightRow2"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Clean Fixes"
+label_settings = SubResource("row")
+
+[node name="Number" type="Label" parent="RightContainer/RightRow2"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "2"
+label_settings = SubResource("row")
+
+[node name="PointsEarned" type="Label" parent="RightContainer/RightRow2"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "+20SP"
+label_settings = SubResource("points")
+
+[node name="RightRow3" type="HBoxContainer" parent="RightContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="RightContainer/RightRow3"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Final Check"
+label_settings = SubResource("row")
+
+[node name="Number" type="Label" parent="RightContainer/RightRow3"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "1"
+label_settings = SubResource("row")
+
+[node name="PointsEarned" type="Label" parent="RightContainer/RightRow3"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "+20SP"
+label_settings = SubResource("points")
+
+[node name="CommentTitle" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3875
+anchor_top = 0.53333336
+anchor_right = 0.475
+anchor_bottom = 0.6
+text = "Comment"
+label_settings = SubResource("comment_title")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CommentContent" type="Label" parent="CommentTitle"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.39
+anchor_top = 0.6956518
+anchor_right = 3.96
+anchor_bottom = 1.7391307
+text = "Joshua: All fixed."
+label_settings = SubResource("comment")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BonusPointsEarned" type="Label" parent="CommentTitle"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.2857143
+anchor_top = 1.7499994
+anchor_right = 2.4285715
+anchor_bottom = 2.7083328
+text = "( +0 SP)"
+label_settings = SubResource("points")
+
+[node name="SecurityPoints" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.73333335
+anchor_right = 0.6
+anchor_bottom = 0.84444445
+
+[node name="SecurityPointsGained" type="HBoxContainer" parent="SecurityPoints"]
+layout_mode = 2
+
+[node name="SPName" type="Label" parent="SecurityPoints/SecurityPointsGained"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Security Points: "
+label_settings = SubResource("row")
+
+[node name="SPGained" type="Label" parent="SecurityPoints/SecurityPointsGained"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "+85SP"
+label_settings = SubResource("gained")
+
+[node name="SecurityPointsWalletRow" type="HBoxContainer" parent="SecurityPoints"]
+layout_mode = 2
+
+[node name="CurrentSecurityPoints" type="Label" parent="SecurityPoints/SecurityPointsWalletRow"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "100SP"
+label_settings = SubResource("row")
+
+[node name="LogsButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45
+anchor_top = 0.8888889
+anchor_right = 0.55
+anchor_bottom = 0.93333334
+theme = SubResource("button_theme")
+theme_override_styles/normal = SubResource("button_normal")
+theme_override_styles/pressed = SubResource("button_pressed")
+theme_override_styles/hover = SubResource("button_hover")
+theme_override_styles/focus = SubResource("button_focus")
+text = "CONTINUE"

@@ -34,7 +34,7 @@
 		{"text": "This shows the next attack before it comes, so you can plan.", "target": "Intent"},
 		{"text": "End your turn to let the threat attack.", "target": "EndTurn"},
 		{"text": "Then you steer the heart with the arrow keys or WASD, and dodge the bullets in the box.", "target": ""},
-		{"text": "The upgrades you equipped show here. Without the right one, an attack hits much harder.", "target": "UpgradeIcons"}
+		{"text": "The upgrades you equipped show here. Without the right one, that attack comes in a harder version.", "target": "UpgradeIcons"}
 	],
 	"investigation_report": [
 		{"text": "THE REPORT. Now you tell what happened. The story has blanks, and you fill them with what you found.", "target": ""},

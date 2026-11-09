@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cpvi0rvs808ph"]
+
+[ext_resource type="Texture2D" uid="uid://d0uunm5n2rl5g" path="res://assets/recovery/office/server-rack-frames.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="Frame0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 232, 386)
+
+[sub_resource type="AtlasTexture" id="Frame1"]
+atlas = ExtResource("1")
+region = Rect2(232, 0, 232, 386)
+
+[sub_resource type="AtlasTexture" id="Frame2"]
+atlas = ExtResource("1")
+region = Rect2(464, 0, 232, 386)
+
+[sub_resource type="AtlasTexture" id="Frame3"]
+atlas = ExtResource("1")
+region = Rect2(696, 0, 232, 386)
+
+[sub_resource type="AtlasTexture" id="Frame4"]
+atlas = ExtResource("1")
+region = Rect2(928, 0, 232, 386)
+
+[sub_resource type="AtlasTexture" id="Frame5"]
+atlas = ExtResource("1")
+region = Rect2(1160, 0, 232, 386)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 60.0,
+"texture": SubResource("Frame0")
+}, {
+"duration": 19.0,
+"texture": SubResource("Frame1")
+}, {
+"duration": 33.0,
+"texture": SubResource("Frame2")
+}, {
+"duration": 19.0,
+"texture": SubResource("Frame3")
+}, {
+"duration": 26.0,
+"texture": SubResource("Frame4")
+}, {
+"duration": 14.0,
+"texture": SubResource("Frame5")
+}],
+"loop": 1,
+"name": &"activity",
+"speed": 100.0
+}]

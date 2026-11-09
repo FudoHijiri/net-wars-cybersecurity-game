@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/RecoveryProp.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://assets/recovery/office/props/small_plant.png" id="2_art"]
+
+[sub_resource type="RectangleShape2D" id="Footprint"]
+resource_local_to_scene = true
+size = Vector2(20, 12)
+
+[node name="SmallPlant" instance=ExtResource("1_base")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_art")
+offset = Vector2(-8.5, -21)
+scale = Vector2(1.5, 1.5)
+
+[node name="CollisionShape2D" parent="SolidBody" index="0"]
+position = Vector2(0, -6)
+shape = SubResource("Footprint")

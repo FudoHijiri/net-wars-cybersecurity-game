@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/RecoveryTask.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://8q3ly5bt8b2s" path="res://scripts/gameplay/recovery/backup_repair.gd" id="2_task"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/parts/CartridgeCard.tscn" id="3_card"]
+
+[node name="BackupRepair" instance=ExtResource("1_base")]
+script = ExtResource("2_task")
+component_id = "backup_database"
+
+[node name="Choices" type="HBoxContainer" parent="Frame/Layout/Body" index="0"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CartridgeA" parent="Frame/Layout/Body/Choices" instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="CartridgeB" parent="Frame/Layout/Body/Choices" instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="CartridgeC" parent="Frame/Layout/Body/Choices" instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="Details" type="Label" parent="Frame/Layout/Body" index="1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 29)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "Select a cartridge to read its label and check history."
+autowrap_mode = 3
+
+[node name="TestButton" type="Button" parent="Frame/Layout/Footer" index="3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Test copy"
+
+[node name="RestoreButton" type="Button" parent="Frame/Layout/Footer" index="4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Restore"
+
+[connection signal="pressed" from="Frame/Layout/Footer/TestButton" to="." method="_test_backup"]
+[connection signal="pressed" from="Frame/Layout/Footer/RestoreButton" to="." method="_restore_database"]

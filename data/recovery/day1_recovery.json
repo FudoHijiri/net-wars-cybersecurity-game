@@ -1,0 +1,615 @@
+{
+  "room": {
+    "counter": "{done}/{total} checks",
+    "controls": "WASD / arrows: move     E: use     Esc: pause",
+    "return": "Finish shift",
+    "finish": "Finish shift",
+    "work_order": "Office exit / work order",
+    "waiting": "Waiting for Response",
+    "waiting_body": "Response has not confirmed that the incident is contained. You can look around, but equipment must stay disconnected.",
+    "all_done": "Checks complete. Return to the office entrance to finish.",
+    "summary_title": "Recovery complete",
+    "summary_body": "The required restoration and access checks passed.",
+    "summary_lesson": "Restoring access cannot take back information already stolen. Keep watching for new problems.",
+    "unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
+    "hardening_unavailable": "No hardening results have been supplied.",
+    "verify_locked": "Finish the required restoration work before the final access checks.",
+    "not_required": "This equipment does not need restoration in this work order.",
+    "close": "Back"
+  },
+  "points": {
+    "base": 15,
+    "clean_bonus": 10
+  },
+  "finish": {
+    "comments": {
+      "clean": "Joshua: Every fix was right the first time. Anna can get back to work.",
+      "done": "Joshua: Everything is fixed. Next time, read the reason before trying again."
+    }
+  },
+  "task_ui": {
+    "hint": "Take your time. Read the labels before choosing.",
+    "needs_repair": "[!] REQUIRED",
+    "working": "[=] NO REPAIR NEEDED",
+    "restored": "[OK] CHECKED",
+    "waiting": "[?] AWAITING CLEARANCE",
+    "locked": "[>] RESTORE FIRST",
+    "stamp": "REPAIRED",
+    "machine_default": "Workstation"
+  },
+  "case": {
+    "day": 1,
+    "day_title": "An Unusual Login",
+    "threat": "Credential Abuse",
+    "brief": "The attacker is gone, but Anna's account is still a mess. Give it back to the real Anna, undo what the thief changed, change the locks on her other accounts, then check she can work again.",
+    "sample_evidence": [
+      "Anna denied the overnight sign-in.",
+      "Her account was used from an unknown computer.",
+      "The private payroll file was copied.",
+      "Information was sent outside the company."
+    ],
+    "sample_monitoring": [
+      "Suspicious sign-in reported.",
+      "Unexpected device and outbound traffic reported."
+    ],
+    "lesson": "On your own account, use the provider's official recovery process and check your recovery details afterwards."
+  },
+  "practice": {
+    "title": "Backup recovery practice",
+    "brief": "A separate practice incident has left a database unavailable. Response has contained the incident. Choose a trustworthy backup and verify that the restored data works.",
+    "lesson": "For photos or school files, a complete checked backup can help you recover lost data. A date alone does not prove a copy is safe."
+  },
+  "demo": {
+    "title": "Recovery Lab",
+    "description": "Choose a practice scenario. Response results are simulated.",
+    "presets": [
+      {
+        "id": "all",
+        "label": "All tasks\nCombined practice",
+        "damage": [
+          "network",
+          "backup_database"
+        ],
+        "profile": "combined"
+      },
+      {
+        "id": "server",
+        "label": "One server\nOther two stay online",
+        "damage": [
+          "file_server"
+        ],
+        "profile": "server"
+      },
+      {
+        "id": "day1",
+        "label": "Day 1\nAnna's account",
+        "damage": [
+          "password",
+          "settings",
+          "reused"
+        ],
+        "profile": "day1"
+      },
+      {
+        "id": "current",
+        "label": "Current run\nSample Response",
+        "damage": [
+          "password",
+          "settings",
+          "reused"
+        ],
+        "profile": "current"
+      },
+      {
+        "id": "backup",
+        "label": "Backup practice\nRestore and verify",
+        "damage": [
+          "backup_database"
+        ],
+        "profile": "backup"
+      },
+      {
+        "id": "healthy",
+        "label": "No damage\nFinal access check",
+        "damage": [],
+        "profile": "day1"
+      },
+      {
+        "id": "waiting",
+        "label": "Waiting for Response\nExplore the room",
+        "damage": [
+          "network"
+        ],
+        "profile": "waiting"
+      }
+    ],
+    "return": "Stage select"
+  },
+  "sample_outcome": {
+    "contained": true,
+    "summary": "Practice result: Response contained the incident and prepared Anna's recovered account for checks.",
+    "cleared_devices": {
+      "anna_device": true,
+      "payroll_server": true,
+      "unknown_device": false
+    },
+    "verification": {
+      "sign_in": true,
+      "recovery_contact": true,
+      "test_file": true
+    }
+  },
+  "components": {
+    "password": {
+      "title": "Give Anna her account back",
+      "instruction": "Two people asked the sign-in system to unlock Anna's account. Check each request against her HR record, then give her a strong new password.",
+      "lesson": "Account recovery must prove who is asking. Then a long passphrase and a lock after a few wrong tries stop guessing.",
+      "full": "Strong pick: four random words are long and hard to guess. Now lock the account after a few wrong tries.",
+      "success": "Anna has her account back with a password that's hard to guess, and wrong guesses now lock it.",
+      "final_switch": "Lock the account after 5 wrong tries",
+      "final_switch_locked": "Pick a strong password first.",
+      "identity": {
+        "record": "HR record:  Anna Reyes  /  Staff 0419  /  Phone ...42  /  Works at the office",
+        "requests": [
+          {
+            "id": "request_a",
+            "title": "REQUEST A",
+            "name": "Anna Reyes",
+            "staff": "0419",
+            "phone": "...97",
+            "from": "Germany",
+            "genuine": false,
+            "right": "Rejected. The phone and place do not match her record: this was the thief trying to get back in.",
+            "wrong": "Look again: this phone ends in 97, not 42, and it came from Germany. That is not Anna."
+          },
+          {
+            "id": "request_b",
+            "title": "REQUEST B",
+            "name": "Anna Reyes",
+            "staff": "0419",
+            "phone": "...42",
+            "from": "Office, in person",
+            "genuine": true,
+            "right": "Approved. Everything matches her HR record.",
+            "wrong": "Everything here matches her HR record. This is the real Anna."
+          }
+        ]
+      },
+      "identity_prompt": "Compare each request with the HR record. Approve the real Anna, reject the other.",
+      "identity_done": "Identity checked. Now pick Anna's new password.",
+      "system": "SIGN-IN SYSTEM",
+      "choice_label": "Pick Anna's new password:",
+      "choice_prompt": "Pick the password that is hardest to guess.",
+      "choices": [
+        {
+          "id": "name_year",
+          "password": "Anna2024",
+          "detail": "Her name + this year",
+          "short": "Easy to guess",
+          "reason": "Too easy: her name and the year are among the first things an attacker tries."
+        },
+        {
+          "id": "symbols",
+          "password": "P@ssw0rd!",
+          "detail": "Letters swapped for symbols",
+          "short": "On every guess list",
+          "reason": "It looks tricky, but \"P@ssw0rd!\" is on every attacker's guess list."
+        },
+        {
+          "id": "passphrase",
+          "password": "river lantern orbit velvet",
+          "detail": "Four random words",
+          "short": "Long and random",
+          "strong": true
+        }
+      ]
+    },
+    "settings": {
+      "title": "Undo the thief's changes",
+      "instruction": "The activity log shows every change to Anna's account. Undo what the thief did overnight; keep what Anna did herself.",
+      "lesson": "After a break-in, check what the attacker changed and put it back. Then add a second sign-in step so a stolen password is not enough.",
+      "account_label": "TIME",
+      "items": [
+        {
+          "id": "signature",
+          "device": "Yesterday",
+          "place": "Anna (office)",
+          "time": "Updated her email signature",
+          "known": true,
+          "reason": "Anna did this herself from her office PC, before the attack. Leave it."
+        },
+        {
+          "id": "forwarding",
+          "device": "02:14",
+          "place": "Unknown 7F3A",
+          "time": "Sent all her email to a stranger",
+          "known": false
+        },
+        {
+          "id": "recovery_phone",
+          "device": "02:16",
+          "place": "Unknown 7F3A",
+          "time": "Changed recovery phone to ...97",
+          "known": false
+        },
+        {
+          "id": "trusted",
+          "device": "02:17",
+          "place": "Unknown 7F3A",
+          "time": "Trusted its own computer",
+          "known": false
+        }
+      ],
+      "sign_out": "Undo",
+      "signed_out": "[OK] UNDONE",
+      "pick": "Undo every change made by the unknown computer. Keep what Anna did.",
+      "removed": "Undone. That change is gone.",
+      "remaining": "{left} change(s) by the thief still need undoing.",
+      "final_prompt": "Everything the thief changed is undone. Now require 2-step sign-in so the stolen password alone can't get back in.",
+      "final_switch": "Require 2-step sign-in (code to Anna's phone)",
+      "final_switch_locked": "Undo every change the thief made first.",
+      "success": "The thief's changes are gone, and a stolen password alone can no longer sign in.",
+      "system": "ACTIVITY LOG",
+      "columns": {
+        "who": "WHO",
+        "what": "WHAT HAPPENED"
+      }
+    },
+    "reused": {
+      "title": "Change the locks",
+      "instruction": "The account manager lists Anna's other accounts. Try the stolen password on each one, then change it on every account it opens.",
+      "lesson": "Give every account its own password, so one stolen password opens only one door.",
+      "key_label": "Stolen key:",
+      "key": "KEY: Summer2024",
+      "doors": [
+        {
+          "id": "personal_email",
+          "name": "PERSONAL\nEMAIL",
+          "reused": true
+        },
+        {
+          "id": "payroll_portal",
+          "name": "PAYROLL\nPORTAL",
+          "reused": false,
+          "reason": "The stolen key did not open this door. It already has its own password, so leave it."
+        },
+        {
+          "id": "online_shop",
+          "name": "ONLINE\nSHOP",
+          "reused": true
+        },
+        {
+          "id": "bank_app",
+          "name": "BANK\nAPP",
+          "reused": false,
+          "reason": "The stolen key did not open this door. It already has its own password, so leave it."
+        }
+      ],
+      "door_states": {
+        "untested": "[?] NOT TESTED",
+        "opened": "[!] OPENED\nchange lock",
+        "held": "[=] STAYS LOCKED",
+        "rekeyed": "[OK] NEW LOCK"
+      },
+      "pick": "Drag the stolen key onto each door, or press the key and then a door.",
+      "key_picked": "Now press a door to try the key.",
+      "opened": "The stolen key opened {name}. Press the door to change its lock.",
+      "held": "The stolen key does not open {name}. It is safe.",
+      "rekeyed": "Lock changed. {left} door(s) the key opens still need a new lock.",
+      "test_first": "Try the stolen key on this door first.",
+      "success": "Every door the stolen key opened now has its own new lock.",
+      "system": "ACCOUNT MANAGER"
+    },
+    "file_server": {
+      "title": "Back to work",
+      "instruction": "Test Anna's account on the file server the way she uses it every morning. Each step proves one repair worked.",
+      "lesson": "Recovery is finished only when the person can work normally again and you have checked it.",
+      "checks": [
+        {
+          "id": "sign_in",
+          "label": "ANNA'S SIGN-IN",
+          "expected": "Trusted record: Anna should be able to sign in.",
+          "passed": "Anna signed in with her recovered account.",
+          "failed": "Anna still cannot sign in. Account recovery needs more help.",
+          "icon": "account"
+        },
+        {
+          "id": "recovery_contact",
+          "label": "RECOVERY CONTACT",
+          "expected": "Trusted record: the recovery contact belongs to Anna.",
+          "comparison": "Staff: phone ...42\nAccount: {observed}",
+          "trusted_contact": "phone ...42",
+          "untrusted_contact": "phone ...97",
+          "passed": "The account's recovery contact matches Anna's record.",
+          "failed": "The recovery contact does not match Anna's record. Report the mismatch.",
+          "icon": "contact"
+        },
+        {
+          "id": "test_file",
+          "label": "SHARED TEST FILE",
+          "expected": "Trusted record: an ordinary shared file should open.",
+          "passed": "The test file opened and its sample contents match.",
+          "failed": "The shared test file could not be verified. Do not mark recovery complete.",
+          "icon": "file"
+        }
+      ],
+      "run": "Run check",
+      "matches": "Match",
+      "differs": "Different",
+      "compare_again": "Compare the staff record and account contact again. If they differ, report it and keep recovery open.",
+      "confirm": "Confirm results",
+      "all_checks": "Run every check before confirming recovery.",
+      "failed": "A check failed. Keep recovery open and ask the response team to address the result.",
+      "passed": "[OK] {result}",
+      "failed_result": "[!] {result}",
+      "success": "Anna signed in, approved the code and opened her file. She is back to work.",
+      "points": {
+        "base": 20,
+        "clean_bonus": 0
+      },
+      "scene": "res://scenes/gameplay/recovery/tasks/BackToWork.tscn",
+      "steps": {
+        "sign_in": "Sign in",
+        "code": "Phone code",
+        "test_file": "Open her file"
+      },
+      "prompts": {
+        "sign_in": "Sign Anna in with the new password you gave her.",
+        "code": "2-step sign-in sent a code to Anna's phone. Type it in.",
+        "test_file": "Last, open the payroll report to check her files work."
+      },
+      "phone_label": "Anna's phone",
+      "code": "4172",
+      "code_label": "Code: {entry}",
+      "wrong_digit": "That digit does not match the phone. Start the code again.",
+      "files": [
+        {
+          "id": "photo",
+          "label": "Holiday photo",
+          "detail": "beach.png"
+        },
+        {
+          "id": "payroll",
+          "label": "Payroll report",
+          "detail": "payroll_march.xlsx"
+        },
+        {
+          "id": "invoice",
+          "label": "Old invoice",
+          "detail": "invoice_2023.pdf"
+        }
+      ],
+      "test_file": "payroll",
+      "file_hint": "Pick the file to open.",
+      "wrong_file": "That is not the payroll report.",
+      "file_opened": "Payroll report opened. All 42 rows are there.",
+      "fails": {
+        "sign_in": "The passphrase is right, but sign-in still fails. Recovery needs more help.",
+        "code": "The code went to ...97, not Anna's phone. Report it: recovery stays open.",
+        "test_file": "The file would not open. Do not mark recovery complete."
+      },
+      "system": "FILE SERVER",
+      "account": "Account: Anna Reyes (staff 0419)",
+      "password_label": "Password: {password}",
+      "default_password": "river lantern orbit velvet",
+      "sign_in": "Sign in"
+    },
+    "sessions": {
+      "title": "Lock out the thief",
+      "instruction": "The attacker signed in with Anna's stolen password. Sign out the devices that aren't hers, then turn on 2-step sign-in.",
+      "lesson": "A stolen password works on the first try. Sign the thief out, then add a second step so the password alone is not enough.",
+      "account": "Anna Reyes",
+      "account_label": "Signed in to: {account}",
+      "sessions": [
+        {
+          "id": "anna_computer",
+          "device": "Anna's computer",
+          "place": "Office",
+          "time": "08:30",
+          "known": true,
+          "reason": "That's Anna's own computer at the office. Keep it signed in."
+        },
+        {
+          "id": "unknown_germany",
+          "device": "Unknown computer 7F3A",
+          "place": "Germany",
+          "time": "02:43",
+          "known": false
+        },
+        {
+          "id": "anna_phone",
+          "device": "Anna's phone",
+          "place": "Office",
+          "time": "08:31",
+          "known": true,
+          "reason": "That's Anna's own phone. She needs it for her sign-in codes."
+        },
+        {
+          "id": "unknown_netherlands",
+          "device": "Unknown computer 7F3A",
+          "place": "Netherlands",
+          "time": "03:10",
+          "known": false
+        }
+      ],
+      "sign_out": "Sign out",
+      "signed_out": "[OK] SIGNED OUT",
+      "pick": "Check each device. Which ones are really Anna's?",
+      "removed": "Signed out.",
+      "remaining": "{left} unknown device(s) still signed in.",
+      "success": "The thief is signed out, and a stolen password alone can no longer get in.",
+      "final_prompt": "The thief is signed out. Now turn on 2-step sign-in so the stolen password alone cannot get back in.",
+      "final_switch": "Turn on 2-step sign-in (code from Anna's phone)",
+      "final_switch_locked": "Sign out every device that is not Anna's first.",
+      "system": "ACCOUNT MONITOR"
+    },
+    "network": {
+      "title": "Reconnect safely",
+      "instruction": "Drag each cleared cable to the socket with the same number and shape. You can also select a cable, then a socket.",
+      "lesson": "A cable connection is not a safety check. Keep unchecked devices disconnected until a trusted person clears them.",
+      "devices": [
+        {
+          "id": "anna_device",
+          "label": "ANNA'S LAPTOP",
+          "port": "1 / SQUARE",
+          "shape": "square",
+          "note": "The laptop was disconnected during the response."
+        },
+        {
+          "id": "payroll_server",
+          "label": "FILE SERVER",
+          "port": "2 / TRIANGLE",
+          "shape": "triangle",
+          "note": "The shared server is ready for a connection test."
+        },
+        {
+          "id": "unknown_device",
+          "label": "UNKNOWN DEVICE",
+          "port": "3 / CIRCLE",
+          "shape": "circle",
+          "note": "Nobody has confirmed that this device is safe."
+        }
+      ],
+      "device_heading": "DEVICE LEADS",
+      "port_heading": "PATCH-PANEL SOCKETS",
+      "test": "TEST CONNECTION",
+      "cleared": "CLEARED BY RESPONSE",
+      "unchecked": "NOT CLEARED / KEEP OFFLINE",
+      "pick": "Select a device, then the matching socket.",
+      "selected": "{device}: {clearance}. {note}",
+      "unsafe": "This device has not been cleared, so its plug is taped down. Leave it disconnected; reconnecting it could bring the problem back.",
+      "wrong": "That socket has a different number or shape. Try the matching socket.",
+      "connected": "Connected {done} of {total} cleared devices. Unchecked equipment stays offline.",
+      "incomplete": "Connect every cleared device. Keep unchecked devices disconnected.",
+      "none_cleared": "No device has clearance yet. Ask the response team before reconnecting anything.",
+      "success": "Connection test passed. Only cleared devices are back online.",
+      "system": "NETWORK SWITCH"
+    },
+    "backup_database": {
+      "title": "Restore a trustworthy backup",
+      "instruction": "Inspect the cartridge labels. Choose a complete, checked copy from before the incident. Test it before restoring.",
+      "lesson": "A newer copy can contain the same problem. Check both the backup and the restored result.",
+      "backups": [
+        {
+          "id": "recent",
+          "label": "A / RECENT COPY",
+          "detail": "Made after the incident.\nAll records copied. No passed safety check.",
+          "complete": true,
+          "checked": false,
+          "before_incident": false
+        },
+        {
+          "id": "clean",
+          "label": "B / CHECKED COPY",
+          "detail": "Made before the incident.\nAll records copied. Safety check passed.",
+          "complete": true,
+          "checked": true,
+          "before_incident": true
+        },
+        {
+          "id": "partial",
+          "label": "C / OLDER COPY",
+          "detail": "Made before the incident.\nSome records are missing. Safety check incomplete.",
+          "complete": false,
+          "checked": false,
+          "before_incident": true
+        }
+      ],
+      "choose": "Select a cartridge to read its label and check history.",
+      "test": "TEST COPY",
+      "restore": "RESTORE DATA",
+      "select_first": "Choose a backup cartridge first.",
+      "too_recent": "This unchecked copy was made after the incident. It may contain the same problem.",
+      "incomplete": "This older copy is missing records. Being older does not make it suitable.",
+      "unchecked": "There is no passed safety check for this copy. Do not use it just because its date is earlier.",
+      "tested": "The copy is complete, checked, and from before the incident. The restore test passed.",
+      "test_first": "Test the selected copy before restoring it.",
+      "success": "Data restored from the checked copy. Visit the server terminal to verify the result.",
+      "system": "BACKUP STORAGE"
+    }
+  },
+  "art_credits": [
+    "Recovery office v2 / supplied by the project owner\nOriginal pack, placement guide and source images retained under art_source/recovery/office_v2.\nPrepared by deterministic transparent cropping and GIF frame extraction. Original colours retained. No new image generation.\nCreator/licence information was not included in the supplied pack.",
+    "MetroCity / JIK-A-4\nhttps://jik-a-4.itch.io/metrocity-free-topdown-character-pack\nCC0: https://creativecommons.org/publicdomain/zero/1.0/\nBody, Outfit6 and short hair layers combined and recoloured to look like Joshua.",
+    "Pixel Office / 2dPig\nhttps://2dpig.itch.io/pixel-office\nCC0: https://creativecommons.org/publicdomain/zero/1.0/\nPlants, bookcase, wastebasket and clock cropped from the original asset sheet. Original pixels and colours retained.",
+    "Office Pixel Art by Imersa Studios\nhttps://imersastudios.itch.io/office-pixel-art\nFree edition used inside this project under its included licence. Authored rear desk, computer and cabinet views and front chair view, used unchanged at their native pixels. No generation or sprite flipping.",
+    "Midcentury Modern Furniture Set / 0_mem0ry\nhttps://0-mem0ry.itch.io/midcentury-modern-furniture-set-free\nFree creator-licensed assets for game projects. Rear sofa, rear armchairs, bookshelves, coffee table, plants, floor lamp, framed prints and wall clock cropped from the original sheet; original colours and pixels retained. No generation or sprite flipping."
+  ],
+  "equipment_selection": {
+    "password": [
+      "access"
+    ],
+    "settings": [
+      "monitoring"
+    ],
+    "sessions": [
+      "monitoring"
+    ],
+    "reused": [
+      "access"
+    ],
+    "network": [
+      "network"
+    ],
+    "backup_database": [
+      "backup"
+    ],
+    "file_server": [
+      "servers"
+    ]
+  },
+  "practice_equipment_selection": {
+    "password": [
+      "access"
+    ],
+    "settings": [
+      "monitoring"
+    ],
+    "sessions": [
+      "monitoring"
+    ],
+    "reused": [
+      "access"
+    ],
+    "network": [
+      "network"
+    ],
+    "backup_database": [
+      "backup"
+    ],
+    "file_server": [
+      "servers"
+    ]
+  },
+  "attacks": [
+    {
+      "id": "stream",
+      "label": "Rapid guesses",
+      "component": "password"
+    },
+    {
+      "id": "stolen",
+      "label": "Stolen password",
+      "component": "settings"
+    },
+    {
+      "id": "sweep",
+      "label": "One password, many accounts",
+      "component": "reused"
+    }
+  ],
+  "response_outcome": {
+    "contained": true,
+    "summary": "Response contained the attacker. Anna's account and the equipment it touched are ready for checks.",
+    "cleared_devices": {
+      "anna_device": true,
+      "payroll_server": true,
+      "unknown_device": false
+    },
+    "verification": {
+      "sign_in": true,
+      "recovery_contact": true,
+      "test_file": true
+    }
+  }
+}

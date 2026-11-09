@@ -8,6 +8,7 @@ extends Node
 ## asks day_info() follows it.
 
 signal clues_changed
+signal recovery_changed
 
 const DAYS_PATH := "res://data/days.json"
 ## The phases of a day, in play order. These are the keys of "phases" in days.json.
@@ -38,6 +39,22 @@ var reported_anomalies: Array = []
 ## Story log id -> true for the Monitoring story logs the player has solved. They never come back.
 ## Not saved to the save slot yet.
 var completed_story_logs: Dictionary = {}
+
+## Response supplies component IDs through begin_recovery(). An empty list means no damage.
+var response_damage: Array[String] = []
+var recovery_completed_components: Array[String] = []
+## An empty outcome means Response has not supplied clearance. Zero damage is separate.
+var response_outcome: Dictionary = {}
+var recovery_verification_passed: bool = false
+## Component -> equipment instance ID. Chosen once by Recovery, retained on re-entry.
+var recovery_equipment_assignments: Dictionary = {}
+## Component -> wrong moves made while repairing it. Feeds the Recovery points (clean bonus).
+var recovery_mistakes: Dictionary = {}
+## Component -> what that finished repair left for later tasks (RecoveryTask.report).
+var recovery_reports: Dictionary = {}
+
+## Submitted findings for Recovery; generated Monitoring logs cannot be rebuilt from IDs.
+var phase_findings: Dictionary = {}
 
 var _days: Dictionary = {} # day number as text -> that day's entry in days.json
 
@@ -81,6 +98,7 @@ func is_phase_built(phase: String, day: int = current_day) -> bool:
 func set_day(day: int) -> void:
 	current_day = day
 	_load_phase_data()
+	_restore_day_progress()
 
 
 ## Chooses the phase to play and loads its data.
@@ -177,6 +195,100 @@ func add_points(amount: int) -> void:
 		security_points += amount
 
 
+## Called by the existing results screen before its normal phase-completion save.
+func capture_phase_findings(phase: String, monitoring_answers: Array = []) -> void:
+	if phase == "investigation":
+		investigation_evidence = marked_clues.keys().filter(func(id: String) -> bool: return is_marked(id))
+		identified_threat = str(scenario.get("threat_name", ""))
+		var findings: Array[String] = []
+		for app: Dictionary in scenario.get("investigation", {}).values():
+			for entry: Dictionary in app.get("entries", []):
+				if investigation_evidence.has(str(entry.get("id", ""))):
+					findings.append(str(entry.get("summary", entry.get("title", ""))))
+		phase_findings[phase] = {"evidence": investigation_evidence.duplicate(), "threat": identified_threat, "findings": findings}
+	elif phase == "monitoring":
+		var reports: Array[Dictionary] = []
+		for answer: Dictionary in monitoring_answers:
+			if answer.get("reported", false):
+				# A reported log judged wrong was normal: do not present it as a confirmed threat.
+				reports.append({"id": str(answer.get("id", "")), "suspicious": answer.get("right", false) == true, "reason": str(answer.get("reason", ""))})
+		phase_findings[phase] = {"reported_ids": reported_anomalies.duplicate(), "reports": reports}
+	else:
+		return
+	if SaveManager.current_slot >= 0:
+		SaveManager.data["phase_findings"][str(current_day)] = phase_findings.duplicate(true)
+
+
+func _clear_recovery_progress() -> void:
+	response_damage.clear()
+	recovery_completed_components.clear()
+	response_outcome.clear()
+	recovery_verification_passed = false
+	recovery_equipment_assignments.clear()
+	recovery_mistakes.clear()
+	recovery_reports.clear()
+	recovery_changed.emit()
+
+
+## Stage Select already calls set_day() after loading a slot; recover that day's context here.
+func _restore_day_progress() -> void:
+	phase_findings.clear()
+	investigation_evidence = []
+	identified_threat = ""
+	reported_anomalies = []
+	_clear_recovery_progress()
+	if not is_instance_valid(SaveManager) or SaveManager.current_slot < 0:
+		return
+	phase_findings = SaveManager.data.get("phase_findings", {}).get(str(current_day), {}).duplicate(true)
+	var investigation: Dictionary = phase_findings.get("investigation", {})
+	investigation_evidence = investigation.get("evidence", []).duplicate()
+	identified_threat = str(investigation.get("threat", ""))
+	reported_anomalies = phase_findings.get("monitoring", {}).get("reported_ids", []).duplicate()
+	var recovery: Dictionary = SaveManager.data.get("recovery_runs", {}).get(str(current_day), {})
+	response_damage.assign(recovery.get("damage", []))
+	recovery_completed_components.assign(recovery.get("completed", []))
+	response_outcome = recovery.get("outcome", {}).duplicate(true)
+	recovery_verification_passed = recovery.get("verified", false) == true
+	recovery_equipment_assignments = recovery.get("equipment", {}).duplicate()
+	recovery_mistakes = recovery.get("mistakes", {}).duplicate()
+	recovery_reports = recovery.get("reports", {}).duplicate(true)
+	recovery_changed.emit()
+
+
+func _store_recovery_progress() -> void:
+	if SaveManager.current_slot < 0:
+		return
+	SaveManager.data["recovery_runs"][str(current_day)] = {
+		"damage": response_damage.duplicate(), "completed": recovery_completed_components.duplicate(),
+		"outcome": response_outcome.duplicate(true), "verified": recovery_verification_passed,
+		"equipment": recovery_equipment_assignments.duplicate(), "mistakes": recovery_mistakes.duplicate(), "reports": recovery_reports.duplicate(true),
+	}
+	SaveManager.save()
+
+
+## True when the live work order is done: Response cleared the incident, every repair and the final check passed.
+func can_finish_recovery() -> bool:
+	if not recovery_verification_passed or response_outcome.get("contained", false) != true or response_outcome.get("received", false) != true:
+		return false
+	for component in response_damage:
+		if not recovery_completed_components.has(component):
+			return false
+	return true
+
+
+## Only the completed live work order may mark Recovery finished in the existing save slot.
+func finish_recovery() -> bool:
+	if not recovery_verification_passed or response_outcome.get("contained", false) != true or response_outcome.get("received", false) != true:
+		return false
+	for component in response_damage:
+		if not recovery_completed_components.has(component):
+			return false
+	if SaveManager.current_slot >= 0:
+		SaveManager.complete_phase(current_day, "recovery")
+		return SaveManager.save()
+	return true
+
+
 ## Clears everything the player has done so far. Used when a new game starts.
 func reset_progress() -> void:
 	set_phase(PHASES[0])
@@ -187,7 +299,59 @@ func reset_progress() -> void:
 	security_points = 0
 	reported_anomalies = []
 	completed_story_logs.clear() # clear, not replace: the Monitoring generator holds this Dictionary
+	phase_findings.clear()
+	_clear_recovery_progress()
 	clues_changed.emit()
+
+
+## Start Recovery after a battle. Re-entering the room must NOT call this again.
+func begin_recovery(damaged_components: Array[String], outcome: Dictionary = {}) -> void:
+	response_damage.clear()
+	for component in damaged_components:
+		if not response_damage.has(component):
+			response_damage.append(component)
+	recovery_completed_components.clear()
+	response_outcome = outcome.duplicate(true)
+	response_outcome["received"] = true
+	recovery_verification_passed = false
+	recovery_equipment_assignments.clear()
+	recovery_mistakes.clear()
+	recovery_reports.clear()
+	_store_recovery_progress()
+	recovery_changed.emit()
+
+func assign_recovery_equipment(component_id: String, equipment_id: String) -> String:
+	if response_outcome.get("received", false) != true or response_outcome.get("contained", false) != true:
+		return ""
+	if not RecoveryData.COMPONENT_IDS.has(component_id) or (component_id != RecoveryData.FINAL_CHECK and not response_damage.has(component_id)):
+		return ""
+	if not recovery_equipment_assignments.has(component_id):
+		recovery_equipment_assignments[component_id] = equipment_id
+		_store_recovery_progress()
+	return str(recovery_equipment_assignments[component_id])
+
+
+## Damage determines repairs; file_server records the required final verification even
+## with zero damage. Each component can count only once per battle.
+func complete_recovery_component(component_id: String, mistakes: int = 0, report: Dictionary = {}) -> bool:
+	if response_outcome.get("received", false) != true or response_outcome.get("contained", false) != true:
+		return false
+	if not RecoveryData.COMPONENT_IDS.has(component_id) or recovery_completed_components.has(component_id):
+		return false
+	if component_id == RecoveryData.FINAL_CHECK:
+		for damaged_id in response_damage:
+			if damaged_id != RecoveryData.FINAL_CHECK and not recovery_completed_components.has(damaged_id):
+				return false
+		recovery_verification_passed = true
+	elif not response_damage.has(component_id):
+		return false
+	recovery_completed_components.append(component_id)
+	recovery_mistakes[component_id] = maxi(mistakes, 0)
+	if not report.is_empty():
+		recovery_reports[component_id] = report.duplicate(true)
+	_store_recovery_progress()
+	recovery_changed.emit()
+	return true
 
 
 ## Reads a JSON file that holds one object. An empty path gives an empty Dictionary (a day with

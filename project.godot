@@ -45,8 +45,8 @@ project/assembly_name="NetWars Cybersecurity Game"
 
 [gui]
 
-theme/custom="res://assets/ui/tooltip_theme.tres"
 theme/default_font_subpixel_positioning=0
+theme/custom="res://assets/ui/tooltip_theme.tres"
 
 [physics]
 

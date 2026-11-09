@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/ui/recovery_drop_slot.gd" id="1_slot"]
+
+[node name="DropSlot" type="Button"]
+custom_minimum_size = Vector2(96, 28)
+theme_type_variation = &"RecoveryCompactButton"
+text = "( empty )"
+script = ExtResource("1_slot")

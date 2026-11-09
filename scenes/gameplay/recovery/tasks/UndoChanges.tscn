@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/RecoveryTask.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/kick_sessions.gd" id="2_task"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/parts/SettingRow.tscn" id="3_row"]
+
+[node name="UndoChanges" instance=ExtResource("1_base")]
+editor_description = "Undo the thief's changes (activity log on a monitoring desk): undo every change the unknown computer made, keep Anna's own, then require 2-step sign-in. Same list logic as KickSessions (kick_sessions.gd); content from components.settings."
+script = ExtResource("2_task")
+component_id = "settings"
+
+[node name="Body" parent="Frame/Layout" index="2"]
+theme_override_constants/separation = 4
+
+[node name="Columns" type="HBoxContainer" parent="Frame/Layout/Body" index="0"]
+layout_mode = 2
+
+[node name="AccountLabel" type="Label" parent="Frame/Layout/Body/Columns"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryAccent"
+text = "TIME"
+
+[node name="Column2" type="Label" parent="Frame/Layout/Body/Columns"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryAccent"
+text = "WHO"
+
+[node name="Column3" type="Label" parent="Frame/Layout/Body/Columns"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"RecoveryAccent"
+text = "WHAT HAPPENED"
+
+[node name="Sessions" type="VBoxContainer" parent="Frame/Layout/Body" index="1"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Setting1" parent="Frame/Layout/Body/Sessions" instance=ExtResource("3_row")]
+layout_mode = 2
+
+[node name="Setting2" parent="Frame/Layout/Body/Sessions" instance=ExtResource("3_row")]
+layout_mode = 2
+
+[node name="Setting3" parent="Frame/Layout/Body/Sessions" instance=ExtResource("3_row")]
+layout_mode = 2
+
+[node name="Setting4" parent="Frame/Layout/Body/Sessions" instance=ExtResource("3_row")]
+layout_mode = 2
+
+[node name="FinalSwitch" type="CheckButton" parent="Frame/Layout/Body" index="2"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Protection switch"
+
+[connection signal="toggled" from="Frame/Layout/Body/FinalSwitch" to="." method="_on_final_switch_toggled"]

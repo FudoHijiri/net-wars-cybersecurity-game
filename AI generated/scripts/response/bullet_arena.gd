@@ -6,7 +6,8 @@ extends Node2D
 ##
 ## The upgrades the player equipped in Hardening change how a pattern plays out, and the box shows it at the
 ## moment it happens (see note()): that is how the player learns what each upgrade does. A pattern has one
-## upgrade that counters it ("counter"). Without it the pattern uses its "harsh" numbers instead (see _param()).
+## upgrade that counters it ("counter"). Without it the pattern is played in a harder version: its "harsh"
+## numbers replace the normal ones (see _param()), and the box says so (is_harder()).
 
 signal hit(damage: int)
 signal pattern_finished
@@ -15,7 +16,7 @@ signal note(text: String, good: bool)
 ## A defense did its job (its id), so the result line after the pattern can name it.
 signal defense_used(id: String)
 
-const CENTER := Vector2(320, 158) # the middle of the box on the screen
+const CENTER := Vector2(320, 166) # the middle of the box on the screen (its labels above it need the room under the turn label)
 const SOUL_SPEED := 95.0
 const SOUL_RADIUS := 3.0
 const INVINCIBLE_TIME := 0.9 # after a hit the heart cannot be hit again for this long
@@ -36,6 +37,8 @@ var direction_provider := Callable()
 var size := Vector2(112, 112)
 ## The ids of the upgrades the player equipped (unique, twostep, lockout, alerts).
 var defenses: Array[String] = []
+## True while the pattern is the harder version (the upgrade that counters it is not equipped).
+var is_harder := false
 
 var _target_size := Vector2(112, 112)
 var _pattern: Dictionary = {}
@@ -55,8 +58,9 @@ var _sparks: Array[Dictionary] = [] # {pos, vel, life} the burst when the heart 
 
 func start(pattern: Dictionary) -> void:
 	_pattern = pattern
+	is_harder = not defenses.has(str(pattern["counter"]))
 	_texture = load(str(pattern["sprite"]))
-	var box: Array = pattern.get("box", [112, 112])
+	var box: Array = _param("box", [112, 112])
 	_target_size = Vector2(float(box[0]), float(box[1]))
 	_bullets.clear()
 	_warnings.clear()
@@ -125,7 +129,7 @@ func _move_soul(delta: float) -> void:
 
 
 func _spawn() -> void:
-	var speed := float(_pattern["speed"])
+	var speed := float(_param("speed"))
 	# Bullets start outside the box on the enemy's side, "lead" seconds before they reach it.
 	var spawn_x := size.x + speed * float(_pattern.get("lead", 0.8))
 	match str(_pattern["kind"]):
@@ -142,17 +146,17 @@ func _spawn() -> void:
 			while y < size.y:
 				if absf(y - gap_y) > gap / 2.0:
 					_add(Vector2(spawn_x, y), Vector2(-speed, 0), _shots)
-				y += float(_pattern["spacing"])
+				y += float(_param("spacing"))
 		"aimed":
 			# A blinking line shows where the key will fly, then it flies along that line. Every
 			# few shots it is a fan of keys with wide gaps between them.
 			var from := Vector2(spawn_x, size.y * 0.4)
 			var aim := (_soul - from).normalized()
-			var volley_every := int(_pattern.get("volley_every", 0))
+			var volley_every := int(_param("volley_every", 0))
 			var count := 1
 			if volley_every > 0 and _shots % volley_every == volley_every - 1:
-				count = int(_pattern.get("volley_count", 3))
-			var step := deg_to_rad(float(_pattern.get("spread", 14.0)))
+				count = int(_param("volley_count", 3))
+			var step := deg_to_rad(float(_param("spread", 14.0)))
 			var warning := float(_param("warning", 0.5))
 			if defenses.has("alerts"):
 				warning += float(_pattern.get("alert_extra", 0.0))
@@ -182,7 +186,7 @@ func _fire_warnings(delta: float) -> void:
 	for w in _warnings:
 		w["time"] = float(w["time"]) - delta
 		if float(w["time"]) <= 0.0:
-			_add(w["from"], w["dir"] * float(_pattern["speed"]))
+			_add(w["from"], w["dir"] * float(_param("speed")))
 		else:
 			waiting.append(w)
 	_warnings = waiting
@@ -231,7 +235,6 @@ func _on_bullet_hit(b: Dictionary) -> void:
 				note.emit("Only this account is hit", true)
 				defense_used.emit("unique")
 			else:
-				note.emit("Same password: every account falls", false)
 				for other in _bullets:
 					if other != b and other["wall"] == b["wall"] and not other["cracked"]:
 						other["cracked"] = true
@@ -241,8 +244,6 @@ func _on_bullet_hit(b: Dictionary) -> void:
 				damage = int(_pattern["reduced_damage"])
 				note.emit("CODE NEEDED: mostly blocked", true)
 				defense_used.emit("twostep")
-			else:
-				note.emit("The password was enough: signed in", false)
 	hit.emit(damage)
 
 
@@ -264,8 +265,10 @@ func _move_sparks(delta: float) -> void:
 
 func _draw() -> void:
 	draw_rect(Rect2(Vector2.ZERO, size), FILL)
-	draw_rect(Rect2(Vector2.ZERO, size), BORDER, false, 1.0)
-	if _running and defenses.has("lockout") and str(_pattern["kind"]) == "stream":
+	draw_rect(Rect2(Vector2.ZERO, size), WARNING if is_harder and _running else BORDER, false, 1.0)
+	if _running and is_harder:
+		draw_string(FONT, Vector2(0, -4), "HARDER VERSION", HORIZONTAL_ALIGNMENT_LEFT, -1, 6, CRACKED) # above the box, like the lock counter
+	elif _running and defenses.has("lockout") and str(_pattern["kind"]) == "stream":
 		var text := "LOCKED OUT" if _locked > 0.0 else "FAILED TRIES %d / %d" % [_failed_tries, int(_pattern["lock_after"])]
 		draw_string(FONT, Vector2(0, -4), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 6, AMBER) # above the box, so bullets never cover it
 	for w in _warnings:

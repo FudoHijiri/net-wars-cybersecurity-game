@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/ui/recovery_hud.gd" id="1_hud"]
+[ext_resource type="Theme" path="res://assets/recovery/ui/recovery_theme.tres" id="2_theme"]
+
+[node name="RecoveryHUD" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_hud")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="Header" type="PanelContainer" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+theme_type_variation = &"RecoveryHUDBar"
+
+[node name="Row" type="HBoxContainer" parent="Root/Header"]
+layout_mode = 2
+
+[node name="DayLabel" type="Label" parent="Root/Header/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+text = "Day 1 / Recovery"
+
+[node name="PracticeBadge" type="Label" parent="Root/Header/Row"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "PRACTICE"
+
+[node name="Counter" type="Label" parent="Root/Header/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryWarning"
+text = "0/2 checks"
+
+[node name="PauseButton" type="Button" parent="Root/Header/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_type_variation = &"RecoveryCompactButton"
+text = "Pause"
+
+[node name="InteractionHint" type="Label" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -20.0
+offset_right = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_type_variation = &"RecoveryHint"
+text = "WASD / arrows: move     E: use     Esc: pause"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Root/Header/Row/PauseButton" to="." method="_on_pause_pressed"]

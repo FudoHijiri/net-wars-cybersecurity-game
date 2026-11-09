@@ -1,0 +1,8 @@
+access-terminal.png: source 1312x1199, visible crop (252,166,809,870); alpha threshold 16; no recolouring or resizing
+backup-nas.png: source 1312x1199, visible crop (270,171,771,871); alpha threshold 16; no recolouring or resizing
+dual-monitor-desk.png: source 1536x1024, visible crop (389,138,759,782); alpha threshold 16; no recolouring or resizing
+network-switch.png: source 1536x1024, visible crop (384,176,768,672); alpha threshold 16; no recolouring or resizing
+printer-and-cabinet.png: source 1536x1024, visible crop (510,190,512,644); alpha threshold 16; no recolouring or resizing
+repair-workbench.png: source 1774x887, visible crop (412,116,950,690); alpha threshold 16; no recolouring or resizing
+server-rack.png: source 1086x1448, visible crop (192,158,703,1166); alpha threshold 16; no recolouring or resizing
+sofa-and-side-table.png: source 1774x887, visible crop (379,211,1016,474); alpha threshold 16; no recolouring or resizing

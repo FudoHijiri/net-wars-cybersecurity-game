@@ -76,7 +76,7 @@
 			]
 		},
 		{
-			"id": "webapp", "name": "Web Application Attack", "day": 8,
+			"id": "webapp", "name": "Web Application Attack", "day": 8, "short": "Web App Attack",
 			"pages": [
 				{"title": "WHAT IT IS", "text": "A web application attack abuses a weakness in a website or web app, such as a login form or a search box.\n\nThe attacker types tricky text that the site does not expect, and the site does something it should not, like showing private data."},
 				{"title": "WARNING SIGNS", "text": "- Strange text in forms and addresses, like pieces of code.\n- Many odd requests to the same page.\n- Error messages that reveal how the site works.\n- Data or accounts changed for no reason.\n- Pages that show content nobody posted."},

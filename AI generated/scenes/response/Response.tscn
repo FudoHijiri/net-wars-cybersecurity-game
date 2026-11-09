@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b7xape3r01d3k" path="res://AI generated/scripts/response/response.gd" id="script_response"]
 [ext_resource type="Texture2D" uid="uid://d0g31opx14kjt" path="res://assets/background/response/response_bg_static_640x360.png" id="tex_bg"]
 [ext_resource type="Texture2D" uid="uid://dxvaykwhmk2n" path="res://assets/background/response/response_vignette.png" id="tex_vignette"]
+[ext_resource type="PackedScene" path="res://AI generated/scenes/response/ResponseFinishScreen.tscn" id="scene_finish"]
 
 [sub_resource type="StyleBoxFlat" id="panel_amber"]
 bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
@@ -105,7 +106,7 @@ layout_mode = 0
 offset_left = 150.0
 offset_top = 6.0
 offset_right = 490.0
-offset_bottom = 64.0
+offset_bottom = 80.0
 theme_override_styles/panel = SubResource("panel_amber")
 
 [node name="Title" type="Label" parent="Teach" unique_id=1300793717]
@@ -122,9 +123,9 @@ text = "THREAT"
 [node name="Body" type="Label" parent="Teach" unique_id=77471281]
 layout_mode = 0
 offset_left = 6.0
-offset_top = 15.0
+offset_top = 16.0
 offset_right = 334.0
-offset_bottom = 38.0
+offset_bottom = 42.0
 theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
 theme_override_fonts/font = ExtResource("font")
 theme_override_font_sizes/font_size = 6
@@ -133,9 +134,9 @@ autowrap_mode = 3
 [node name="Defense" type="Label" parent="Teach" unique_id=1372416734]
 layout_mode = 0
 offset_left = 6.0
-offset_top = 44.0
+offset_top = 43.0
 offset_right = 334.0
-offset_bottom = 58.0
+offset_bottom = 69.0
 theme_override_colors/font_color = Color(0.4509804, 0.9372549, 0.96862745, 1)
 theme_override_fonts/font = ExtResource("font")
 theme_override_font_sizes/font_size = 6
@@ -144,9 +145,9 @@ autowrap_mode = 3
 [node name="TurnLabel" type="Label" parent="." unique_id=1796516861]
 layout_mode = 0
 offset_left = 150.0
-offset_top = 66.0
+offset_top = 82.0
 offset_right = 490.0
-offset_bottom = 76.0
+offset_bottom = 94.0
 theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
 theme_override_fonts/font = ExtResource("font")
 theme_override_font_sizes/font_size = 6
@@ -328,74 +329,4 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("script_hand")
 
-[node name="Result" type="Panel" parent="." unique_id=379388320]
-visible = false
-z_index = 200
-layout_mode = 0
-offset_left = 170.0
-offset_top = 110.0
-offset_right = 470.0
-offset_bottom = 230.0
-theme_override_styles/panel = SubResource("panel_amber")
-
-[node name="Title" type="Label" parent="Result" unique_id=188850853]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 12.0
-offset_right = 290.0
-offset_bottom = 24.0
-theme_override_colors/font_color = Color(1, 0.8039216, 0.45882353, 1)
-theme_override_fonts/font = ExtResource("font")
-theme_override_font_sizes/font_size = 6
-text = "RESULT"
-horizontal_alignment = 1
-
-[node name="Body" type="Label" parent="Result" unique_id=1499730391]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 32.0
-offset_right = 290.0
-offset_bottom = 70.0
-theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
-theme_override_fonts/font = ExtResource("font")
-theme_override_font_sizes/font_size = 6
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="Retry" type="Button" parent="Result" unique_id=1617933097]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 88.0
-offset_right = 140.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
-theme_override_colors/font_pressed_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
-theme_override_colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
-theme_override_colors/font_disabled_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
-theme_override_fonts/font = ExtResource("font")
-theme_override_font_sizes/font_size = 6
-theme_override_styles/normal = SubResource("btn_normal")
-theme_override_styles/pressed = SubResource("btn_pressed")
-theme_override_styles/hover = SubResource("btn_hover")
-theme_override_styles/disabled = SubResource("btn_off")
-theme_override_styles/focus = SubResource("empty")
-text = "TRY AGAIN"
-
-[node name="Leave" type="Button" parent="Result" unique_id=1518105164]
-layout_mode = 0
-offset_left = 160.0
-offset_top = 88.0
-offset_right = 250.0
-offset_bottom = 108.0
-theme_override_colors/font_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
-theme_override_colors/font_pressed_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
-theme_override_colors/font_hover_color = Color(0.95686275, 0.95686275, 0.95686275, 1)
-theme_override_colors/font_disabled_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
-theme_override_fonts/font = ExtResource("font")
-theme_override_font_sizes/font_size = 6
-theme_override_styles/normal = SubResource("btn_normal")
-theme_override_styles/pressed = SubResource("btn_pressed")
-theme_override_styles/hover = SubResource("btn_hover")
-theme_override_styles/disabled = SubResource("btn_off")
-theme_override_styles/focus = SubResource("empty")
-text = "LEAVE"
+[node name="FinishScreen" parent="." instance=ExtResource("scene_finish")]

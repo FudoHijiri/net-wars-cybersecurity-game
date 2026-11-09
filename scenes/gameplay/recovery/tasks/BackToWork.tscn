@@ -1,0 +1,237 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/RecoveryTask.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/back_to_work.gd" id="2_task"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/parts/ChoiceCard.tscn" id="3_card"]
+
+[node name="BackToWork" instance=ExtResource("1_base")]
+editor_description = "Back to Work (file server): the Day 1 Final Check. Sign Anna in with her new password, type her phone code, open her file. Content from components.file_server (its scene entry points here)."
+script = ExtResource("2_task")
+component_id = "file_server"
+
+[node name="Main" type="HBoxContainer" parent="Frame/Layout/Body" index="0"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StepsPanel" type="PanelContainer" parent="Frame/Layout/Body/Main"]
+custom_minimum_size = Vector2(118, 0)
+layout_mode = 2
+theme_type_variation = &"RecoveryWindow"
+
+[node name="Steps" type="VBoxContainer" parent="Frame/Layout/Body/Main/StepsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Step1" type="Label" parent="Frame/Layout/Body/Main/StepsPanel/Steps"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "[ ] Step 1"
+autowrap_mode = 3
+
+[node name="Step2" type="Label" parent="Frame/Layout/Body/Main/StepsPanel/Steps"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "[ ] Step 2"
+autowrap_mode = 3
+
+[node name="Step3" type="Label" parent="Frame/Layout/Body/Main/StepsPanel/Steps"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "[ ] Step 3"
+autowrap_mode = 3
+
+[node name="StagePanel" type="PanelContainer" parent="Frame/Layout/Body/Main"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryWindow"
+
+[node name="Stages" type="VBoxContainer" parent="Frame/Layout/Body/Main/StagePanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="SignInStage" type="VBoxContainer" parent="Frame/Layout/Body/Main/StagePanel/Stages"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Account" type="Label" parent="Frame/Layout/Body/Main/StagePanel/Stages/SignInStage"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryAccent"
+text = "Account: Anna Reyes"
+
+[node name="PasswordBox" type="PanelContainer" parent="Frame/Layout/Body/Main/StagePanel/Stages/SignInStage"]
+layout_mode = 2
+theme_type_variation = &"RecoveryHeader"
+
+[node name="PasswordField" type="Label" parent="Frame/Layout/Body/Main/StagePanel/Stages/SignInStage/PasswordBox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+text = "Password: ********"
+
+[node name="SignInButton" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/SignInStage"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"RecoveryCard"
+text = "Sign in"
+
+[node name="CodeStage" type="VBoxContainer" parent="Frame/Layout/Body/Main/StagePanel/Stages"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CodeRow" type="HBoxContainer" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage"]
+layout_mode = 2
+
+[node name="Phone" type="PanelContainer" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_type_variation = &"RecoveryHeader"
+
+[node name="PhoneLayout" type="VBoxContainer" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Phone"]
+layout_mode = 2
+alignment = 1
+
+[node name="PhoneLabel" type="Label" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Phone/PhoneLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "Anna's phone"
+horizontal_alignment = 1
+
+[node name="PhoneCode" type="Label" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Phone/PhoneLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryHeading"
+theme_override_colors/font_color = Color(0.4509804, 0.9372549, 0.96862745, 1)
+theme_override_font_sizes/font_size = 16
+text = "4172"
+horizontal_alignment = 1
+
+[node name="Keypad" type="GridContainer" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 5
+
+[node name="Digit1" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "1"
+
+[node name="Digit2" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "2"
+
+[node name="Digit3" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "3"
+
+[node name="Digit4" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "4"
+
+[node name="Digit5" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "5"
+
+[node name="Digit6" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "6"
+
+[node name="Digit7" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "7"
+
+[node name="Digit8" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "8"
+
+[node name="Digit9" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "9"
+
+[node name="Digit0" type="Button" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage/CodeRow/Keypad"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+text = "0"
+
+[node name="CodeEntry" type="Label" parent="Frame/Layout/Body/Main/StagePanel/Stages/CodeStage"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryHeading"
+text = "Code: _ _ _ _"
+
+[node name="FileStage" type="VBoxContainer" parent="Frame/Layout/Body/Main/StagePanel/Stages"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Files" type="HBoxContainer" parent="Frame/Layout/Body/Main/StagePanel/Stages/FileStage"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="File1" parent="Frame/Layout/Body/Main/StagePanel/Stages/FileStage/Files" instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="File2" parent="Frame/Layout/Body/Main/StagePanel/Stages/FileStage/Files" instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="File3" parent="Frame/Layout/Body/Main/StagePanel/Stages/FileStage/Files" instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="FilePreview" type="Label" parent="Frame/Layout/Body/Main/StagePanel/Stages/FileStage"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "Pick the file to open."
+autowrap_mode = 3
+
+[connection signal="pressed" from="Frame/Layout/Body/Main/StagePanel/Stages/SignInStage/SignInButton" to="." method="_on_sign_in_pressed"]

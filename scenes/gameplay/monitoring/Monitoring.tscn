@@ -802,7 +802,6 @@ anchor_left = 0.20700637
 anchor_top = 0.90144926
 anchor_right = 0.98407644
 anchor_bottom = 0.9681159
-text = "Iyot"
 label_settings = SubResource("LabelSettings_farh1")
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true

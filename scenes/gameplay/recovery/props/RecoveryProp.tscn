@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[sub_resource type="RectangleShape2D" id="Footprint"]
+resource_local_to_scene = true
+size = Vector2(64, 24)
+
+[node name="RecoveryProp" type="Node2D"]
+editor_description = "Base for furniture and decoration: artwork and a floor footprint, no interaction. Create a New Inherited Scene from it. The root sits on the floor at the bottom-centre of the artwork."
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+
+[node name="SolidBody" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SolidBody"]
+position = Vector2(0, -12)
+shape = SubResource("Footprint")

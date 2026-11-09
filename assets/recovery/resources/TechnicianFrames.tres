@@ -1,0 +1,194 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://x1mwoqos7fmn"]
+
+[ext_resource type="Texture2D" uid="uid://cmq3hmlj3xhp5" path="res://assets/recovery/technician.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="Frame_0_0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_0_1"]
+atlas = ExtResource("1")
+region = Rect2(20, 0, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_0_2"]
+atlas = ExtResource("1")
+region = Rect2(40, 0, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_0_3"]
+atlas = ExtResource("1")
+region = Rect2(60, 0, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_0_4"]
+atlas = ExtResource("1")
+region = Rect2(80, 0, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_0_5"]
+atlas = ExtResource("1")
+region = Rect2(100, 0, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_1_0"]
+atlas = ExtResource("1")
+region = Rect2(0, 32, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_1_1"]
+atlas = ExtResource("1")
+region = Rect2(20, 32, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_1_2"]
+atlas = ExtResource("1")
+region = Rect2(40, 32, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_1_3"]
+atlas = ExtResource("1")
+region = Rect2(60, 32, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_1_4"]
+atlas = ExtResource("1")
+region = Rect2(80, 32, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_1_5"]
+atlas = ExtResource("1")
+region = Rect2(100, 32, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_2_0"]
+atlas = ExtResource("1")
+region = Rect2(0, 64, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_2_1"]
+atlas = ExtResource("1")
+region = Rect2(20, 64, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_2_2"]
+atlas = ExtResource("1")
+region = Rect2(40, 64, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_2_3"]
+atlas = ExtResource("1")
+region = Rect2(60, 64, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_2_4"]
+atlas = ExtResource("1")
+region = Rect2(80, 64, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_2_5"]
+atlas = ExtResource("1")
+region = Rect2(100, 64, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_3_0"]
+atlas = ExtResource("1")
+region = Rect2(0, 96, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_3_1"]
+atlas = ExtResource("1")
+region = Rect2(20, 96, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_3_2"]
+atlas = ExtResource("1")
+region = Rect2(40, 96, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_3_3"]
+atlas = ExtResource("1")
+region = Rect2(60, 96, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_3_4"]
+atlas = ExtResource("1")
+region = Rect2(80, 96, 20, 32)
+
+[sub_resource type="AtlasTexture" id="Frame_3_5"]
+atlas = ExtResource("1")
+region = Rect2(100, 96, 20, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Frame_0_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_0_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_0_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_0_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_0_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_0_5")
+}],
+"loop": 1,
+"name": &"down",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Frame_1_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_1_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_1_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_1_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_1_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_1_5")
+}],
+"loop": 1,
+"name": &"left",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Frame_2_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_2_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_2_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_2_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_2_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_2_5")
+}],
+"loop": 1,
+"name": &"right",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Frame_3_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_3_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_3_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_3_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_3_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Frame_3_5")
+}],
+"loop": 1,
+"name": &"up",
+"speed": 7.0
+}]

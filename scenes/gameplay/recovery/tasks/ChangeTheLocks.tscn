@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/RecoveryTask.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/change_locks.gd" id="2_task"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/parts/DragItem.tscn" id="3_key"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/parts/DropSlot.tscn" id="4_door"]
+
+[node name="ChangeTheLocks" instance=ExtResource("1_base")]
+editor_description = "Change the Locks: test the stolen key on each account door, then change the lock on every door it opens. Content from components.reused."
+script = ExtResource("2_task")
+component_id = "reused"
+
+[node name="KeyRow" type="HBoxContainer" parent="Frame/Layout/Body" index="0"]
+layout_mode = 2
+
+[node name="KeyLabel" type="Label" parent="Frame/Layout/Body/KeyRow"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "Stolen key:"
+
+[node name="Key" parent="Frame/Layout/Body/KeyRow" instance=ExtResource("3_key")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 28)
+theme_type_variation = &"RecoveryCard"
+layout_mode = 2
+text = "KEY: Summer2024"
+
+[node name="Doors" type="HBoxContainer" parent="Frame/Layout/Body" index="1"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Door1" parent="Frame/Layout/Body/Doors" instance=ExtResource("4_door")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+theme_override_constants/line_spacing = 6
+text = "Account
+
+[?] NOT TESTED"
+
+[node name="Door2" parent="Frame/Layout/Body/Doors" instance=ExtResource("4_door")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+theme_override_constants/line_spacing = 6
+text = "Account
+
+[?] NOT TESTED"
+
+[node name="Door3" parent="Frame/Layout/Body/Doors" instance=ExtResource("4_door")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+theme_override_constants/line_spacing = 6
+text = "Account
+
+[?] NOT TESTED"
+
+[node name="Door4" parent="Frame/Layout/Body/Doors" instance=ExtResource("4_door")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryCard"
+theme_override_constants/line_spacing = 6
+text = "Account
+
+[?] NOT TESTED"

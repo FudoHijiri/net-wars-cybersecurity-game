@@ -1,0 +1,27 @@
+NET WARS - Recovery artwork
+
+Recovery office v2 / artwork supplied by the project owner
+Original files and placement guide retained under art_source/recovery/office_v2.
+Creator/licence information was not included in the supplied files.
+Integration changes: transparent-padding crop, aspect-preserving display scales,
+GIF frame extraction, editable scene placement. Original colours retained.
+No new image generation was performed during integration.
+
+MetroCity / JIK-A-4
+https://jik-a-4.itch.io/metrocity-free-topdown-character-pack
+CC0 - https://creativecommons.org/publicdomain/zero/1.0/
+Recovery technician (Joshua): body row 0, Outfit6 and hair row 3 composited at native pixels and recoloured to Joshua's portrait palette (tools/build_technician.gd).
+
+Pixel Office / 2dPig
+https://2dpig.itch.io/pixel-office
+CC0 - https://creativecommons.org/publicdomain/zero/1.0/
+Plant, bookcase, wastebasket and clock: exact sprite crops, native viewport pixel scale.
+Original sheet and licence retained under art_source/recovery/licensed/pixel-office.
+
+Office Pixel Art by Imersa Studios
+https://imersastudios.itch.io/office-pixel-art
+Free edition used inside this project under its included licence. Authored rear desk, computer and cabinet views; authored front chair view. Transparent even padding and nearest 2:1 normalization for the game pixel scale. No generation or sprite flipping.
+
+Midcentury Modern Furniture Set / 0_mem0ry
+https://0-mem0ry.itch.io/midcentury-modern-furniture-set-free
+Free creator-licensed assets for game projects. Rear sofa, rear armchairs, bookshelves, coffee table, plants, floor lamp, framed prints and wall clock: exact crops from the original sheet (tools/prepare_recovery_props.ps1). Original colours and pixels retained. No generation or sprite flipping.

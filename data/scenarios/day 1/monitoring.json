@@ -10,10 +10,10 @@
 		"flawless_min_correct": 5,
 		"good_accuracy": 0.7,
 		"comments": {
-			"flawless": "Joshua: Not one wrong call this shift. Bonus approved.",
-			"short": "Joshua: No mistakes, but too few logs to judge. Be quicker next shift.",
-			"good": "Joshua: Solid shift. One to review: {reason}",
-			"rough": "Joshua: Rough shift. Let's go over one: {reason}"
+			"flawless": "Joshua: No wrong calls. Bonus.",
+			"short": "Joshua: No mistakes, but too few logs. Be quicker.",
+			"good": "Joshua: Solid. Review: {reason}",
+			"rough": "Joshua: Rough. Review: {reason}"
 		}
 	},
 	"guided_kinds": ["normal", "bad", "decoy"],
@@ -30,7 +30,7 @@
 		{
 			"id": "anna_typo", "kind": "decoy", "user": "Anna Reyes", "time": "08:29", "computer": "Anna's computer",
 			"where": "Office", "result": "Failed (1 try)",
-			"reason": "Anna had just reset her password, so one mistyped try is not an attack."
+			"reason": "New password. One typo is fine."
 		}
 	],
 	"mix": {"normal": 6, "bad": 3, "decoy": 1},
@@ -71,96 +71,96 @@
 		{
 			"id": "office_hours", "part": "time", "check": "range", "min": 480, "max": 1080, "odd_margin": 30,
 			"exception": "on_call",
-			"name": "Office hours",
-			"text": "Sign-ins happen between 08:00 and 18:00.",
-			"exception_text": "The person on call tonight may sign in at any hour.",
+			"name": "Hours",
+			"text": "Sign in 08:00-18:00.",
+			"exception_text": "On call: any hour.",
 			"example_ok": "09:15",
 			"example_bad": "02:14",
-			"why": "Staff work in the day, so a sign-in in the middle of the night is unusual.",
+			"why": "Staff work by day.",
 			"broken": "was outside office hours"
 		},
 		{
 			"id": "company_list", "part": "computer", "check": "pattern", "pattern": "^[A-Z][a-z]+'s (computer|laptop)$", "allowed_extra": ["Floor 2 printer"],
-			"name": "Company computers",
-			"text": "Only computers on the company list may sign in.",
-			"details": ["Every company computer is named after its owner, like Ben's computer or Dana's laptop. The Floor 2 printer is shared and is also on the list."],
+			"name": "Computers",
+			"text": "Listed computers only.",
+			"details": ["Named for the owner: Ben's computer. Floor 2 printer: shared."],
 			"example_ok": "Anna's computer",
 			"example_bad": "Unknown computer",
-			"why": "A computer the company does not know could belong to anyone.",
-			"broken": "came from a computer that is not on the company list"
+			"why": "Unknown computer, unknown owner.",
+			"broken": "came from an unlisted computer"
 		},
 		{
 			"id": "location", "part": "where", "check": "allowed", "allowed": ["Office"],
-			"name": "Sign-in place",
-			"text": "Sign-ins come from the office.",
+			"name": "Place",
+			"text": "Sign in from the office.",
 			"example_ok": "Office",
 			"example_bad": "Germany",
-			"why": "Staff sign in at work. Another country can mean someone else has the password.",
+			"why": "Another country: maybe a stolen password.",
 			"broken": "came from outside the office"
 		}
 	],
 	"decoys": [
 		{
 			"id": "on_call_night", "user": "@on_call", "time_range": [0, 300],
-			"reason": "{user} is on call tonight, so signing in at any hour is allowed."
+			"reason": "{user} is on call. Any hour is fine."
 		},
 		{
 			"id": "near_closing", "time_range": [1051, 1079],
-			"reason": "It was close to closing time, but still inside office hours."
+			"reason": "Near closing. Still in hours."
 		},
 		{
 			"id": "near_opening", "time_range": [480, 509],
-			"reason": "It was close to opening time, but still inside office hours."
+			"reason": "Near opening. Still in hours."
 		},
 		{
 			"id": "one_typo", "result": "Failed (1 try)",
-			"reason": "One failed try is a typing mistake. It is not an attack."
+			"reason": "One typo. Not an attack."
 		}
 	],
 	"hints": {
 		"user": {
-			"ok": ["{first} works here.", "{first} is on the staff list.", "I know {first} from the staff directory."]
+			"ok": ["{first} works here.", "{first} is on staff."]
 		},
 		"time": {
-			"ok": ["{time} is during working hours.", "The office is open at {time}.", "Most people are at their desks at {time}."],
-			"odd": ["{time} is right at the edge of the working day.", "{time} is only a few minutes from when the office opens or closes."],
-			"oncall": ["{first} is on call tonight.", "{first} is the person on call tonight."],
-			"bad": ["The office is closed at {time}.", "Nobody works at {time}.", "{time} is outside working hours."]
+			"ok": ["{time} is in office hours.", "Office open at {time}."],
+			"odd": ["{time} is at the edge of the day.", "Almost opening or closing time."],
+			"oncall": ["{first} is on call tonight."],
+			"bad": ["Office closed at {time}.", "Nobody works at {time}."]
 		},
 		"computer": {
-			"ok": ["{computer} is named after one of our staff.", "I have seen {computer} on our network before."],
-			"bad": ["I do not know {computer}.", "{computer} does not look like one of our computers."]
+			"ok": ["{computer} is a staff computer.", "{computer} is on our network."],
+			"bad": ["I don't know {computer}.", "{computer} is not on our list."]
 		},
 		"where": {
-			"ok": ["That sign-in came from the office.", "The office is where staff usually sign in from."],
-			"bad": [
-				"That sign-in came from {where}.",
-				"Our office is not in {where}.",
-				"{first} would normally be in the office, not in {where}."
-			]
+			"ok": ["From the office.", "Staff sign in from the office."],
+			"bad": ["From {where}.", "Our office is not in {where}."]
 		},
 		"result": {
-			"ok": ["The password worked.", "Signed in without any trouble."],
-			"odd": ["The password was wrong once.", "One try did not work."]
+			"ok": ["Password worked.", "Signed in fine."],
+			"odd": ["Wrong once.", "One try failed."]
 		}
 	},
 	"guide": {
 		"1": [
-			"Night shift. Every sign-in comes through here, and you decide which ones are fine.",
-			"Click a line on the card and I will tell you what I know about it. It costs a big part of the log's time, but the clock is frozen while you learn.",
-			"The rules are in the RULEBOOK at the bottom left. When you are sure, press LET PASS or REPORT. After that I will tell you if each thing I said was normal or suspicious."
+			"Night shift. Decide: pass or report.",
+			"Click a line to ask me about it. The clock is frozen while you learn.",
+			"Rules are in the RULEBOOK. Then LET PASS or REPORT."
 		],
-		"2": ["Another one. Look at the whole card before you decide."],
-		"3": ["Some things look strange but are allowed. Before you report, check the RULEBOOK at the bottom left. The bar at the top shows the office hours and who is on call tonight."],
-		"4": ["I will stop holding your hand now. The clock runs from here. Good luck."]
+		"2": ["Check the whole card."],
+		"3": ["Odd is not always bad. Check the RULEBOOK."],
+		"4": ["The clock runs now. Good luck."]
+	},
+	"rulebook": {
+		"intro": "REPORT a rule break. LET PASS the rest.",
+		"margin": "Within %d min of the limit: odd, but allowed."
 	},
 	"messages": {
 		"right": "Correct. {reason}",
-		"wrong": "Not quite. {reason}",
-		"timeout": "Time ran out, so it passed. {reason}",
-		"no_time": "Not enough time left on this log to check that. Decide with what you have.",
-		"start": "Ready when you are. Press NEXT LOG to bring in the first sign-in.",
+		"wrong": "Wrong. {reason}",
+		"timeout": "Time ran out. It passed. {reason}",
+		"no_time": "No time to ask. Decide now.",
+		"start": "Press NEXT LOG to begin.",
 		"normal_reason": "It followed every rule.",
-		"end": "That is the end of the shift."
+		"end": "End of shift."
 	}
 }

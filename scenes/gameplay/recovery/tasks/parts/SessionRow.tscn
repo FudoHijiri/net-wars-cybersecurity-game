@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/ui/recovery_session_row.gd" id="1_row"]
+
+[node name="SessionRow" type="PanelContainer"]
+size_flags_horizontal = 3
+theme_type_variation = &"RecoveryHeader"
+script = ExtResource("1_row")
+
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="Row"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryAccent"
+text = "[]"
+
+[node name="Device" type="Label" parent="Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+text = "Device name"
+
+[node name="Place" type="Label" parent="Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "Office"
+
+[node name="Time" type="Label" parent="Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "08:30"
+
+[node name="Status" type="Label" parent="Row"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(120, 22)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoverySuccess"
+text = "[OK] SIGNED OUT"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SignOut" type="Button" parent="Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 22)
+layout_mode = 2
+text = "Sign out"

@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/ui/recovery_check_card.gd" id="1_card"]
+[ext_resource type="Script" uid="uid://dofkdh6hvy00g" path="res://scripts/gameplay/recovery/recovery_machine_art.gd" id="2_art"]
+
+[node name="CheckCard" type="VBoxContainer"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+script = ExtResource("1_card")
+
+[node name="Art" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_art")
+mode = "file"
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryAccent"
+text = "CHECK NAME"
+
+[node name="ExpectedLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "Trusted record: what this check should show."
+autowrap_mode = 3
+
+[node name="StatusLabel" type="Label" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryWarning"
+text = "[?] NOT CHECKED"
+
+[node name="RunButton" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Run check"
+
+[node name="CompareRow" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="MatchButton" type="Button" parent="CompareRow"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Match"
+
+[node name="DifferentButton" type="Button" parent="CompareRow"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Different"

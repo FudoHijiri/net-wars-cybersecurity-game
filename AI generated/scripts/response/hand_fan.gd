@@ -10,8 +10,9 @@ const FONT := preload("res://assets/font/Minecraft Standard 6px/MinecraftStandar
 const CENTER_X := 320.0
 const BASE_Y := 366.0 # bottom centre of a resting card (its bottom edge is just off screen)
 const SPACING := 42.0 # distance between two cards in the fan
-const SINK := 3.0 # how far a card sinks for each step (squared) from the middle
-const TILT := 0.07 # radians of rotation per step from the middle, 0 for no rotation
+const SINK := 5.0 # how far a card sinks for each step (squared) from the middle: the curve of the fan
+const MAX_SINK := 28.0 # a big hand stops curving here, so the outer cards still show their names
+const TILT := 0.04 # radians of rotation per step from the middle, 0 for no rotation. Small on purpose: rotated 6px text is less crisp, and the card under the mouse is straightened
 const POP_SCALE := 2.0
 const POP_Y := 358.0 # bottom centre of the card under the mouse
 const HIDDEN_Y := 480.0 # where the cards wait during the enemy turn
@@ -73,6 +74,12 @@ func card_count() -> int:
 	return _views.size()
 
 
+## Where the middle of a card is on the screen (an effect starts there when the card is played).
+func card_center(index: int) -> Vector2:
+	var view := _views[index]
+	return view.position + view.pivot_offset + Vector2(0.0, -50.0 * view.scale.y)
+
+
 ## Takes one card out of the hand (it was played).
 func remove_card(index: int) -> void:
 	_views[index].queue_free()
@@ -112,7 +119,7 @@ func _process(delta: float) -> void:
 	var count := _views.size()
 	for i in count:
 		var step := i - (count - 1) / 2.0
-		var anchor := Vector2(CENTER_X + step * SPACING, BASE_Y + step * step * SINK)
+		var anchor := Vector2(CENTER_X + step * SPACING, BASE_Y + minf(step * step * SINK, MAX_SINK))
 		var target_scale := 1.0
 		var target_rotation := step * TILT
 		var z := i
@@ -160,6 +167,8 @@ func _show_tip() -> void:
 	if int(card.get("cost", 0)) > energy:
 		lines.append("Not enough energy.")
 	_tip_label.text = "\n".join(lines)
+	_tip_label.size = Vector2(TIP_SIZE.x - 10.0, 0.0) # as tall as its text
+	_tip.size = Vector2(TIP_SIZE.x, _tip_label.get_minimum_size().y + 8.0) # the panel grows with the text
 	var card_x := _views[_hover].position.x + 36.0
 	var left := card_x + 36.0 * POP_SCALE + 4.0
 	if left + TIP_SIZE.x > 636.0:

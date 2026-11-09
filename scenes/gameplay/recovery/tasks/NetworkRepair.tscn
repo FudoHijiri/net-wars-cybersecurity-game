@@ -1,0 +1,127 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/RecoveryTask.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://cj2qp0gk0ygjn" path="res://scripts/gameplay/recovery/network_repair.gd" id="2_task"]
+[ext_resource type="Script" uid="uid://dofkdh6hvy00g" path="res://scripts/gameplay/recovery/recovery_machine_art.gd" id="3_art"]
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/ui/recovery_drag_item.gd" id="4_plug"]
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/ui/recovery_drop_slot.gd" id="5_socket"]
+
+[node name="NetworkRepair" instance=ExtResource("1_base")]
+script = ExtResource("2_task")
+component_id = "network"
+
+[node name="Captions" type="HBoxContainer" parent="Frame/Layout/Body" index="0"]
+layout_mode = 2
+
+[node name="DeviceHeading" type="Label" parent="Frame/Layout/Body/Captions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "DEVICE LEADS"
+
+[node name="PortHeading" type="Label" parent="Frame/Layout/Body/Captions"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"RecoveryMuted"
+text = "PATCH-PANEL SOCKETS"
+
+[node name="PatchPanel" type="Control" parent="Frame/Layout/Body" index="1" node_paths=PackedStringArray("devices_root", "sockets_root")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 132)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+script = ExtResource("3_art")
+devices_root = NodePath("Devices")
+sockets_root = NodePath("Sockets")
+
+[node name="Devices" type="Control" parent="Frame/Layout/Body/PatchPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Device1" type="Button" parent="Frame/Layout/Body/PatchPanel/Devices"]
+mouse_default_cursor_shape = 6
+script = ExtResource("4_plug")
+layout_mode = 0
+offset_left = 8.0
+offset_top = 5.0
+offset_right = 192.0
+offset_bottom = 41.0
+text = "ANNA'S LAPTOP
+1 SQUARE / CLEARED"
+
+[node name="Device2" type="Button" parent="Frame/Layout/Body/PatchPanel/Devices"]
+mouse_default_cursor_shape = 6
+script = ExtResource("4_plug")
+layout_mode = 0
+offset_left = 8.0
+offset_top = 49.0
+offset_right = 192.0
+offset_bottom = 85.0
+text = "FILE SERVER
+2 TRIANGLE / CLEARED"
+
+[node name="Device3" type="Button" parent="Frame/Layout/Body/PatchPanel/Devices"]
+mouse_default_cursor_shape = 6
+script = ExtResource("4_plug")
+layout_mode = 0
+offset_left = 8.0
+offset_top = 93.0
+offset_right = 192.0
+offset_bottom = 129.0
+text = "UNKNOWN DEVICE
+3 CIRCLE / OFFLINE"
+
+[node name="Sockets" type="Control" parent="Frame/Layout/Body/PatchPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Socket1" type="Button" parent="Frame/Layout/Body/PatchPanel/Sockets"]
+script = ExtResource("5_socket")
+layout_mode = 0
+offset_left = 360.0
+offset_top = 5.0
+offset_right = 544.0
+offset_bottom = 41.0
+text = "2 / TRIANGLE"
+
+[node name="Socket2" type="Button" parent="Frame/Layout/Body/PatchPanel/Sockets"]
+script = ExtResource("5_socket")
+layout_mode = 0
+offset_left = 360.0
+offset_top = 49.0
+offset_right = 544.0
+offset_bottom = 85.0
+text = "3 / CIRCLE"
+
+[node name="Socket3" type="Button" parent="Frame/Layout/Body/PatchPanel/Sockets"]
+script = ExtResource("5_socket")
+layout_mode = 0
+offset_left = 360.0
+offset_top = 93.0
+offset_right = 544.0
+offset_bottom = 129.0
+text = "1 / SQUARE"
+
+[node name="TestButton" type="Button" parent="Frame/Layout/Footer" index="3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Test connection"
+
+[connection signal="pressed" from="Frame/Layout/Footer/TestButton" to="." method="_test_connection"]

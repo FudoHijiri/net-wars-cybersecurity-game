@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/RecoveryTask.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://bxw2pkviwhkun" path="res://scripts/gameplay/recovery/file_server_repair.gd" id="2_task"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/parts/CheckCard.tscn" id="3_card"]
+
+[node name="FileServerRepair" instance=ExtResource("1_base")]
+script = ExtResource("2_task")
+component_id = "file_server"
+
+[node name="Cards" type="HBoxContainer" parent="Frame/Layout/Body" index="0"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SignInCheck" parent="Frame/Layout/Body/Cards" instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="ContactCheck" parent="Frame/Layout/Body/Cards" instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="FileCheck" parent="Frame/Layout/Body/Cards" instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="TestButton" type="Button" parent="Frame/Layout/Footer" index="3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Confirm results"
+
+[connection signal="pressed" from="Frame/Layout/Footer/TestButton" to="." method="_confirm_results"]

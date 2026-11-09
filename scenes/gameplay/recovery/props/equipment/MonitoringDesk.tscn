@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/props/RecoveryEquipment.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://assets/recovery/office/dual-monitor-desk.png" id="2_art"]
+
+[sub_resource type="RectangleShape2D" id="Footprint"]
+resource_local_to_scene = true
+size = Vector2(126, 66)
+
+[sub_resource type="RectangleShape2D" id="Reach"]
+resource_local_to_scene = true
+size = Vector2(148, 120)
+
+[node name="MonitoringDesk" instance=ExtResource("1_base")]
+interaction_enabled = true
+assigned_task = "sessions"
+eligible_group = "monitoring"
+display_name = "Monitoring desk"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_art")
+offset = Vector2(-379.5, -782)
+scale = Vector2(0.1778656126, 0.1778656126)
+
+[node name="CollisionShape2D" parent="SolidBody" index="0"]
+position = Vector2(0, -33)
+shape = SubResource("Footprint")
+
+[node name="Interaction" parent="." index="2"]
+position = Vector2(0, 62)
+
+[node name="CollisionShape2D" parent="Interaction" index="0"]
+shape = SubResource("Reach")
+
+[node name="StatusMarker" parent="Interaction" index="1"]
+position = Vector2(0, -246.458)

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/recovery_room.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/RecoveryWorld.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/ui/RecoveryHUD.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/ui/RecoveryFinishScreen.tscn" id="4_finish"]
+
+[node name="Recovery" type="Node2D" node_paths=PackedStringArray("world", "player", "hud", "task_layer", "finish_screen")]
+script = ExtResource("1")
+world = NodePath("World")
+player = NodePath("World/Actors/Player")
+hud = NodePath("HUD")
+task_layer = NodePath("TaskLayer")
+finish_screen = NodePath("FinishLayer/RecoveryFinishScreen")
+
+[node name="World" parent="." instance=ExtResource("2")]
+
+[node name="HUD" parent="." instance=ExtResource("3_hud")]
+
+[node name="TaskLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="FinishLayer" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="RecoveryFinishScreen" parent="FinishLayer" instance=ExtResource("4_finish")]
+
+[editable path="World"]

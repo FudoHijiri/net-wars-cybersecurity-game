@@ -1,0 +1,160 @@
+{
+  "props": [
+    {
+      "scene": "scenes/gameplay/recovery/props/equipment/AccessTerminal.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": true,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/equipment/BackupStorage.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": true,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/equipment/MonitoringDesk.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": true,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/equipment/NetworkSwitch.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": true,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/equipment/ServerRack.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": true,
+      "has_animation": true
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/ArmchairBack.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/Bookshelf.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/BookshelfSide.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/BreakCorner.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/CoffeeTable.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/DrinksFridge.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/LoungeSofa.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/PrinterCabinet.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/RearDesk.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/RearFilingCabinet.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/RepairWorkbench.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/furniture/SpareDesk.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/decor/DigitalClock.tscn",
+      "base": "RecoveryDecal",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/decor/FloorLamp.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/decor/LeafyPlant.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/decor/PalmPlant.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/decor/Plant.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/decor/SmallPlant.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/decor/SunClock.tscn",
+      "base": "RecoveryDecal",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/decor/WallPrint.tscn",
+      "base": "RecoveryDecal",
+      "interactive_by_default": false,
+      "has_animation": false
+    },
+    {
+      "scene": "scenes/gameplay/recovery/props/decor/Wastebasket.tscn",
+      "base": "RecoveryProp",
+      "interactive_by_default": false,
+      "has_animation": false
+    }
+  ]
+}
