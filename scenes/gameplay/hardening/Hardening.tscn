@@ -1660,7 +1660,7 @@ popup/item_3/id = 3
 popup/item_4/text = "3"
 popup/item_4/id = 4
 popup/item_5/text = "4"
-popup/item_5/id = 4
+popup/item_5/id = 5
 metadata/_edit_use_anchors_ = true
 
 [node name="Info" type="Panel" parent="DeckEditor" unique_id=56401870]
