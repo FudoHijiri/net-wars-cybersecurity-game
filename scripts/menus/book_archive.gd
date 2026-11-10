@@ -223,7 +223,9 @@ func _fit_title() -> void:
 func _page_text(page: Dictionary) -> String:
 	var text := str(page.get("text", ""))
 	if page.get("patterns", false):
-		for pattern: Dictionary in _patterns:
+		# true: the patterns of Day 1's fight; a path: the fight of that day's file
+		var patterns: Array = _patterns if page["patterns"] is bool else _load_json(str(page["patterns"])).get("patterns", [])
+		for pattern: Dictionary in patterns:
 			var fix := str(_upgrades.get(str(pattern.get("counter", "")), {}).get("name", ""))
 			text += "[b]In the game: %s.[/b] %s Stopped by: %s.\n\n" % [pattern.get("name", ""), pattern.get("teach", ""), fix]
 	if page.has("upgrades"):

@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "The new defenses are in place. The malware is already moving between computers, and I do not think we will wait long.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua! It is on the move. It copies itself from laptop to laptop, and it hides while it does.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "It is the same program from Ben's laptop. It will try every trick it has.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "That is what makes it dangerous. I counted three tricks already.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What is it doing?": "D1",
+			"Are we ready for this?": "D2"
+		}
+	},
+	"D1": {
+		"text": "A [b][color=red]trojan[/color][/b] that looks like a gift, a [b][color=red]worm[/color][/b] that copies itself, and [b][color=red]spyware[/color][/b] that hides and watches what you type.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"D2": {
+		"text": "That depends on the upgrades you equipped. Each trick has one defense that stops it. Without that defense, the trick comes back [b][color=red]harder[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Use your cards to weaken the threat and to raise your Block. When it attacks, you dodge. Keep going until it is [b][color=green]contained[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"text": "Understood. Let's stop it before it reaches anything else.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "G"
+	},
+	"G": {
+		"text": "Everything I set up in Hardening is about to be tested.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

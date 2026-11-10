@@ -17,7 +17,11 @@
 		"unique": "One key for every door is risky. Give each account its own password.",
 		"twostep": "A stolen password is not enough if the thief also needs your phone.",
 		"lockout": "After a few wrong tries, lock the account. Guessing gets them nowhere.",
-		"alerts": "A strange sign-in at 3 AM? This tells you at once, while there is still time."
+		"alerts": "A strange sign-in at 3 AM? This tells you at once, while there is still time.",
+		"allowlist": "Only approved programs may run. A trojan cannot pretend to be a gift.",
+		"updates": "Updates close the holes a worm crawls through. Keep everything up to date.",
+		"antivirus": "A watcher that never sleeps. Spyware has nowhere to hide.",
+		"attachments": "Scan the file before anyone opens it. It gives you time to react."
 	},
 	"cards": {
 		"probe": "A quick poke to see what is out there. Cheap, and it adds up.",
@@ -25,6 +29,16 @@
 		"audit": "Check everything on the list. You will spot more and draw 3 cards.",
 		"hunt": "Go looking for the intruder instead of waiting. Hits hard, draws a card.",
 		"encrypt": "Scrambled data is useless to a thief. A good block, and a card.",
-		"shutdown": "Cut the attacker off completely. A big hit, and a little block."
+		"shutdown": "Cut the attacker off completely. A big hit, and a little block.",
+		"fast_scan": "A quick scan that costs nothing. A small hit, and it draws a card.",
+		"quarantine": "Lock the bad program away. It hits, and you heal a little.",
+		"sandbox": "Let it run where it cannot hurt anything. A good hit, and a little healing.",
+		"disinfect": "Clean it out for good. The biggest hit of the week, and it heals you.",
+		"av_shield": "The antivirus on watch: a little block, a little healing.",
+		"rollback": "Go back to when everything worked. Strong block, and some HP back.",
+		"safe_mode": "Start with only the basics. Block now, and a spare Energy.",
+		"reboot": "Turn it off and on again. It really does help: heal 4.",
+		"backup": "A spare copy saves the day. Heal and draw a card.",
+		"update": "Updates give you more to work with. A spare Energy and two cards."
 	}
 }

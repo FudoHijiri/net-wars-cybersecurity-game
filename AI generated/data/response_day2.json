@@ -1,0 +1,131 @@
+{
+	"_note": "The Day 2 (Malware) fight. Same format as response_day1.json. The deck and the upgrades come from Hardening. Each pattern has one upgrade that counters it (counter); without it the pattern plays in its harsh version (harsh), announced by the harder line of that defense. Kinds: disguise (reveal: how far across the box a bullet is when it turns hostile, as a share of the box width; a large number means it is shown as what it is from the start), split (generations, split_after, split_angle), flicker (period, visible: the share of the period a bullet can be seen). works_note is shown once, at the start of the pattern, when the counter is equipped. A defense with helper_warning (seconds) delays the start of every pattern by that long. finish is the results screen, as on Day 1.",
+	"threat": "Malware",
+	"enemy_frames": "res://assets/charactersprite/enemies/malware_frames.tres",
+	"player_hp": 90,
+	"boss_hp": 100,
+	"energy": 3,
+	"hand_size": 5,
+	"finish": {
+		"reward": 60,
+		"title_lost": "Response Failed",
+		"unpaid_text": "Fight lost, not paid: ",
+		"comments": {
+			"flawless": "Joshua: Nothing got through. Recovery only needs a final check.",
+			"won": "Joshua: {threat} is stopped. These got through: {names}. Recovery will repair them.",
+			"lost": "Joshua: {threat} got through. Check your upgrades and your deck, then try again."
+		}
+	},
+	"defenses": [
+		{
+			"id": "allowlist",
+			"name": "Block Unknown Programs",
+			"works": "Only approved programs ran. The gifts showed what they really were, so you saw them coming.",
+			"harder": "No Block Unknown Programs: the trojan looks harmless until the last moment, and it comes in bigger waves."
+		},
+		{
+			"id": "updates",
+			"name": "Keep Software Updated",
+			"works": "The hole was patched, so each copy could only split once.",
+			"harder": "No Keep Software Updated: the worm uses an old hole, so every copy splits again."
+		},
+		{
+			"id": "antivirus",
+			"name": "Antivirus Always On",
+			"works": "The antivirus found the spyware, so it could not hide.",
+			"harder": "No Antivirus Always On: the spyware hides, and only a faint trace is left."
+		},
+		{
+			"id": "attachments",
+			"name": "Scan Attachments",
+			"works": "The scan spotted the attack early, so you had a little more time.",
+			"helper_warning": 0.6,
+			"helper_note": "SCANNED: early warning"
+		}
+	],
+	"patterns": [
+		{
+			"id": "trojan",
+			"name": "Trojan",
+			"counter": "allowlist",
+			"kind": "disguise",
+			"sprite": "res://assets/bullets/malware/bullet_gift.png",
+			"sprite_real": "res://assets/bullets/malware/bullet_gift_real.png",
+			"duration": 8.0,
+			"interval": 0.3,
+			"speed": 110,
+			"damage": 5,
+			"radius": 4.0,
+			"reveal": 9.0,
+			"teach": "It looks useful, like a free tool. It is not what it says.",
+			"say": "A free tool, just for you.",
+			"works_note": "BLOCKED: shown as what it is",
+			"box": [
+				112,
+				112
+			],
+			"lead": 0.6,
+			"harsh": {
+				"reveal": 0.45,
+				"interval": 0.2,
+				"speed": 125,
+				"damage": 6
+			}
+		},
+		{
+			"id": "worm",
+			"name": "Worm",
+			"counter": "updates",
+			"kind": "split",
+			"sprite": "res://assets/bullets/malware/bullet_worm.png",
+			"sprite_copy": "res://assets/bullets/malware/bullet_worm_copy.png",
+			"duration": 8.0,
+			"interval": 0.4,
+			"speed": 100,
+			"damage": 5,
+			"radius": 4.0,
+			"generations": 1,
+			"split_after": 0.55,
+			"split_angle": 40,
+			"teach": "It copies itself to the next computer, and the next.",
+			"say": "One copy is never enough.",
+			"box": [
+				112,
+				112
+			],
+			"lead": 0.5,
+			"harsh": {
+				"generations": 2,
+				"interval": 0.3,
+				"damage": 6
+			}
+		},
+		{
+			"id": "spyware",
+			"name": "Spyware",
+			"counter": "antivirus",
+			"kind": "flicker",
+			"sprite": "res://assets/bullets/malware/bullet_eye.png",
+			"duration": 8.0,
+			"interval": 0.14,
+			"speed": 100,
+			"damage": 4,
+			"radius": 4.0,
+			"period": 0.9,
+			"visible": 1.0,
+			"teach": "It hides, and it watches what you type.",
+			"say": "You will not even know I am here.",
+			"works_note": "SCANNED: nothing hides",
+			"box": [
+				112,
+				112
+			],
+			"lead": 0.5,
+			"harsh": {
+				"visible": 0.35,
+				"interval": 0.12,
+				"damage": 5
+			}
+		}
+	]
+}

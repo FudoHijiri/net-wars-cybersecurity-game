@@ -7,6 +7,11 @@ extends RefCounted
 ## entity} with state "ok", "odd" or "bad". The parts and the truth come from the same rules, so the
 ## right answer is never written by hand: truth is {kind, suspicious, violations, reason}.
 ##
+## Sign-ins are the Day 1 event. A data file with an "event" (a key of "events") builds any other event from its
+## rules alone: every rule has a "part", "allowed" values, "good_values" (what a normal log shows) and
+## "bad_values" (what a rule break shows); "threat" {part, value, chance, rule_chance} is the value that
+## repeats in bad logs, so it can be found; a decoy carries "values" that replace the normal ones.
+##
 ## Kinds: normal (follows every rule), bad (breaks 1 or 2 rules), decoy (looks odd, follows the rules).
 ## The first logs follow "guided_kinds"; after that a shuffle bag ("mix") sets the kind of each log.
 ##
@@ -91,6 +96,8 @@ func _maybe_story(solved: int) -> Dictionary:
 ## A log written out in the data: {id, kind, user, time "HH:MM", computer, where, result}, and for a
 ## decoy the "reason" it is fine.
 func _plan_story(entry: Dictionary) -> Dictionary:
+	if _is_generic():
+		return {"kind": entry["kind"], "decoy": entry, "person": _story_person(entry["user"]), "story_id": entry["id"], "values": entry["values"].duplicate()}
 	var clock := str(entry["time"]).split(":")
 	return {
 		"kind": entry["kind"], "decoy": entry, "person": _story_person(entry["user"]), "story_id": entry["id"],
@@ -99,7 +106,49 @@ func _plan_story(entry: Dictionary) -> Dictionary:
 	}
 
 
+func _is_generic() -> bool:
+	return _data.has("event")
+
+
+func _pick(items: Array) -> Variant:
+	return items[_rng.randi() % items.size()]
+
+
+## A log of a generic event (see the top): the values of every part from the rules.
+func _plan_generic(kind: String) -> Dictionary:
+	var plan := {"kind": kind, "decoy": {}, "person": _random_person(), "values": {}}
+	var values: Dictionary = plan["values"]
+	for rule: Dictionary in _data["rules"]:
+		values[rule["part"]] = _pick(rule["good_values"])
+	if kind == "bad":
+		var rules: Array = _data["rules"].duplicate()
+		_shuffle(rules)
+		var threat: Dictionary = _data["threat"]
+		if _rng.randf() < float(threat["rule_chance"]): # the rule the thief most often breaks goes first
+			var threat_rule: Dictionary = _rules_by_part[threat["part"]]
+			rules.erase(threat_rule)
+			rules.push_front(threat_rule)
+		for rule: Dictionary in rules.slice(0, 2 if _rng.randf() < 0.4 else 1):
+			values[rule["part"]] = _bad_value(rule)
+	elif kind == "decoy":
+		var decoy: Dictionary = _pick(_data["decoys"])
+		plan["decoy"] = decoy
+		for key: String in decoy["values"]:
+			values[key] = decoy["values"][key]
+	return plan
+
+
+## What a broken rule shows: the threat's value most of the time, else one of the rule's own bad values.
+func _bad_value(rule: Dictionary) -> String:
+	var threat: Dictionary = _data["threat"]
+	if rule["part"] == threat["part"] and _rng.randf() < float(threat["chance"]):
+		return str(threat["value"])
+	return str(_pick(rule["bad_values"]))
+
+
 func _plan(kind: String) -> Dictionary:
+	if _is_generic():
+		return _plan_generic(kind)
 	var plan := {
 		"kind": kind, "decoy": {}, "person": {}, "time": 0,
 		"computer": "", "where": "Office", "result": "Signed in",
@@ -227,17 +276,22 @@ func _shuffle(items: Array) -> void:
 # --- Building: parts, hints and the truth, all from the rules. ---
 
 func _build(plan: Dictionary) -> Dictionary:
-	var event: Dictionary = _data["events"]["sign_in"]
+	var event: Dictionary = _data["events"][str(_data.get("event", "sign_in"))]
 	var person: Dictionary = plan["person"]
-	var values := {
-		"user": person["name"], "time": format_clock(int(plan["time"])),
-		"computer": plan["computer"], "where": plan["where"], "result": plan["result"],
-	}
+	var values := {}
+	if plan.has("values"):
+		values = plan["values"].duplicate()
+		values["user"] = person["name"]
+	else:
+		values = {
+			"user": person["name"], "time": format_clock(int(plan["time"])),
+			"computer": plan["computer"], "where": plan["where"], "result": plan["result"],
+		}
 	var parts: Array = []
 	var violations: Array = []
 	for spec: Dictionary in event["parts"]:
 		var key: String = spec["key"]
-		var verdict := _evaluate(key, values, int(plan["time"]))
+		var verdict := _evaluate(key, values, int(plan.get("time", 0)))
 		if verdict["state"] == STATE_BAD:
 			violations.append(verdict["rule"])
 		parts.append({
@@ -262,6 +316,8 @@ func _evaluate(key: String, values: Dictionary, minutes: int) -> Dictionary:
 		return {"state": STATE_ODD if odd else STATE_OK, "hint": STATE_ODD if odd else STATE_OK, "rule": ""}
 	if rule["check"] == "range":
 		return _check_range(rule, values, minutes)
+	if rule.has("odd_values") and values[key] in rule["odd_values"]:
+		return {"state": STATE_ODD, "hint": STATE_ODD, "rule": rule["id"]} # allowed, but worth a second look
 	var allowed := false
 	if rule["check"] == "pattern": # a name that fits the pattern, or one of the extra allowed names
 		allowed = values[key] in rule.get("allowed_extra", []) or _regexes[rule["id"]].search(values[key]) != null
@@ -305,7 +361,7 @@ func _reason(plan: Dictionary, violations: Array, values: Dictionary) -> String:
 			if rule["id"] in violations:
 				phrases.append(rule["broken"])
 		var joined := phrases[0] if phrases.size() == 1 else "%s and %s" % [", ".join(phrases.slice(0, -1)), phrases[-1]]
-		return "This sign-in %s." % joined
+		return str(_data.get("reason_format", "This sign-in %s.")) % joined
 	if plan["kind"] == "decoy":
 		return _fill(plan["decoy"]["reason"], values)
 	return _data["messages"]["normal_reason"]
@@ -313,6 +369,7 @@ func _reason(plan: Dictionary, violations: Array, values: Dictionary) -> String:
 
 func _fill(text: String, values: Dictionary) -> String:
 	var person_name: String = values["user"]
-	return text.replace("{user}", person_name).replace("{first}", person_name.get_slice(" ", 0)) \
-			.replace("{time}", values["time"]).replace("{computer}", values["computer"]) \
-			.replace("{where}", values["where"]).replace("{result}", values["result"])
+	var filled := text.replace("{first}", person_name.get_slice(" ", 0))
+	for key: String in values:
+		filled = filled.replace("{%s}" % key, str(values[key]))
+	return filled

@@ -71,6 +71,8 @@ func load_app(app_id: String) -> void:
 
 	_fitted_widths = []
 	_fit_columns()
+	UiFx.stagger_fade(_rows.get_children(), 0.02, 0.14) # the rows come in one after another
+	UiFx.fade_in(_title, 0.15)
 
 	if _rows.get_child_count() > 0:
 		_select_row(_rows.get_child(0) as InvestigationRow)
@@ -143,6 +145,8 @@ func _select_row(row: InvestigationRow) -> void:
 	row.set_selected(true)
 	_detail_title.text = str(row.entry.get("title", ""))
 	_detail_body.text = str(row.entry.get("detail", ""))
+	UiFx.fade_in(_detail_title, 0.12)
+	UiFx.fade_in(_detail_body, 0.12)
 	_refresh_hints()
 	_refresh_investigate_button()
 
@@ -208,6 +212,7 @@ func _on_mark_clue_button_pressed() -> void:
 		GameState.set_marked(entry_id, true)
 	if is_instance_valid(row):
 		row.set_tag(_tag_for(entry_id))
+		row.celebrate(is_clue)
 	if _selected_row == row:
 		_refresh_hints()
 		_refresh_investigate_button()

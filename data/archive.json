@@ -21,7 +21,9 @@
 				{"title": "WHAT IT IS", "text": "Malware is harmful software: a program made to damage a computer, spy on its owner, or take it over.\n\nIt gets in when someone opens an infected file, installs a fake program, or visits a bad website.\n\nViruses, trojans and spyware are all kinds of malware."},
 				{"title": "WARNING SIGNS", "text": "- The computer is suddenly slow.\n- Programs you did not install appear.\n- Pop-ups show up, even with the browser closed.\n- The antivirus turns itself off.\n- Files go missing or change their names.\n\nA slow computer alone is not proof. Several signs together are."},
 				{"title": "HOW IT ATTACKS", "text": "[b]Trojan:[/b] looks like something useful, like a free game, but hides harm inside.\n\n[b]Spyware:[/b] hides and watches what you type.\n\n[b]Worm:[/b] copies itself to other computers on the network.\n\nMost of it arrives as an email attachment or a download."},
+				{"title": "ATTACK PATTERNS", "text": "These are the three attacks of Malware as you meet them in a fight.\n\n", "patterns": "res://AI generated/data/response_day2.json"},
 				{"title": "HOW TO STOP IT", "text": "- Install programs only from places you trust.\n- Keep the computer and its apps updated. Updates close the holes malware uses.\n- Use antivirus software.\n- Do not open attachments you did not expect.\n- Back up your files, in case the worst happens."},
+				{"title": "RECOMMENDED UPGRADES", "text": "These upgrades answer this threat. Equip the ones that match what you found.\n\n", "upgrades": ["allowlist", "updates", "antivirus", "attachments"]},
 				{"title": "WORDS TO KNOW", "text": "[b]Virus[/b]: malware that spreads by attaching itself to files.\n\n[b]Trojan[/b]: malware disguised as something harmless.\n\n[b]Update (patch)[/b]: a fix for a weak spot in software.\n\n[b]Tip:[/b] when a program asks for more power than it needs, like a flashlight app asking for your contacts, say no."}
 			]
 		},

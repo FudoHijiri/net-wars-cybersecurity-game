@@ -60,6 +60,8 @@ func _ready() -> void:
 	back_button.text = "Reset practice" if _standalone() else "Back"
 	setup_task()
 	reset_task()
+	if not _standalone(): # opened from the room: like a terminal starting up
+		UiFx.terminal_open([get_node_or_null("Frame"), get_node_or_null("Bezel"), get_node_or_null("TitleBar")], get_node_or_null("Dim"))
 
 
 func _show_machine() -> void:

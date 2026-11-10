@@ -1,10 +1,126 @@
 {
-	"_note": "Upgrades (passives) sold in the Hardening shop. load is what the upgrade uses of the upgrade load (2 on Day 1, 2N on Day N). price is in Security Points. The icon is assets/upgrades/icon_<id>.png. The ids match the defenses in the Response phase. clues are the ids of the Investigation clues the upgrade answers: when the player found one, the Upgrade Editor recommends the upgrade.",
+	"_note": "Upgrades sold in the Hardening shop. day is the day the upgrade belongs to: the shop sells the upgrades of the current day and of the earlier days. load is what the upgrade uses of the upgrade load (2 on Day 1, 2N on Day N). price is in Security Points. The icon is assets/upgrades/icon_<id>.png. Every upgrade does two things: its passive (ALWAYS: a general benefit in every fight, see response.gd _apply_passives; keys max_hp, block_per_turn, heal_per_turn, attack_bonus, first_draw, first_energy) and its AGAINST effect (the attack pattern it counters, defined by the pattern's counter in the day's response data). text shows both. clues are the ids of the Investigation clues the upgrade answers: when the player found one, the Upgrade Editor recommends the upgrade.",
 	"upgrades": {
-		"unique": {"name": "Unique Passwords", "load": 1, "price": 30, "text": "One stolen password opens nothing else.", "clues": ["file_payroll_download", "net_outbound_transfer"]},
-		"twostep": {"name": "Two-step Sign-in", "load": 1, "price": 30, "text": "A stolen password alone is not enough to sign in.", "clues": ["login_germany", "email_anna_reply"]},
-		"lockout": {"name": "Lock After Failed Tries", "load": 2, "price": 50, "text": "Too many wrong guesses lock the account.", "clues": []},
-		"alerts": {"name": "Unusual Sign-in Alerts", "load": 2, "price": 50, "text": "You are warned when a sign-in looks strange.", "clues": ["login_germany"]}
+		"unique": {
+			"name": "Unique Passwords",
+			"day": 1,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"max_hp": 10
+			},
+			"against": "One password, many accounts: one stolen password opens nothing else.",
+			"text": "ALWAYS: +10 max HP.\nAGAINST One password, many accounts: one stolen password opens nothing else.",
+			"clues": [
+				"file_payroll_download",
+				"net_outbound_transfer"
+			]
+		},
+		"twostep": {
+			"name": "Two-step Sign-in",
+			"day": 1,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"block_per_turn": 3
+			},
+			"against": "Stolen password: a stolen password alone is not enough to sign in.",
+			"text": "ALWAYS: +3 Block at the start of each of your turns.\nAGAINST Stolen password: a stolen password alone is not enough to sign in.",
+			"clues": [
+				"login_germany",
+				"email_anna_reply"
+			]
+		},
+		"lockout": {
+			"name": "Lock After Failed Tries",
+			"day": 1,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"attack_bonus": 2
+			},
+			"against": "Rapid guesses: too many wrong guesses lock the account.",
+			"text": "ALWAYS: Attack cards deal +2 damage.\nAGAINST Rapid guesses: too many wrong guesses lock the account.",
+			"clues": []
+		},
+		"alerts": {
+			"name": "Unusual Sign-in Alerts",
+			"day": 1,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"first_draw": 2
+			},
+			"against": "Every attack: you are warned a little earlier when a sign-in looks strange.",
+			"text": "ALWAYS: Draw 2 extra cards in your first hand.\nAGAINST Every attack: you are warned a little earlier when a sign-in looks strange.",
+			"clues": [
+				"login_germany"
+			]
+		},
+		"allowlist": {
+			"name": "Block Unknown Programs",
+			"day": 2,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"block_per_turn": 3
+			},
+			"against": "Trojan: its disguise comes off at once, so you see what it is.",
+			"text": "ALWAYS: +3 Block at the start of each of your turns.\nAGAINST Trojan: its disguise comes off at once, so you see what it is.",
+			"clues": [
+				"prog_updatehelper"
+			]
+		},
+		"updates": {
+			"name": "Keep Software Updated",
+			"day": 2,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"max_hp": 10
+			},
+			"against": "Worm: a copy can only split once.",
+			"text": "ALWAYS: +10 max HP.\nAGAINST Worm: a copy can only split once.",
+			"clues": []
+		},
+		"antivirus": {
+			"name": "Antivirus Always On",
+			"day": 2,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"heal_per_turn": 4
+			},
+			"against": "Spyware: the hidden bullets stay visible.",
+			"text": "ALWAYS: Heal 4 HP at the start of each of your turns.\nAGAINST Spyware: the hidden bullets stay visible.",
+			"clues": [
+				"sec_av_off",
+				"net_beacon"
+			]
+		},
+		"attachments": {
+			"name": "Scan Attachments",
+			"day": 2,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"attack_bonus": 2
+			},
+			"against": "Every attack: a longer warning before it starts.",
+			"text": "ALWAYS: Attack cards deal +2 damage.\nAGAINST Every attack: a longer warning before it starts.",
+			"clues": [
+				"email_invoice"
+			]
+		}
 	},
-	"shop": ["unique", "twostep", "lockout", "alerts"]
+	"shop": [
+		"unique",
+		"twostep",
+		"lockout",
+		"alerts",
+		"allowlist",
+		"updates",
+		"antivirus",
+		"attachments"
+	]
 }

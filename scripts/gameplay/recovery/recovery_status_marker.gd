@@ -13,6 +13,7 @@ var _status := "needs_repair"
 var _nearby := false
 var _terminal := false
 var _elapsed := 0.0
+var _shown_status := "" # the status last drawn, so a repair that has just been done gets its moment
 
 func _ready() -> void:
 	_refresh()
@@ -37,6 +38,10 @@ func _refresh() -> void:
 		face.color = RecoveryStyle.GREEN
 	glyph.add_theme_color_override("font_color", RecoveryStyle.DARK if attention or _terminal else RecoveryStyle.WHITE)
 	outline.color = RecoveryStyle.CYAN if _nearby else RecoveryStyle.DARK
+	if restored and _shown_status != "" and _shown_status != "restored" and not Engine.is_editor_hint() and is_inside_tree():
+		UiFx.pop(bubble, 0.5, 0.4) # the `!` turns into a check
+		UiFx.sparkle(get_global_transform_with_canvas().origin + Vector2(0, -4), UiFx.GREEN, 12)
+	_shown_status = _status
 	_elapsed = 0.0
 	bubble.position.y = 0
 	set_process(visible and attention and animate_attention and not Engine.is_editor_hint())

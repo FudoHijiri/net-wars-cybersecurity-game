@@ -15,6 +15,7 @@ const MAX_SINK := 28.0 # a big hand stops curving here, so the outer cards still
 const TILT := 0.04 # radians of rotation per step from the middle, 0 for no rotation. Small on purpose: rotated 6px text is less crisp, and the card under the mouse is straightened
 const POP_SCALE := 2.0
 const POP_Y := 358.0 # bottom centre of the card under the mouse
+const PILE := Vector2(40.0, 336.0) # the draw pile (bottom left): cards fly out of it, and the discard goes back there
 const HIDDEN_Y := 480.0 # where the cards wait during the enemy turn
 const SMOOTH := 16.0
 const TIP_SIZE := Vector2(112, 66)
@@ -65,9 +66,30 @@ func set_hand(ids: Array, cards: Dictionary) -> void:
 		view.queue_free()
 	_views.clear()
 	_data.clear()
-	for id: String in ids:
-		add_card(id, cards[id])
+	for i in ids.size():
+		add_card(ids[i], cards[ids[i]], i * 0.07) # one after another
 	_hover = -1
+
+
+## The whole hand flies to `to` (the discard pile), one card after another, shrinking and fading. The cards
+## leave the hand at once, so the next set_hand() starts clean.
+func discard_all(to: Vector2) -> void:
+	var views := _views.duplicate()
+	_views.clear()
+	_data.clear()
+	_hover = -1
+	for i in views.size():
+		var view: CardView = views[i]
+		if UiFx.reduced():
+			view.queue_free()
+			continue
+		view.z_index = 60
+		var tween := view.create_tween()
+		tween.tween_interval(i * 0.04)
+		tween.tween_property(view, "position", to - view.pivot_offset, 0.28).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		tween.parallel().tween_property(view, "scale", Vector2.ONE * 0.3, 0.28)
+		tween.parallel().tween_property(view, "modulate:a", 0.0, 0.28)
+		tween.tween_callback(view.queue_free)
 
 
 func card_count() -> int:
@@ -89,12 +111,18 @@ func remove_card(index: int) -> void:
 
 
 ## Adds one card to the end of the hand (a card that draws).
-func add_card(id: String, card: Dictionary) -> void:
+func add_card(id: String, card: Dictionary, delay: float = 0.0) -> void:
 	var view: CardView = CARD_SCENE.instantiate()
 	add_child(view)
 	view.setup(id, card)
 	view.pivot_offset = Vector2(36, 100)
-	view.position = Vector2(CENTER_X, HIDDEN_Y) - view.pivot_offset # the cards slide in from below
+	view.position = PILE - view.pivot_offset # the cards fly out of the draw pile, growing as they go
+	view.scale = Vector2.ONE * 0.4
+	if delay > 0.0 and not UiFx.reduced():
+		view.hide()
+		get_tree().create_timer(delay).timeout.connect(func() -> void:
+			if is_instance_valid(view):
+				view.show())
 	_ignore_mouse(view)
 	_views.append(view)
 	_data.append(card)

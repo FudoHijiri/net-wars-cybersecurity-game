@@ -1,0 +1,976 @@
+{
+	"id": "malware",
+	"day": 2,
+	"threat_name": "Malware",
+	"speaker": "Joshua",
+	"clues_required": 4,
+	"tabs": {
+		"logs": "SECURITY",
+		"computers": "PROGRAMS",
+		"login": "DOWNLOADS"
+	},
+	"finish": {
+		"points_per_clue": 20,
+		"points_per_mistake": 5,
+		"bonus": 25,
+		"comments": {
+			"flawless": "Joshua: The report was right on the first try. Bonus approved.",
+			"done": "Joshua: Case closed. Next time, check each word against the clues first."
+		}
+	},
+	"all_clues_monologue": [
+		"That's enough. An invoice nobody should open started a program nobody approved.",
+		"It turned the antivirus off and began to phone out. Time to press REPORT and write this up."
+	],
+	"investigation": {
+		"email": {
+			"title": "EMAIL > MESSAGES SENT TO STAFF",
+			"columns": [
+				"FROM",
+				"SUBJECT",
+				"TIME"
+			],
+			"widths": [
+				80,
+				170,
+				50
+			],
+			"entries": [
+				{
+					"id": "email_invoice",
+					"cells": [
+						"Acme Supp1y",
+						"Invoice 4471 - pay today",
+						"13:58"
+					],
+					"title": "Invoice 4471 with a zip file",
+					"detail": "From: billing@acme-supp1y.com\nTo: Ben Nguyen\nTime: 13:58\nAttachment: invoice4471.zip\n\nYour invoice 4471 is overdue. Open the attached file today to avoid a fee.",
+					"entities": [
+						"user:bnguyen",
+						"file:invoice4471.zip",
+						"domain:acme-supp1y.com"
+					],
+					"monologue": [
+						"An invoice from \"supp1y\", with a number one where the L should be. And a zip file.",
+						"That's no real supplier. It's a real clue."
+					],
+					"summary": "A fake invoice with a zip file, sent to Ben.",
+					"is_clue": true
+				},
+				{
+					"id": "email_updates_note",
+					"cells": [
+						"IT Team",
+						"Updates install tonight",
+						"16:30"
+					],
+					"title": "Updates install tonight",
+					"detail": "From: IT Team\nTo: All Staff\nTime: yesterday 16:30\n\nTonight at 03:00 the laptops install their monthly updates. They may restart, and be a little slow in the morning.",
+					"entities": [
+						"org:it",
+						"event:updates"
+					],
+					"monologue": [
+						"A real note from IT, sent the day before. It explains a slow morning, but Ben's laptop got slow after lunch."
+					],
+					"summary": "A real note about the 03:00 updates.",
+					"is_clue": false
+				},
+				{
+					"id": "email_pine_invoice",
+					"cells": [
+						"Pine Supplies",
+						"Invoice 4470 (PDF)",
+						"10:12"
+					],
+					"title": "Invoice 4470 from Pine Supplies",
+					"detail": "From: billing@pine-supplies.com\nTo: Accounts\nTime: 10:12\nAttachment: invoice4470.pdf\n\nHere is your invoice for last month. Thank you for your business.",
+					"entities": [
+						"org:pine",
+						"user:accounts"
+					],
+					"monologue": [
+						"A real supplier, the right address, and a PDF instead of a zip.",
+						"Compare it with the other invoice and the difference is easy to see."
+					],
+					"summary": "A real invoice from a real supplier.",
+					"is_clue": false
+				},
+				{
+					"id": "email_slow_laptop",
+					"cells": [
+						"Ben Nguyen",
+						"My laptop is slow",
+						"15:20"
+					],
+					"title": "\"My laptop is slow\"",
+					"detail": "From: Ben Nguyen\nTo: IT Team\nTime: 15:20\n\nMy laptop has been very slow since lunch, and strange windows keep popping up. Can someone look?",
+					"entities": [
+						"user:bnguyen",
+						"device:ben-laptop"
+					],
+					"monologue": [
+						"Ben's laptop got slow around lunch and he sees pop-ups.",
+						"Something is running on it. I need to find out what and when."
+					],
+					"summary": "Ben says his laptop is slow and shows pop-ups.",
+					"is_clue": false
+				},
+				{
+					"id": "email_lunch",
+					"cells": [
+						"Facilities",
+						"Friday lunch menu",
+						"09:05"
+					],
+					"title": "Friday lunch menu",
+					"detail": "From: Facilities\nTo: All Staff\nTime: 09:05\n\nThis Friday's lunch specials are soup and sandwiches.",
+					"entities": [
+						"org:facilities"
+					],
+					"monologue": [
+						"Just the lunch menu. Nothing to do with Ben's laptop."
+					],
+					"summary": "A lunch menu.",
+					"is_clue": false
+				},
+				{
+					"id": "email_training",
+					"cells": [
+						"HR",
+						"Training day on Thursday",
+						"11:40"
+					],
+					"title": "Training day on Thursday",
+					"detail": "From: HR\nTo: All Staff\nTime: 11:40\n\nThursday is the yearly training day. Please book your session.",
+					"entities": [
+						"org:hr"
+					],
+					"monologue": [
+						"A reminder about a training day. Not related."
+					],
+					"summary": "A training reminder.",
+					"is_clue": false,
+					"unless_equipped": [
+						"alerts"
+					]
+				},
+				{
+					"id": "email_alert_notice",
+					"cells": [
+						"IT Alerts",
+						"Alert: odd sign-in stopped",
+						"07:30"
+					],
+					"title": "Alert: odd sign-in stopped",
+					"detail": "From: IT Alerts\nTo: IT Team\nTime: 07:30\n\nAn alert fired for Anna Reyes' account yesterday night. IT already changed her password.",
+					"entities": [
+						"user:anreyes",
+						"org:it"
+					],
+					"monologue": [
+						"The alerts you turned on yesterday caught an old problem fast. Good. It's not about Ben's laptop, though."
+					],
+					"summary": "An alert about the old sign-in, handled.",
+					"is_clue": false,
+					"if_equipped": [
+						"alerts"
+					]
+				}
+			]
+		},
+		"logs": {
+			"title": "SECURITY > WHAT THE ANTIVIRUS SAW",
+			"columns": [
+				"TIME",
+				"WHERE",
+				"WHAT HAPPENED"
+			],
+			"widths": [
+				50,
+				90,
+				160
+			],
+			"entries": [
+				{
+					"id": "sec_av_off",
+					"cells": [
+						"14:05",
+						"Ben's laptop",
+						"Antivirus turned off"
+					],
+					"title": "Antivirus turned off",
+					"detail": "Time: 14:05\nWhere: Ben's laptop\nWhat happened: The antivirus was turned off.\nTurned off by: UpdateHelper.exe, not by Ben\n\nThe antivirus is the program that looks for harmful programs. Ben did not touch it.",
+					"entities": [
+						"device:ben-laptop",
+						"prog:updatehelper.exe",
+						"user:bnguyen"
+					],
+					"monologue": [
+						"The antivirus on Ben's laptop was turned off at 14:05, and not by Ben. A program did it.",
+						"Something is hiding. That's a real clue."
+					],
+					"summary": "The antivirus on Ben's laptop was turned off by a program.",
+					"is_clue": true
+				},
+				{
+					"id": "sec_updates_installed",
+					"cells": [
+						"03:00",
+						"All laptops",
+						"Updates installed"
+					],
+					"title": "Updates installed",
+					"detail": "Time: 03:00\nWhere: All laptops\nWhat happened: The monthly updates were installed.\nResult: It worked. Some laptops need a restart.\n\nUpdates close known holes in programs.",
+					"entities": [
+						"event:updates",
+						"org:it"
+					],
+					"monologue": [
+						"The monthly updates, just as IT said. A busy night, and a normal one."
+					],
+					"summary": "The usual monthly updates.",
+					"is_clue": false
+				},
+				{
+					"id": "sec_popup_blocked",
+					"cells": [
+						"11:50",
+						"Dana's laptop",
+						"Pop-up blocked"
+					],
+					"title": "Pop-up blocked",
+					"detail": "Time: 11:50\nWhere: Dana's laptop\nWhat happened: The browser blocked an ad window.\nProblems found: none\n\nA pop-up is a window that opens by itself.",
+					"entities": [
+						"device:dana-laptop",
+						"user:dana"
+					],
+					"monologue": [
+						"A pop-up, and the browser stopped it. A pop-up alone is only an annoying ad.",
+						"It's not a program running by itself, so it's not a clue."
+					],
+					"summary": "A browser blocked one ad.",
+					"is_clue": false
+				},
+				{
+					"id": "sec_scan_clean",
+					"cells": [
+						"12:30",
+						"Carla's laptop",
+						"Scan found nothing"
+					],
+					"title": "Scan found nothing",
+					"detail": "Time: 12:30\nWhere: Carla's laptop\nWhat happened: A virus check finished.\nProblems found: none\n\nA virus check looks for harmful programs.",
+					"entities": [
+						"device:carla-laptop",
+						"user:cpatel"
+					],
+					"monologue": [
+						"A clean scan on Carla's laptop. Nothing to see."
+					],
+					"summary": "A clean virus check.",
+					"is_clue": false
+				},
+				{
+					"id": "sec_echo_twostep",
+					"cells": [
+						"02:10",
+						"Anna's account",
+						"Old password tried again"
+					],
+					"title": "Old password tried again",
+					"detail": "Time: 02:10\nWhere: Anna's account\nWhat happened: Someone tried the old stolen password again.\nResult: Stopped at the second step\n\nThe second step is the code on Anna's phone.",
+					"entities": [
+						"user:anreyes"
+					],
+					"monologue": [
+						"The old thief tried the stolen password again, and the second step stopped them. The upgrade you picked yesterday works."
+					],
+					"summary": "The old stolen password was stopped at the second step.",
+					"is_clue": false,
+					"if_equipped": [
+						"twostep"
+					]
+				},
+				{
+					"id": "sec_echo_open",
+					"cells": [
+						"02:10",
+						"Anna's account",
+						"Old password tried again"
+					],
+					"title": "Old password tried again",
+					"detail": "Time: 02:10\nWhere: Anna's account\nWhat happened: Someone tried the old stolen password again.\nResult: It worked until IT changed it\n\nWithout a second step, a stolen password is enough.",
+					"entities": [
+						"user:anreyes"
+					],
+					"monologue": [
+						"The old thief used the stolen password again, and it worked until IT changed it. That's old news, not today's problem."
+					],
+					"summary": "The old stolen password worked once more.",
+					"is_clue": false,
+					"unless_equipped": [
+						"twostep"
+					]
+				}
+			]
+		},
+		"computers": {
+			"title": "PROGRAMS > WHAT RUNS ON THE LAPTOPS",
+			"columns": [
+				"PROGRAM",
+				"LAPTOP",
+				"LIST"
+			],
+			"widths": [
+				96,
+				96,
+				108
+			],
+			"entries": [
+				{
+					"id": "prog_updatehelper",
+					"cells": [
+						"UpdateHelper.exe",
+						"Ben's laptop",
+						"Not approved"
+					],
+					"title": "UpdateHelper.exe",
+					"detail": "Program: UpdateHelper.exe\nLaptop: Ben's laptop\nMade by: Unknown\nInstalled: today 14:03\nList: Not on the approved list\n\nThe approved list names every program staff may run. IT did not install this one.",
+					"entities": [
+						"user:bnguyen",
+						"device:ben-laptop",
+						"prog:updatehelper.exe"
+					],
+					"monologue": [
+						"UpdateHelper.exe. It sounds like a helper, but IT never installed it and nobody knows who made it.",
+						"That's a real clue."
+					],
+					"summary": "UpdateHelper.exe is on Ben's laptop and is not approved.",
+					"is_clue": true
+				},
+				{
+					"id": "prog_designpro",
+					"cells": [
+						"DesignPro",
+						"Dana's laptop",
+						"Approved"
+					],
+					"title": "DesignPro",
+					"detail": "Program: DesignPro\nLaptop: Dana's laptop\nMade by: DesignPro Ltd\nInstalled: today 11:20, by IT\nList: On the approved list",
+					"entities": [
+						"device:dana-laptop",
+						"user:dana",
+						"prog:designpro"
+					],
+					"monologue": [
+						"A brand new program, but IT installed it and it's on the approved list. New is not the same as dangerous."
+					],
+					"summary": "A new program, approved and installed by IT.",
+					"is_clue": false
+				},
+				{
+					"id": "prog_office",
+					"cells": [
+						"Office Suite",
+						"Ben's laptop",
+						"Approved"
+					],
+					"title": "Office Suite",
+					"detail": "Program: Office Suite\nLaptop: Ben's laptop\nMade by: Office Co.\nInstalled: months ago\nList: On the approved list",
+					"entities": [
+						"user:bnguyen",
+						"device:ben-laptop",
+						"prog:office"
+					],
+					"monologue": [
+						"Ben's usual office programs. Approved."
+					],
+					"summary": "An approved program.",
+					"is_clue": false
+				},
+				{
+					"id": "prog_pdf",
+					"cells": [
+						"PDF Reader",
+						"Carla's laptop",
+						"Approved"
+					],
+					"title": "PDF Reader",
+					"detail": "Program: PDF Reader\nLaptop: Carla's laptop\nMade by: Reader Inc.\nInstalled: months ago\nList: On the approved list",
+					"entities": [
+						"device:carla-laptop",
+						"user:cpatel",
+						"prog:pdf"
+					],
+					"monologue": [
+						"A normal program on Carla's laptop. Approved."
+					],
+					"summary": "An approved program.",
+					"is_clue": false
+				},
+				{
+					"id": "prog_backup_agent",
+					"cells": [
+						"Backup Agent",
+						"Backup computer",
+						"Approved"
+					],
+					"title": "Backup Agent",
+					"detail": "Program: Backup Agent\nComputer: Backup computer\nMade by: SafeCopy\nInstalled: last year\nList: On the approved list",
+					"entities": [
+						"host:backup-01",
+						"prog:backup-agent"
+					],
+					"monologue": [
+						"The backup program does its nightly job. Approved."
+					],
+					"summary": "An approved program.",
+					"is_clue": false
+				}
+			]
+		},
+		"login": {
+			"title": "DOWNLOADS > WHAT WAS SAVED",
+			"columns": [
+				"TIME",
+				"WHO",
+				"FROM",
+				"FILE"
+			],
+			"widths": [
+				50,
+				62,
+				62,
+				126
+			],
+			"entries": [
+				{
+					"id": "dl_invoice_zip",
+					"cells": [
+						"14:01",
+						"Ben",
+						"Email",
+						"invoice4471.zip"
+					],
+					"title": "Ben saved invoice4471.zip",
+					"detail": "Time: 14:01\nWho: Ben\nFrom: An email attachment\nFile: invoice4471.zip\nOpened: 14:02\n\nBen saved the zip file from the invoice email and opened it a minute later.",
+					"entities": [
+						"user:bnguyen",
+						"device:ben-laptop",
+						"file:invoice4471.zip"
+					],
+					"monologue": [
+						"Ben saved the zip at 14:01 and opened it at 14:02.",
+						"That connects the fake invoice to the minutes when everything changed."
+					],
+					"summary": "Ben saved and opened the fake invoice's zip file.",
+					"is_clue": false
+				},
+				{
+					"id": "dl_windows_update",
+					"cells": [
+						"03:00",
+						"All laptops",
+						"Windows",
+						"Update 480 MB"
+					],
+					"title": "Windows update, 480 MB",
+					"detail": "Time: 03:00\nWho: All laptops\nFrom: Windows Update\nFile: The monthly update (480 MB)\n\nA big download, but it is the update that IT announced.",
+					"entities": [
+						"event:updates",
+						"org:windows"
+					],
+					"monologue": [
+						"480 MB is a big download. But it's the approved update, at the hour IT said. Big is not the same as bad."
+					],
+					"summary": "The big monthly update, as announced.",
+					"is_clue": false
+				},
+				{
+					"id": "dl_printer_manual",
+					"cells": [
+						"09:30",
+						"Carla",
+						"Website",
+						"printer_manual.pdf"
+					],
+					"title": "Printer manual",
+					"detail": "Time: 09:30\nWho: Carla\nFrom: The printer's website\nFile: printer_manual.pdf (2 MB)",
+					"entities": [
+						"user:cpatel",
+						"device:carla-laptop"
+					],
+					"monologue": [
+						"Carla read how to use the printer. Fine."
+					],
+					"summary": "A printer manual.",
+					"is_clue": false
+				},
+				{
+					"id": "dl_logo",
+					"cells": [
+						"10:05",
+						"Dana",
+						"Email",
+						"company_logo.png"
+					],
+					"title": "Company logo",
+					"detail": "Time: 10:05\nWho: Dana\nFrom: An email from the design team\nFile: company_logo.png (300 KB)",
+					"entities": [
+						"user:dana",
+						"device:dana-laptop"
+					],
+					"monologue": [
+						"Only a picture of the company logo."
+					],
+					"summary": "A logo picture.",
+					"is_clue": false
+				},
+				{
+					"id": "dl_font_pack",
+					"cells": [
+						"11:15",
+						"Dana",
+						"IT store",
+						"font_pack"
+					],
+					"title": "Font pack",
+					"detail": "Time: 11:15\nWho: Dana\nFrom: The IT store\nFile: font_pack (5 MB)",
+					"entities": [
+						"user:dana",
+						"device:dana-laptop"
+					],
+					"monologue": [
+						"Dana took some fonts from the IT store. That is where staff should get things."
+					],
+					"summary": "Fonts from the IT store.",
+					"is_clue": false
+				}
+			]
+		},
+		"files": {
+			"title": "FILES > HIDDEN OR CHANGED FILES",
+			"columns": [
+				"TIME",
+				"WHERE",
+				"DID",
+				"FILE"
+			],
+			"widths": [
+				50,
+				80,
+				50,
+				120
+			],
+			"entries": [
+				{
+					"id": "file_sys32",
+					"cells": [
+						"14:06",
+						"Ben's laptop",
+						"Growing",
+						"sys32.tmp"
+					],
+					"title": "Hidden file sys32.tmp",
+					"detail": "Time: since 14:06\nWhere: Ben's laptop, in his user folder\nWhat is happening: A hidden file keeps growing\nFile: sys32.tmp (now 3 MB)\n\nIt grows a little whenever Ben types.",
+					"entities": [
+						"user:bnguyen",
+						"device:ben-laptop",
+						"prog:updatehelper.exe"
+					],
+					"monologue": [
+						"A hidden file on Ben's laptop that grows when he types. It started right after UpdateHelper.exe.",
+						"Something is writing down what he does."
+					],
+					"summary": "A hidden file on Ben's laptop keeps growing.",
+					"is_clue": false
+				},
+				{
+					"id": "file_budget",
+					"cells": [
+						"08:40",
+						"Ben's laptop",
+						"Opened",
+						"budget_sheet.xlsx"
+					],
+					"title": "Budget sheet opened",
+					"detail": "Time: 08:40\nWho: Ben\nWhat they did: Opened the file\nFile: budget_sheet.xlsx (1.2 MB)",
+					"entities": [
+						"user:bnguyen",
+						"device:ben-laptop",
+						"file:budget_sheet.xlsx"
+					],
+					"monologue": [
+						"Ben opens this every week, long before the trouble."
+					],
+					"summary": "Ben opened his usual file.",
+					"is_clue": false
+				},
+				{
+					"id": "file_onboarding",
+					"cells": [
+						"10:20",
+						"Carla's laptop",
+						"Opened",
+						"onboarding_guide.pdf"
+					],
+					"title": "Onboarding guide opened",
+					"detail": "Time: 10:20\nWho: Carla\nWhat they did: Opened the file\nFile: onboarding_guide.pdf (3 MB)",
+					"entities": [
+						"user:cpatel",
+						"device:carla-laptop"
+					],
+					"monologue": [
+						"Carla opened a guide for new staff."
+					],
+					"summary": "A guide opened.",
+					"is_clue": false
+				},
+				{
+					"id": "file_logo_saved",
+					"cells": [
+						"10:07",
+						"Dana's laptop",
+						"Saved",
+						"logo_file.png"
+					],
+					"title": "Logo file saved",
+					"detail": "Time: 10:07\nWho: Dana\nWhat they did: Saved the file\nFile: logo_file.png (300 KB)",
+					"entities": [
+						"user:dana",
+						"device:dana-laptop"
+					],
+					"monologue": [
+						"Dana saved a picture. Nothing odd."
+					],
+					"summary": "A logo saved.",
+					"is_clue": false
+				},
+				{
+					"id": "file_handbook",
+					"cells": [
+						"09:00",
+						"File server",
+						"Opened",
+						"handbook.pdf"
+					],
+					"title": "Handbook opened",
+					"detail": "Time: 09:00\nWho: Reception\nWhat they did: Opened the file\nFile: handbook.pdf (4 MB)\nKept on: The file server",
+					"entities": [
+						"host:fs-01",
+						"file:handbook.pdf"
+					],
+					"monologue": [
+						"The staff handbook. Plain and ordinary."
+					],
+					"summary": "A handbook opened.",
+					"is_clue": false
+				}
+			]
+		},
+		"network": {
+			"title": "NETWORK > WHO TALKED TO WHOM",
+			"columns": [
+				"TIME",
+				"FROM",
+				"SENT TO",
+				"HOW OFTEN"
+			],
+			"widths": [
+				46,
+				84,
+				100,
+				70
+			],
+			"entries": [
+				{
+					"id": "net_beacon",
+					"cells": [
+						"14:06",
+						"Ben's laptop",
+						"203.0.113.8",
+						"Every minute"
+					],
+					"title": "Ben's laptop calls an outside address",
+					"detail": "Time: since 14:06\nFrom: Ben's laptop\nSent to: An outside address (203.0.113.8)\nHow often: Every 60 seconds\nAmount: about 2 KB each time\n\nA normal program does not call a stranger on a steady beat, like a heartbeat.",
+					"entities": [
+						"user:bnguyen",
+						"device:ben-laptop",
+						"prog:updatehelper.exe",
+						"ip:203.0.113.8"
+					],
+					"monologue": [
+						"Ben's laptop sends a small message to an outside address every single minute, since 14:06.",
+						"A steady beat means a program is phoning home. That's a clue."
+					],
+					"summary": "Ben's laptop calls an outside address every minute.",
+					"is_clue": true
+				},
+				{
+					"id": "net_update_download",
+					"cells": [
+						"03:00",
+						"Update server",
+						"All laptops",
+						"Once"
+					],
+					"title": "Update server to the laptops",
+					"detail": "Time: 03:00\nFrom: Update server\nSent to: All laptops\nHow often: Once\nAmount: 480 MB each\n\nBoth ends belong to the company.",
+					"entities": [
+						"host:update-01",
+						"event:updates"
+					],
+					"monologue": [
+						"A lot of data, all inside the company, at the hour IT announced. Fine."
+					],
+					"summary": "The big update download.",
+					"is_clue": false
+				},
+				{
+					"id": "net_backup_copy",
+					"cells": [
+						"01:00",
+						"File server",
+						"Backup computer",
+						"Nightly"
+					],
+					"title": "File server to backup computer",
+					"detail": "Time: 01:00\nFrom: File server\nSent to: Backup computer\nHow often: Nightly\nAmount: 9 GB\n\nBoth computers belong to the company.",
+					"entities": [
+						"host:fs-01",
+						"host:backup-01"
+					],
+					"monologue": [
+						"The nightly backup. Everything stays inside."
+					],
+					"summary": "The usual nightly backup.",
+					"is_clue": false
+				},
+				{
+					"id": "net_printer",
+					"cells": [
+						"09:12",
+						"Carla's laptop",
+						"Floor 2 printer",
+						"Once"
+					],
+					"title": "Carla's laptop to the printer",
+					"detail": "Time: 09:12\nFrom: Carla's laptop\nSent to: Floor 2 printer\nHow often: Once\nAmount: 1 MB",
+					"entities": [
+						"device:carla-laptop",
+						"host:printer-02"
+					],
+					"monologue": [
+						"Carla printed something. Ordinary."
+					],
+					"summary": "A print job.",
+					"is_clue": false
+				},
+				{
+					"id": "net_browsing",
+					"cells": [
+						"09-17",
+						"All laptops",
+						"Public websites",
+						"Often"
+					],
+					"title": "Normal web browsing",
+					"detail": "Time: all day\nFrom: All laptops\nSent to: Public websites\nHow often: Often, from many different people\nAmount: normal",
+					"entities": [
+						"host:proxy-01"
+					],
+					"monologue": [
+						"People looking at websites all day. That's normal and spread out."
+					],
+					"summary": "Normal web browsing.",
+					"is_clue": false
+				}
+			]
+		},
+		"servers": {
+			"title": "SERVERS > THE MAIN COMPUTERS",
+			"columns": [
+				"COMPUTER",
+				"JOB",
+				"STATUS",
+				"BUSY"
+			],
+			"widths": [
+				100,
+				100,
+				55,
+				45
+			],
+			"entries": [
+				{
+					"id": "server_mail",
+					"cells": [
+						"Mail server",
+						"Receives email",
+						"Running",
+						"31%"
+					],
+					"title": "Mail server",
+					"detail": "Computer: Mail server\nJob: Receives and sends the company's email\nStatus: Running\nBusy: 31%\nNote: Blocked 3 more .zip attachments today from acme-supp1y.com, after Ben's.\n\nOther people were sent the same fake invoice.",
+					"entities": [
+						"host:mail-01",
+						"file:invoice4471.zip",
+						"domain:acme-supp1y.com"
+					],
+					"monologue": [
+						"The mail server blocked three more zip files from the same fake sender. Others were targeted too.",
+						"Ben opened it before the block began."
+					],
+					"summary": "The mail server blocked more zip files from the fake sender.",
+					"is_clue": false
+				},
+				{
+					"id": "server_dc01",
+					"cells": [
+						"Password checker",
+						"Checks passwords",
+						"Running",
+						"12%"
+					],
+					"title": "Password checker",
+					"detail": "Computer: Password checker\nJob: Checks people's passwords when they sign in\nStatus: Running\nBusy: 12%\nOn for: 41 days",
+					"entities": [
+						"host:dc-01"
+					],
+					"monologue": [
+						"Running fine. The trouble is not here."
+					],
+					"summary": "The password checker runs normally.",
+					"is_clue": false
+				},
+				{
+					"id": "server_fs01",
+					"cells": [
+						"File server",
+						"Keeps shared files",
+						"Running",
+						"27%"
+					],
+					"title": "File server",
+					"detail": "Computer: File server\nJob: Keeps the company's shared files\nStatus: Running\nBusy: 27%\nNote: It was busy at 03:00 with the updates.",
+					"entities": [
+						"host:fs-01"
+					],
+					"monologue": [
+						"Busy at 03:00 with the updates, quiet now. Running normally."
+					],
+					"summary": "The file server runs normally.",
+					"is_clue": false
+				},
+				{
+					"id": "server_backup",
+					"cells": [
+						"Backup computer",
+						"Keeps spare copies",
+						"Running",
+						"8%"
+					],
+					"title": "Backup computer",
+					"detail": "Computer: Backup computer\nJob: Keeps spare copies of the files\nStatus: Running\nBusy: 8%\nLast copy: last night 01:00",
+					"entities": [
+						"host:backup-01"
+					],
+					"monologue": [
+						"The spare copies are safe and up to date."
+					],
+					"summary": "The backup computer runs normally.",
+					"is_clue": false
+				},
+				{
+					"id": "server_update",
+					"cells": [
+						"Update server",
+						"Gives updates",
+						"Running",
+						"4%"
+					],
+					"title": "Update server",
+					"detail": "Computer: Update server\nJob: Gives the laptops their updates\nStatus: Running\nBusy: 4%\nNote: Busy at 03:00, quiet since.",
+					"entities": [
+						"host:update-01",
+						"event:updates"
+					],
+					"monologue": [
+						"It had a busy night, as expected. Now it is quiet."
+					],
+					"summary": "The update server runs normally.",
+					"is_clue": false
+				}
+			]
+		}
+	},
+	"report": {
+		"text": "Ben opened {1}. It installed {2}, switched off {3}, and then kept calling {4} every minute.",
+		"answers": {
+			"1": "chip_invoice",
+			"2": "chip_updatehelper",
+			"3": "chip_antivirus",
+			"4": "chip_outside_address"
+		},
+		"chips": [
+			{
+				"id": "chip_invoice",
+				"label": "the invoice attachment"
+			},
+			{
+				"id": "chip_updatehelper",
+				"label": "a program called UpdateHelper"
+			},
+			{
+				"id": "chip_antivirus",
+				"label": "the antivirus"
+			},
+			{
+				"id": "chip_outside_address",
+				"label": "an outside address"
+			},
+			{
+				"id": "chip_update_note",
+				"label": "the monthly update note",
+				"reason": "That note was real. IT sent it the day before, and it came from IT."
+			},
+			{
+				"id": "chip_designpro",
+				"label": "the new design program",
+				"reason": "IT installed it and it is on the approved list. New is not the same as bad."
+			},
+			{
+				"id": "chip_popup_blocker",
+				"label": "the pop-up blocker",
+				"reason": "The pop-up blocker only hid an ad. It was not switched off."
+			},
+			{
+				"id": "chip_update_server",
+				"label": "the update server",
+				"reason": "That is the company's own server, and it is used at night."
+			}
+		],
+		"slot_empty": "(empty)",
+		"slot_correct": "[OK]",
+		"chip_picked": "> ",
+		"submit_button": "SUBMIT REPORT",
+		"submit_locked": "FILL ALL BLANKS",
+		"continue_button": "CONTINUE >",
+		"icons": {
+			"prompt": "?",
+			"picked": ">",
+			"wrong": "!",
+			"solved": "OK"
+		},
+		"messages": {
+			"prompt": "Read your notes, then fill in every blank.",
+			"picked": "Now click a blank to put \"{word}\" there.",
+			"some_wrong": "{right} of {total} are right. {reason} Try again.",
+			"none_right": "None of these fit yet. {reason} Try again.",
+			"solved": "Yes! That is what happened. We know what Ben's laptop was running.",
+			"misplaced": "\"{word}\" is a real clue, but it goes in a different blank."
+		},
+		"solved_explanation": "This is called malware: a harmful program that tricks someone into starting it, then hides and spreads."
+	}
+}

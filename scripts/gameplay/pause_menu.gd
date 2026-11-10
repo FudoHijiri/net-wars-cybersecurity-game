@@ -48,6 +48,7 @@ func open() -> void:
 	get_tree().paused = true
 	_window.show()
 	show()
+	UiFx.slide_in(_window, Vector2(0, -14), 0.18) # the window drops in (the pause menu keeps running while the game is paused)
 	_resume_button.grab_focus() # keyboard users can arrow up and down from here
 
 
@@ -109,5 +110,5 @@ func _on_back_to_stage_select_button_pressed() -> void:
 
 func _on_settings_visibility_changed() -> void:
 	if visible and not _settings.visible:
-		_window.show()
+		UiFx.slide_in(_window, Vector2(0, -14), 0.18)
 		_settings_button.grab_focus()

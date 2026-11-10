@@ -1,0 +1,369 @@
+{
+	"_note": "The Day 2 (Malware) work order. Same format as day1_recovery.json. attacks: the Response patterns that got through become these repairs. Components: program (FixBlueScreen), updates (SwitchPanel), scan (ScanClean), file_server (the final check, FileServerRepair).",
+	"room": {
+		"counter": "{done}/{total} checks",
+		"controls": "WASD / arrows: move     E: use     Esc: pause",
+		"return": "Finish shift",
+		"finish": "Finish shift",
+		"work_order": "Office exit / work order",
+		"waiting": "Waiting for Response",
+		"waiting_body": "Response has not confirmed that the malware is contained. You can look around, but the equipment must stay disconnected.",
+		"all_done": "Checks complete. Return to the office entrance to finish.",
+		"summary_title": "Recovery complete",
+		"summary_body": "The repairs and the final check passed.",
+		"summary_lesson": "Malware is stopped by approved programs, updates and an antivirus that stays on. Keep all three in place.",
+		"unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
+		"hardening_unavailable": "No hardening results have been supplied.",
+		"verify_locked": "Finish the required restoration work before the final access checks.",
+		"not_required": "This equipment does not need restoration in this work order.",
+		"close": "Back"
+	},
+	"points": {
+		"base": 15,
+		"clean_bonus": 10
+	},
+	"finish": {
+		"comments": {
+			"clean": "Joshua: Every fix was right the first time. Ben can get back to work.",
+			"done": "Joshua: Everything is fixed. Next time, read the reason before trying again."
+		}
+	},
+	"task_ui": {
+		"hint": "Take your time. Read the labels before choosing.",
+		"needs_repair": "[!] REQUIRED",
+		"working": "[=] NO REPAIR NEEDED",
+		"restored": "[OK] CHECKED",
+		"waiting": "[?] AWAITING CLEARANCE",
+		"locked": "[>] RESTORE FIRST",
+		"stamp": "REPAIRED",
+		"machine_default": "Workstation"
+	},
+	"case": {
+		"day": 2,
+		"day_title": "A Slow Laptop",
+		"threat": "Malware",
+		"brief": "The malware is stopped, but it left a mess. Ben's laptop crashes, the other laptops still have an open hole, and a spy may still be hiding. Fix each one, then check Ben can work again.",
+		"lesson": "On your own computer: keep it updated, keep the antivirus on, and install programs only from places you trust."
+	},
+	"attacks": [
+		{
+			"id": "trojan",
+			"label": "Trojan",
+			"component": "program"
+		},
+		{
+			"id": "worm",
+			"label": "Worm",
+			"component": "updates"
+		},
+		{
+			"id": "spyware",
+			"label": "Spyware",
+			"component": "scan"
+		}
+	],
+	"components": {
+		"program": {
+			"title": "Fix the blue screen",
+			"instruction": "Ben's laptop crashes when it starts. Find out why, start it safely, and take the bad program off.",
+			"lesson": "A crash usually follows a recent change. Safe Mode starts with only the basics, so the bad program cannot run.",
+			"system": "BLUE SCREEN",
+			"pick": "Read the screen, then choose.",
+			"removed": "[OK] REMOVED",
+			"screen": {
+				"title": ":(  Ben's laptop ran into a problem",
+				"lines": [
+					"Stop code: CRITICAL_PROCESS_DIED",
+					"Collecting error info... 100%"
+				],
+				"safe_title": "SAFE MODE",
+				"safe_lines": [
+					"Only the basic programs are running.",
+					"The bad program cannot run here."
+				],
+				"fixed_title": "Welcome, Ben",
+				"fixed_lines": [
+					"Windows started normally.",
+					"The crash is gone."
+				]
+			},
+			"steps": [
+				{
+					"type": "choice",
+					"question": "What does the stop code tell you?",
+					"options": [
+						{
+							"label": "The screen is broken.",
+							"reason": "The screen is fine. The message comes from the system, not the monitor."
+						},
+						{
+							"label": "Something the system needs stopped working.",
+							"right": true,
+							"reason": "Yes. A part the system needs stopped, so something must have changed."
+						},
+						{
+							"label": "Ben typed something wrong.",
+							"reason": "A typing mistake cannot cause this. The system itself stopped."
+						}
+					]
+				},
+				{
+					"type": "choice",
+					"question": "Which change came just before the crash?",
+					"options": [
+						{
+							"label": "03:00   Windows update (every laptop)",
+							"reason": "Every laptop got this update and only Ben's crashes. It was also hours earlier."
+						},
+						{
+							"label": "14:03   UpdateHelper.exe installed (Ben's laptop)",
+							"right": true,
+							"reason": "Right. A crash usually follows a recent change on that computer, and this one came minutes before."
+						},
+						{
+							"label": "11:20   DesignPro installed (Dana's laptop)",
+							"reason": "That is another laptop. It runs fine."
+						}
+					]
+				},
+				{
+					"type": "choice",
+					"question": "How do you start the laptop so the bad program cannot run?",
+					"options": [
+						{
+							"label": "Start normally",
+							"reason": "It would crash again. The bad program starts with Windows, so you would be stuck in a loop."
+						},
+						{
+							"label": "Reinstall Windows",
+							"reason": "That would erase Ben's files. Try the gentle fix first."
+						},
+						{
+							"label": "Safe Mode",
+							"right": true,
+							"screen": "safe",
+							"reason": "Safe Mode starts with only the basics. The bad program cannot run, so you can remove it."
+						},
+						{
+							"label": "Ignore it",
+							"reason": "Ben cannot work on a laptop that keeps crashing."
+						}
+					]
+				},
+				{
+					"type": "remove",
+					"question": "Remove the program that is not on the approved list (Office Suite, Browser, PDF Reader, Backup Agent, Accounting Tool).",
+					"columns": 2,
+					"hint": "Check each program against the approved list.",
+					"items": [
+						{
+							"id": "office",
+							"label": "Office Suite",
+							"detail": "Made by Office Co.",
+							"reason": "Approved, and Ben needs it. Keep it."
+						},
+						{
+							"id": "updatehelper",
+							"label": "UpdateHelper.exe",
+							"detail": "Maker: unknown",
+							"bad": true,
+							"reason": "Removed. A name that sounds helpful is not proof. The approved list is."
+						},
+						{
+							"id": "browser",
+							"label": "Browser",
+							"detail": "Made by Web Corp.",
+							"reason": "Approved, and Ben needs it. Keep it."
+						},
+						{
+							"id": "backup",
+							"label": "Backup Agent",
+							"detail": "Made by SafeCopy",
+							"reason": "Approved. It keeps Ben's files safe. Keep it."
+						},
+						{
+							"id": "pdf",
+							"label": "PDF Reader",
+							"detail": "Made by Reader Inc.",
+							"reason": "Approved. Keep it."
+						}
+					]
+				},
+				{
+					"type": "choice",
+					"question": "The bad program is gone. What now?",
+					"options": [
+						{
+							"label": "Stay in Safe Mode",
+							"reason": "Safe Mode is limited. Ben needs his normal programs, so restart normally."
+						},
+						{
+							"label": "Restart normally",
+							"right": true,
+							"screen": "fixed",
+							"finish": true,
+							"reason": "Restarted. The laptop starts without the crash."
+						}
+					]
+				}
+			],
+			"success": "The laptop starts again. The bad program is gone and Ben's files are safe."
+		},
+		"updates": {
+			"title": "Update the other laptops",
+			"instruction": "The worm used a hole that an update would have closed. Turn updates on for every laptop that is out of date.",
+			"lesson": "Updates close the holes that worms use. A laptop that is already up to date needs nothing.",
+			"system": "UPDATE CENTER",
+			"switch_heading": "Automatic updates",
+			"switch": "Updates",
+			"pick": "Which laptops are out of date? Turn their updates on.",
+			"updated": "The hole is closed on {laptop}. {left} switch(es) still off.",
+			"items": [
+				{
+					"id": "ben",
+					"label": "Ben's laptop",
+					"on": false,
+					"note_off": "Out of date: the hole is open.",
+					"note_on": "Up to date."
+				},
+				{
+					"id": "carla",
+					"label": "Carla's laptop",
+					"on": true,
+					"note_on": "Up to date.",
+					"reason": "Carla's laptop is already up to date. Leave it on."
+				},
+				{
+					"id": "dana",
+					"label": "Dana's laptop",
+					"on": false,
+					"note_off": "Out of date: the hole is open.",
+					"note_on": "Up to date."
+				},
+				{
+					"id": "reception",
+					"label": "Reception laptop",
+					"on": false,
+					"note_off": "Out of date: the hole is open.",
+					"note_on": "Up to date."
+				}
+			],
+			"success": "Every laptop is up to date. The hole the worm used is closed."
+		},
+		"scan": {
+			"title": "Scan and clean",
+			"instruction": "Spyware was hiding on Ben's laptop. Turn the protection back on, scan, then isolate only the real threats.",
+			"lesson": "Turn the protection back on first, then clean. Not every warning is a threat.",
+			"system": "ANTIVIRUS",
+			"switch": "Antivirus protection",
+			"scan": "Run scan",
+			"pick": "Turn the antivirus on first.",
+			"scan_locked": "The scan will not run while the antivirus is off. Turn the protection on first.",
+			"protection_on": "The antivirus is on. Now run the scan.",
+			"scanning": "Scanning... the antivirus looks at every file.",
+			"found": "The scan found 3 items. Not every warning is a threat. Isolate only the threats.",
+			"quarantine": "Isolate",
+			"quarantined": "[OK] ISOLATED",
+			"items": [
+				{
+					"id": "helper_dll",
+					"label": "update_helper.dll",
+					"detail": "Part of UpdateHelper. Calls an outside address.",
+					"bad": true,
+					"reason": "Isolated. It was the part that phoned home."
+				},
+				{
+					"id": "photo",
+					"label": "holiday_photo.jpg",
+					"detail": "Ben's picture. Flagged because it was just opened.",
+					"reason": "That is only Ben's photo. A warning is not always a threat. Leave it alone."
+				},
+				{
+					"id": "sys32",
+					"label": "sys32.tmp",
+					"detail": "Hidden file that writes down what Ben types.",
+					"bad": true,
+					"reason": "Isolated. The spy can no longer record anything."
+				}
+			],
+			"success": "The antivirus is on and the threats are isolated. Ben's laptop is clean."
+		},
+		"file_server": {
+			"title": "Back to work",
+			"instruction": "Check Ben's laptop the way he uses it every day. Each check proves one repair worked.",
+			"lesson": "Recovery is finished only when the person can work normally again and you have checked it.",
+			"system": "FINAL CHECK",
+			"checks": [
+				{
+					"id": "ordinary_file",
+					"label": "ORDINARY FILE",
+					"expected": "Trusted record: Ben's budget sheet should open.",
+					"passed": "The budget sheet opened and its numbers are right.",
+					"failed": "The budget sheet would not open. Do not mark recovery complete.",
+					"icon": "file"
+				},
+				{
+					"id": "approved_program",
+					"label": "APPROVED PROGRAM",
+					"expected": "Trusted record: the Office Suite should start.",
+					"passed": "The Office Suite started and nothing else started with it.",
+					"failed": "A program is not starting as it should. Recovery stays open.",
+					"icon": "account"
+				},
+				{
+					"id": "antivirus_on",
+					"label": "ANTIVIRUS",
+					"expected": "Trusted record: the antivirus should be on.",
+					"passed": "The antivirus is on and up to date.",
+					"failed": "The antivirus is still off. Recovery stays open.",
+					"icon": "contact"
+				}
+			],
+			"run": "Run check",
+			"confirm": "Confirm results",
+			"all_checks": "Run every check before confirming recovery.",
+			"failed": "A check failed. Keep recovery open and ask the response team to address the result.",
+			"passed": "[OK] {result}",
+			"failed_result": "[!] {result}",
+			"success": "The file opened, the approved program started and the antivirus is on. Ben is back to work.",
+			"points": {
+				"base": 20,
+				"clean_bonus": 0
+			}
+		}
+	},
+	"equipment_selection": {
+		"program": [
+			"monitoring",
+			"access"
+		],
+		"updates": [
+			"access",
+			"monitoring"
+		],
+		"scan": [
+			"monitoring",
+			"access"
+		],
+		"file_server": [
+			"servers"
+		]
+	},
+	"response_outcome": {
+		"contained": true,
+		"summary": "Response contained the malware. Ben's laptop and the others are ready for repairs.",
+		"cleared_devices": {},
+		"verification": {
+			"ordinary_file": true,
+			"approved_program": true,
+			"antivirus_on": true
+		}
+	},
+	"art_credits": [
+		"Recovery office v2 / supplied by the project owner\nOriginal pack, placement guide and source images retained under art_source/recovery/office_v2.\nPrepared by deterministic transparent cropping and GIF frame extraction. Original colours retained. No new image generation.\nCreator/licence information was not included in the supplied pack.",
+		"MetroCity / JIK-A-4\nhttps://jik-a-4.itch.io/metrocity-free-topdown-character-pack\nCC0: https://creativecommons.org/publicdomain/zero/1.0/\nBody, Outfit6 and short hair layers combined and recoloured to look like Joshua.",
+		"Pixel Office / 2dPig\nhttps://2dpig.itch.io/pixel-office\nCC0: https://creativecommons.org/publicdomain/zero/1.0/\nPlants, bookcase, wastebasket and clock cropped from the original asset sheet. Original pixels and colours retained.",
+		"Office Pixel Art by Imersa Studios\nhttps://imersastudios.itch.io/office-pixel-art\nFree edition used inside this project under its included licence. Authored rear desk, computer and cabinet views and front chair view, used unchanged at their native pixels. No generation or sprite flipping.",
+		"Midcentury Modern Furniture Set / 0_mem0ry\nhttps://0-mem0ry.itch.io/midcentury-modern-furniture-set-free\nFree creator-licensed assets for game projects. Rear sofa, rear armchairs, bookshelves, coffee table, plants, floor lamp, framed prints and wall clock cropped from the original sheet; original colours and pixels retained. No generation or sprite flipping."
+	]
+}

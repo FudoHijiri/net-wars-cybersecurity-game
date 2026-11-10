@@ -12,12 +12,15 @@ const COMPONENTS := {
 	"sessions": TASKS + "KickSessions.tscn",
 	"settings": TASKS + "UndoChanges.tscn",
 	"reused": TASKS + "ChangeTheLocks.tscn",
+	"program": TASKS + "FixBlueScreen.tscn",
+	"updates": TASKS + "SwitchPanel.tscn",
+	"scan": TASKS + "ScanClean.tscn",
 	"network": TASKS + "NetworkRepair.tscn",
 	"backup_database": TASKS + "BackupRepair.tscn",
 	"file_server": TASKS + "FileServerRepair.tscn",
 }
 const FINAL_CHECK := "file_server"
-const COMPONENT_IDS: Array[String] = ["password", "settings", "sessions", "reused", "network", "backup_database", "file_server"]
+const COMPONENT_IDS: Array[String] = ["password", "settings", "sessions", "reused", "program", "updates", "scan", "network", "backup_database", "file_server"]
 
 
 static func load_data(path: String = DEFAULT_PATH) -> Dictionary:

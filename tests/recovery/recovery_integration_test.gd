@@ -133,7 +133,11 @@ func _run() -> void:
 	check(state.response_damage == ["password", "settings"] and state.current_phase == "recovery" and state.response_outcome.get("contained", false), "Attacks that got through become the Recovery repairs")
 	check(saves.is_phase_complete(1, "response"), "Winning Response saves the phase as complete")
 	await create_timer(3.0).timeout
-	check(current_scene != null and current_scene.scene_file_path == "res://scenes/gameplay/recovery/Recovery.tscn", "CONTINUE after the fight opens Recovery")
+	check(current_scene != null and current_scene.scene_file_path == "res://scenes/gameplay/visual novel/Dialogue.tscn", "CONTINUE after the fight opens the Recovery dialogue")
+	if current_scene != null and current_scene.has_method("skip"):
+		current_scene.call("skip") # the dialogue ends by starting the phase
+	await create_timer(3.0).timeout
+	check(current_scene != null and current_scene.scene_file_path == "res://scenes/gameplay/recovery/Recovery.tscn", "The Recovery dialogue opens Recovery")
 	if current_scene != null:
 		await discard(current_scene)
 	for slot in [0, 1]: saves.delete_slot(slot)

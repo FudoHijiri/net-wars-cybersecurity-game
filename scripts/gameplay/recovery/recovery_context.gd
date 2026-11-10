@@ -4,7 +4,7 @@ extends RefCounted
 ## Read-only bridge. A monitoring report is not necessarily a confirmed threat.
 static func snapshot_live() -> Dictionary:
 	var info := GameState.day_info()
-	var data := RecoveryData.load_data()
+	var data := RecoveryData.load_data(str(GameState.phase_info("recovery").get("data", RecoveryData.DEFAULT_PATH)))
 	var evidence: Array[String] = []
 	var submitted: Dictionary = GameState.phase_findings.get("investigation", {})
 	evidence.assign(submitted.get("findings", []))
@@ -30,8 +30,8 @@ static func snapshot_live() -> Dictionary:
 		"threat": GameState.identified_threat if not GameState.identified_threat.is_empty() else "Not identified yet",
 		"evidence": evidence, "reports": reports, "points": GameState.wallet(),
 		"hardening": data.get("room", {}).get("hardening_unavailable", ""),
-		"brief": data.get("case", {}).get("brief", "") if GameState.current_day == 1 else "No recovery lesson has been authored for this day yet.",
-		"profile": "day1" if GameState.current_day == 1 else "unsupported",
+		"brief": data.get("case", {}).get("brief", "No recovery lesson has been authored for this day yet."),
+		"profile": "day1" if data.has("case") else "unsupported", # "day1" is the profile of any day with a work order
 	}
 
 

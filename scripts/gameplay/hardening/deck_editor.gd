@@ -113,11 +113,16 @@ func _add(id: String) -> void:
 		return
 	_state.deck_list().append(id)
 	refresh()
+	UiFx.fly(Glyph.Kind.CARD, UiFx.GOLD, get_global_mouse_position(), UiFx.center_of(_grid), func() -> void:
+		UiFx.pop(_title, 0.2, 0.3)
+		UiFx.flash(_title, UiFx.GOLD, 0.4), 0.35, 16.0)
 
 
 func _remove(id: String) -> void:
 	_state.deck_list().erase(id) # takes out one copy
 	refresh()
+	UiFx.pop(_title, 0.2, 0.3)
+	UiFx.fly(Glyph.Kind.CARD, UiFx.WHITE, UiFx.center_of(_grid), UiFx.center_of(_list), Callable(), 0.3, 12.0)
 
 
 func _deck_text() -> String:
@@ -127,6 +132,9 @@ func _deck_text() -> String:
 ## Shows a short message in place of the deck count, then puts the count back.
 func _flash(message: String) -> void:
 	_title.text = message
+	UiFx.shake(_title, 4.0)
+	UiFx.flash(_title, UiFx.RED, 0.5)
+	UiFx.badge(Glyph.Kind.CROSS, UiFx.RED, UiFx.center_of(_title) + Vector2(_title.size.x / 2.0 + 8.0, 0.0), 2, 1.0)
 	await get_tree().create_timer(1.0).timeout
 	_title.text = _deck_text()
 

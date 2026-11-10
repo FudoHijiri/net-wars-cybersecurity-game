@@ -15,7 +15,6 @@ var next_block : Dictionary
 @export_category("scene reference")
 @export var char_text : RichTextLabel
 @export var char_name : Label
-@export var char_sprite : TextureRect
 
 @export var BaseLayer: Control
 @export var ChoiceLayer : CanvasLayer
@@ -24,25 +23,30 @@ var next_block : Dictionary
 @onready var _day_label: Label = $Base/Banner/Day
 @onready var _animation: AnimationPlayer = $AnimationPlayer
 @onready var _opening_cover: ColorRect = $Base/Art/Fade
+@onready var _joshua: AnimatedSprite2D = $Base/Art/CharacterSprite1 # bobs its head by itself (its own "default" animation)
 @onready var _phone_sprite: TextureRect = $Base/Art/CharacterSprite2
+@onready var _carla: AnimatedSprite2D = $Base/Art/CharacterSprite3 # the same: a block with "art": "Carla" brings her in
 @onready var _points_label: Label = $Base/SecurityPoints
 
 ## Blocks with one of these "art" values bring in the phone. The caller has no sprite of its own.
 const PHONE_ARTS: Array[String] = ["Phone", "Client"]
+## A block with this "art" brings Carla in person (the phone is for when she calls).
+const CARLA_ART := "Carla"
 
 var _fade: FadeText
 var _phone_animation: AnimationPlayer # plays CharacterEntrance2 while Joshua keeps bobbing
+var _carla_animation: AnimationPlayer # plays CharacterEntrance3 at the same time as the others
 var _phone_shown := false
+var _last_speaker: CanvasItem # who spoke in the block before, so a character only hops when they start to speak
+var _carla_shown := false
 var _pending_choices: Dictionary = {} # choices of the current block, shown on the player's next press
 var _intro_done := false # clicks and keys do nothing until the opening has played
 
 
 func _ready() -> void:
 	_fade = FadeText.new(char_text)
-	_phone_animation = AnimationPlayer.new()
-	add_child(_phone_animation)
-	_phone_animation.root_node = _animation.root_node
-	_phone_animation.add_animation_library(&"", _animation.get_animation_library(&""))
+	_phone_animation = _extra_player()
+	_carla_animation = _extra_player()
 	_day_label.text = "Day %d" % GameState.current_day
 	_points_label.text = "%d SP" % GameState.wallet() # the points in the current save
 	get_json(jsonsrc if not jsonsrc.is_empty() else str(GameState.phase_info().get("dialogue", "")))
@@ -52,6 +56,15 @@ func _ready() -> void:
 	load_block(current_block)
 
 
+## A second animation player on the same animations, so two entrances can play at the same time.
+func _extra_player() -> AnimationPlayer:
+	var player := AnimationPlayer.new()
+	add_child(player)
+	player.root_node = _animation.root_node
+	player.add_animation_library(&"", _animation.get_animation_library(&""))
+	return player
+
+
 ## The black cover fades out, then the character fades in and starts bobbing. The first line
 ## starts when the cover is gone, together with the character's entrance. The cover stays black
 ## until the scene loader has finished fading in. There is no closing animation: the last block
@@ -59,13 +72,15 @@ func _ready() -> void:
 func _play_intro() -> void:
 	char_text.text = "" # not the editor's placeholder text
 	char_name.text = ""
-	char_sprite.modulate.a = 0.0 # CharacterEntrance1 fades it in
+	_joshua.modulate.a = 0.0 # CharacterEntrance1 fades him in
 	_phone_sprite.modulate.a = 0.0 # CharacterEntrance2 fades it in
+	_carla.modulate.a = 0.0 # CharacterEntrance3 fades her in
+	_joshua.play(&"default") # the head bobbing, for as long as the dialogue lasts
+	_carla.play(&"default")
 	_opening_cover.show() # it is hidden in the scene so it doesn't hide the art in the editor
 	await SceneManager.wait_for_transition()
 	_animation.play(&"Opening")
 	_animation.queue(&"CharacterEntrance1")
-	_animation.queue(&"CharacterBobbing") # loops
 	await _animation.animation_finished # the Opening
 	_opening_cover.hide()
 	_intro_done = true
@@ -80,12 +95,20 @@ func get_json(src: String):
 func load_block(block : Dictionary):
 	_pending_choices = {}
 	if block.has("text"): _fade.show_text(block["text"])
-	if block.has("name"): char_name.text = block["name"]
+	if block.has("name"):
+		if char_name.text != str(block["name"]):
+			UiFx.fade_in(char_name, 0.15) # the name tag changes with a short fade
+		char_name.text = block["name"]
 	if not _phone_shown and PHONE_ARTS.has(str(block.get("art", ""))):
 		_phone_shown = true
 		_phone_animation.play(&"CharacterEntrance2")
+	if not _carla_shown and str(block.get("art", "")) == CARLA_ART:
+		_carla_shown = true
+		_carla_animation.play(&"CharacterEntrance3")
 	if block.has("hide_art"):
 		_hide_art(str(block["hide_art"]))
+	if block.has("art"):
+		_speaker_cue(str(block["art"]), str(block.get("name", "")), str(block.get("text", "")))
 
 	if block.has("next"):
 		var key = block["next"]
@@ -105,12 +128,35 @@ func load_block(block : Dictionary):
 				SceneManager.load_scene(scene)
 
 
+## Who is speaking is shown by more than the name: the speaker is lit and hops once, the others are dimmed,
+## and the phone shakes while it rings (the "*Ring ring...*" line).
+func _speaker_cue(art: String, speaker: String, text: String) -> void:
+	var speaking: CanvasItem = null
+	if art == "Joshua":
+		speaking = _joshua
+	elif art == CARLA_ART:
+		speaking = _carla
+	elif PHONE_ARTS.has(art):
+		speaking = _phone_sprite
+	for sprite: CanvasItem in [_joshua, _carla, _phone_sprite]:
+		UiFx.dim(sprite, sprite != speaking)
+	if speaking != null and speaking != _phone_sprite and _last_speaker != speaking:
+		UiFx.hop(speaking)
+	_last_speaker = speaking
+	if speaker == "Phone" and text.begins_with("*Ring"):
+		UiFx.shake(_phone_sprite, 3.0, 14) # the phone vibrates
+
+
 ## "hide_art" in a block names the art that leaves: its entrance plays backwards.
 func _hide_art(art: String) -> void:
 	if PHONE_ARTS.has(art):
 		if _phone_shown:
 			_phone_shown = false # a later "art": "Phone" brings it back in
 			_phone_animation.play_backwards(&"CharacterEntrance2")
+	elif art == CARLA_ART:
+		if _carla_shown:
+			_carla_shown = false # a later "art": "Carla" brings her back
+			_carla_animation.play_backwards(&"CharacterEntrance3")
 	elif art == "Joshua":
 		_animation.play_backwards(&"CharacterEntrance1")
 
@@ -161,6 +207,7 @@ func _input(event: InputEvent)->void:
 		else:
 			ChoiceLayer.show()
 			ChoiceLayer.set_choices(_pending_choices)
+			ChoiceLayer.animate_in()
 			_pending_choices = {}
 
 

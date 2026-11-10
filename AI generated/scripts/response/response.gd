@@ -4,10 +4,12 @@ extends Control
 ## player learns how that threat really behaves. Data: data/response_day1.json and data/cards.json.
 ## The deck and the upgrades are the ones the player built in Hardening (HardeningState).
 
-const DATA_PATH := "res://AI generated/data/response_day1.json"
+## The data of the fight is named by the day in days.json ("data" of the response phase); Day 1's is the default.
+const DEFAULT_DATA_PATH := "res://AI generated/data/response_day1.json"
 const CARDS_PATH := "res://data/cards.json"
 const FONT := preload("res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf")
 const TYPE_SPEED := 45.0 # letters per second for typed text
+const HEAL_GREEN := Color("a7f070")
 
 var _cards: Dictionary = {}
 var _boss: Dictionary = {}
@@ -30,11 +32,13 @@ var _through := 0
 var _skip := false # a click shows the text at once and skips the pauses
 var _typing := {} # label -> id of the text being typed into it, so a new text cancels the old one
 var _equipped: Array[String] = [] # the upgrades equipped in Hardening
+var _passive := {} # what the equipped upgrades always give: key -> total (max_hp, block_per_turn, heal_per_turn, attack_bonus, first_draw, first_energy)
 var _used := {} # upgrade id -> how many times it worked during the last enemy turn
 var _won := false
 var _upgrade_icons := {} # upgrade id -> its icon in the corner of the screen
 var _worked: Array[String] = [] # ids of the upgrades that did their job at least once
 var _fx: ResponseFx # the effects of the fight: bolts, sparks, the shield, the animations of the two fighters
+var _bar_shown := {} # health bar -> the value it showed last, so a drop leaves a white chunk
 var _busy := false # a played card's effect is still flying: no other card, no end of turn until it lands
 ## Ids of the attack patterns whose damage got through (not fully blocked or dodged). Recovery
 ## repairs one thing per pattern here (data/recovery/dayN_recovery.json "attacks").
@@ -65,7 +69,7 @@ var hit_patterns: Array[String] = []
 
 
 func _ready() -> void:
-	_boss = _load_json(DATA_PATH)
+	_boss = _load_json(str(GameState.phase_info("response").get("data", DEFAULT_DATA_PATH)))
 	_cards = _load_json(CARDS_PATH).get("cards", {})
 	_patterns = _boss["patterns"]
 	var build := HardeningState.new()
@@ -73,7 +77,11 @@ func _ready() -> void:
 		_deck.append(id)
 	for id: String in build.equipped_list():
 		_equipped.append(id)
-	_player_max = int(_boss["player_hp"])
+	for id: String in _equipped:
+		var gives: Dictionary = build.upgrades.get(id, {}).get("passive", {})
+		for key: String in gives:
+			_passive[key] = int(_passive.get(key, 0)) + int(gives[key])
+	_player_max = int(_boss["player_hp"]) + int(_passive.get("max_hp", 0))
 	_player_hp = _player_max
 	_boss_max = int(_boss["boss_hp"])
 	_boss_hp = _boss_max
@@ -86,6 +94,8 @@ func _ready() -> void:
 	add_child(_fx)
 	_fx.prepare(_hero)
 	_fx.prepare(_enemy)
+	_fx.conceal(_hero) # they form out of pixels when the fight starts
+	_fx.conceal(_enemy)
 	_boss_name.text = str(_boss["threat"]).to_upper()
 	_intent_icon.draw.connect(_draw_intent_icon)
 	_hand_fan.card_clicked.connect(_on_card_clicked)
@@ -103,6 +113,9 @@ func _ready() -> void:
 	_build_upgrade_icons(build)
 	_start_player_turn()
 	await SceneManager.wait_for_transition()
+	_fx.appear(_hero)
+	_fx.appear(_enemy, 0.25)
+	UiFx.banner("YOUR TURN", UiFx.CYAN)
 	Tutorial.maybe_show(self, "response")
 
 
@@ -137,15 +150,21 @@ func _load_json(path: String) -> Dictionary:
 # --- the player's turn ---
 
 func _start_player_turn() -> void:
-	_block = 0 # Block only lasts through the enemy's turn
+	_block = int(_passive.get("block_per_turn", 0)) # Block only lasts through the enemy's turn
 	_energy = int(_boss["energy"])
-	for i in int(_boss["hand_size"]):
+	_player_hp = mini(_player_hp + int(_passive.get("heal_per_turn", 0)), _player_max)
+	var first := _turn == 0
+	if first:
+		_energy += int(_passive.get("first_energy", 0))
+	for i in int(_boss["hand_size"]) + (int(_passive.get("first_draw", 0)) if first else 0):
 		_draw_one()
 	_hand_fan.set_hand(_hand, _cards)
 	_hand_fan.energy = _energy
 	_hand_fan.enabled = true
 	_end_turn.disabled = false
 	_turn_label.text = "YOUR TURN - play cards, then end the turn"
+	if _turn > 0:
+		UiFx.banner("YOUR TURN", UiFx.CYAN)
 	_show_next_pattern()
 	_refresh()
 
@@ -166,7 +185,7 @@ func _draw_one() -> String:
 
 ## A played card: its effect flies from the card to its target and does its job when it lands.
 ## Damage is a red bolt to the enemy, Block a cyan bolt to the player (the shield then stays around them),
-## Draw gold sparks that rise from the card.
+## Draw gold sparks that rise from the card, Heal a green bolt to the player, Energy a gold ring and a bigger energy pool now.
 func _on_card_clicked(index: int) -> void:
 	var id := _hand[index]
 	var card: Dictionary = _cards[id]
@@ -181,8 +200,12 @@ func _on_card_clicked(index: int) -> void:
 	_hand.remove_at(index)
 	_hand_fan.remove_card(index)
 	var damage := int(effects.get("damage", 0))
+	if damage > 0:
+		damage += int(_passive.get("attack_bonus", 0)) # an upgrade makes every attack card hit harder
 	var block := int(effects.get("block", 0))
 	var draw := int(effects.get("draw", 0))
+	var heal := int(effects.get("heal", 0))
+	var energy_gain := int(effects.get("energy", 0))
 	var wait := 0.1
 	if damage > 0:
 		_fx.attack(_hero, _enemy.global_position, ResponseFx.RED, 10.0)
@@ -191,6 +214,14 @@ func _on_card_clicked(index: int) -> void:
 		if damage == 0:
 			_fx.cast(_hero, ResponseFx.CYAN)
 		wait = maxf(wait, _fx.bolt(from, _hero.global_position, ResponseFx.CYAN, block / 10.0, func() -> void: _apply_block(block), 4.0))
+	if heal > 0:
+		if damage == 0 and block == 0:
+			_fx.cast(_hero, HEAL_GREEN)
+		wait = maxf(wait, _fx.bolt(from, _hero.global_position, HEAL_GREEN, heal / 6.0, func() -> void: _apply_heal(heal), 4.0))
+	if energy_gain > 0:
+		_energy += energy_gain # it can go above the usual energy: it is spent like the rest
+		_fx.ring(from, ResponseFx.GOLD, 4.0, 26.0)
+		_float_text("+%d ENERGY" % energy_gain, from + Vector2(0, -20), ResponseFx.GOLD, 0.6, 6, true)
 	for i in draw:
 		var drawn := _draw_one()
 		if not drawn.is_empty():
@@ -219,6 +250,15 @@ func _apply_damage(amount: int) -> void:
 		_finish(true)
 
 
+## The green bolt landed: HP goes up, never above the maximum.
+func _apply_heal(amount: int) -> void:
+	var healed := mini(amount, _player_max - _player_hp)
+	_player_hp += healed
+	_fx.rise(_hero.global_position, HEAL_GREEN, 8)
+	_float_text("+%d HP" % healed, _hero.position + Vector2(0, -44), HEAL_GREEN, 0.6, 6, true)
+	_refresh()
+
+
 ## The cyan bolt landed: the shield goes up around the player (_refresh shows it).
 func _apply_block(amount: int) -> void:
 	_block += amount
@@ -232,9 +272,10 @@ func _on_end_turn_pressed() -> void:
 		return
 	_discard.append_array(_hand)
 	_hand.clear()
-	_hand_fan.set_hand(_hand, _cards)
+	_hand_fan.discard_all(_piles_label.global_position + Vector2(40.0, 8.0)) # the hand flies to the discard pile
 	_hand_fan.enabled = false
 	_end_turn.disabled = true
+	UiFx.banner("ENEMY TURN", UiFx.RED)
 	var pattern: Dictionary = _patterns[_turn % _patterns.size()]
 	_hits = 0
 	_blocked = 0
@@ -258,8 +299,20 @@ func _on_end_turn_pressed() -> void:
 			return
 	_turn_label.text = "ENEMY TURN - dodge with the arrow keys or WASD"
 	_arena.defenses = _equipped
+	_set_helper()
 	_arena.start(pattern)
 	_type(_teach_body, str(pattern["teach"])) # keeps typing while the pattern runs
+
+
+## The equipped upgrade that warns early (a "helper" of the day's data: "helper_warning" seconds), if there is one.
+func _set_helper() -> void:
+	_arena.warning_bonus = 0.0
+	_arena.helper_id = ""
+	for defense: Dictionary in _boss["defenses"]:
+		if defense.has("helper_warning") and _equipped.has(str(defense["id"])):
+			_arena.warning_bonus = float(defense["helper_warning"])
+			_arena.helper_id = str(defense["id"])
+			_arena.helper_note = str(defense.get("helper_note", "EARLY WARNING"))
 
 
 ## True when the pattern is played in its harder version: the upgrade that counters it is not equipped.
@@ -325,6 +378,8 @@ func _on_hit(damage: int) -> void:
 			hit_patterns.append(pattern_id)
 	if damage - absorbed > 0:
 		_fx.hurt(_hero, Vector2.LEFT)
+		if damage - absorbed >= 8:
+			_fx.screen_flash(ResponseFx.RED, 0.25) # a heavy hit
 	if absorbed > 0:
 		_fx.pulse_aura()
 	_shake(3.0 if absorbed == damage else 4.0 + damage * 0.25)
@@ -537,12 +592,32 @@ func _flash(sprite: CanvasItem) -> void:
 	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.25)
 
 
+## A health bar goes down at once, and a white chunk shows what was lost, then melts away.
+func _set_bar(bar: ProgressBar, max_hp: int, hp: int) -> void:
+	var shown: float = _bar_shown.get(bar, float(hp))
+	bar.max_value = max_hp
+	if float(hp) < shown and not UiFx.reduced():
+		var chunk := ColorRect.new()
+		chunk.color = Color(1, 1, 1, 0.9)
+		chunk.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var x0 := bar.position.x + bar.size.x * hp / maxf(max_hp, 1.0)
+		var x1 := bar.position.x + bar.size.x * shown / maxf(max_hp, 1.0)
+		chunk.position = Vector2(roundf(x0), bar.position.y)
+		chunk.size = Vector2(maxf(roundf(x1 - x0), 1.0), bar.size.y)
+		bar.get_parent().add_child(chunk)
+		var tween := chunk.create_tween()
+		tween.tween_interval(0.35)
+		tween.tween_property(chunk, "size:x", 0.0, 0.3)
+		tween.tween_callback(chunk.queue_free)
+		UiFx.flash(bar, UiFx.RED, 0.3)
+	bar.value = hp
+	_bar_shown[bar] = float(hp)
+
+
 func _refresh() -> void:
-	_boss_bar.max_value = _boss_max
-	_boss_bar.value = _boss_hp
+	_set_bar(_boss_bar, _boss_max, _boss_hp)
 	_boss_text.text = "%d / %d" % [_boss_hp, _boss_max]
-	_player_bar.max_value = _player_max
-	_player_bar.value = _player_hp
+	_set_bar(_player_bar, _player_max, _player_hp)
 	_player_text.text = "%d / %d" % [_player_hp, _player_max]
 	_block_label.text = "BLOCK %d" % _block
 	_energy_label.text = "ENERGY %d / %d" % [_energy, int(_boss["energy"])]

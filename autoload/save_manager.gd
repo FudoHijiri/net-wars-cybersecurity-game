@@ -28,7 +28,7 @@ const SAVE_VERSION := 1
 const _GameState := preload("res://autoload/game_state.gd")
 ## Keys that saves made before the key existed do not have, and what such a save gets for them. A new game
 ## gets the value of _new_data() instead: for "tutorial" that is the difference between a new save and an old one.
-const _OLD_SAVE_DEFAULTS := {"tutorial": [], "found_clues": [], "phase_findings": {}, "recovery_runs": {}}
+const _OLD_SAVE_DEFAULTS := {"tutorial": [], "found_clues": [], "phase_findings": {}, "recovery_runs": {}, "equipped_history": {}}
 const _TAG := "NWSV"
 const _IV_SIZE := 16
 const _MAC_SIZE := 32
@@ -162,6 +162,7 @@ func _new_data() -> Dictionary:
 		"found_clues": [], # ids of the Investigation clues the player found, kept when Investigation ends
 		"phase_findings": {}, # day -> submitted Investigation/Monitoring context (Recovery briefing)
 		"recovery_runs": {}, # day -> Response handoff and Recovery progress
+		"equipped_history": {}, # day -> the upgrades equipped when that day's Hardening ended (later days' evidence echoes them)
 		"tutorial": [ # the tutorials still to come: a phase, or a view inside it (see data/tutorials.json)
 			"investigation", "investigation_report", "monitoring", "hardening",
 			"hardening_shop", "hardening_deck_editor", "hardening_upgrade_editor", "response",

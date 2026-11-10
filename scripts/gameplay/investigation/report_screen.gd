@@ -165,7 +165,10 @@ func _refresh() -> void:
 	for id: String in _chips:
 		var chip: WordChip = _chips[id]
 		var is_picked := id == _picked
+		var was_visible := chip.visible
 		chip.visible = _slot_of(id) == 0
+		if chip.visible and not was_visible and is_visible_in_tree():
+			UiFx.fade_in(chip, 0.15)
 		chip.theme_type_variation = &"ChipButtonPicked" if is_picked else &"ChipButton"
 		chip.text = (picked_prefix if is_picked else "") + chip.chip_label
 	for slot in _slots:
@@ -247,6 +250,7 @@ func _on_slot_pressed(blank: int) -> void:
 		_picked = ""
 		_set_message("prompt")
 		_refresh()
+		_pop_slot_later(_slots[blank - 1])
 		_focus_start()
 	elif _placed.has(blank):
 		var returned: String = _placed[blank]
@@ -288,13 +292,17 @@ func _on_submit_pressed() -> void:
 		return
 	var answers: Dictionary = _report.get("answers", {})
 	var first_wrong := "" # the first wrong word, so the message can say why it does not fit
+	var now_right: Array[WordSlot] = []
+	var now_wrong: Array[WordSlot] = []
 	for slot in _slots:
 		var n := slot.slot_number
 		if _locked.has(n):
 			continue
 		if _placed[n] == str(answers.get(str(n), "")):
 			_locked[n] = true
+			now_right.append(slot)
 		else:
+			now_wrong.append(slot)
 			_mistakes += 1
 			if first_wrong.is_empty():
 				first_wrong = _placed[n]
@@ -307,7 +315,35 @@ func _on_submit_pressed() -> void:
 		var values := {"right": _locked.size(), "total": _slots.size(), "reason": _reason_for(first_wrong)}
 		_set_message("none_right" if _locked.is_empty() else "some_wrong", values)
 	_refresh()
+	_play_submit(now_right, now_wrong)
 	_focus_start()
+
+
+## The result of a submit, in motion and with an icon, not only a message: a right word locks with a check,
+## a wrong word shakes with a cross (and went back to the tray), and a solved report is stamped.
+func _play_submit(right: Array[WordSlot], wrong: Array[WordSlot]) -> void:
+	# A slot changes its text (and so its width) when it locks or is emptied, and the words after it move.
+	# The effects wait until the layout has settled, or they would land where the old word was.
+	await get_tree().process_frame
+	await get_tree().process_frame
+	for slot in right:
+		UiFx.pop(slot, 0.2, 0.3)
+		UiFx.badge_on(slot, Glyph.Kind.LOCK, UiFx.GREEN, 2, 1.4)
+		UiFx.sparkle(UiFx.center_of(slot), UiFx.GREEN, 8)
+	for slot in wrong:
+		UiFx.shake(slot, 3.0)
+		UiFx.flash(slot, UiFx.RED, 0.4)
+		UiFx.badge_on(slot, Glyph.Kind.CROSS, UiFx.RED, 2, 1.4)
+	if _solved:
+		var at := get_global_rect().get_center()
+		UiFx.stamp_label("CASE SOLVED", UiFx.GREEN, at, 12, 1.6)
+		UiFx.sparkle(at, UiFx.GREEN, 18)
+
+
+func _pop_slot_later(slot: WordSlot) -> void:
+	await get_tree().process_frame # the blank takes the new word's width first
+	if is_instance_valid(slot):
+		UiFx.pop(slot)
 
 
 ## Why a wrong word does not fit: the word's own "reason" in the data, or a general line for a

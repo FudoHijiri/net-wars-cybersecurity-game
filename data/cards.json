@@ -1,5 +1,5 @@
 {
-	"_note": "Placeholder cards for the six arts that exist. Numbers follow the HP 80 point model in notes.json (card_balance). type is offensive, defensive or utility (picks the frame and the icon). The art file is assets/cards/art/art_<id>.png. effects is what the card does in the Response phase (damage, block, draw).",
+	"_note": "Placeholder cards for the six arts that exist. Numbers follow the HP 80 point model in notes.json (card_balance). type is offensive, defensive or utility (picks the frame and the icon). The art file is assets/cards/art/art_<id>.png. effects is what the card does in the Response phase (damage, block, draw, heal, energy). day is the day that adds the card to the shop (1 when missing); the shop shows the cards of the current and of earlier days.",
 	"cards": {
 		"firewall": {"name": "Firewall", "type": "defensive", "cost": 1, "text": "Gain 5 Block.", "effects": {"block": 5}},
 		"lock_out": {"name": "Lock Out", "type": "defensive", "cost": 2, "text": "Gain 10 Block.", "effects": {"block": 10}},
@@ -12,8 +12,18 @@
 		"audit": {"name": "Audit", "type": "utility", "cost": 1, "text": "Draw 3 cards.", "effects": {"draw": 3}, "price": 30},
 		"hunt": {"name": "Hunt", "type": "offensive", "cost": 2, "text": "Deal 9 damage. Draw 1.", "effects": {"damage": 9, "draw": 1}, "price": 45},
 		"encrypt": {"name": "Encrypt", "type": "defensive", "cost": 2, "text": "Gain 8 Block. Draw 1 card.", "effects": {"block": 8, "draw": 1}, "price": 45},
-		"shutdown": {"name": "Shutdown", "type": "offensive", "cost": 3, "text": "Deal 14 damage. Gain 6 Block.", "effects": {"damage": 14, "block": 6}, "price": 60}
+		"shutdown": {"name": "Shutdown", "type": "offensive", "cost": 3, "text": "Deal 14 damage. Gain 6 Block.", "effects": {"damage": 14, "block": 6}, "price": 60},
+		"fast_scan": {"name": "Fast Scan", "type": "offensive", "cost": 0, "day": 2, "text": "Deal 2 damage. Draw 1.", "effects": {"damage": 2, "draw": 1}, "price": 25},
+		"quarantine": {"name": "Quarantine", "type": "offensive", "cost": 1, "day": 2, "text": "Deal 5 damage. Heal 1.", "effects": {"damage": 5, "heal": 1}, "price": 35},
+		"sandbox": {"name": "Sandbox", "type": "offensive", "cost": 2, "day": 2, "text": "Deal 10 damage. Heal 2.", "effects": {"damage": 10, "heal": 2}, "price": 50},
+		"disinfect": {"name": "Disinfect", "type": "offensive", "cost": 3, "day": 2, "text": "Deal 18 damage. Heal 4.", "effects": {"damage": 18, "heal": 4}, "price": 70},
+		"av_shield": {"name": "AV Shield", "type": "defensive", "cost": 1, "day": 2, "text": "Gain 4 Block. Heal 1.", "effects": {"block": 4, "heal": 1}, "price": 35},
+		"rollback": {"name": "Rollback", "type": "defensive", "cost": 2, "day": 2, "text": "Gain 7 Block. Heal 3.", "effects": {"block": 7, "heal": 3}, "price": 55},
+		"safe_mode": {"name": "Safe Mode", "type": "defensive", "cost": 2, "day": 2, "text": "Gain 5 Block. Gain 1 Energy.", "effects": {"block": 5, "energy": 1}, "price": 50},
+		"reboot": {"name": "Reboot", "type": "utility", "cost": 1, "day": 2, "text": "Heal 4.", "effects": {"heal": 4}, "price": 30},
+		"backup": {"name": "Backup", "type": "utility", "cost": 1, "day": 2, "text": "Heal 4. Draw 1 card.", "effects": {"heal": 4, "draw": 1}, "price": 40},
+		"update": {"name": "Update", "type": "utility", "cost": 2, "day": 2, "text": "Gain 1 Energy. Draw 2 cards.", "effects": {"energy": 1, "draw": 2}, "price": 50}
 	},
 	"starter_deck": ["firewall", "firewall", "trace", "trace", "scan", "isolate", "lock_out"],
-	"shop": ["probe", "patch", "audit", "hunt", "encrypt", "shutdown"]
+	"shop": ["probe", "patch", "audit", "hunt", "encrypt", "shutdown", "fast_scan", "quarantine", "sandbox", "disinfect", "av_shield", "rollback", "safe_mode", "reboot", "backup", "update"]
 }

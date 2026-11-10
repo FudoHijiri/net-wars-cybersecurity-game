@@ -372,7 +372,30 @@ func _load_json(path: String) -> Dictionary:
 
 func _load_phase_data() -> void:
 	scenario = _load_json(str(phase_info().get("data", "")))
+	_apply_echoes()
 	_build_entity_index()
+
+
+## Hardening echoes: an entry can appear only when an upgrade was (or was not) equipped at the end of the day
+## before. "if_equipped": [ids] needs all of them, "unless_equipped": [ids] needs none. The two versions of an
+## entry replace each other, so the count of entries and of clues does not change.
+func _apply_echoes() -> void:
+	var worn := _equipped_the_day_before()
+	for app: Dictionary in scenario.get("investigation", {}).values():
+		var kept: Array = []
+		for entry: Dictionary in app.get("entries", []):
+			var needs: Array = entry.get("if_equipped", [])
+			var without: Array = entry.get("unless_equipped", [])
+			if needs.all(func(id: String) -> bool: return worn.has(id)) and not without.any(func(id: String) -> bool: return worn.has(id)):
+				kept.append(entry)
+		app["entries"] = kept
+
+
+## The upgrades the player had equipped when the previous day's Hardening ended (none for Day 1, or without a save).
+func _equipped_the_day_before() -> Array:
+	if current_day <= 1 or SaveManager.current_slot < 0:
+		return []
+	return SaveManager.data.get("equipped_history", {}).get(str(current_day - 1), [])
 
 
 func _build_entity_index() -> void:

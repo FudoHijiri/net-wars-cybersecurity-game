@@ -10,6 +10,8 @@ const DEFAULT_APP := "email"
 const OBJECTIVE_FIND_TEXT := "OBJECTIVE - INVESTIGATE AND FIND CLUES"
 const OBJECTIVE_REPORT_TEXT := "OBJECTIVE - WRITE THE REPORT"
 
+var _shown_clues := -1 # the clue count last shown, so only a new clue makes the counter jump
+
 @onready var _objective: RichTextLabel = $FramePanel/MainPanel/Objective
 @onready var _clues_found: RichTextLabel = $FramePanel/MainPanel/CluesFound
 @onready var _app_view: AppViewPanel = $FramePanel/MainPanel/MainPanelAppView
@@ -30,6 +32,14 @@ const OBJECTIVE_REPORT_TEXT := "OBJECTIVE - WRITE THE REPORT"
 func _ready() -> void:
 	_app_view.monologue = _monologue
 
+	# The scenario may relabel the tabs ("tabs": app id -> label): the same seven slots hold different apps each day.
+	var labels: Dictionary = GameState.scenario.get("tabs", {})
+	var slots := {"email": _email_button, "logs": _logs_button, "computers": _computers_button, "login": _login_button,
+			"files": _files_button, "network": _net_button, "servers": _servers_button}
+	for app_id: String in slots:
+		if labels.has(app_id):
+			(slots[app_id] as Button).text = str(labels[app_id])
+
 	# One group, so exactly one tab shows as pressed.
 	var group := ButtonGroup.new()
 	for button: Button in [_email_button, _logs_button, _computers_button, _login_button,
@@ -46,7 +56,11 @@ func _ready() -> void:
 
 	# REPORT unlocks after the monologue that follows the last clue.
 	_report_button.disabled = GameState.marked_count() < GameState.clues_required()
-	_app_view.all_clues_found.connect(func() -> void: _report_button.disabled = false)
+	if not _report_button.disabled:
+		UiFx.attention(_report_button)
+	_app_view.all_clues_found.connect(func() -> void:
+		_report_button.disabled = false
+		UiFx.attention(_report_button)) # it bounces until it is pressed
 
 	_report.completed.connect(_on_report_completed)
 
@@ -83,6 +97,7 @@ func _on_servers_button_pressed() -> void:
 
 
 func _on_report_button_pressed() -> void:
+	UiFx.stop_attention(_report_button)
 	_animation.play(&"ReportScreenOpening")
 	_animation.advance(0.0) # apply the first frame before the screen shows
 	_report.open()
@@ -110,6 +125,11 @@ func _on_report_completed() -> void:
 
 
 func _update_clues_found() -> void:
+	var count := GameState.marked_count()
+	if _shown_clues >= 0 and count > _shown_clues: # a new clue: the counter jumps
+		UiFx.pop(_clues_found, 0.2, 0.3)
+		UiFx.flash(_clues_found, UiFx.GOLD, 0.5)
+	_shown_clues = count
 	_clues_found.text = "Found Clues: %d/%d" % [GameState.marked_count(), GameState.clues_required()]
 	# With every clue found, the next step is the REPORT button.
 	var done := GameState.marked_count() >= GameState.clues_required()

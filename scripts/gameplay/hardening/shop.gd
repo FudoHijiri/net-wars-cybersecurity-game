@@ -9,6 +9,7 @@ signal changed
 const CARD_SCENE := preload("res://scenes/gameplay/hardening/Card.tscn")
 const UPGRADE_ICON := "res://assets/upgrades/icon_%s.png"
 const DIM := Color(0.7, 0.7, 0.7)
+const ANY := 5 # the id of "-" in the cost dropdowns
 
 var _state: HardeningState
 var _tiles: Dictionary = {} # "card:<id>" or "upgrade:<id>" -> {"tile": the tile, "price": its price button}
@@ -22,6 +23,10 @@ var _typing: Tween
 @onready var _buy_hint: Label = $ShopContent/Panel/HBoxContainer/VBoxContainer/Hint
 @onready var _buy_button: Button = $ShopContent/Panel/PriceButton
 @onready var _dialogue: RichTextLabel = $Dialogue/Content
+@onready var _card_filters: Array[Button] = [$ShopContent/NewFilterCards, $ShopContent/OffensiveFilter, $ShopContent/DefensiveFilter, $ShopContent/UtilityFilter]
+@onready var _card_cost: OptionButton = $ShopContent/CostFilterCards
+@onready var _upgrade_filters: Array[Button] = [$ShopContent/NewFilterUpgrades, $ShopContent/RecommendedFilter]
+@onready var _upgrade_cost: OptionButton = $ShopContent/CostFilterUpgrades
 
 
 func setup(state: HardeningState) -> void:
@@ -47,6 +52,7 @@ func setup(state: HardeningState) -> void:
 	card_template.queue_free()
 
 	var upgrade_template: Control = _upgrade_row.get_child(0)
+	_upgrade_row.add_theme_constant_override("separation", 8)
 	for id: String in _state.shop_upgrades:
 		if not _state.upgrades.has(id):
 			continue
@@ -57,11 +63,19 @@ func setup(state: HardeningState) -> void:
 			icon.texture = load(UPGRADE_ICON % id)
 		icon.mouse_filter = Control.MOUSE_FILTER_STOP
 		icon.gui_input.connect(_on_tile_input.bind("upgrade:" + id))
-		tile.get_node("Name").text = str(_state.upgrades[id].get("name", id))
+		var name_label: Label = tile.get_node("Name")
+		name_label.text = str(_state.upgrades[id].get("name", id))
+		name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART # the longer names of later days wrap under their icon
+		name_label.custom_minimum_size.x = 96.0
 		var price: Button = tile.get_node("PriceButton")
 		price.pressed.connect(_select.bind("upgrade:" + id))
 		_tiles["upgrade:" + id] = {"tile": tile, "price": price}
 	upgrade_template.queue_free()
+	for button: Button in _card_filters + _upgrade_filters:
+		button.toggle_mode = true
+		button.toggled.connect(_on_filter_changed)
+	_card_cost.item_selected.connect(_on_filter_changed)
+	_upgrade_cost.item_selected.connect(_on_filter_changed)
 	refresh()
 
 
@@ -99,9 +113,34 @@ func refresh() -> void:
 
 func _refresh_tiles() -> void:
 	for key: String in _tiles:
+		(_tiles[key]["tile"] as Control).visible = _passes_filters(key)
 		var button: Button = _tiles[key]["price"]
 		button.text = "OWNED" if _is_sold_out(key) else "%d SP" % int(_info(key).get("price", 0))
 		(_tiles[key]["tile"] as Control).modulate = Color.WHITE if _selected.is_empty() or key == _selected else DIM
+
+
+func _on_filter_changed(_value: Variant) -> void:
+	_refresh_tiles()
+
+
+## The filters above each row. NEW: what the current day added. Types of cards add up (none pressed: all types).
+## RECOMMENDED: upgrades that answer a clue the player found. The cost dropdown is the energy cost of a card, or the load of an upgrade.
+func _passes_filters(key: String) -> bool:
+	var info := _info(key)
+	var is_card := key.begins_with("card:")
+	var filters := _card_filters if is_card else _upgrade_filters
+	if filters[0].button_pressed and int(info.get("day", 1)) != GameState.current_day:
+		return false
+	var wanted := _card_cost.get_item_id(_card_cost.selected) if is_card else _upgrade_cost.get_item_id(_upgrade_cost.selected)
+	if wanted != ANY and int(info.get("cost" if is_card else "load", 0)) != wanted:
+		return false
+	if not is_card:
+		return not _upgrade_filters[1].button_pressed or _state.is_recommended(key.get_slice(":", 1))
+	var types: Array[String] = []
+	for i in 3:
+		if _card_filters[i + 1].button_pressed:
+			types.append(["offensive", "defensive", "utility"][i])
+	return types.is_empty() or types.has(str(info.get("type", "")))
 
 
 ## The panel at the bottom: what is selected, what the player owns, and the BUY button.
@@ -140,6 +179,11 @@ func _on_tile_input(event: InputEvent, key: String) -> void:
 func _select(key: String) -> void:
 	_selected = key
 	refresh()
+	UiFx.pop(_tiles[key]["tile"] as Control, 0.06, 0.18) # the tile lifts a little: not only dimmed
+	var price := int(_info(key).get("price", 0))
+	if not _is_sold_out(key) and GameState.wallet() < price: # cannot afford it: say so with motion and words
+		UiFx.shake(_buy_button, 3.0)
+		UiFx.float_text("NEED %d MORE" % (price - GameState.wallet()), UiFx.center_of(_buy_button) + Vector2(0, -10), UiFx.RED)
 	var line := _line_for(key)
 	if not line.is_empty():
 		_say(line)
@@ -151,8 +195,24 @@ func _buy() -> void:
 	if GameState.spend_points(int(_info(_selected).get("price", 0))):
 		_state.owned_list(_selected.get_slice(":", 0)).append(_selected.get_slice(":", 1))
 		_say(_pick("bought_card" if _selected.begins_with("card:") else "bought_upgrade"))
+		_play_bought()
 		changed.emit()
 	refresh()
+	if _is_sold_out(_selected):
+		UiFx.stamp_label("OWNED", UiFx.GOLD, UiFx.center_of(_tiles[_selected]["tile"] as Control), 12, 1.0)
+
+
+## The bought item flies from its tile to the button of the place it now is (the deck editor for a card, the
+## upgrades for an upgrade), with sparkles where it was.
+func _play_bought() -> void:
+	var tile := _tiles[_selected]["tile"] as Control
+	var is_card := _selected.begins_with("card:")
+	var from := UiFx.center_of(tile)
+	UiFx.sparkle(from, UiFx.GOLD, 12)
+	UiFx.pop(tile, 0.12, 0.25)
+	var target := get_node_or_null("Buttons/EditDeck" if is_card else "Buttons/EditUpgrades") as Control
+	if target != null:
+		UiFx.fly(Glyph.Kind.CARD if is_card else Glyph.Kind.STAR, UiFx.GOLD, from, UiFx.center_of(target), func() -> void: UiFx.pop(target, 0.12), 0.45)
 
 
 func _info(key: String) -> Dictionary:

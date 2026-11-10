@@ -112,6 +112,9 @@ func _equip(id: String) -> void:
 		return
 	_state.equipped_list().append(id)
 	refresh()
+	UiFx.fly(Glyph.Kind.STAR, UiFx.CYAN, get_global_mouse_position(), UiFx.center_of(_equipped), func() -> void:
+		UiFx.pop(_title, 0.2, 0.3)
+		UiFx.flash(_title, UiFx.CYAN, 0.4), 0.35, 16.0)
 
 
 func _load_text() -> String:
@@ -121,6 +124,9 @@ func _load_text() -> String:
 ## Shows a short message in place of the load, then puts the load back.
 func _flash(message: String) -> void:
 	_title.text = message
+	UiFx.shake(_title, 4.0)
+	UiFx.flash(_title, UiFx.RED, 0.5)
+	UiFx.badge(Glyph.Kind.CROSS, UiFx.RED, UiFx.center_of(_title) + Vector2(_title.size.x / 2.0 + 8.0, 0.0), 2, 1.0)
 	await get_tree().create_timer(1.0).timeout
 	_title.text = _load_text()
 

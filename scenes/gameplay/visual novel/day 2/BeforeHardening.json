@@ -1,0 +1,42 @@
+{
+	"start": {
+		"text": "The shift is over. I checked every program that started tonight, and the one with the strange name keeps coming back.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. But reporting a program is not the same as stopping it. Let's make our computers harder to trick.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Every defense does two things. [b][color=green]ALWAYS[/color][/b] is what it gives you in any fight. [b][color=red]AGAINST[/color][/b] is what it does to one attack.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "C"
+	},
+	"C": {
+		"text": "So I bring what helps me every day, and what stops tonight's attack.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "D"
+	},
+	"D": {
+		"text": "Exactly. Use your Security Points, and read what your clues recommended.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Understood. A better defense now means a better night later.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

@@ -17,11 +17,42 @@
 				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
 			},
 			"response": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeResponse.json",
 				"scene": "res://AI generated/scenes/response/Response.tscn"
 			},
 			"recovery": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeRecovery.json",
 				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
 				"data": "res://data/recovery/day1_recovery.json"
+			}
+		}
+	},
+	"2": {
+		"title": "A Slow Laptop",
+		"phases": {
+			"investigation": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeInvestigation.json",
+				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
+				"data": "res://data/scenarios/day 2/investigation.json"
+			},
+			"monitoring": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeMonitoring.json",
+				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
+				"data": "res://data/scenarios/day 2/monitoring.json"
+			},
+			"hardening": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeHardening.json",
+				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
+			},
+			"response": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeResponse.json",
+				"scene": "res://AI generated/scenes/response/Response.tscn",
+				"data": "res://AI generated/data/response_day2.json"
+			},
+			"recovery": {
+				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeRecovery.json",
+				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
+				"data": "res://data/recovery/day2_recovery.json"
 			}
 		}
 	}

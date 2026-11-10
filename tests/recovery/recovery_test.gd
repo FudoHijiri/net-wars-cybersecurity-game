@@ -550,14 +550,15 @@ func _test_standalone() -> void:
 func _test_day1_minigames() -> void:
 	var registry = load("res://scripts/gameplay/recovery/recovery_data.gd")
 	var data: Dictionary = registry.load_data()
+	var day2: Dictionary = registry.load_data("res://data/recovery/day2_recovery.json") # the tasks that Day 2 added have their content there
 	var registry_ok := true
 	for id: String in registry.COMPONENT_IDS:
 		var scene: PackedScene = registry.task_scene(id)
 		var task = scene.instantiate() if scene else null
-		registry_ok = registry_ok and task != null and task.has_signal("completed") and task.component_id == id and data.components.has(id)
+		registry_ok = registry_ok and task != null and task.has_signal("completed") and task.component_id == id and (data.components.has(id) or day2.components.has(id))
 		if task:
 			task.free()
-	check(registry_ok, "Every registered minigame has a scene with the matching ID and Day 1 content")
+	check(registry_ok, "Every registered minigame has a scene with the matching ID and content")
 	check(registry.components_for_attacks(data, ["stream", "sweep", "not_an_attack"]) == ["password", "reused"], "Response hits per attack map to the machines that need repair")
 	check(registry.components_for_attacks(data, []).is_empty(), "A perfectly dodged fight breaks nothing")
 	var day1: Array[String] = ["password", "settings", "reused", "file_server"]

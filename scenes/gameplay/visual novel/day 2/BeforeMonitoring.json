@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "Report sent. Ben's laptop is cleaned for now. But a program is not a person, and it might be on other computers too.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua, I read your report. That fake invoice fooled a lot of people before. Nice work catching it.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "The program Ben started was not Ben's doing. It was built to start, hide and spread. So tonight we watch every program that starts.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"How do I tell a bad program?": "C1",
+			"Can't we just delete it?": "C2"
+		}
+	},
+	"C1": {
+		"text": "By the approved list. Programs from IT or Windows Update are fine. A program nobody approved, that came by email or from a website, is a problem.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "Not yet. We don't know which computers have it. So we watch, and we find it by its name.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "The rules are in the [b][color=green]rulebook[/color][/b]. [b][color=red]Report[/color][/b] what breaks them, and let the rest pass.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "One program at a time. A new name is not always a bad one, so I'll check each rule.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

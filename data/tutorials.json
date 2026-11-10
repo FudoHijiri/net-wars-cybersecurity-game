@@ -21,7 +21,7 @@
 	"hardening": [
 		{"text": "HARDENING. Now you prepare. What you set up here decides how the fight goes.", "target": ""},
 		{"text": "This is your deck: the cards you will play. The panel next to it shows what kinds of cards it holds.", "target": "Deck/CardsPanel"},
-		{"text": "Upgrades are defenses against a real threat. They only work once you equip them, and each one takes some load.", "target": "Deck/Upgrades"},
+		{"text": "Upgrades are defenses. Every upgrade does two things: ALWAYS is what it gives you in any fight, and AGAINST is what it does to one attack. You must equip it, and each takes some load.", "target": "Deck/Upgrades"},
 		{"text": "In the shop you spend Security Points on cards and upgrades. You earned them in the last two phases.", "target": "Deck/Buttons/OpenShop"},
 		{"text": "Equip the upgrades that answer what you found. The ones marked * match your clues.", "target": "Deck/Buttons/EditPassives"},
 		{"text": "Choose which cards are in your deck. You need at least 5.", "target": "Deck/Buttons/EditDeck"},
@@ -65,6 +65,6 @@
 		{"text": "Your equipped upgrades are here. Click one to take it off.", "target": "UpgradeEditor/UpgradesPanel"},
 		{"text": "Your other upgrades are here. Click one to equip it. A * means it answers a clue you found.", "target": "UpgradeEditor/Collection"},
 		{"text": "RECOMMENDED shows only those.", "target": "UpgradeEditor/Collection/RecommendedFilter"},
-		{"text": "Point at an upgrade to read what it does.", "target": "UpgradeEditor/Info"}
+		{"text": "Point at an upgrade to read it. ALWAYS works in every fight. AGAINST stops one attack.", "target": "UpgradeEditor/Info"}
 	]
 }

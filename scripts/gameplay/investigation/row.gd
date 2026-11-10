@@ -95,6 +95,21 @@ func set_widths(widths: Array) -> void:
 	custom_minimum_size = Vector2(columns_size.x, maxf(MIN_HEIGHT, columns_size.y))
 
 
+## What the player sees when this entry has just been investigated. A clue stamps its tag, glints and gets a
+## star; a normal entry only fades its tag in, quietly: a different shape and motion, not just a color.
+func celebrate(is_clue: bool) -> void:
+	if not is_inside_tree():
+		return
+	var at := UiFx.center_of(_tag)
+	if is_clue:
+		UiFx.pop(_tag, 0.3, 0.3)
+		UiFx.flash(self, UiFx.GOLD, 0.5)
+		UiFx.sparkle(UiFx.center_of(self), UiFx.GOLD, 14)
+		UiFx.badge(Glyph.Kind.STAR, UiFx.GOLD, at + Vector2(-_tag.size.x / 2.0 - 8.0, 0.0), 1, 1.0)
+	else:
+		UiFx.fade_in(_tag, 0.3)
+
+
 func set_selected(value: bool) -> void:
 	_select_button.text = VIEWING_TEXT if value else SELECT_TEXT
 

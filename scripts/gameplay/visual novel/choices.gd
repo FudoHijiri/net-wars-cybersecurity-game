@@ -9,7 +9,23 @@ func _ready() -> void:
 	b_group.pressed.connect(get_choice)
 
 
+var _picked := false
+
+
+## The choices appear one after another, and the dim behind them fades in.
+func animate_in() -> void:
+	var shown: Array = []
+	for button in b_group.get_buttons():
+		if button.visible:
+			shown.append(button)
+	UiFx.stagger_fade(shown, 0.08, 0.16)
+	var dim := get_node_or_null("Dim") as CanvasItem
+	if dim != null:
+		UiFx.fade_in(dim, 0.2)
+
+
 func set_choices(choices: Dictionary):
+	_picked = false
 	dia_choices = choices
 	var buttons = b_group.get_buttons()
 	var labels = choices.keys()
@@ -21,7 +37,16 @@ func set_choices(choices: Dictionary):
 			button.text = labels[c]
 
 
+## The chosen button flashes and the others fade, then the dialogue goes on.
 func get_choice(b: Button):
+	if _picked:
+		return
+	_picked = true
 	var id = dia_choices[b.text]
+	UiFx.flash(b, UiFx.GOLD, 0.3)
+	for other in b_group.get_buttons():
+		if other != b and other.visible and not UiFx.reduced():
+			other.create_tween().tween_property(other, "modulate:a", 0.0, 0.15)
+	if not UiFx.reduced():
+		await b.get_tree().create_timer(0.2).timeout
 	next_id.emit(id)
-	pass

@@ -82,3 +82,7 @@ func _set_open(value: bool) -> void:
 		_fade.finish()
 	visible = value # hides every child of the CanvasLayer
 	set_process_input(value)
+	if value:
+		UiFx.slide_in($Panel as Control, Vector2(0, 20), 0.18) # the line comes up from the bottom
+		if _name_box.visible:
+			UiFx.fade_in(_name_box, 0.18)

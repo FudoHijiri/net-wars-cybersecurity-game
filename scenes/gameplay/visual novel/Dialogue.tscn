@@ -5,8 +5,9 @@
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="2_k6sw3"]
 [ext_resource type="Texture2D" uid="uid://nutnnqy417f3" path="res://assets/background/server_room_640x360.png" id="3_4ymsk"]
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_s64ie"]
+[ext_resource type="Texture2D" uid="uid://dotnhwviuc2fj" path="res://assets/charactersprite/Joshua-Sheet.png" id="5_06x6u"]
 [ext_resource type="Script" uid="uid://dnbg4v2lqv5x3" path="res://scripts/gameplay/visual novel/choices.gd" id="6_muaq0"]
-[ext_resource type="Texture2D" uid="uid://c2qpgddhfwxox" path="res://assets/charactersprite/Joshua.png" id="6_om1uo"]
+[ext_resource type="Texture2D" uid="uid://dwa4vfdikw6ea" path="res://assets/charactersprite/Carla-Sheet.png" id="7_06x6u"]
 [ext_resource type="Texture2D" uid="uid://d0x1f8qymlwic" path="res://assets/ui/Banner.png" id="8_4ymsk"]
 [ext_resource type="Texture2D" uid="uid://c4r5mkqlg2a58" path="res://assets/charactersprite/Phone.png" id="8_qdt5y"]
 
@@ -58,8 +59,48 @@ border_width_bottom = 1
 border_color = Color(0.2, 0.23529412, 0.34117648, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hba27"]
-atlas = ExtResource("6_om1uo")
+atlas = ExtResource("5_06x6u")
 region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq4em"]
+atlas = ExtResource("5_06x6u")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xttc1"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_hba27")
+}, {
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_nq4em")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_biyr4"]
+atlas = ExtResource("7_06x6u")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhu3r"]
+atlas = ExtResource("7_06x6u")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3568o"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_biyr4")
+}, {
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_jhu3r")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3568o"]
 atlas = ExtResource("8_4ymsk")
@@ -116,47 +157,6 @@ font = ExtResource("2_k6sw3")
 font_size = 6
 font_color = Color(1, 0.8039216, 0.45882353, 1)
 
-[sub_resource type="Animation" id="Animation_hba27"]
-resource_name = "bobbing"
-length = 3.0000000000000004
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Art/CharacterSprite1:texture:region")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Rect2(0, 0, 48, 48), Rect2(0, 0, 48, 49), Rect2(0, 0, 48, 48)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Art/CharacterSprite1:size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Vector2(48, 48), Vector2(48, 49.16667), Vector2(48, 48)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Art/CharacterSprite1:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Vector2(296, 12), Vector2(296, 9), Vector2(296, 12)]
-}
-
 [sub_resource type="Animation" id="Animation_4ymsk"]
 resource_name = "new_animation"
 length = 0.6
@@ -180,6 +180,22 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Art/CharacterSprite2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kq3ov"]
+resource_name = "CharacterEntrance3"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Art/CharacterSprite3:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -234,46 +250,22 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Art/CharacterSprite1:texture:region")
+tracks/2/path = NodePath("Art/CharacterSprite2:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Rect2(0, 0, 48, 48)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Art/CharacterSprite1:size")
+tracks/3/path = NodePath("Art/CharacterSprite3:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(48, 49.16667)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Art/CharacterSprite1:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(296, 9)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Art/CharacterSprite2:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -282,9 +274,9 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_06x6u"]
 _data = {
-&"CharacterBobbing": SubResource("Animation_hba27"),
 &"CharacterEntrance1": SubResource("Animation_4ymsk"),
 &"CharacterEntrance2": SubResource("Animation_biyr4"),
+&"CharacterEntrance3": SubResource("Animation_kq3ov"),
 &"Opening": SubResource("Animation_qdt5y"),
 &"RESET": SubResource("Animation_06x6u")
 }
@@ -299,7 +291,7 @@ grow_vertical = 2
 script = ExtResource("1_k6sw3")
 char_text = NodePath("Base/Panel/Text")
 char_name = NodePath("Base/NameContainer/MarginContainer/Name")
-char_sprite = NodePath("Base/Art/CharacterSprite1")
+char_sprite = NodePath("")
 BaseLayer = NodePath("Base")
 ChoiceLayer = NodePath("Choices")
 
@@ -417,33 +409,34 @@ texture = ExtResource("3_4ymsk")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="CharacterSprite1" type="TextureRect" parent="Base/Art" unique_id=2110338570]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.578125
-anchor_top = 0.1171875
-anchor_right = 0.803125
-anchor_bottom = 1.0390626
-offset_top = -6.0
-offset_right = -67.20001
-offset_bottom = -74.83334
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2.4, 2.4)
-texture = SubResource("AtlasTexture_hba27")
+[node name="CharacterSprite1" type="AnimatedSprite2D" parent="Base/Art" unique_id=178268932]
+position = Vector2(365, 67.00001)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_xttc1")
+frame_progress = 0.29829305
 metadata/_edit_use_anchors_ = true
 
 [node name="CharacterSprite2" type="TextureRect" parent="Base/Art" unique_id=1617511711]
-layout_mode = 0
-anchor_left = 0.18945313
-anchor_top = 0.09375
-anchor_right = 0.41445315
-anchor_bottom = 0.99375004
-offset_right = -67.20001
-offset_bottom = -67.200005
-scale = Vector2(2.4, 2.4)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1875
+anchor_top = 0.054687493
+anchor_right = 0.421875
+anchor_bottom = 0.9921875
+offset_right = -72.0
+offset_bottom = -72.0
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("8_qdt5y")
+stretch_mode = 6
 metadata/_edit_use_anchors_ = true
+
+[node name="CharacterSprite3" type="AnimatedSprite2D" parent="Base/Art" unique_id=1944692359]
+position = Vector2(138, 67.00001)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_3568o")
+autoplay = "default"
+frame_progress = 0.9692217
+flip_h = true
 
 [node name="Fade" type="ColorRect" parent="Base/Art" unique_id=360833578]
 visible = false
@@ -459,7 +452,8 @@ color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Banner" type="NinePatchRect" parent="Base" unique_id=990952219]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_top = 0.011111111
 anchor_right = 0.15625
 anchor_bottom = 0.12222222

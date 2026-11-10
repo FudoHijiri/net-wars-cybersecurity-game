@@ -29,7 +29,8 @@ func _init() -> void:
 	shop_cards = card_data.get("shop", [])
 	var upgrade_data := _load_json(UPGRADES_PATH)
 	upgrades = upgrade_data.get("upgrades", {})
-	shop_upgrades = upgrade_data.get("shop", [])
+	shop_upgrades = _upgrades_of_days(upgrade_data.get("shop", []))
+	shop_cards = _cards_of_days(shop_cards)
 	shop_lines = _load_json(SHOP_LINES_PATH)
 
 
@@ -120,3 +121,31 @@ func _load_json(path: String) -> Dictionary:
 		return {}
 	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	return parsed if parsed is Dictionary else {}
+
+
+## The upgrades the shop sells: those of the current day first, then those of the earlier days (the upgrades
+## of the day to come are not shown). Each one is listed once, in the order of the data.
+func _upgrades_of_days(ids: Array) -> Array:
+	var today: Array = []
+	var before: Array = []
+	for id: String in ids:
+		var day := int(upgrades.get(id, {}).get("day", 1))
+		if day == GameState.current_day:
+			today.append(id)
+		elif day < GameState.current_day:
+			before.append(id)
+	return today + before
+
+
+## The cards the shop sells: those of the current day first, then those of the earlier days (a card has a "day",
+## 1 when it has none; the cards of the days to come are not shown).
+func _cards_of_days(ids: Array) -> Array:
+	var today: Array = []
+	var before: Array = []
+	for id: String in ids:
+		var day := int(cards.get(id, {}).get("day", 1))
+		if day == GameState.current_day:
+			today.append(id)
+		elif day < GameState.current_day:
+			before.append(id)
+	return today + before

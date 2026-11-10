@@ -44,3 +44,45 @@ func _on_load_finished() -> void:
 	animation_player.play(FADE_ANIMATION)
 	await animation_player.animation_finished
 	queue_free()
+
+
+## A card on the black screen: "PHASE 3 OF 5", the phase's name, and the day's title. It fades in, stays about
+## 0.9 s (a click or Space ends it early) and fades out; the loader waits for it. Returns when it is gone.
+func show_card(top: String, title: String, bottom: String) -> void:
+	var font := load("res://assets/font/Press Start 8p/PressStart2P.ttf") as Font
+	var box := VBoxContainer.new()
+	box.set_anchors_preset(Control.PRESET_FULL_RECT)
+	box.alignment = BoxContainer.ALIGNMENT_CENTER
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for line in [[top, 8, Color(0.5803922, 0.6901961, 0.7607843)], [title, 16, Color(1, 0.8039216, 0.45882353)], [bottom, 8, Color(0.95686275, 0.95686275, 0.95686275)]]:
+		var label := Label.new()
+		label.text = str(line[0])
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.add_theme_font_override("font", font)
+		label.add_theme_font_size_override("font_size", int(line[1])) # 8 and 16: whole multiples of the font
+		label.add_theme_color_override("font_color", line[2])
+		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		box.add_child(label)
+	box.modulate.a = 0.0
+	add_child(box)
+	var tween := create_tween()
+	tween.tween_property(box, "modulate:a", 1.0, 0.2)
+	await tween.finished
+	var held := 0.0
+	while held < 0.7 and not _card_skipped:
+		held += get_process_delta_time()
+		await get_tree().process_frame
+	_card_skipped = false
+	tween = create_tween()
+	tween.tween_property(box, "modulate:a", 0.0, 0.2)
+	await tween.finished
+	box.queue_free()
+
+
+var _card_skipped := false
+
+
+func _input(event: InputEvent) -> void:
+	var click := event as InputEventMouseButton
+	if (click != null and click.pressed) or event.is_action_pressed("ui_accept"):
+		_card_skipped = true

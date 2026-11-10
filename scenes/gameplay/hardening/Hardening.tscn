@@ -173,7 +173,7 @@ bg_color = Color(0.21960784, 0.7176471, 0.39215687, 1)
 default_font = ExtResource("6_bme43")
 default_font_size = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24475"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmpnl"]
 content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
@@ -181,14 +181,14 @@ content_margin_bottom = 5.0
 bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
 border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyxaa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16563"]
 content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gigji"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfu14"]
 content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
@@ -364,6 +364,17 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 0.8039216, 0.45882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24475"]
+bg_color = Color(0.16078432, 0.21176471, 0.43529412, 1)
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyxaa"]
+bg_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gigji"]
+bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
+border_color = Color(0.2, 0.23529412, 0.34117648, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16tiu"]
 content_margin_left = 3.0
@@ -685,7 +696,6 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Deck" type="Panel" parent="." unique_id=1973665176]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.06666667
@@ -1080,9 +1090,9 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 size_flags_vertical = 6
 theme = SubResource("Theme_5cuim")
-theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
-theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pmpnl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_16563")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bfu14")
 text = "OPEN SHOP"
 metadata/_edit_use_anchors_ = true
 
@@ -1107,6 +1117,7 @@ text = "EDIT UPGRADES"
 metadata/_edit_use_anchors_ = true
 
 [node name="Shop" type="Panel" parent="." unique_id=1262047765]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.06666667
@@ -1215,7 +1226,7 @@ points = PackedVector2Array(0, 152, 520, 152)
 width = 1.0
 default_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
 
-[node name="ItemShop" type="Label" parent="Shop/ShopContent" unique_id=1277060998]
+[node name="UpgradesShop" type="Label" parent="Shop/ShopContent" unique_id=1277060998]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.015384615
@@ -1326,6 +1337,154 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_iemnb")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gob5b")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vx4hh")
 text = "BUY 40 SP"
+metadata/_edit_use_anchors_ = true
+
+[node name="NewFilterCards" type="Button" parent="Shop/ShopContent" unique_id=387888610]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.40576923
+anchor_top = 0.0031250007
+anchor_right = 0.52307695
+anchor_bottom = 0.05
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "NEW"
+metadata/_edit_use_anchors_ = true
+
+[node name="OffensiveFilter" type="Button" parent="Shop/ShopContent" unique_id=976425317]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.52884614
+anchor_top = 0.0031250007
+anchor_right = 0.64615387
+anchor_bottom = 0.05
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "OFFENSIVE"
+metadata/_edit_use_anchors_ = true
+
+[node name="DefensiveFilter" type="Button" parent="Shop/ShopContent" unique_id=112876152]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65192306
+anchor_top = 0.0031250007
+anchor_right = 0.7692308
+anchor_bottom = 0.05
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "DEFENSIVE"
+metadata/_edit_use_anchors_ = true
+
+[node name="UtilityFilter" type="Button" parent="Shop/ShopContent" unique_id=580100667]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.775
+anchor_top = 0.0031250007
+anchor_right = 0.8923077
+anchor_bottom = 0.05
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "UTILITY"
+metadata/_edit_use_anchors_ = true
+
+[node name="CostFilterCards" type="OptionButton" parent="Shop/ShopContent" unique_id=1608580014]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9076923
+anchor_top = 0.0031250007
+anchor_right = 0.9980769
+anchor_bottom = 0.059375
+theme = ExtResource("38_1vpa2")
+theme_override_fonts/font = ExtResource("6_bme43")
+theme_override_font_sizes/font_size = 6
+selected = 0
+item_count = 6
+popup/item_0/text = "-"
+popup/item_0/id = 0
+popup/item_1/text = "0"
+popup/item_1/id = 1
+popup/item_2/text = "1"
+popup/item_2/id = 2
+popup/item_3/text = "2"
+popup/item_3/id = 3
+popup/item_4/text = "3"
+popup/item_4/id = 4
+popup/item_5/text = "4"
+popup/item_5/id = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="NewFilterUpgrades" type="Button" parent="Shop/ShopContent" unique_id=1277748030]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.63076925
+anchor_top = 0.478125
+anchor_right = 0.73846155
+anchor_bottom = 0.525
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "NEW"
+metadata/_edit_use_anchors_ = true
+
+[node name="RecommendedFilter" type="Button" parent="Shop/ShopContent" unique_id=1676869194]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75384617
+anchor_top = 0.478125
+anchor_right = 0.89615387
+anchor_bottom = 0.525
+size_flags_vertical = 6
+theme = SubResource("Theme_5cuim")
+theme_override_styles/normal = SubResource("StyleBoxFlat_24475")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oyxaa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gigji")
+text = "RECOMMENDED"
+metadata/_edit_use_anchors_ = true
+
+[node name="CostFilterUpgrades" type="OptionButton" parent="Shop/ShopContent" unique_id=1267477510]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9076923
+anchor_top = 0.478125
+anchor_right = 0.9980769
+anchor_bottom = 0.534375
+theme = ExtResource("38_1vpa2")
+theme_override_fonts/font = ExtResource("6_bme43")
+theme_override_font_sizes/font_size = 6
+selected = 0
+item_count = 8
+popup/item_0/text = "-"
+popup/item_0/id = 0
+popup/item_1/text = "0"
+popup/item_1/id = 1
+popup/item_2/text = "1"
+popup/item_2/id = 2
+popup/item_3/text = "2"
+popup/item_3/id = 3
+popup/item_4/text = "3"
+popup/item_4/id = 4
+popup/item_5/text = "4"
+popup/item_5/id = 5
+popup/item_6/text = "5"
+popup/item_6/id = 6
+popup/item_7/text = "6"
+popup/item_7/id = 7
 metadata/_edit_use_anchors_ = true
 
 [node name="Buttons" type="VBoxContainer" parent="Shop" unique_id=654062134]
@@ -1491,15 +1650,15 @@ theme_override_font_sizes/font_size = 6
 selected = 0
 item_count = 6
 popup/item_0/text = "-"
-popup/item_0/id = 5
+popup/item_0/id = 0
 popup/item_1/text = "0"
-popup/item_1/id = 0
+popup/item_1/id = 1
 popup/item_2/text = "1"
-popup/item_2/id = 1
+popup/item_2/id = 2
 popup/item_3/text = "2"
-popup/item_3/id = 2
+popup/item_3/id = 3
 popup/item_4/text = "3"
-popup/item_4/id = 3
+popup/item_4/id = 4
 popup/item_5/text = "4"
 popup/item_5/id = 4
 metadata/_edit_use_anchors_ = true

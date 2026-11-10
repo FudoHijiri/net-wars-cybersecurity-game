@@ -99,6 +99,8 @@ func _on_delete_pressed(slot: int) -> void:
 	_delete_slot = slot
 	_confirm_label.text = "DELETE SLOT %d? ALL ITS PROGRESS WILL BE LOST." % (slot + 1)
 	_confirm.show()
+	UiFx.fade_in(_confirm, 0.15)
+	UiFx.slide_in($ConfirmDelete/Panel as Control, Vector2(0, -10), 0.15) # the question drops in
 	_no_button.grab_focus() # the safe answer is the one under the keyboard
 
 

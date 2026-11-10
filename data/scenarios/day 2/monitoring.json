@@ -1,0 +1,361 @@
+{
+	"_note": "Day 2 shift: a program starts. Built by the generic path of LogGenerator (the \"event\" key): every rule has good_values and bad_values, the threat is the program name that repeats in bad logs, a decoy carries values that replace the normal ones.",
+	"shift_seconds": 180,
+	"log_seconds": 33,
+	"inspect_percent_per_click": 25,
+	"points_correct": 10,
+	"finish": {
+		"points_wrong": 5,
+		"bonus": 30,
+		"flawless_min_correct": 5,
+		"good_accuracy": 0.7,
+		"comments": {
+			"flawless": "Joshua: No wrong calls. Bonus.",
+			"short": "Joshua: No mistakes, but too few logs. Be quicker.",
+			"good": "Joshua: Solid. Review: {reason}",
+			"rough": "Joshua: Rough. Review: {reason}"
+		}
+	},
+	"guided_kinds": [
+		"normal",
+		"bad",
+		"decoy"
+	],
+	"story_odds": {
+		"base": 0.05,
+		"per_solved": 0.04,
+		"max": 0.5
+	},
+	"mix": {
+		"normal": 6,
+		"bad": 3,
+		"decoy": 1
+	},
+	"on_call": "Carla Patel",
+	"first_names": [
+		"Evan",
+		"Farah",
+		"Gabriel",
+		"Hana",
+		"Ivan",
+		"Jada",
+		"Kai",
+		"Lena",
+		"Marcus",
+		"Nadia",
+		"Omar",
+		"Priya",
+		"Quentin",
+		"Rosa",
+		"Samir",
+		"Tessa",
+		"Umar",
+		"Vera",
+		"Wen",
+		"Xavier",
+		"Yara",
+		"Zane",
+		"Aiden",
+		"Bianca",
+		"Callum",
+		"Dalia",
+		"Elias",
+		"Freya",
+		"Hugo",
+		"Imani"
+	],
+	"last_names": [
+		"Brooks",
+		"Ali",
+		"Santos",
+		"Ito",
+		"Petrov",
+		"Okafor",
+		"Nakamura",
+		"Novak",
+		"Hughes",
+		"Rossi",
+		"Haddad",
+		"Singh",
+		"Moreau",
+		"Lindqvist",
+		"Costa",
+		"Oyelaran",
+		"Fischer",
+		"Kowalski",
+		"Tanaka",
+		"Mendoza",
+		"Abara",
+		"Larsen",
+		"Duarte",
+		"Park",
+		"Ivanova",
+		"Walsh",
+		"Cohen",
+		"Bianchi",
+		"Adeyemi",
+		"Sato"
+	],
+	"id": "day2_monitoring",
+	"event": "program_start",
+	"reason_format": "This program %s.",
+	"hud_line": "Approved programs only    On call tonight: {on_call}",
+	"story_people": [
+		{
+			"name": "Ben Nguyen",
+			"computer": "Ben's laptop"
+		},
+		{
+			"name": "Carla Patel",
+			"computer": "Carla's computer"
+		}
+	],
+	"events": {
+		"program_start": {
+			"title": "PROGRAM STARTS",
+			"parts": [
+				{
+					"key": "program",
+					"label": "Program"
+				},
+				{
+					"key": "user",
+					"label": "Started by",
+					"entity": "account"
+				},
+				{
+					"key": "source",
+					"label": "Source"
+				},
+				{
+					"key": "antivirus",
+					"label": "Antivirus"
+				}
+			]
+		}
+	},
+	"rules": [
+		{
+			"id": "approved_programs",
+			"part": "program",
+			"check": "allowed",
+			"allowed": [
+				"Office Suite",
+				"Browser",
+				"PDF Reader",
+				"Backup Agent",
+				"Accounting Tool",
+				"DesignPro",
+				"Windows Update"
+			],
+			"good_values": [
+				"Office Suite",
+				"Browser",
+				"PDF Reader",
+				"Backup Agent",
+				"Accounting Tool"
+			],
+			"bad_values": [
+				"FreeGameTools.exe",
+				"PdfConverter.exe",
+				"Setup_crack.exe",
+				"SpeedBooster.exe"
+			],
+			"name": "Programs",
+			"text": "Run approved programs only.",
+			"details": [
+				"Approved: Office Suite, Browser, PDF Reader, Backup Agent, Accounting Tool, DesignPro, Windows Update."
+			],
+			"example_ok": "PDF Reader",
+			"example_bad": "UpdateHelper.exe",
+			"why": "The list is short on purpose. Anything else did not come from IT.",
+			"broken": "is not on the approved list"
+		},
+		{
+			"id": "program_source",
+			"part": "source",
+			"check": "allowed",
+			"allowed": [
+				"IT store",
+				"Windows Update",
+				"Pre-installed"
+			],
+			"good_values": [
+				"IT store",
+				"Pre-installed"
+			],
+			"bad_values": [
+				"Email attachment",
+				"Website download",
+				"USB stick"
+			],
+			"name": "Source",
+			"text": "Programs come from IT or Windows Update.",
+			"example_ok": "IT store",
+			"example_bad": "Email attachment",
+			"why": "Programs from email are how malware gets in.",
+			"broken": "came from outside IT"
+		},
+		{
+			"id": "antivirus_on",
+			"part": "antivirus",
+			"check": "allowed",
+			"allowed": [
+				"On",
+				"Updating"
+			],
+			"odd_values": [
+				"Updating"
+			],
+			"good_values": [
+				"On"
+			],
+			"bad_values": [
+				"Off"
+			],
+			"name": "Antivirus",
+			"text": "The antivirus must be on.",
+			"details": [
+				"Updating is allowed. It pauses itself for a few minutes."
+			],
+			"example_ok": "On",
+			"example_bad": "Off",
+			"why": "A program that switches it off is hiding.",
+			"broken": "ran while the antivirus was off"
+		}
+	],
+	"threat": {
+		"part": "program",
+		"value": "UpdateHelper.exe",
+		"chance": 0.8,
+		"rule_chance": 0.8
+	},
+	"decoys": [
+		{
+			"id": "new_from_it",
+			"values": {
+				"program": "DesignPro",
+				"source": "IT store"
+			},
+			"reason": "DesignPro is new, but it is on the approved list and came from the IT store."
+		},
+		{
+			"id": "windows_update",
+			"values": {
+				"program": "Windows Update",
+				"source": "Windows Update"
+			},
+			"reason": "Windows Update is approved. The odd hour does not matter."
+		},
+		{
+			"id": "av_updating",
+			"values": {
+				"antivirus": "Updating"
+			},
+			"reason": "The antivirus is updating. It is allowed for a few minutes."
+		}
+	],
+	"story_logs": [
+		{
+			"id": "ben_browser",
+			"kind": "normal",
+			"user": "Ben Nguyen",
+			"values": {
+				"program": "Browser",
+				"source": "Pre-installed",
+				"antivirus": "On"
+			}
+		},
+		{
+			"id": "ben_updatehelper",
+			"kind": "bad",
+			"user": "Ben Nguyen",
+			"values": {
+				"program": "UpdateHelper.exe",
+				"source": "Email attachment",
+				"antivirus": "Off"
+			}
+		},
+		{
+			"id": "ben_windows_update",
+			"kind": "decoy",
+			"user": "Ben Nguyen",
+			"values": {
+				"program": "Windows Update",
+				"source": "Windows Update",
+				"antivirus": "On"
+			},
+			"reason": "{first}'s laptop is installing Windows Update. It is approved."
+		}
+	],
+	"hints": {
+		"program": {
+			"ok": [
+				"{program} is a program we use.",
+				"{program} is on our list of programs."
+			],
+			"bad": [
+				"I do not know {program}.",
+				"{program} is not a program I know."
+			]
+		},
+		"user": {
+			"ok": [
+				"{first} works here.",
+				"{first} is on staff."
+			]
+		},
+		"source": {
+			"ok": [
+				"IT checks programs from {source}.",
+				"{source}: IT looks after this."
+			],
+			"bad": [
+				"{source} is not where IT gets programs.",
+				"Nobody at IT checks a {source}."
+			]
+		},
+		"antivirus": {
+			"ok": [
+				"The antivirus is {antivirus}.",
+				"Antivirus: {antivirus}."
+			],
+			"odd": [
+				"The antivirus is {antivirus}, only for a moment.",
+				"{antivirus}: it pauses for a few minutes."
+			],
+			"bad": [
+				"The antivirus is {antivirus}. Nothing is scanning.",
+				"Antivirus {antivirus}. Nothing is watching."
+			]
+		}
+	},
+	"guide": {
+		"1": [
+			"New shift. This time you watch programs that start.",
+			"Click a line to ask me about it. The clock is frozen while you learn.",
+			"Rules are in the RULEBOOK. Then LET PASS or REPORT."
+		],
+		"2": [
+			"Check all four lines on the card."
+		],
+		"3": [
+			"Odd is not always bad. A new name can be fine if it follows the rules."
+		],
+		"4": [
+			"The clock runs now. Good luck."
+		]
+	},
+	"rulebook": {
+		"intro": "REPORT a program that breaks a rule. LET PASS the rest."
+	},
+	"messages": {
+		"right": "Correct. {reason}",
+		"wrong": "Wrong. {reason}",
+		"timeout": "Time ran out. It passed. {reason}",
+		"no_time": "No time to ask. Decide now.",
+		"start": "Press NEXT LOG to begin.",
+		"normal_reason": "It followed every rule.",
+		"end": "End of shift."
+	}
+}

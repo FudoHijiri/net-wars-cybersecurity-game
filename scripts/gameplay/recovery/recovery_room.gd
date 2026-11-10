@@ -15,6 +15,7 @@ const DIALOG_SCENE := preload("res://scenes/gameplay/recovery/ui/RecoveryDialog.
 
 var demo_mode := false
 var active_task: RecoveryTask
+var _scan_pending := false # the Final check was done: scan the office when its window closes
 var dialog: RecoveryDialog
 var summary: RecoveryDialog
 var interactables: Array[RecoveryInteractable] = []
@@ -51,6 +52,8 @@ func configure_demo(damage: Array[String], completed_components: Array[String] =
 		_context = RecoveryContext.sample_context()
 
 func _ready() -> void:
+	if not demo_mode: # the work order of the current day is named in days.json
+		data_path = str(GameState.phase_info("recovery").get("data", data_path))
 	_data = RecoveryData.load_data(data_path)
 	_texts = _data.get("room", {})
 	if not demo_mode:
@@ -311,6 +314,8 @@ func _on_task_completed(id: String) -> void:
 		return
 	if _active_equipment_id != equipment_assignments().get(id, ""):
 		return
+	if id == RecoveryData.FINAL_CHECK:
+		_scan_pending = true # when the window closes, the office is scanned
 	var wrong: int = active_task.mistakes if is_instance_valid(active_task) else 0
 	var left: Dictionary = active_task.report if is_instance_valid(active_task) else {}
 	if demo_mode:
@@ -329,10 +334,36 @@ func close_task() -> void:
 	var task := active_task
 	active_task = null
 	_active_equipment_id = ""
-	task_layer.remove_child(task)
-	task.queue_free()
 	_update_controls()
 	_update_hint()
+	if UiFx.reduced() or not task.is_inside_tree():
+		task_layer.remove_child(task)
+		task.queue_free()
+		_after_task_closed()
+		return
+	task.process_mode = Node.PROCESS_MODE_DISABLED # it shrinks like a terminal switching off, and takes no clicks
+	UiFx.terminal_close([task.get_node_or_null("Frame"), task.get_node_or_null("Bezel"), task.get_node_or_null("TitleBar")], task.get_node_or_null("Dim")).chain().tween_callback(func() -> void:
+		if is_instance_valid(task):
+			task_layer.remove_child(task)
+			task.queue_free()
+		_after_task_closed())
+
+
+## After the Final check, a green line scans the office and ticks every machine that has been restored.
+func _after_task_closed() -> void:
+	if not _scan_pending:
+		return
+	_scan_pending = false
+	var checks: Array[Dictionary] = []
+	for item in interactables:
+		if item.kind == "task" and station_status(item) == "restored":
+			checks.append({"x": item.get_global_transform_with_canvas().origin.x, "at": item.get_global_transform_with_canvas().origin, "done": false})
+	UiFx.sweep(UiFx.GREEN, 1.4, func(x: float) -> void:
+		for check in checks:
+			if not check["done"] and x >= float(check["x"]):
+				check["done"] = true
+				UiFx.badge(Glyph.Kind.CHECK, UiFx.GREEN, (check["at"] as Vector2) + Vector2(0, -16), 2, 0.9)
+				UiFx.sparkle(check["at"], UiFx.GREEN, 6))
 
 func _show_dialog(title: String, paragraphs: Array[String], actions: Array[Dictionary]) -> void:
 	if is_instance_valid(dialog):
@@ -340,6 +371,7 @@ func _show_dialog(title: String, paragraphs: Array[String], actions: Array[Dicti
 	dialog = DIALOG_SCENE.instantiate() as RecoveryDialog
 	dialog.configure(title, paragraphs, actions)
 	task_layer.add_child(dialog)
+	UiFx.fade_in(dialog, 0.15)
 	_update_controls()
 
 func close_dialog() -> void:

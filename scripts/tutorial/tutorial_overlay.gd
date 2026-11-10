@@ -20,6 +20,9 @@ var _steps: Array = []
 var _scene: Node
 var _step := 0
 var _target := Rect2() # the lit area of this step, empty when there is none
+var _lit := Rect2() # the lit area as drawn: it glides from one step's area to the next
+var _first := true
+var _glide: Tween
 var _dim: Control
 var _panel: PanelContainer
 var _text: Label
@@ -107,9 +110,33 @@ func _show_step() -> void:
 	_text.text = str(step.get("text", ""))
 	_counter.text = "%d / %d" % [_step + 1, _steps.size()]
 	_next.text = "DONE" if _step == _steps.size() - 1 else "NEXT"
+	var from := _lit
 	_target = _target_rect(str(step.get("target", "")))
 	_panel.reset_size()
-	_panel.position = _panel_position(_panel.get_combined_minimum_size())
+	var spot := _panel_position(_panel.get_combined_minimum_size())
+	if _glide != null and _glide.is_valid():
+		_glide.kill()
+	if _first or UiFx.reduced():
+		_first = false
+		_lit = _target
+		_panel.position = spot
+		if not UiFx.reduced():
+			UiFx.fade_in(_dim, 0.25)
+			UiFx.fade_in(_panel, 0.25)
+	elif from.size == Vector2.ZERO or _target.size == Vector2.ZERO:
+		_lit = _target # nothing to glide to or from
+		_panel.position = spot
+	else:
+		var start_panel := _panel.position
+		_glide = create_tween() # the overlay keeps running while the game is paused
+		_glide.tween_method(func(t: float) -> void:
+			_lit = Rect2(from.position.lerp(_target.position, t), from.size.lerp(_target.size, t))
+			_panel.position = start_panel.lerp(spot, t).floor()
+			_dim.queue_redraw(), 0.0, 1.0, 0.22).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		_glide.tween_callback(func() -> void: # exactly there at the end (no rounding left over)
+			_lit = _target
+			_panel.position = spot
+			_dim.queue_redraw())
 	_dim.queue_redraw()
 
 
@@ -150,10 +177,10 @@ func _panel_position(size: Vector2) -> Vector2:
 
 func _draw_dim() -> void:
 	var full := Rect2(Vector2.ZERO, _dim.size)
-	if _target.size == Vector2.ZERO:
+	if _lit.size == Vector2.ZERO:
 		_dim.draw_rect(full, DIM)
 		return
-	var lit := _target.grow(3.0).intersection(full)
+	var lit := _lit.grow(3.0).intersection(full)
 	_dim.draw_rect(Rect2(0, 0, full.size.x, lit.position.y), DIM)
 	_dim.draw_rect(Rect2(0, lit.end.y, full.size.x, full.size.y - lit.end.y), DIM)
 	_dim.draw_rect(Rect2(0, lit.position.y, lit.position.x, lit.size.y), DIM)

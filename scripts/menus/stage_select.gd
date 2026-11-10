@@ -44,6 +44,8 @@ func _refresh_resume() -> void:
 	resume_button.disabled = point.is_empty() or not GameState.is_phase_built(point["phase"], point["day"])
 	resume_button.tooltip_text = "" if resume_button.disabled else "Day %d - %s" % [point["day"], str(point["phase"]).capitalize()]
 	open_deck_button.disabled = _deck_day() == 0
+	if not resume_button.disabled:
+		UiFx.hop(resume_button) # the way on is the one that jumps
 
 
 ## The day whose Hardening OPEN DECK opens: the day the save is at, or the last built one before it.

@@ -1,0 +1,69 @@
+{
+	"start": {
+		"text": "Day two. Yesterday's thief is locked out, and the office is quiet. Too quiet for a Monday.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Ring ring...*",
+		"name": "Phone",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "IT desk, this is Joshua. How can I help?",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Joshua? It's Ben Nguyen. My laptop is crawling, and strange windows keep popping up. It has been like that since lunch.",
+		"name": "Ben",
+		"art": "Phone",
+		"choices": {
+			"What did you do before it started?": "D1",
+			"Is it plugged in?": "D2"
+		}
+	},
+	"D1": {
+		"text": "Hmm. Nothing special. I paid an invoice that came by email. I opened the file, and then the trouble began.",
+		"name": "Ben",
+		"art": "Phone",
+		"next": "E"
+	},
+	"D2": {
+		"text": "Yes, it's plugged in, and I restarted it twice. It's still slow. I opened an invoice earlier, but that can't be it, right?",
+		"name": "Ben",
+		"art": "Phone",
+		"next": "E"
+	},
+	"E": {
+		"text": "A slow laptop can have many boring causes. I need evidence, not guesses. Don't open anything else, Ben. I'll look into it.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "F"
+	},
+	"F": {
+		"text": "Thank you. Please hurry. I have a deadline!",
+		"name": "Ben",
+		"art": "Phone",
+		"next": "G"
+	},
+	"G": {
+		"text": "Every program, download and message leaves a record somewhere. I only have to know where to look.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
+		"next": "H"
+	},
+	"H": {
+		"text": "[b][color=green]4 clues[/color][/b] should be enough to show what really happened. Then I'll write it all up in my report.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "I"
+	},
+	"I": {
+		"trigger": "start_phase"
+	}
+}

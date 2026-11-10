@@ -38,12 +38,14 @@ const BUILD_ONLY_HIDDEN := ["Deck/Buttons/OpenShop", "Deck/NextPhase", "TopBar/O
 var _state := HardeningState.new()
 var _next_text := ""
 var _build_only := false
+var _shown_wallet := -1 # the wallet last shown, so a change counts up or down
 
 
 func _ready() -> void:
 	_build_only = SceneManager.build_only
 	SceneManager.build_only = false # it is for this visit only
 	_next_text = _next_phase.text
+	($TopBar/Label as Label).text = "Day %d" % GameState.current_day # the scene says Day 1 for the editor
 	_deck.setup(_state)
 	_shop.setup(_state)
 	_deck_editor.setup(_state)
@@ -57,14 +59,21 @@ func _ready() -> void:
 	if _build_only:
 		for path: String in BUILD_ONLY_HIDDEN:
 			get_node(path).hide()
-	_show("Deck") # the editor shows one panel at a time while laying them out
+	_show("Deck", false) # the editor shows one panel at a time while laying them out
 	if not _build_only:
 		await SceneManager.wait_for_transition()
 		Tutorial.maybe_show(self, "hardening")
 
 
+## What is equipped now is what later days remember of this day (see GameState: some evidence echoes it).
+func _remember_build() -> void:
+	if SaveManager.current_slot >= 0:
+		SaveManager.data["equipped_history"][str(GameState.current_day)] = _state.equipped_list().duplicate()
+
+
 func _exit_tree() -> void:
 	if _build_only and SaveManager.current_slot >= 0:
+		_remember_build()
 		SaveManager.save() # no NEXT PHASE here, so the changes are kept when the scene is left
 
 
@@ -75,9 +84,23 @@ func _link(button_path: String, panel: String) -> void:
 		button.pressed.connect(_show.bind(panel))
 
 
-func _show(panel: String) -> void:
+func _show(panel: String, animate: bool = true) -> void:
+	var old: Control = null
 	for name: String in TITLES:
-		get_node(name).visible = name == panel
+		var node := get_node(name) as Control
+		if node.visible and name != panel:
+			old = node
+	var keys := TITLES.keys()
+	var dir := 1 if old == null or keys.find(panel) >= keys.find(old.name) else -1 # further on, or back
+	for name: String in TITLES:
+		var node := get_node(name) as Control
+		if name != panel and not (animate and node == old):
+			node.hide()
+	if animate:
+		UiFx.swap_views(old, get_node(panel) as Control, dir)
+		UiFx.fade_in(_screen_label, 0.18)
+	else:
+		get_node(panel).show()
 	_screen_label.text = TITLES[panel]
 	if panel == "Deck":
 		_deck.refresh() # the deck may have changed in the Deck Editor
@@ -93,7 +116,14 @@ func _show(panel: String) -> void:
 
 
 func _refresh_wallet() -> void:
-	_points.text = "%d SP" % GameState.wallet()
+	var now := GameState.wallet()
+	if _shown_wallet >= 0 and now != _shown_wallet:
+		UiFx.count_to(_points, _shown_wallet, now, "%d SP", 0.4)
+		UiFx.pop(_points, 0.2, 0.3)
+		UiFx.float_text("%+d" % (now - _shown_wallet), UiFx.center_of(_points) + Vector2(0, 8), UiFx.RED if now < _shown_wallet else UiFx.GREEN)
+	else:
+		_points.text = "%d SP" % now
+	_shown_wallet = now
 
 
 # --- Debug panel (=) ---
@@ -111,6 +141,8 @@ func _add_points(amount: int) -> void:
 ## The button itself says why the phase cannot end yet, then goes back to its text.
 func _warn_deck() -> void:
 	_next_phase.text = "NEED %d+ CARDS\nIN THE DECK" % HardeningState.MIN_DECK
+	UiFx.shake(_next_phase, 4.0)
+	UiFx.badge(Glyph.Kind.CROSS, UiFx.RED, UiFx.center_of(_next_phase) + Vector2(_next_phase.size.x / 2.0 + 8.0, 0.0), 2, 1.6)
 	await get_tree().create_timer(2.0).timeout
 	_next_phase.text = _next_text
 
@@ -122,6 +154,7 @@ func _on_next_phase_pressed() -> void:
 		_warn_deck()
 		return
 	_next_phase.disabled = true
+	_remember_build()
 	if SaveManager.current_slot >= 0:
 		SaveManager.complete_phase(GameState.current_day, GameState.current_phase)
 		SaveManager.save()

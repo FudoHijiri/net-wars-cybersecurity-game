@@ -165,6 +165,9 @@ func _on_field_pressed(index: int) -> void:
 		return
 	_inspected[index] = true
 	_fields[index].set_pressed_no_signal(true)
+	UiFx.flash(_fields[index], UiFx.GOLD, 0.35)
+	if cost > 0.0:
+		UiFx.float_text("-%d%%" % int(_data["inspect_percent_per_click"]), UiFx.center_of(_bar), UiFx.RED)
 	_patience -= cost
 	var parts: Array = _log["parts"]
 	var part: Dictionary = parts[index]
@@ -206,9 +209,31 @@ func _answer(report: bool, timed_out: bool) -> void:
 	var messages: Dictionary = _data["messages"]
 	var template: String = messages["timeout"] if timed_out else (messages["right"] if right else messages["wrong"])
 	_add_note(template.replace("{reason}", truth["reason"]), Verdict.RIGHT if right else Verdict.WRONG)
+	_play_verdict(report, right, timed_out)
 	_step = Step.ANSWERED
 	_set_buttons()
 	_refresh_clock()
+
+
+## The verdict is stamped on the log card: what the player did (REPORTED, PASSED) and a check or a cross
+## for whether it was right, so color is never the only signal. A right call sends a coin to the score; a
+## wrong one shakes the card.
+func _play_verdict(report: bool, right: bool, timed_out: bool) -> void:
+	var at := UiFx.center_of(_log_card)
+	var color := UiFx.GREEN if right else UiFx.RED
+	UiFx.stamp_label("TIME UP" if timed_out else ("REPORTED" if report else "PASSED"), color, at)
+	var corner := _log_card.get_global_rect().position + Vector2(_log_card.size.x - 10.0, 10.0)
+	UiFx.badge(Glyph.Kind.CHECK if right else Glyph.Kind.CROSS, color, corner, 3)
+	if right:
+		UiFx.sparkle(at, UiFx.GREEN, 12)
+		var points := int(_data["points_correct"])
+		UiFx.fly(Glyph.Kind.COIN, UiFx.GOLD, at, UiFx.center_of(_score), func() -> void:
+			UiFx.pop(_score)
+			UiFx.float_text("+%dSP" % points, UiFx.center_of(_score) + Vector2(0, 8), UiFx.GOLD))
+	else:
+		UiFx.shake(_log_card, 4.0)
+		UiFx.flash(_log_card, UiFx.RED, 0.4)
+		UiFx.pop(_score)
 
 
 func _on_next_log_button_pressed() -> void:
@@ -300,6 +325,8 @@ func _refresh_clock() -> void:
 
 ## What the rules point to, always on screen: the office hours and who is on call tonight.
 func _guide_text() -> String:
+	if _data.has("hud_line"): # an event that is not a sign-in has no office hours: the data says what to show
+		return str(_data["hud_line"]).replace("{on_call}", str(_data.get("on_call", "")))
 	for rule: Dictionary in _data["rules"]:
 		if rule["check"] == "range":
 			return "Office hours: %s - %s    On call tonight: %s" % [
@@ -326,6 +353,7 @@ func _add_note(text: String, verdict: Verdict = Verdict.NONE) -> PanelContainer:
 		content.add_theme_color_override("font_color", VERDICT_TEXT[verdict])
 	tag.hide() # a hint's tag is shown by _reveal_hint_tags
 	_notes.add_child(bubble)
+	UiFx.fade_in(bubble, 0.15)
 	tag.size_flags_vertical = Control.SIZE_SHRINK_BEGIN # the tag stays on the first line of a long text
 	_fit_bubble(bubble, tag, content)
 	_scroll_to_end()
@@ -335,12 +363,15 @@ func _add_note(text: String, verdict: Verdict = Verdict.NONE) -> PanelContainer:
 ## After the call, each hint shows whether its line was NORMAL or SUSPICIOUS. The bubble is fitted
 ## again, since the tag takes room.
 func _reveal_hint_tags() -> void:
+	var tags: Array[HintTag] = []
 	for hint: Dictionary in _hint_bubbles:
 		var bubble: PanelContainer = hint["bubble"]
 		var tag := bubble.find_child("Tag", true, false) as HintTag
 		tag.show()
 		tag.set_state(hint["state"])
 		_fit_bubble(bubble, tag, bubble.find_child("Content", true, false) as Label)
+		tags.append(tag)
+	UiFx.stagger_fade(tags, 0.12, 0.2)
 
 
 ## The bubble hugs its text. Its width is the text's width, up to the room the notes panel has; past
@@ -374,7 +405,10 @@ func _scroll_to_end() -> void:
 
 ## The RULEBOOK button is a toggle: down while the rulebook is open. CLOSE lets it up again.
 func _on_rule_book_button_toggled(toggled_on: bool) -> void:
-	_rulebook.visible = toggled_on
+	if toggled_on:
+		UiFx.slide_in(_rulebook, Vector2(0, 20), 0.16)
+	else:
+		UiFx.slide_out(_rulebook, Vector2(0, 20), 0.14)
 	_refresh_clock()
 	if toggled_on:
 		_rulebook.get_node("Close").grab_focus()

@@ -49,8 +49,23 @@ func load_scene(_scene_path: String) -> void:
 	load_finished.connect(new_load_screen._on_load_finished)
 
 	await new_load_screen.loading_screen_ready
+	await _phase_card(new_load_screen)
 
 	start_load()
+
+
+## Entering a phase scene shows a card on the black screen: which phase of how many, and the day's title. Not with
+## Reduce Screen Effects, not when the same scene is loaded again (TRY AGAIN) and not for the deck-only visit.
+func _phase_card(screen: Node) -> void:
+	if ScreenEffects.reduce_effects or build_only or not screen.has_method("show_card"):
+		return
+	var current := get_tree().current_scene
+	if current != null and current.scene_file_path == scene_path:
+		return
+	if str(GameState.phase_info().get("scene", "")) != scene_path:
+		return
+	var index := GameState.PHASES.find(GameState.current_phase)
+	await screen.show_card("PHASE %d OF %d" % [index + 1, GameState.PHASES.size()], GameState.current_phase.to_upper(), str(GameState.day_info(GameState.current_day).get("title", "")))
 
 
 ## Opens the current phase (GameState.current_phase) of the current day: its dialogue, or the phase scene
