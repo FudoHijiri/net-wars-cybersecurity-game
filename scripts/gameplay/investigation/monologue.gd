@@ -34,6 +34,7 @@ func play(lines: Array, speaker: String = "") -> void:
 	_lines = lines
 	_index = 0
 	_name.text = speaker
+	_fade.voice = speaker
 	_name_box.visible = not speaker.is_empty()
 	_set_open(true)
 	_show_line()
@@ -63,6 +64,7 @@ func _show_line() -> void:
 
 
 func _advance() -> void:
+	Sfx.play(&"advance")
 	_index += 1
 	if _index >= _lines.size():
 		_close()

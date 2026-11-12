@@ -1,28 +1,39 @@
 extends Control
-## The Book Archive: a book about the threats. The left page lists them; the right page shows the pages of
-## the chosen threat. NEXT and BACK (or the arrow keys) turn the pages with the book's page animation.
+## The Book Archive: a book about the threats. The first spread is the table of contents: the left page lists the
+## threats, and the right page shows the picture of the chosen one (its animated sprite) with a short description.
+## The right arrow turns the page: the contents go away and the entry takes both pages, two topics to a spread
+## (what it is, warning signs, how it attacks, ...). The left arrow turns back; the arrow keys work too.
 ## The text is in data/archive.json. A threat opens when the Investigation of its day is finished (it would
-## give the case away before), and the pages of Credential Abuse also list the game's attack patterns and
-## recommended upgrades, read from the same data the game uses.
+## give the case away before). A page of a threat can also list the game's attack patterns and recommended
+## upgrades, read from the same data the game uses.
 
 const DATA_PATH := "res://data/archive.json"
 const PATTERNS_PATH := "res://AI generated/data/response_day1.json"
 const UPGRADES_PATH := "res://data/upgrades.json"
 const FONT := preload("res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf")
 const BOLD := preload("res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf")
+const ARROW := "res://assets/ui/Page Arrow %s%s.png" # direction (Left or Right), state ("", " Hover", " Pressed", " Disabled")
 const TITLE_SLACK := 4.0 # the title is centered and may pass its box by a few pixels, so a name that is 2px too wide does not drop a whole size
 const FLIP_SPEED := 2.0 # the page animation is 0.8 s at normal speed: too slow for every click
+const PLATE_RECT := Rect2(333, 66, 195, 112) # the picture of the threat on the right page
+const LEFT_PAGE := Rect2(95, 65, 180, 220) # the text of the left page when it is not the contents
+const INK := Color(0.1, 0.06, 0.03, 1)
 
 var _data: Dictionary = {}
 var _upgrades: Dictionary = {}
 var _patterns: Array = [] # the attack patterns of the Response phase (Credential Abuse)
-var _buttons: Array[Button] = [] # the threat buttons, in the order of the threats in the data
-var _selected := -1 # the threat on the right page, or -1 for the welcome page
-var _page := 0
+var _buttons: Array[Button] = [] # the threat buttons of the contents, in the order of the threats in the data
+var _selected := -1 # the threat chosen in the contents, or -1
+var _spread := 0 # 0 is the contents; spread N shows the topics 2N-2 and 2N-1 of the threat
 var _busy := false # a page is turning
-var _previous: Button
-var _next: Button
-var _page_label: Label
+var _previous: TextureButton
+var _next: TextureButton
+var _left_info: RichTextLabel
+var _left_number: Label
+var _right_number: Label
+var _plate: Panel
+var _sprite: AnimatedSprite2D
+var _summary: RichTextLabel
 
 @onready var content: Control = $Content
 @onready var book_animation: AnimatedSprite2D = $Node2D/BookAnimation
@@ -30,11 +41,12 @@ var _page_label: Label
 @onready var stage_select: Control = $"../StageSelect"
 @onready var book_archive: Control = $"../BookArchive"
 @onready var next_page_animation: AnimatedSprite2D = $Node2D/NextPageAnimation
+@onready var _left_title: Label = $Content/Title
+@onready var _contents: VBoxContainer = $Content/VBoxContainer
 @onready var _threat_name: Label = $Content/ThreatName
 @onready var _info: RichTextLabel = $Content/Info
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	content.hide()
 	book_animation.show()
@@ -46,12 +58,16 @@ func _ready() -> void:
 	_data = _load_json(DATA_PATH)
 	_upgrades = _load_json(UPGRADES_PATH).get("upgrades", {})
 	_patterns = _load_json(PATTERNS_PATH).get("patterns", [])
-	for child in $Content/VBoxContainer.get_children():
+	for child in _contents.get_children():
 		if child is Button:
 			_buttons.append(child)
+	_left_title.anchor_left = 0.171875 # the left title is as wide as the page, from beside the back arrow, so a topic like WHAT IT IS keeps the big font
+	_left_title.anchor_right = _contents.anchor_right
 	_info.bbcode_enabled = true
 	_info.add_theme_font_override("bold_font", BOLD)
 	_info.add_theme_font_size_override("bold_font_size", 6)
+	_build_left_page()
+	_build_picture()
 	_build_navigation()
 	content.visibility_changed.connect(_on_content_visibility_changed)
 	_refresh_list()
@@ -62,6 +78,7 @@ func _on_back_button_pressed() -> void:
 	if _busy:
 		return
 	content.hide()
+	Music.play(&"stage_select")
 	book_animation.play_backwards("default")
 	await book_animation.animation_finished
 	stage_select.show()
@@ -118,13 +135,17 @@ func _threats() -> Array:
 	return _data.get("threats", [])
 
 
+func _chosen() -> Dictionary:
+	return _threats()[_selected] if _selected >= 0 and _selected < _threats().size() else {}
+
+
 ## A threat opens when the Investigation of its day is finished in the save. With no save loaded
 ## (the scene run alone) everything is open.
 func _is_unlocked(threat: Dictionary) -> bool:
 	return SaveManager.current_slot < 0 or SaveManager.is_phase_complete(int(threat["day"]), "investigation")
 
 
-## The names on the buttons: the threat, or ??? with its day while it is closed.
+## The names in the contents: the threat, or ??? with its day while it is closed.
 func _refresh_list() -> void:
 	var threats := _threats()
 	for i in mini(_buttons.size(), threats.size()):
@@ -137,33 +158,36 @@ func _on_threat_toggled(toggled_on: bool, index: int) -> void:
 		_select(index)
 
 
+## Choosing a threat in the contents replaces the picture and the description on the right page at once.
 func _select(index: int) -> void:
 	if _busy or index == _selected or index >= _threats().size():
 		return
 	_selected = index
-	_page = 0
-	await _flip(&"NextPage")
+	_spread = 0
+	_render()
+	if _plate.visible:
+		UiFx.pop(_plate, 0.06, 0.2)
 
 
-## Turns one page: forward with step 1, back with step -1. Does nothing at the first or the last page.
+## Turns the page: forward with step 1, back with step -1. Does nothing at the first spread going back, or at the
+## last one going on. The contents only turn forward once a threat that is open is chosen.
 func _turn(step: int) -> void:
-	var target := _page + step
-	if _busy or _selected < 0 or target < 0 or target >= _page_count():
+	var target := _spread + step
+	if _busy or target < 0 or target >= _spread_count():
 		return
-	_page = target
+	_spread = target
 	await _flip(&"NextPage" if step > 0 else &"BackPage")
 
 
-## The right page is blank while the book's page animation plays, then shows the new page.
+## Both pages are blank while the book's page animation plays, then show the new spread.
 func _flip(animation: StringName) -> void:
 	_busy = true
-	_show_right_page(false)
+	_show_pages(false)
 	book_animation.speed_scale = FLIP_SPEED
 	book_animation.play(animation)
 	await book_animation.animation_finished
 	book_animation.speed_scale = 1.0
 	_render()
-	_show_right_page(true)
 	_busy = false
 
 
@@ -173,50 +197,124 @@ func _on_content_visibility_changed() -> void:
 		_render()
 
 
-# --- the right page ---
+# --- the spreads ---
 
-func _page_count() -> int:
-	if _selected < 0 or not _is_unlocked(_threats()[_selected]):
-		return 0
-	return _threats()[_selected]["pages"].size()
+## The contents, plus two topics to a spread of the chosen threat. A threat that is not open has only the contents.
+func _spread_count() -> int:
+	var threat := _chosen()
+	if threat.is_empty() or not _is_unlocked(threat):
+		return 1
+	return 1 + ceili(threat["pages"].size() / 2.0)
 
 
 func _render() -> void:
-	_threat_name.text = "Archive"
-	_page_label.text = ""
-	if _selected < 0:
-		var open := 0
-		for threat: Dictionary in _threats():
-			open += 1 if _is_unlocked(threat) else 0
-		_info.text = "%s\n\nThreats open: %d of %d." % [_data.get("intro", ""), open, _threats().size()]
-	else:
-		var threat: Dictionary = _threats()[_selected]
-		if _is_unlocked(threat):
-			var page: Dictionary = threat["pages"][_page]
-			_threat_name.text = str(threat.get("short", threat["name"]))
-			_page_label.text = "PAGE %d / %d" % [_page + 1, _page_count()]
-			_info.text = "[b]%s[/b]\n\n%s" % [page["title"], _page_text(page)]
+	var threat := _chosen()
+	var open := not threat.is_empty() and _is_unlocked(threat)
+	_show_pages(true)
+	_render_left(threat)
+	_render_right(threat, open)
+	_fit_title(_left_title, _left_page_box())
+	_fit_title(_threat_name, _right_page_box())
+	_previous.disabled = _spread <= 0
+	_next.disabled = _spread >= _spread_count() - 1
+
+
+## The left page: the contents, or the first topic of the spread.
+func _render_left(threat: Dictionary) -> void:
+	var contents := _spread == 0
+	_contents.visible = contents
+	_left_info.visible = not contents
+	_left_number.text = "1" if contents else "%s   %d" % [threat.get("short", threat.get("name", "")), 2 * _spread + 1]
+	if contents:
+		_left_title.text = "Contents"
+		return
+	var page := _topic(threat, 2 * (_spread - 1))
+	_left_title.text = str(page.get("title", ""))
+	_left_info.text = _page_text(page)
+	_left_info.scroll_to_line(0)
+
+
+## The right page: on the contents, the picture and short description of the chosen threat (a dark shape and a
+## hint while it is closed, a welcome before anything is chosen); after it, the second topic of the spread.
+func _render_right(threat: Dictionary, open: bool) -> void:
+	var contents := _spread == 0
+	_right_number.text = "2" if contents else "%d   %s" % [2 * _spread + 2, threat.get("short", threat.get("name", ""))]
+	_plate.visible = false
+	_summary.visible = false
+	_info.visible = false
+	if contents:
+		if threat.is_empty():
+			_threat_name.text = "Archive"
+			_info.visible = true
+			var count := 0
+			for entry: Dictionary in _threats():
+				count += 1 if _is_unlocked(entry) else 0
+			_info.text = "%s\n\nThreats open: %d of %d." % [_data.get("intro", ""), count, _threats().size()]
 		else:
-			_threat_name.text = "???"
-			_info.text = str(_data.get("locked", "")).replace("{day}", str(int(threat["day"])))
-	_fit_title()
-	_info.scroll_to_line(0)
-	_previous.disabled = _page <= 0 or _page_count() == 0
-	_next.disabled = _page >= _page_count() - 1
+			_show_picture(threat, open)
+			_summary.visible = true
+			_summary.text = _summary_text(threat) if open else str(_data.get("locked", "")).replace("{day}", str(int(threat["day"])))
+			_threat_name.text = str(threat.get("short", threat["name"])) if open else "???"
+		_info.scroll_to_line(0)
+		return
+	var index := 2 * (_spread - 1) + 1
+	if index < threat["pages"].size():
+		var page := _topic(threat, index)
+		_threat_name.text = str(page.get("title", ""))
+		_info.visible = true
+		_info.text = _page_text(page)
+		_info.scroll_to_line(0)
+	else: # an odd number of topics: the last right page is the picture again
+		_threat_name.text = str(threat.get("short", threat["name"]))
+		_show_picture(threat, true)
+
+
+func _topic(threat: Dictionary, index: int) -> Dictionary:
+	var pages: Array = threat["pages"]
+	return pages[index] if index < pages.size() else {}
+
+
+func _summary_text(threat: Dictionary) -> String:
+	return "[b]%s[/b]\n\n%s" % [threat["name"], threat.get("summary", "")]
+
+
+## The animated sprite of the threat in the plate, as big as whole multiples of its pixels allow. A threat that is
+## not open is only a dark shape.
+func _show_picture(threat: Dictionary, open: bool) -> void:
+	_plate.visible = true
+	var frames := load(str(threat.get("frames", ""))) as SpriteFrames if threat.has("frames") else null
+	_sprite.visible = frames != null
+	if frames == null:
+		return
+	_sprite.sprite_frames = frames
+	var animation: StringName = &"idle" if frames.has_animation(&"idle") else StringName(frames.get_animation_names()[0])
+	_sprite.play(animation)
+	var frame_size := frames.get_frame_texture(animation, 0).get_size()
+	var fit := maxf(1.0, floorf(minf((PLATE_RECT.size.x - 12.0) / frame_size.x, (PLATE_RECT.size.y - 12.0) / frame_size.y)))
+	_sprite.scale = Vector2.ONE * fit
+	_sprite.position = (PLATE_RECT.size / 2.0).floor()
+	_sprite.modulate = Color.WHITE if open else Color(0.05, 0.03, 0.02, 0.85)
 
 
 ## The title is as big as the box allows: a long name like Distributed Denial-of-Service gets a smaller font.
 ## It only steps down by whole multiples of the font's pixel size (6 for Minecraft Standard), because any
 ## other size blurs the text.
-func _fit_title() -> void:
-	_threat_name.remove_theme_font_size_override("font_size")
-	var font := _threat_name.get_theme_font("font")
-	var size := _threat_name.get_theme_font_size("font_size")
+func _fit_title(label: Label, box: float) -> void:
+	label.remove_theme_font_size_override("font_size")
+	var font := label.get_theme_font("font")
+	var font_px := label.get_theme_font_size("font_size")
 	var step := 6
-	var width := (_threat_name.anchor_right - _threat_name.anchor_left) * content.size.x + TITLE_SLACK # the label grows with its text, so its anchors give the box
-	while size > step and font.get_string_size(_threat_name.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x > width:
-		size -= step
-	_threat_name.add_theme_font_size_override("font_size", size)
+	while font_px > step and font.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_px).x > box:
+		font_px -= step
+	label.add_theme_font_size_override("font_size", font_px)
+
+
+func _left_page_box() -> float:
+	return (_left_title.anchor_right - _left_title.anchor_left) * content.size.x + TITLE_SLACK # the label grows with its text, so its anchors give the box
+
+
+func _right_page_box() -> float:
+	return (_threat_name.anchor_right - _threat_name.anchor_left) * content.size.x + TITLE_SLACK
 
 
 ## A page's text, plus what the game itself adds to it: the attack patterns, the recommended upgrades.
@@ -236,46 +334,104 @@ func _page_text(page: Dictionary) -> String:
 	return text
 
 
-func _show_right_page(visible_now: bool) -> void:
-	for node: CanvasItem in [_threat_name, _info, _page_label, _previous, _next]:
+## Everything on the two pages that changes with the spread: hidden while a page turns.
+func _show_pages(visible_now: bool) -> void:
+	for node: CanvasItem in [_left_title, _contents, _left_info, _threat_name, _info, _plate, _summary, _left_number, _right_number, _previous, _next]:
 		node.visible = visible_now
 
 
-## NEXT, BACK and the page number sit under the right page. The scene can have its own (nodes named
-## NextPageButton, PreviousPageButton and PageLabel under Content); without them these are made here.
+# --- built here ---
+
+## The text of the left page when it is not the contents: the same look as the right page's.
+func _build_left_page() -> void:
+	_left_info = RichTextLabel.new()
+	_left_info.name = "LeftInfo"
+	_left_info.bbcode_enabled = true
+	_left_info.position = LEFT_PAGE.position
+	_left_info.size = LEFT_PAGE.size
+	_left_info.add_theme_color_override("default_color", Color.BLACK)
+	_left_info.add_theme_font_override("normal_font", FONT)
+	_left_info.add_theme_font_override("bold_font", BOLD)
+	_left_info.add_theme_font_size_override("normal_font_size", 6)
+	_left_info.add_theme_font_size_override("bold_font_size", 6)
+	content.add_child(_left_info)
+
+
+## The plate with the picture of the threat (its sprite is animated) and the short description under it.
+func _build_picture() -> void:
+	_plate = Panel.new()
+	_plate.name = "Plate"
+	_plate.position = PLATE_RECT.position
+	_plate.size = PLATE_RECT.size
+	_plate.pivot_offset = PLATE_RECT.size / 2.0
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.45, 0.3, 0.18, 0.28)
+	style.set_border_width_all(2)
+	style.border_color = Color(0.3, 0.19, 0.1, 1)
+	_plate.add_theme_stylebox_override("panel", style)
+	_plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content.add_child(_plate)
+	_sprite = AnimatedSprite2D.new()
+	_plate.add_child(_sprite)
+	_summary = RichTextLabel.new()
+	_summary.name = "Summary"
+	_summary.bbcode_enabled = true
+	_summary.position = Vector2(PLATE_RECT.position.x, PLATE_RECT.end.y + 8.0)
+	_summary.size = Vector2(PLATE_RECT.size.x, 90.0)
+	_summary.add_theme_color_override("default_color", Color.BLACK)
+	_summary.add_theme_font_override("normal_font", FONT)
+	_summary.add_theme_font_override("bold_font", BOLD)
+	_summary.add_theme_font_size_override("normal_font_size", 6)
+	_summary.add_theme_font_size_override("bold_font_size", 6)
+	content.add_child(_summary)
+
+
+## The two pixel arrows under the pages and the page numbers between them. The scene can have its own (nodes named
+## PreviousArrow, NextArrow, LeftNumber and RightNumber under Content); without them these are made here.
 func _build_navigation() -> void:
-	_previous = _navigation_button("PreviousPageButton", "< BACK", Vector2(333, 288))
+	_previous = _arrow("PreviousArrow", "Left", Vector2(94, 288))
 	_previous.pressed.connect(_turn.bind(-1))
-	_next = _navigation_button("NextPageButton", "NEXT >", Vector2(476, 288))
+	_next = _arrow("NextArrow", "Right", Vector2(498, 288))
 	_next.pressed.connect(_turn.bind(1))
-	_page_label = content.get_node_or_null("PageLabel") as Label
-	if _page_label == null:
-		_page_label = Label.new()
-		_page_label.name = "PageLabel"
-		_page_label.position = Vector2(386, 288)
-		_page_label.size = Vector2(88, 14)
-		_page_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_page_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		_page_label.add_theme_font_override("font", FONT)
-		_page_label.add_theme_font_size_override("font_size", 6)
-		_page_label.add_theme_color_override("font_color", Color.BLACK)
-		content.add_child(_page_label)
+	_left_number = _number("LeftNumber", Rect2(130, 287, 140, 14), HORIZONTAL_ALIGNMENT_CENTER)
+	_right_number = _number("RightNumber", Rect2(333, 287, 160, 14), HORIZONTAL_ALIGNMENT_CENTER)
 
 
-func _navigation_button(node_name: String, text: String, at: Vector2) -> Button:
-	var existing := content.get_node_or_null(node_name) as Button
+func _arrow(node_name: String, direction: String, at: Vector2) -> TextureButton:
+	var existing := content.get_node_or_null(node_name) as TextureButton
 	if existing != null:
 		return existing
-	var button: Button = _buttons[0].duplicate() # the look of the threat buttons
+	var button := TextureButton.new()
 	button.name = node_name
-	button.button_group = null
-	button.toggle_mode = false
-	button.text = text
+	button.texture_normal = load(ARROW % [direction, ""])
+	button.texture_hover = load(ARROW % [direction, " Hover"])
+	button.texture_pressed = load(ARROW % [direction, " Pressed"])
+	button.texture_disabled = load(ARROW % [direction, " Disabled"])
+	button.ignore_texture_size = true
+	button.stretch_mode = TextureButton.STRETCH_SCALE
 	button.position = at
-	button.size = Vector2(52, 14)
-	button.add_theme_color_override("font_disabled_color", Color(0, 0, 0, 0.3))
+	button.size = Vector2(32, 28) # twice the pixels of the arrow (the image has a pixel of room above and below for its outline)
+	button.focus_mode = Control.FOCUS_NONE # the arrow keys turn the pages
+	button.tooltip_text = "Previous page" if direction == "Left" else "Next page"
 	content.add_child(button)
 	return button
+
+
+func _number(node_name: String, rect: Rect2, align: HorizontalAlignment) -> Label:
+	var existing := content.get_node_or_null(node_name) as Label
+	if existing != null:
+		return existing
+	var label := Label.new()
+	label.name = node_name
+	label.position = rect.position
+	label.size = rect.size
+	label.horizontal_alignment = align
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_font_override("font", FONT)
+	label.add_theme_font_size_override("font_size", 6)
+	label.add_theme_color_override("font_color", Color(0, 0, 0, 0.6))
+	content.add_child(label)
+	return label
 
 
 func _load_json(path: String) -> Dictionary:

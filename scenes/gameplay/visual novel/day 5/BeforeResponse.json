@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "The new defenses are in place. This thief does not shout. It takes a little, and then a little more.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua! It does not break anything. It leaks, it grabs, and it knocks on doors you forgot were there.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "A quiet trickle, a big grab and a hidden door. That is three tricks.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Each one is different. Small and steady can cost more than big and rare.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What is it doing?": "D1",
+			"Are we ready for this?": "D2"
+		}
+	},
+	"D1": {
+		"text": "[b][color=red]Quiet trickle[/color][/b]: tiny hits that add [b][color=red]Leak[/color][/b]. [b][color=red]Big grab[/color][/b]: one huge package that follows you. [b][color=red]Hidden door[/color][/b]: a lane that fires along the whole box.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"D2": {
+		"text": "That depends on the upgrades you equipped. Each trick has one defense that stops it. Without it, the trick comes back [b][color=red]harder[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Use your cards to hit it, and spend [b][color=green]Charge[/color][/b] wisely. When it attacks, you dodge. Keep going until it is [b][color=green]contained[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"text": "Understood. Let's close this before anything more leaves.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "G"
+	},
+	"G": {
+		"text": "Everything I set up in Hardening is about to be tested.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

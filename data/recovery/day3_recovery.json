@@ -1,0 +1,332 @@
+{
+	"_note": "The Day 3 (Ransomware) work order. Same format as day2_recovery.json. attacks: the Response patterns that got through become these repairs. Components: rebuild (OrderSteps), restore (BackupTimeline, with the 3-2-1 step), folders (PermissionGrid), file_server (the final check, FileServerRepair).",
+	"room": {
+		"counter": "Repairs {done}/{total}",
+		"controls": "WASD / arrows: move     E: use     Esc: pause",
+		"return": "Finish shift",
+		"finish": "Finish shift",
+		"work_order": "Office exit / work order",
+		"waiting": "Waiting for Response",
+		"waiting_body": "Response has not confirmed that the ransomware is contained. You can look around, but the equipment must stay dark until it is.",
+		"all_done": "Checks complete. Return to the office entrance to finish.",
+		"summary_title": "Recovery complete",
+		"summary_body": "The repairs and the final check passed.",
+		"summary_lesson": "Ransomware is beaten by a backup kept apart, from before the infection and tested, and by giving each person only the access the job needs.",
+		"unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
+		"hardening_unavailable": "No hardening results have been supplied.",
+		"verify_locked": "Finish the required restoration work before the final access checks.",
+		"not_required": "This equipment does not need restoration in this work order.",
+		"close": "Back"
+	},
+	"points": {
+		"base": 15,
+		"clean_bonus": 10
+	},
+	"finish": {
+		"comments": {
+			"clean": "Joshua: Everything restored, and not one wrong move. Marta has her report back.",
+			"done": "Joshua: Everything is restored. Next time, test the backup before you trust it."
+		}
+	},
+	"task_ui": {
+		"hint": "Take your time. Read the labels before choosing.",
+		"needs_repair": "[!] REQUIRED",
+		"working": "[=] NO REPAIR NEEDED",
+		"restored": "[OK] CHECKED",
+		"waiting": "[?] AWAITING CLEARANCE",
+		"locked": "[>] RESTORE FIRST",
+		"stamp": "REPAIRED",
+		"machine_default": "Workstation"
+	},
+	"case": {
+		"day": 3,
+		"day_title": "Locked Out",
+		"threat": "Ransomware",
+		"brief": "The ransomware is stopped, but it left a mess. Marta's laptop is sick, the files must come back from a backup, and the shared folders are open to too many people. Fix each one, then check that Marta can work again.",
+		"lesson": "Keep a backup apart from the network, test it, and give each person only the access the job needs."
+	},
+	"attacks": [
+		{
+			"id": "masslock",
+			"label": "Mass lock",
+			"component": "rebuild"
+		},
+		{
+			"id": "demand",
+			"label": "Ransom demand",
+			"component": "restore"
+		},
+		{
+			"id": "extortion",
+			"label": "Double extortion",
+			"component": "folders"
+		}
+	],
+	"components": {
+		"rebuild": {
+			"title": "Wipe and rebuild the laptop",
+			"system": "REBUILD",
+			"instruction": "Marta's laptop is infected. Cleaning it is not enough, so rebuild it. Put the six steps in the right order.",
+			"lesson": "When the damage runs deep, rebuilding beats cleaning. Keep the laptop off the network until it is clean.",
+			"heading": "Rebuild steps",
+			"pick": "Click the first step. Then the next, and so on.",
+			"wrong": "That step is not next yet. Think about what has to happen before it.",
+			"shuffled": [
+				"reconnect",
+				"reinstall",
+				"unplug",
+				"restore_files",
+				"programs",
+				"save_scan"
+			],
+			"steps": [
+				{
+					"id": "unplug",
+					"label": "Unplug it from the network",
+					"done": "The laptop can no longer reach anything. It cannot spread.",
+					"early": "Unplug it first. While it is connected, it can still reach the network."
+				},
+				{
+					"id": "save_scan",
+					"label": "Save the files you need, and scan them",
+					"done": "The files you need are saved and scanned.",
+					"early": "Save and scan the files before you wipe anything, or they are gone."
+				},
+				{
+					"id": "reinstall",
+					"label": "Reinstall the system from a clean image",
+					"done": "The laptop is clean. Nothing from before is left on it.",
+					"early": "Reinstall only after the files are saved, or you wipe them with the rest."
+				},
+				{
+					"id": "programs",
+					"label": "Install only approved programs",
+					"done": "Only approved programs are on the clean laptop.",
+					"early": "Programs go on the clean system, so reinstall the system first."
+				},
+				{
+					"id": "restore_files",
+					"label": "Restore your files",
+					"done": "The saved and scanned files are back.",
+					"early": "Restore the files after the programs, so they open with the right program."
+				},
+				{
+					"id": "reconnect",
+					"label": "Reconnect it to the network",
+					"done": "The laptop is back on the network, clean.",
+					"early": "Reconnect last. If you reconnect now, anything left on it can spread again."
+				}
+			],
+			"success": "The laptop is rebuilt, clean and back on the network. Nothing of the attack is left on it.",
+			"tutorial": "recovery_rebuild"
+		},
+		"restore": {
+			"title": "Restore from the right backup",
+			"system": "BACKUPS",
+			"instruction": "The files are locked, but not the backups kept apart. Pick the newest backup from before the infection that is kept offline and checked. Test it, then restore it.",
+			"lesson": "The newest backup may carry the infection. A backup nobody tested may not work. There is always a gap.",
+			"heading": "Backups, oldest to newest",
+			"pick": "Click a backup to read about it.",
+			"choose": "Click a backup to read about it.",
+			"marker": {
+				"after": "offline",
+				"label": "09:12\nINFECTION"
+			},
+			"backups": [
+				{
+					"id": "weekly",
+					"label": "4 days ago\nShared drive",
+					"ok": false,
+					"detail": "Four days ago. Kept on the shared drive. Never tested.",
+					"bad": "This one is old, and nobody tested it. Older is not safer: it may not even work."
+				},
+				{
+					"id": "shared",
+					"label": "01:00\nShared drive",
+					"ok": false,
+					"detail": "01:00. Kept on the shared drive, connected to the network. The lock reached it at 09:17.",
+					"bad": "This copy sat on the shared drive, so the lock reached it too. Its files are locked."
+				},
+				{
+					"id": "offline",
+					"label": "01:00\nOffline drive",
+					"ok": true,
+					"detail": "01:00. Kept on a drive that was unplugged after the copy. Tested: it restores fine.",
+					"bad": ""
+				},
+				{
+					"id": "late",
+					"label": "09:30\nShared drive",
+					"ok": false,
+					"detail": "09:30. Made after the infection, on the shared drive.",
+					"bad": "This copy was made after the infection. It is a copy of the locked files."
+				}
+			],
+			"test": "TEST COPY",
+			"restore": "RESTORE FILES",
+			"select_first": "Choose a backup first.",
+			"tested": "Offline, from before the infection and complete. The restore test passed.",
+			"test_first": "Test the selected copy before restoring it.",
+			"restored": "The files are back, exactly as they were at 01:00.",
+			"lost": "The work between 01:00 and 09:12 is lost, about 8 hours. There is always a gap.",
+			"rule_heading": "Next time: the 3-2-1 rule. Keep 3 copies, on 2 kinds of storage, 1 of them offline.",
+			"rule_pick": "Choose...",
+			"rule_check": "CHECK MY COPIES",
+			"copies": 3,
+			"storage": [
+				"Laptop",
+				"Shared drive",
+				"Offline drive"
+			],
+			"offline_place": "Offline drive",
+			"rule_empty": "Choose where each of the three copies is kept.",
+			"rule_one_kind": "All three copies are on the same kind of storage. One failure takes them all.",
+			"rule_not_offline": "None of the copies is offline. A lock on the network reaches all of them.",
+			"success": "Three copies, on two kinds of storage, one offline. The next attack will not find them all.",
+			"tutorial": "recovery_restore"
+		},
+		"folders": {
+			"title": "Reopen the shared folders",
+			"system": "PERMISSIONS",
+			"instruction": "One laptop could reach every folder, and that is how the lock spread. Take away the access a person does not need.",
+			"lesson": "Give only the access the job needs. Then one account cannot lock everything.",
+			"heading": "Who may open which folder",
+			"pick": "Turn off the access a person does not need. Keep what their job needs.",
+			"can_open": "May open",
+			"extra": "That person does not need this folder. Leave it off.",
+			"removed": "{who} no longer reaches that folder.",
+			"columns": [
+				{
+					"id": "finance",
+					"label": "Finance"
+				},
+				{
+					"id": "hr",
+					"label": "HR"
+				},
+				{
+					"id": "design",
+					"label": "Design"
+				}
+			],
+			"rows": [
+				{
+					"id": "marta",
+					"label": "Marta",
+					"needs": [
+						"finance"
+					],
+					"start": [
+						"finance",
+						"hr"
+					],
+					"reason": "Marta works in Finance. She needs the Finance folder."
+				},
+				{
+					"id": "dana",
+					"label": "Dana",
+					"needs": [
+						"design"
+					],
+					"start": [
+						"design",
+						"finance"
+					],
+					"reason": "Dana works on designs. She needs the Design folder."
+				},
+				{
+					"id": "carla",
+					"label": "Carla",
+					"needs": [
+						"hr"
+					],
+					"start": [
+						"hr"
+					],
+					"reason": "Carla looks after HR files. She needs the HR folder."
+				},
+				{
+					"id": "reception",
+					"label": "Reception",
+					"needs": [],
+					"start": [
+						"hr"
+					],
+					"reason": "Reception needs no shared folder."
+				}
+			],
+			"success": "Everyone has the access their job needs and no more. One account can no longer lock everything.",
+			"tutorial": "recovery_folders"
+		},
+		"file_server": {
+			"title": "Back to work",
+			"system": "FINAL CHECK",
+			"instruction": "Check Marta's work the way she does it every day. Each check proves one repair worked.",
+			"lesson": "Recovery is finished only when the person can work normally again and you have checked it.",
+			"checks": [
+				{
+					"id": "ordinary_file",
+					"label": "RESTORED FILE",
+					"expected": "Trusted record: the Finance budget should open, with its usual ending.",
+					"passed": "The budget opened, and its ending is .xlsx, not .locked.",
+					"failed": "The budget will not open. Do not mark recovery complete.",
+					"icon": "file"
+				},
+				{
+					"id": "backup_job",
+					"label": "BACKUP JOB",
+					"expected": "Trusted record: the backup job should finish.",
+					"passed": "The backup job finished, and the offline copy was made.",
+					"failed": "The backup job did not finish. Recovery stays open.",
+					"icon": "account"
+				},
+				{
+					"id": "folder_access",
+					"label": "FOLDER ACCESS",
+					"expected": "Trusted record: Marta may write to Finance only.",
+					"passed": "Marta can write to Finance and nothing else.",
+					"failed": "Folder access is wrong. Recovery stays open.",
+					"icon": "contact"
+				}
+			],
+			"run": "Run check",
+			"confirm": "Confirm results",
+			"all_checks": "Run every check before confirming recovery.",
+			"failed": "A check failed. Keep recovery open and ask the response team to address the result.",
+			"passed": "[OK] {result}",
+			"failed_result": "[!] {result}",
+			"success": "The budget opened, the backup job ran, and Marta can reach only her folder. She is back to work.",
+			"points": {
+				"base": 20,
+				"clean_bonus": 0
+			}
+		}
+	},
+	"equipment_selection": {
+		"rebuild": [
+			"access",
+			"monitoring"
+		],
+		"restore": [
+			"backup",
+			"servers"
+		],
+		"folders": [
+			"network",
+			"servers"
+		],
+		"file_server": [
+			"servers"
+		]
+	},
+	"response_outcome": {
+		"contained": true,
+		"summary": "Response contained the ransomware. Marta's laptop, the backups and the shared folders are ready for repairs.",
+		"cleared_devices": {},
+		"verification": {
+			"ordinary_file": true,
+			"backup_job": true,
+			"folder_access": true
+		}
+	}
+}

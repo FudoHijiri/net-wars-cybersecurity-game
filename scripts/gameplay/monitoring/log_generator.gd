@@ -9,8 +9,18 @@ extends RefCounted
 ##
 ## Sign-ins are the Day 1 event. A data file with an "event" (a key of "events") builds any other event from its
 ## rules alone: every rule has a "part", "allowed" values, "good_values" (what a normal log shows) and
-## "bad_values" (what a rule break shows); "threat" {part, value, chance, rule_chance} is the value that
+## "bad_values" (what a rule break shows). A rule with "check": "lookup" ties one part to another: the part named
+## by "by" (a role) decides which values of "part" (a folder) are allowed, from "table" {role: [values]}; the log
+## draws the role first. A rule with "check": "clock" is a "range" on a part that holds "HH:MM" (min and max are
+## minutes after midnight; "exception": "on_call" lets the person on call work outside the hours).
+## An "allowed" or "pattern" rule may also have an "exempt" {part, values} (Day 8: our own scanner may type code).
+## A rule with "check": "threshold" holds a number ("max", with "odd_margin"
+## for numbers close to it) and may have an "exempt" {part, values}: another part with one of those values may go over the
+## maximum (the Backup Agent changes many files). "threat" {part, value, chance, rule_chance} is the value that
 ## repeats in bad logs, so it can be found; a decoy carries "values" that replace the normal ones.
+##
+## A rule with "check": "info" is a part that is shown but is never a rule (the size of a transfer): it is never broken,
+## and its "text" in the rulebook says why it does not decide.
 ##
 ## Kinds: normal (follows every rule), bad (breaks 1 or 2 rules), decoy (looks odd, follows the rules).
 ## The first logs follow "guided_kinds"; after that a shuffle bag ("mix") sets the kind of each log.
@@ -119,9 +129,14 @@ func _plan_generic(kind: String) -> Dictionary:
 	var plan := {"kind": kind, "decoy": {}, "person": _random_person(), "values": {}}
 	var values: Dictionary = plan["values"]
 	for rule: Dictionary in _data["rules"]:
-		values[rule["part"]] = _pick(rule["good_values"])
+		if rule["check"] == "lookup":
+			var role: String = _pick(rule["roles"])
+			values[rule["by"]] = role
+			values[rule["part"]] = _pick(rule["table"][role])
+		else:
+			values[rule["part"]] = _pick(rule["good_values"])
 	if kind == "bad":
-		var rules: Array = _data["rules"].duplicate()
+		var rules: Array = _data["rules"].filter(func(rule: Dictionary) -> bool: return rule["check"] != "info")
 		_shuffle(rules)
 		var threat: Dictionary = _data["threat"]
 		if _rng.randf() < float(threat["rule_chance"]): # the rule the thief most often breaks goes first
@@ -129,13 +144,27 @@ func _plan_generic(kind: String) -> Dictionary:
 			rules.erase(threat_rule)
 			rules.push_front(threat_rule)
 		for rule: Dictionary in rules.slice(0, 2 if _rng.randf() < 0.4 else 1):
-			values[rule["part"]] = _bad_value(rule)
+			if rule["check"] == "lookup":
+				_break_lookup(rule, values)
+			else:
+				values[rule["part"]] = _bad_value(rule)
 	elif kind == "decoy":
 		var decoy: Dictionary = _pick(_data["decoys"])
 		plan["decoy"] = decoy
 		for key: String in decoy["values"]:
 			values[key] = decoy["values"][key]
 	return plan
+
+
+## A folder the person's role does not open: the threat's folder most of the time (and a role that does not open it).
+func _break_lookup(rule: Dictionary, values: Dictionary) -> void:
+	var folder := _bad_value(rule)
+	var roles: Array = rule["roles"].filter(func(role: String) -> bool: return not rule["table"][role].has(folder))
+	if roles.is_empty():
+		return
+	if rule["table"].get(values[rule["by"]], []).has(folder): # (the "by" part may itself have been broken, as a look-alike domain)
+		values[rule["by"]] = _pick(roles) # the role that fits the folder is changed, so the log really breaks the rule
+	values[rule["part"]] = folder
 
 
 ## What a broken rule shows: the threat's value most of the time, else one of the rule's own bad values.
@@ -314,8 +343,18 @@ func _evaluate(key: String, values: Dictionary, minutes: int) -> Dictionary:
 	if rule.is_empty():
 		var odd: bool = key == "result" and values["result"] != "Signed in"
 		return {"state": STATE_ODD if odd else STATE_OK, "hint": STATE_ODD if odd else STATE_OK, "rule": ""}
+	if rule["check"] == "info":
+		return {"state": STATE_OK, "hint": STATE_OK, "rule": rule["id"]}
 	if rule["check"] == "range":
 		return _check_range(rule, values, minutes)
+	if rule["check"] == "threshold":
+		return _check_threshold(rule, values)
+	if rule["check"] == "lookup":
+		var allowed_here: bool = values[key] in rule["table"].get(values[rule["by"]], [])
+		return {"state": STATE_OK if allowed_here else STATE_BAD, "hint": STATE_OK if allowed_here else STATE_BAD, "rule": rule["id"]}
+	if rule["check"] == "clock":
+		var clock := str(values[key]).split(":")
+		return _check_range(rule, values, int(clock[0]) * 60 + int(clock[1]))
 	if rule.has("odd_values") and values[key] in rule["odd_values"]:
 		return {"state": STATE_ODD, "hint": STATE_ODD, "rule": rule["id"]} # allowed, but worth a second look
 	var allowed := false
@@ -323,8 +362,27 @@ func _evaluate(key: String, values: Dictionary, minutes: int) -> Dictionary:
 		allowed = values[key] in rule.get("allowed_extra", []) or _regexes[rule["id"]].search(values[key]) != null
 	else:
 		allowed = values[key] in rule["allowed"]
+	if not allowed: # a part may break the rule when this other part clears it (Day 8: our own scanner may type code)
+		var exempt: Dictionary = rule.get("exempt", {})
+		if not exempt.is_empty() and str(values.get(exempt["part"], "")) in exempt["values"]:
+			return {"state": STATE_ODD, "hint": "exempt", "rule": rule["id"]}
 	var state := STATE_OK if allowed else STATE_BAD
 	return {"state": state, "hint": state, "rule": rule["id"]}
+
+
+## A number with a maximum (files a minute). Over it is a break, unless the program that does it is exempt (it is allowed,
+## but worth a second look); close to it is odd.
+func _check_threshold(rule: Dictionary, values: Dictionary) -> Dictionary:
+	var amount := int(values[rule["part"]])
+	var limit := int(rule["max"])
+	if amount > limit:
+		var exempt: Dictionary = rule.get("exempt", {})
+		if not exempt.is_empty() and str(values.get(exempt["part"], "")) in exempt["values"]:
+			return {"state": STATE_ODD, "hint": "exempt", "rule": rule["id"]}
+		return {"state": STATE_BAD, "hint": STATE_BAD, "rule": rule["id"]}
+	if limit - amount < int(rule.get("odd_margin", 0)):
+		return {"state": STATE_ODD, "hint": STATE_ODD, "rule": rule["id"]}
+	return {"state": STATE_OK, "hint": STATE_OK, "rule": rule["id"]}
 
 
 func _check_range(rule: Dictionary, values: Dictionary, minutes: int) -> Dictionary:

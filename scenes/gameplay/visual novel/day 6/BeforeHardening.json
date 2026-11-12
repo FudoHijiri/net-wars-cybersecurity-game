@@ -1,0 +1,42 @@
+{
+	"start": {
+		"text": "The shift is over. The traffic that did not fit was almost always one page, from one browser name.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. The lesson is the same every time: share the load, limit each visitor, and close what stays open.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Some of the new cards [b][color=green]Cap[/color][/b] the enemy's turn. Point at the word to read it. No hit does more than the Cap says.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "C"
+	},
+	"C": {
+		"text": "So a big hit becomes a small one, even when I do not have the Block for it. And I buy the upgrade my clues point at.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "D"
+	},
+	"D": {
+		"text": "Exactly. Use your Security Points, and read what your clues recommended.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Understood. Spare capacity, a limit for each visitor, and no connection left open.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

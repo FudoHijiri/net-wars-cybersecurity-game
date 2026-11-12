@@ -1,0 +1,138 @@
+{
+	"_note": "The pre-game and the post-game assessment (see autoload/assessment.gd). The same 12 scenario questions are asked before the first day and after the last one; their order and the order of the options are shuffled each time. Each question: id, topic (the threat or practice it checks), scenario, options (4), answer (the index of the best option, in this order). The assessment never says which answer is right. To change a question later, keep its id: the Google Sheet columns are the ids.",
+	"title": "SECURITY CHECK",
+	"questions": [
+		{
+			"id": "q01", "topic": "credential abuse",
+			"scenario": "At 3 a.m. an employee's account fails to sign in 20 times from another country, and then the next attempt works. The employee says they were asleep.",
+			"options": [
+				"Nothing is wrong: the password was correct in the end.",
+				"Ask the employee to send you the password so you can check it.",
+				"Sign the account out, reset its password, turn on a second sign-in step, and review what the account touched.",
+				"Reset the password only, and leave the rest alone."
+			],
+			"answer": 2
+		},
+		{
+			"id": "q02", "topic": "malware",
+			"scenario": "A laptop has become very slow and strange windows keep opening. The user installed a free \"PDF converter\" from a website this morning.",
+			"options": [
+				"Disconnect the laptop from the network, then scan it and remove the program before it is used again.",
+				"Close the windows and keep working.",
+				"Restart the laptop every day until the windows stop.",
+				"Install a second free cleaner program."
+			],
+			"answer": 0
+		},
+		{
+			"id": "q03", "topic": "ransomware",
+			"scenario": "Files on the shared drive are locked and a message demands payment. Last night's backup is stored offline and was not touched.",
+			"options": [
+				"Pay quickly, so the files come back before the staff notice.",
+				"Delete the locked files and start the day's work again from nothing.",
+				"Restart every computer in the office at once.",
+				"Cut the affected computers off the network, remove the cause, then restore from the offline backup."
+			],
+			"answer": 3
+		},
+		{
+			"id": "q04", "topic": "insider threat",
+			"scenario": "A staff member who will leave next week starts copying project folders they have never used before.",
+			"options": [
+				"Ignore it: they are a trusted employee.",
+				"Check what they can reach, keep only the access their job needs, and follow the company's process with HR and security.",
+				"Tell the whole team what you saw.",
+				"Give them administrator rights so everything they do is recorded."
+			],
+			"answer": 1
+		},
+		{
+			"id": "q05", "topic": "data exfiltration",
+			"scenario": "The logs show one workstation sending a large amount of data to an unknown server every night at the same hour. Nobody asked for this.",
+			"options": [
+				"It is probably a system update. Do nothing.",
+				"Delete the old logs so the disk does not fill up.",
+				"Block that destination, isolate the workstation, and investigate what is leaving.",
+				"Give the workstation a faster internet line."
+			],
+			"answer": 2
+		},
+		{
+			"id": "q06", "topic": "denial of service",
+			"scenario": "A shop's website suddenly gets thousands of requests every second from many addresses. Real customers cannot open the pages.",
+			"options": [
+				"Turn the firewall off so that more requests can get through.",
+				"Limit the rate of requests, filter the bad traffic, and add capacity or a protection service.",
+				"Ask the customers to refresh the page more often.",
+				"Block every address, including the customers'."
+			],
+			"answer": 1
+		},
+		{
+			"id": "q07", "topic": "phishing",
+			"scenario": "An email from \"it-supp0rt\" says your password expires in one hour and gives a link to \"confirm\" it. The sender address does not match the company's.",
+			"options": [
+				"Click the link to see where it goes, but do not type anything.",
+				"Do not click. Report the email, and check with IT through a way you already know.",
+				"Forward it to your coworkers so they can warn each other.",
+				"Reply and ask them to prove who they are."
+			],
+			"answer": 1
+		},
+		{
+			"id": "q08", "topic": "web application attack",
+			"scenario": "A login page puts what the visitor types straight into a database query. A visitor types ' OR '1'='1 as the password and gets in.",
+			"options": [
+				"Ask users to choose longer passwords.",
+				"Hide the login page from search engines.",
+				"Make the text of the login form smaller.",
+				"Check the input and build the query with parameters, so typed text is never run as part of the query."
+			],
+			"answer": 3
+		},
+		{
+			"id": "q09", "topic": "secure development: secrets",
+			"scenario": "A developer is about to upload code that has the database password written in it to a repository the whole team can read.",
+			"options": [
+				"Keep secrets out of the code (use a secrets store or environment settings), and change the password that was exposed.",
+				"Upload it. The repository is private to the team.",
+				"Write the password in a comment so it is easy to find.",
+				"Upload it, and ask the team not to share it."
+			],
+			"answer": 0
+		},
+		{
+			"id": "q10", "topic": "secure development: updates",
+			"scenario": "A critical security fix is out for a library that the company website uses. It has not been tested with the site.",
+			"options": [
+				"Never update: it works today.",
+				"Install it on the live site right now, with no backup.",
+				"Wait a year to see if other people have problems.",
+				"Back up the site, try the update on a copy first, and then apply it to the live site with a way to go back."
+			],
+			"answer": 3
+		},
+		{
+			"id": "q11", "topic": "secure development: access",
+			"scenario": "A new intern only needs to read this month's sales report.",
+			"options": [
+				"Give the intern the manager's account, so nothing needs to be set up.",
+				"Give read-only access to that report and nothing else.",
+				"Give access to every folder, in case it is needed later.",
+				"Make the intern an administrator: it is faster to set up."
+			],
+			"answer": 1
+		},
+		{
+			"id": "q12", "topic": "secure development: backups",
+			"scenario": "A company wants a backup plan that still works if ransomware locks everything on the network.",
+			"options": [
+				"Keep one copy of the files on the same server.",
+				"Rely on the antivirus program and skip backups.",
+				"Keep several copies on different kinds of storage, with at least one offline or in another place, and test restoring them.",
+				"Keep a backup drive plugged into the server all the time."
+			],
+			"answer": 2
+		}
+	]
+}

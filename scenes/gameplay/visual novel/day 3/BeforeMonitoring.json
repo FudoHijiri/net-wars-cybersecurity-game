@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "Report sent. Marta's laptop is unplugged, and the files are locked. But this works by speed, and it might still be spreading.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua, I read your report. The server is safe for now. But this kind of program works by speed: so many files, so fast. Tonight we watch every file change.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "A person changes a few files a minute. A program changes hundreds. And locked files get a new ending, like .locked.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"How do I tell a backup from an attack?": "C1",
+			"Can't we just pay?": "C2"
+		}
+	},
+	"C1": {
+		"text": "By the program and the hour. The Backup Agent is approved and copies many files at once. That is its job. An attack comes from a program nobody approved.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "No. Paying promises nothing, and it pays for the next attack. We watch, and we find it by its name.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "The rules are in the [b][color=green]rulebook[/color][/b]. [b][color=red]Report[/color][/b] a change that breaks one. Let the rest [b][color=green]pass[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "One change at a time. Many files is not always bad, so I'll check every rule.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

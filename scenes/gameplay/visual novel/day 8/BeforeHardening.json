@@ -1,0 +1,42 @@
+{
+	"start": {
+		"text": "The shift is over. The attacks had one thing in common: text that was taken for an order.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. The lesson: check what comes in, keep the software up to date, and lock the admin door.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Some of the new cards have [b][color=green]Exploit[/color][/b]. Point at the word to read it. They hit much harder when the threat is Exposed.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "C"
+	},
+	"C": {
+		"text": "So I expose it first, then it hurts. And I buy the upgrade my clues point at.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "D"
+	},
+	"D": {
+		"text": "Exactly. Use your Security Points, and read what your clues recommended.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Understood. Check the input, patch the framework, and lock the admin door.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

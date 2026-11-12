@@ -1,0 +1,7 @@
+{
+	"_note": "Where the assessment results are sent (see docs/assessment_setup.md). endpoint: the web app URL of the Google Apps Script (it ends with /exec); while it is empty the results stay on this computer. key: the same word as KEY in the Apps Script; the script refuses results that do not carry it. timeout_seconds: how long one sending may take. retry_seconds: how long to wait before sending again after a failure.",
+	"endpoint": "https://script.google.com/macros/s/AKfycbzc_IRU_POJrbGeXk1qoWw32zR-3raN_Aa05RNi6r2WtB5QIMkbtVyed0DKhmrA5Ys/exec",
+	"key": "64tGOqF3AXALlYusr07fYO17hIdkynmZ+jnqUoGJw64=",
+	"timeout_seconds": 15,
+	"retry_seconds": 30
+}

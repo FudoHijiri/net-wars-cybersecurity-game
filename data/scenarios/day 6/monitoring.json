@@ -1,0 +1,439 @@
+{
+	"_note": "Day 6 shift: a minute of traffic to the website. Built by the generic path of LogGenerator (event \"traffic\"). The rules: the Requests a minute part is an \"info\" rule (a big number decides nothing: the sale is huge and real), the requests from each address are a \"threshold\" with an \"exempt\" browser (our own monitor), the pages and the browser are \"allowed\" rules (the browser has \"odd_values\": a polite crawler). The threat is the page /search?q= and the browser bot-kit/1.0 that repeat in bad logs.",
+	"shift_seconds": 120,
+	"log_seconds": 33,
+	"inspect_percent_per_click": 25,
+	"points_correct": 15,
+	"finish": {
+		"points_wrong": 5,
+		"bonus": 40,
+		"flawless_min_correct": 4,
+		"good_accuracy": 0.7,
+		"comments": {
+			"flawless": "Joshua: No wrong calls. Bonus.",
+			"short": "Joshua: No mistakes, but too few logs. Be quicker.",
+			"good": "Joshua: Solid. Review: {reason}",
+			"rough": "Joshua: Rough. Review: {reason}"
+		}
+	},
+	"guided_kinds": [
+		"normal",
+		"bad",
+		"decoy"
+	],
+	"story_odds": {
+		"base": 0.05,
+		"per_solved": 0.04,
+		"max": 0.5
+	},
+	"mix": {
+		"normal": 6,
+		"bad": 3,
+		"decoy": 1
+	},
+	"on_call": "Carla Patel",
+	"first_names": [
+		"Evan",
+		"Farah",
+		"Gabriel",
+		"Hana",
+		"Ivan",
+		"Jada",
+		"Kai",
+		"Lena",
+		"Marcus",
+		"Nadia",
+		"Omar",
+		"Priya",
+		"Quentin",
+		"Rosa",
+		"Samir",
+		"Tessa",
+		"Umar",
+		"Vera",
+		"Wen",
+		"Xavier",
+		"Yara",
+		"Zane",
+		"Aiden",
+		"Bianca",
+		"Callum",
+		"Dalia",
+		"Elias",
+		"Freya",
+		"Hugo",
+		"Imani"
+	],
+	"last_names": [
+		"Brooks",
+		"Ali",
+		"Santos",
+		"Ito",
+		"Petrov",
+		"Okafor",
+		"Nakamura",
+		"Novak",
+		"Hughes",
+		"Rossi",
+		"Haddad",
+		"Singh",
+		"Moreau",
+		"Lindqvist",
+		"Costa",
+		"Oyelaran",
+		"Fischer",
+		"Kowalski",
+		"Tanaka",
+		"Mendoza",
+		"Abara",
+		"Larsen",
+		"Duarte",
+		"Park",
+		"Ivanova",
+		"Walsh",
+		"Cohen",
+		"Bianchi",
+		"Adeyemi",
+		"Sato"
+	],
+	"id": "day6_monitoring",
+	"event": "traffic",
+	"reason_format": "This traffic %s.",
+	"hud_line": "Judge each visitor, not the crowd    On call: {on_call}",
+	"story_people": [
+		{
+			"name": "Jonas Pike",
+			"computer": "Jonas's laptop"
+		},
+		{
+			"name": "Leila Haddad",
+			"computer": "Leila's computer"
+		},
+		{
+			"name": "Carla Patel",
+			"computer": "Carla's computer"
+		},
+		{
+			"name": "bot-kit",
+			"computer": "unknown"
+		}
+	],
+	"events": {
+		"traffic": {
+			"title": "A MINUTE OF TRAFFIC",
+			"parts": [
+				{
+					"key": "requests",
+					"label": "Requests a minute"
+				},
+				{
+					"key": "each",
+					"label": "From each address"
+				},
+				{
+					"key": "pages",
+					"label": "Pages asked for"
+				},
+				{
+					"key": "browser",
+					"label": "Browser name"
+				}
+			]
+		}
+	},
+	"rules": [
+		{
+			"id": "requests",
+			"part": "requests",
+			"check": "info",
+			"good_values": [
+				"900",
+				"1,500",
+				"2,400",
+				"6,000",
+				"14,000"
+			],
+			"bad_values": [
+				"900"
+			],
+			"name": "Requests a minute",
+			"text": "A big number does not decide. It does not make traffic good or bad.",
+			"details": [
+				"A sale can send 14,000 requests a minute, and all of them real."
+			],
+			"example_ok": "14,000 requests, 12 from each address",
+			"example_bad": "41,000 requests, 300 from each address",
+			"why": "Look at what each visitor does. The size of the crowd decides nothing.",
+			"broken": ""
+		},
+		{
+			"id": "each",
+			"part": "each",
+			"check": "threshold",
+			"max": 40,
+			"odd_margin": 8,
+			"good_values": [
+				"2",
+				"6",
+				"12",
+				"18",
+				"25"
+			],
+			"bad_values": [
+				"300",
+				"420",
+				"600",
+				"900"
+			],
+			"exempt": {
+				"part": "browser",
+				"values": [
+					"Our monitor"
+				]
+			},
+			"name": "From each address",
+			"text": "One visitor sends at most 40 requests a minute.",
+			"details": [
+				"Our own monitor may send more: checking the site is its job."
+			],
+			"example_ok": "12",
+			"example_bad": "420",
+			"why": "A person clicks a few times a minute. A bot sends hundreds.",
+			"broken": "sends far too many requests from one address"
+		},
+		{
+			"id": "pages",
+			"part": "pages",
+			"check": "allowed",
+			"allowed": [
+				"The shop",
+				"A product",
+				"The cart",
+				"The checkout",
+				"Many pages"
+			],
+			"good_values": [
+				"The shop",
+				"A product",
+				"The cart",
+				"The checkout",
+				"Many pages"
+			],
+			"bad_values": [
+				"Only /search?q=",
+				"Only /search?q=",
+				"Only /search?q=",
+				"Only the home page"
+			],
+			"name": "Pages",
+			"text": "Real visitors look around: the shop, a product, the cart, the checkout.",
+			"details": [
+				"A flood asks for one page, again and again."
+			],
+			"example_ok": "Many pages",
+			"example_bad": "Only /search?q=",
+			"why": "People wander through a site. A flood asks for the same page.",
+			"broken": "asks for only one page"
+		},
+		{
+			"id": "browser",
+			"part": "browser",
+			"check": "allowed",
+			"allowed": [
+				"Chrome",
+				"Firefox",
+				"Safari",
+				"Edge",
+				"friendly-bot/2.1",
+				"Our monitor"
+			],
+			"odd_values": [
+				"friendly-bot/2.1",
+				"Our monitor"
+			],
+			"good_values": [
+				"Chrome",
+				"Firefox",
+				"Safari",
+				"Edge"
+			],
+			"bad_values": [
+				"bot-kit/1.0",
+				"bot-kit/1.0",
+				"bot-kit/1.0",
+				"(no name)"
+			],
+			"name": "Browser",
+			"text": "A real browser has a real name.",
+			"details": [
+				"friendly-bot/2.1 is the search engine's crawler: allowed, but worth a look.",
+				"Our monitor is ours."
+			],
+			"example_ok": "Firefox",
+			"example_bad": "bot-kit/1.0",
+			"why": "Thousands of real visitors never share one made-up browser name.",
+			"broken": "comes from a browser name nobody real uses"
+		}
+	],
+	"threat": {
+		"part": "pages",
+		"value": "Only /search?q=",
+		"chance": 0.8,
+		"rule_chance": 0.7
+	},
+	"decoys": [
+		{
+			"id": "sale_rush",
+			"values": {
+				"requests": "14,000",
+				"each": "12",
+				"pages": "Many pages",
+				"browser": "Chrome"
+			},
+			"reason": "14,000 requests is a huge crowd, but it is the sale: 12 from each address, many pages, a real browser."
+		},
+		{
+			"id": "crawler",
+			"values": {
+				"requests": "900",
+				"each": "30",
+				"pages": "Many pages",
+				"browser": "friendly-bot/2.1"
+			},
+			"reason": "The search engine's crawler is polite and allowed. It is under the limit, and it reads many pages."
+		},
+		{
+			"id": "our_monitor",
+			"values": {
+				"requests": "900",
+				"each": "600",
+				"pages": "The shop",
+				"browser": "Our monitor"
+			},
+			"reason": "600 requests from one address is a lot, but it is our own monitor checking the shop, and it is exempt."
+		}
+	],
+	"story_logs": [
+		{
+			"id": "leila_sale",
+			"kind": "decoy",
+			"user": "Leila Haddad",
+			"values": {
+				"requests": "14,000",
+				"each": "12",
+				"pages": "Many pages",
+				"browser": "Chrome"
+			},
+			"reason": "{first}'s sale brought a huge crowd of real customers: 12 from each address and a real browser."
+		},
+		{
+			"id": "jonas_normal",
+			"kind": "normal",
+			"user": "Jonas Pike",
+			"values": {
+				"requests": "900",
+				"each": "6",
+				"pages": "A product",
+				"browser": "Firefox"
+			}
+		},
+		{
+			"id": "flood_first",
+			"kind": "bad",
+			"user": "bot-kit",
+			"values": {
+				"requests": "41,000",
+				"each": "420",
+				"pages": "Only /search?q=",
+				"browser": "bot-kit/1.0"
+			}
+		},
+		{
+			"id": "flood_second",
+			"kind": "bad",
+			"user": "bot-kit",
+			"values": {
+				"requests": "41,000",
+				"each": "420",
+				"pages": "Only /search?q=",
+				"browser": "bot-kit/1.0"
+			}
+		}
+	],
+	"hints": {
+		"requests": {
+			"ok": [
+				"{requests} requests tells you little by itself.",
+				"A crowd of {requests} can be real or not."
+			]
+		},
+		"each": {
+			"ok": [
+				"{each} from each address is a few clicks.",
+				"{each} a minute is a person's pace."
+			],
+			"odd": [
+				"{each} is close to the limit."
+			],
+			"exempt": [
+				"{each} is a lot, but this one is cleared to send it."
+			],
+			"bad": [
+				"{each} from one address is a bot's pace.",
+				"Nobody clicks {each} times a minute."
+			]
+		},
+		"pages": {
+			"ok": [
+				"Visitors who ask for {pages} are browsing.",
+				"{pages} looks like people shopping."
+			],
+			"bad": [
+				"{pages}: a person looks around.",
+				"Only one page, again and again, is not shopping."
+			]
+		},
+		"browser": {
+			"ok": [
+				"{browser} is a real browser.",
+				"{browser} is what visitors use."
+			],
+			"odd": [
+				"{browser} is a known program, not a person."
+			],
+			"bad": [
+				"{browser} is not a browser anyone really uses.",
+				"A browser called {browser}? Nobody real."
+			]
+		}
+	},
+	"guide": {
+		"1": [
+			"New shift. A crowd and a flood look alike from far away. This time you judge each visitor.",
+			"Click a line to ask me about it. The clock is frozen while you learn.",
+			"Rules are in the RULEBOOK. Then LET PASS or REPORT."
+		],
+		"2": [
+			"Check all four lines on the card."
+		],
+		"3": [
+			"A huge crowd can be real. Look at what each visitor does."
+		],
+		"4": [
+			"The clock runs now. Good luck."
+		]
+	},
+	"rulebook": {
+		"intro": "REPORT traffic that breaks a rule. LET PASS the rest, even a huge crowd.",
+		"margin": "Within %d of the limit is a bit odd, but still allowed."
+	},
+	"messages": {
+		"right": "Correct. {reason}",
+		"wrong": "Wrong. {reason}",
+		"timeout": "Time ran out. It passed. {reason}",
+		"no_time": "No time to ask. Decide now.",
+		"start": "Press NEXT LOG to begin.",
+		"normal_reason": "It followed every rule.",
+		"end": "End of shift."
+	}
+}

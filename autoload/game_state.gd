@@ -19,6 +19,8 @@ var current_day: int = 1
 ## The phase being played (one of PHASES). The Dialogue scene plays this phase's dialogue.
 ## reset_progress() sets it back to the first phase.
 var current_phase: String = PHASES[0]
+## True while the Dialogue scene plays the "ending" of the day (the last scene of the game) instead of a phase's dialogue.
+var play_ending := false
 
 ## The data file of the current phase (the "data" of the phase in days.json), loaded by set_day()
 ## and set_phase(). For the investigation phase these are the tables of every app.
@@ -88,6 +90,13 @@ func phase_info(phase: String = current_phase, day: int = current_day) -> Dictio
 	return info
 
 
+## The objective line of a phase for its top bar: "OBJECTIVE - " and the "objective" of the phase in days.json
+## (key "objective_report" and the like for a second step of the same phase). Every screen of a phase shows the
+## same kind of line, so the player always reads what they are there to do.
+func objective(key: String = "objective", phase: String = current_phase) -> String:
+	return "OBJECTIVE - %s" % str(phase_info(phase).get(key, ""))
+
+
 ## True when the phase has a dialogue or a scene to open (see SceneManager.open_current_phase).
 func is_phase_built(phase: String, day: int = current_day) -> bool:
 	var info := phase_info(phase, day)
@@ -97,6 +106,7 @@ func is_phase_built(phase: String, day: int = current_day) -> bool:
 ## Chooses the day to play and loads the data of the current phase.
 func set_day(day: int) -> void:
 	current_day = day
+	play_ending = false
 	_load_phase_data()
 	_restore_day_progress()
 
@@ -104,6 +114,7 @@ func set_day(day: int) -> void:
 ## Chooses the phase to play and loads its data.
 func set_phase(phase: String) -> void:
 	current_phase = phase
+	play_ending = false
 	_load_phase_data()
 
 

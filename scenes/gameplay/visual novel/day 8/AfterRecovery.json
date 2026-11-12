@@ -1,0 +1,54 @@
+{
+	"start": {
+		"text": "The site is back. The hole is closed. Nothing of the attacker is left. That is the last repair.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua, eight days. Let us look back at what you learned.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "[b][color=green]Day 1[/color][/b]: a second step protects a stolen password. [b][color=green]Day 2[/color][/b]: keep computers updated and install programs only from places you trust.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "C"
+	},
+	"C": {
+		"text": "[b][color=green]Day 3[/color][/b]: keep a backup apart from the network, and test it. [b][color=green]Day 4[/color][/b]: give each person only the access the job needs.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "[b][color=green]Day 5[/color][/b]: allow data to go only where it is meant to go. [b][color=green]Day 6[/color][/b]: set a limit that lets customers in and keeps the flood out.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "[b][color=green]Day 7[/color][/b]: check the sender and where the link really goes. [b][color=green]Day 8[/color][/b]: check what people type, and keep the software up to date.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"text": "Every day looked different, and every day it came down to the same thing: look closely, check before you trust, and fix what you find.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "G"
+	},
+	"G": {
+		"text": "The week is over. Thank you for keeping the company safe.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

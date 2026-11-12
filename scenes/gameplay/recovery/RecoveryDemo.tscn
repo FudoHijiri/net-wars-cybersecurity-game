@@ -96,11 +96,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="CreditsButton" type="Button" parent="Frame/Layout/Footer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-text = "Art credits"
-
 [connection signal="pressed" from="Frame/Layout/Footer/StageSelectButton" to="." method="_go_to_stage_select"]
-[connection signal="pressed" from="Frame/Layout/Footer/CreditsButton" to="." method="_show_credits"]

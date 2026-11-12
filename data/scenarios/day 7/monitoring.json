@@ -1,0 +1,432 @@
+{
+	"_note": "Day 7 shift: an email arrives. Built by the generic path of LogGenerator (event \"email\"). The sender is an \"allowed\" rule (a look-alike domain is not ours), the link is a \"lookup\" (the sender decides where its links may go: the older plan's \"match\"), the request is an \"allowed\" rule with \"odd_values\" (the real IT reminder asks you to open the portal yourself), and the time is an \"info\" rule (a fake can come at any hour). The threat is the look-alike c0mpany-it.com and the request to type your password here, which repeat in bad logs.",
+	"shift_seconds": 120,
+	"log_seconds": 33,
+	"inspect_percent_per_click": 25,
+	"points_correct": 15,
+	"finish": {
+		"points_wrong": 5,
+		"bonus": 40,
+		"flawless_min_correct": 4,
+		"good_accuracy": 0.7,
+		"comments": {
+			"flawless": "Joshua: No wrong calls. Bonus.",
+			"short": "Joshua: No mistakes, but too few logs. Be quicker.",
+			"good": "Joshua: Solid. Review: {reason}",
+			"rough": "Joshua: Rough. Review: {reason}"
+		}
+	},
+	"guided_kinds": [
+		"normal",
+		"bad",
+		"decoy"
+	],
+	"story_odds": {
+		"base": 0.05,
+		"per_solved": 0.04,
+		"max": 0.5
+	},
+	"mix": {
+		"normal": 6,
+		"bad": 3,
+		"decoy": 1
+	},
+	"on_call": "Carla Patel",
+	"first_names": [
+		"Evan",
+		"Farah",
+		"Gabriel",
+		"Hana",
+		"Ivan",
+		"Jada",
+		"Kai",
+		"Lena",
+		"Marcus",
+		"Nadia",
+		"Omar",
+		"Priya",
+		"Quentin",
+		"Rosa",
+		"Samir",
+		"Tessa",
+		"Umar",
+		"Vera",
+		"Wen",
+		"Xavier",
+		"Yara",
+		"Zane",
+		"Aiden",
+		"Bianca",
+		"Callum",
+		"Dalia",
+		"Elias",
+		"Freya",
+		"Hugo",
+		"Imani"
+	],
+	"last_names": [
+		"Brooks",
+		"Ali",
+		"Santos",
+		"Ito",
+		"Petrov",
+		"Okafor",
+		"Nakamura",
+		"Novak",
+		"Hughes",
+		"Rossi",
+		"Haddad",
+		"Singh",
+		"Moreau",
+		"Lindqvist",
+		"Costa",
+		"Oyelaran",
+		"Fischer",
+		"Kowalski",
+		"Tanaka",
+		"Mendoza",
+		"Abara",
+		"Larsen",
+		"Duarte",
+		"Park",
+		"Ivanova",
+		"Walsh",
+		"Cohen",
+		"Bianchi",
+		"Adeyemi",
+		"Sato"
+	],
+	"id": "day7_monitoring",
+	"event": "email",
+	"reason_format": "This email %s.",
+	"hud_line": "Read the sender and the link    On call: {on_call}",
+	"story_people": [
+		{
+			"name": "Tessa Brandt",
+			"computer": "Tessa's computer"
+		},
+		{
+			"name": "Ravi Menon",
+			"computer": "Ravi's laptop"
+		},
+		{
+			"name": "Hana Ito",
+			"computer": "Hana's computer"
+		},
+		{
+			"name": "Carla Patel",
+			"computer": "Carla's computer"
+		}
+	],
+	"events": {
+		"email": {
+			"title": "AN EMAIL ARRIVES",
+			"parts": [
+				{
+					"key": "sender",
+					"label": "Sender"
+				},
+				{
+					"key": "link",
+					"label": "Link goes to"
+				},
+				{
+					"key": "ask",
+					"label": "Asks you to"
+				},
+				{
+					"key": "sent",
+					"label": "Sent at"
+				}
+			]
+		}
+	},
+	"rules": [
+		{
+			"id": "sender",
+			"part": "sender",
+			"check": "allowed",
+			"allowed": [
+				"company-it.com",
+				"hr.company.com",
+				"training.company.com"
+			],
+			"good_values": [
+				"company-it.com",
+				"hr.company.com",
+				"training.company.com"
+			],
+			"bad_values": [
+				"c0mpany-it.com",
+				"c0mpany-it.com",
+				"c0mpany-it.com",
+				"cornpany-it.com",
+				"company-it.net"
+			],
+			"name": "Sender",
+			"text": "Mail may come only from our own domains.",
+			"details": [
+				"Ours: company-it.com, hr.company.com, training.company.com.",
+				"A look-alike (a zero for an o, an r and an n for an m) is not ours."
+			],
+			"example_ok": "company-it.com",
+			"example_bad": "c0mpany-it.com",
+			"why": "A look-alike domain is made to be mistaken for ours.",
+			"broken": "comes from a domain that only looks like ours"
+		},
+		{
+			"id": "link",
+			"part": "link",
+			"check": "lookup",
+			"by": "sender",
+			"roles": [
+				"company-it.com",
+				"hr.company.com",
+				"training.company.com"
+			],
+			"table": {
+				"company-it.com": [
+					"portal.company-it.com"
+				],
+				"hr.company.com": [
+					"benefits-partner.example"
+				],
+				"training.company.com": [
+					"learn.company.com"
+				]
+			},
+			"bad_values": [
+				"c0mpany-it.com/login",
+				"c0mpany-it.com/login",
+				"short.link/x9",
+				"company-it.net/login"
+			],
+			"name": "Link",
+			"text": "Each sender's links may go only to its own places.",
+			"details": [
+				"company-it.com: portal.company-it.com.",
+				"hr.company.com: benefits-partner.example.",
+				"training.company.com: learn.company.com."
+			],
+			"example_ok": "company-it.com to portal.company-it.com",
+			"example_bad": "company-it.com to c0mpany-it.com/login",
+			"why": "A link is only as good as where it goes, not what it says.",
+			"broken": "has a link that goes somewhere its sender should not send you"
+		},
+		{
+			"id": "ask",
+			"part": "ask",
+			"check": "allowed",
+			"allowed": [
+				"Read a notice",
+				"Open the portal yourself",
+				"Read the benefits page"
+			],
+			"odd_values": [
+				"Open the portal yourself"
+			],
+			"good_values": [
+				"Read a notice",
+				"Open the portal yourself",
+				"Read the benefits page"
+			],
+			"bad_values": [
+				"Type your password here",
+				"Type your password here",
+				"Type your password here",
+				"Send a code",
+				"Pay an invoice today"
+			],
+			"name": "Request",
+			"text": "A message may ask you to read, or to open the portal yourself.",
+			"details": [
+				"A real notice never asks you to type a password into the message."
+			],
+			"example_ok": "Open the portal yourself",
+			"example_bad": "Type your password here",
+			"why": "Nobody real asks for a password, a code or a payment in a message.",
+			"broken": "asks for a password, a code or a payment"
+		},
+		{
+			"id": "sent",
+			"part": "sent",
+			"check": "info",
+			"good_values": [
+				"08:05",
+				"09:12",
+				"10:40",
+				"13:20",
+				"15:35",
+				"17:50"
+			],
+			"bad_values": [
+				"09:12"
+			],
+			"name": "Sent at",
+			"text": "The time alone decides nothing. A fake can arrive at any hour.",
+			"details": [
+				"A real notice can come late, and a fake can come at lunch."
+			],
+			"example_ok": "09:12, from company-it.com",
+			"example_bad": "09:12, from c0mpany-it.com",
+			"why": "Look at who sent it and where the link goes, not at the clock.",
+			"broken": ""
+		}
+	],
+	"threat": {
+		"part": "sender",
+		"value": "c0mpany-it.com",
+		"chance": 0.8,
+		"rule_chance": 0.75
+	},
+	"decoys": [
+		{
+			"id": "it_reminder",
+			"values": {
+				"sender": "company-it.com",
+				"link": "portal.company-it.com",
+				"ask": "Open the portal yourself",
+				"sent": "08:30"
+			},
+			"reason": "That is the real IT reminder: our own domain, a link to our own portal, and it asks you to open the portal yourself."
+		},
+		{
+			"id": "hr_benefits",
+			"values": {
+				"sender": "hr.company.com",
+				"link": "benefits-partner.example",
+				"ask": "Read the benefits page",
+				"sent": "09:00"
+			},
+			"reason": "HR may send you to the benefits partner: its domain is ours, and that link is on its list."
+		},
+		{
+			"id": "training_test",
+			"values": {
+				"sender": "training.company.com",
+				"link": "learn.company.com",
+				"ask": "Read a notice",
+				"sent": "11:00"
+			},
+			"reason": "That is our own training test: our domain, and a link back to our own training site."
+		}
+	],
+	"story_logs": [
+		{
+			"id": "hr_benefits",
+			"kind": "decoy",
+			"user": "Hana Ito",
+			"values": {
+				"sender": "hr.company.com",
+				"link": "benefits-partner.example",
+				"ask": "Read the benefits page",
+				"sent": "09:00"
+			},
+			"reason": "{first}'s benefits message comes from HR, and its link goes to the benefits partner, which is on the list."
+		},
+		{
+			"id": "it_reminder",
+			"kind": "decoy",
+			"user": "Carla Patel",
+			"values": {
+				"sender": "company-it.com",
+				"link": "portal.company-it.com",
+				"ask": "Open the portal yourself",
+				"sent": "08:30"
+			},
+			"reason": "{first} sent the real password reminder: our domain, our portal, and it asks you to go there yourself."
+		},
+		{
+			"id": "phish_first",
+			"kind": "bad",
+			"user": "Tessa Brandt",
+			"values": {
+				"sender": "c0mpany-it.com",
+				"link": "c0mpany-it.com/login",
+				"ask": "Type your password here",
+				"sent": "09:12"
+			}
+		},
+		{
+			"id": "phish_second",
+			"kind": "bad",
+			"user": "Ravi Menon",
+			"values": {
+				"sender": "c0mpany-it.com",
+				"link": "c0mpany-it.com/login",
+				"ask": "Type your password here",
+				"sent": "09:12"
+			}
+		}
+	],
+	"hints": {
+		"sender": {
+			"ok": [
+				"{sender} is one of our domains.",
+				"{sender} is ours."
+			],
+			"bad": [
+				"{sender} looks like ours, but it is not.",
+				"Look at {sender} letter by letter."
+			]
+		},
+		"link": {
+			"ok": [
+				"{sender} may send you to {link}.",
+				"{link} is a place {sender} uses."
+			],
+			"bad": [
+				"{link} is not a place {sender} sends you to.",
+				"That link goes somewhere else than its sender's places."
+			]
+		},
+		"ask": {
+			"ok": [
+				"Being asked to {ask} is harmless.",
+				"Nothing risky in this request."
+			],
+			"odd": [
+				"A password notice that asks you to {ask} is fine. Look twice."
+			],
+			"bad": [
+				"No real sender asks you to do that in a message.",
+				"Nobody real asks that in an email."
+			]
+		},
+		"sent": {
+			"ok": [
+				"The time of {sent} tells you little.",
+				"A fake can come at {sent} too."
+			]
+		}
+	},
+	"guide": {
+		"1": [
+			"New shift. A fake email looks just like a real one. This time you read the sender and the link.",
+			"Click a line to ask me about it. The clock is frozen while you learn.",
+			"Rules are in the RULEBOOK. Then LET PASS or REPORT."
+		],
+		"2": [
+			"Check all four lines on the card."
+		],
+		"3": [
+			"A real notice can look odd, and a fake can look perfect. Check where each one comes from."
+		],
+		"4": [
+			"The clock runs now. Good luck."
+		]
+	},
+	"rulebook": {
+		"intro": "REPORT emails that break a rule. LET PASS the rest, even the ones that look official.",
+		"margin": "Within %d of the limit is a bit odd, but still allowed."
+	},
+	"messages": {
+		"right": "Correct. {reason}",
+		"wrong": "Wrong. {reason}",
+		"timeout": "Time ran out. It passed. {reason}",
+		"no_time": "No time to ask. Decide now.",
+		"start": "Press NEXT LOG to begin.",
+		"normal_reason": "It followed every rule.",
+		"end": "End of shift."
+	}
+}

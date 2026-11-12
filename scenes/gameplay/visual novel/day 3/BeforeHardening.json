@@ -1,0 +1,42 @@
+{
+	"start": {
+		"text": "The shift is over. I checked every file change tonight, and the one that kept ending in .locked is the one to stop.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. The one thing that saved us is a copy that was kept apart. Let's make sure it always is.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Every defense does two things. [b][color=green]ALWAYS[/color][/b] is what it gives you in every fight. [b][color=red]AGAINST[/color][/b] is what it does to one attack. Some of the new cards give you [b][color=green]Dodge[/color][/b]: point at the word to read it.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "C"
+	},
+	"C": {
+		"text": "So the first upgrade I buy is the one my clues point at.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "D"
+	},
+	"D": {
+		"text": "Exactly. Use your Security Points, and read what your clues recommended.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Understood. A copy kept apart now means files saved later.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

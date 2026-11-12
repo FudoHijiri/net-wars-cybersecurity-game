@@ -14,6 +14,13 @@ signal completed
 
 const THEME := preload("res://scenes/gameplay/investigation/report_theme.tres")
 const SLOT_MIN_SIZE := Vector2(80, 14)
+const HELPER_BOTTOM := 0.7131 # the bottom of the helper box while the words are still in play (anchor)
+const BOLD := preload("res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf")
+## What the notes highlight: the parts of a clue that a blank asks for. Times in gold, amounts in cyan, and the
+## names of files, programs, addresses and accounts in green, and the people and places named in white.
+const NOTE_PATTERN := "(?<ip>\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b)|(?<time>\\b\\d{1,2}:\\d{2}\\b)|(?<amount>\\b\\d[\\d,]*(?:\\.\\d+)?\\s?(?:GB|MB|KB|files?|minutes?|seconds?|hours?|days?|nights?|rows|errors|times|requests?|addresses|ranges|copies|people|clicks|inboxes|%))|(?<name>\\b[\\w-]+\\.(?:exe|zip|xlsx|docx|txt|locked|php|com|net|org|example)\\b|\\b[A-Za-z]+[0-9_][\\w-]*\\b)|(?<person>(?<!^)(?<![.!?] )\\b[A-Z][a-z]{2,}\\b)"
+const NOTE_COLORS := {"time": "ffcd75", "amount": "73eff7", "ip": "a7f070", "name": "a7f070", "person": "ffffff"}
+static var _note_regex: RegEx
 
 var _report: Dictionary = {}
 var _notes: Array[String] = []
@@ -30,7 +37,8 @@ var _mistakes := 0 # wrong words handed in so far, over every submit
 
 @onready var _story_flow: HFlowContainer = $MainPanel/Case/CaseVBoxContainer/HFlowContainer
 @onready var _clue_words: Panel = $MainPanel/ClueWords
-@onready var _tray: HFlowContainer = $MainPanel/ClueWords/ClueBox/Clues
+@onready var _tray: HFlowContainer = $MainPanel/ClueWords/ScrollContainer/ClueBox/Clues
+@onready var _tray_scroll: ScrollContainer = $MainPanel/ClueWords/ScrollContainer
 @onready var _notes_text: RichTextLabel = $MainPanel/Notes/RichTextLabel
 @onready var _message_icon: Label = $MainPanel/Helper/HelperRow/MessageIcon
 @onready var _message_text: Label = $MainPanel/Helper/HelperRow/MessageContent
@@ -57,6 +65,8 @@ func _ready() -> void:
 ## already filled stay as they are.
 func open() -> void:
 	_report = GameState.scenario.get("report", {})
+	if _report.has("objective"): # a report of another form (the events in order) says so in its own objective
+		($MainPanel/Objective as RichTextLabel).text = "OBJECTIVE - %s" % str(_report["objective"])
 	if not _built:
 		_build()
 	_fill_notes()
@@ -80,8 +90,11 @@ func mistakes() -> int:
 
 func _build() -> void:
 	_built = true
+	_tray_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED # the words wrap, and only scroll up and down
+	(_tray.get_parent() as Control).size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_tray.theme = THEME
 	_story_flow.theme = THEME
+	_build_graphs()
 	_build_story(str(_report.get("text", "")))
 	for chip_data: Dictionary in _report.get("chips", []):
 		var chip := WordChip.new()
@@ -94,6 +107,32 @@ func _build() -> void:
 		_tray.add_child(chip)
 		_chips[chip.chip_id] = chip
 		_chip_ids.append(chip.chip_id)
+
+
+## The exhibits of a report that compares: two small line graphs (Day 6), two emails to look at closer (Day 7) or two database queries to run (Day 8), side by
+## side over the story.
+func _build_graphs() -> void:
+	var graphs: Array = _report.get("graphs", [])
+	var cards: Array = _report.get("cards", [])
+	var queries: Array = _report.get("queries", [])
+	if graphs.is_empty() and cards.is_empty() and queries.is_empty():
+		return
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 6)
+	for entry: Dictionary in graphs:
+		var graph := TrafficGraph.new()
+		graph.show_graph(entry, _report.get("graph_axis", {}))
+		row.add_child(graph)
+	for entry: Dictionary in cards: # Day 7: two emails to look at closer
+		var card := MessageCard.new()
+		card.show_message(entry)
+		row.add_child(card)
+	for entry: Dictionary in queries: # Day 8: two database queries to run
+		var query := QueryCard.new()
+		query.show_query(entry)
+		row.add_child(query)
+	_story_flow.get_parent().add_child(row)
+	_story_flow.get_parent().move_child(row, 0)
 
 
 ## The sentence, word by word so it wraps, with a blank where {1}, {2}... stand. Punctuation that
@@ -148,8 +187,31 @@ func _fill_notes() -> void:
 	for app: Dictionary in GameState.scenario.get("investigation", {}).values():
 		for entry: Dictionary in app.get("entries", []):
 			if GameState.is_marked(str(entry.get("id", ""))):
-				_notes.append("- %s" % entry.get("summary", entry.get("title", "")))
+				_notes.append("- %s" % highlight(str(entry.get("summary", entry.get("title", "")))))
+	_notes_text.bbcode_enabled = true
+	_notes_text.add_theme_font_override("bold_font", BOLD)
+	_notes_text.add_theme_font_size_override("bold_font_size", 6)
 	_notes_text.text = "\n".join(_notes)
+
+
+## A note as BBCode with its important parts in color and bold, so the player can find what a blank asks for:
+## the times, the amounts (2 GB, 612 files), and the names of files, programs, addresses and accounts.
+## A "[" in the text is escaped, so it is never read as a tag.
+static func highlight(text: String) -> String:
+	if _note_regex == null:
+		_note_regex = RegEx.create_from_string(NOTE_PATTERN)
+	var out := ""
+	var at := 0
+	for found: RegExMatch in _note_regex.search_all(text):
+		out += text.substr(at, found.get_start() - at).replace("[", "[lb]")
+		var kind := "name"
+		for key: String in NOTE_COLORS:
+			if not found.get_string(key).is_empty():
+				kind = key
+				break
+		out += "[color=#%s][b]%s[/b][/color]" % [NOTE_COLORS[kind], found.get_string().replace("[", "[lb]")]
+		at = found.get_end()
+	return out + text.substr(at).replace("[", "[lb]")
 
 
 func _shuffle_tray() -> void:
@@ -205,8 +267,26 @@ func _set_message(kind: String, values: Dictionary = {}) -> void:
 	for key: String in values:
 		text = text.replace("{%s}" % key, str(values[key]))
 	_message_text.text = text
+	_make_room_for_message(kind == "solved")
 	var icon_key := "wrong" if kind in ["some_wrong", "none_right"] else kind
 	_message_icon.text = str(_report.get("icons", {}).get(icon_key, ""))
+
+
+## The helper box shows the message. When the report is solved the words are not needed any more, so the
+## box takes the room of the tray and the long explanation fits; until then the tray stays.
+func _make_room_for_message(solved: bool) -> void:
+	var helper := $MainPanel/Helper as Control
+	if solved:
+		helper.anchor_bottom = _clue_words.anchor_bottom
+		_clue_words.hide()
+	else:
+		helper.anchor_bottom = HELPER_BOTTOM
+		_clue_words.show()
+
+
+## A blank's answer is one chip, or a list of chips when several blanks take the same group in any order (KNOW).
+func _is_right(chip_id: String, answer: Variant) -> bool:
+	return answer.has(chip_id) if answer is Array else chip_id == str(answer)
 
 
 func _slot_of(chip_id: String) -> int:
@@ -226,6 +306,7 @@ func _place(chip_id: String, blank: int) -> void:
 		if not displaced.is_empty():
 			_placed[old_blank] = displaced
 	_placed[blank] = chip_id
+	Sfx.play(&"drop")
 
 
 func _on_chip_pressed(chip_id: String) -> void:
@@ -298,7 +379,7 @@ func _on_submit_pressed() -> void:
 		var n := slot.slot_number
 		if _locked.has(n):
 			continue
-		if _placed[n] == str(answers.get(str(n), "")):
+		if _is_right(_placed[n], answers.get(str(n), "")):
 			_locked[n] = true
 			now_right.append(slot)
 		else:
@@ -310,6 +391,7 @@ func _on_submit_pressed() -> void:
 	_picked = ""
 	if _locked.size() == _slots.size():
 		_solved = true
+		Sfx.play(&"clue", 2.0)
 		_set_message("solved")
 	else:
 		var values := {"right": _locked.size(), "total": _slots.size(), "reason": _reason_for(first_wrong)}

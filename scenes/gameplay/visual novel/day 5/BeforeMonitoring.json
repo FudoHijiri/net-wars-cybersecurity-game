@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "Report sent. A job copied the customer table out, in small pieces, to a place nobody approved. Now the same thing can show up again, tonight.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua, I read your report. Do not look at size tonight. The backup is the biggest thing we send, and it is fine.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Look at where each transfer goes, and how often.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"How do I tell a backup from a leak?": "C1",
+			"Can't we just block everything at night?": "C2"
+		}
+	},
+	"C1": {
+		"text": "The [b][color=green]rulebook[/color][/b] lists the approved places for each computer. A backup goes to its own place at its own hour. A leak goes somewhere else, again and again.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "No. The backup runs at night, and so do some updates. We block the wrong places, not the whole night.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "[b][color=red]Report[/color][/b] a transfer that breaks a rule. Let the rest [b][color=green]pass[/color][/b], even the big ones.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "One transfer at a time. Big is not bad, and small is not safe.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

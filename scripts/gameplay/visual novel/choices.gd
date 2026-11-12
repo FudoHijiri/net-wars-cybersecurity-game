@@ -35,6 +35,18 @@ func set_choices(choices: Dictionary):
 		button.set_pressed_no_signal(false) # forget the last selection so it can be pressed again
 		if c < labels.size(): 
 			button.text = labels[c]
+	_center.call_deferred()
+
+
+## The buttons are as wide as the longest choice and the box is in the middle of the screen, whatever the text is
+## (the box of the scene starts at a fixed place, so a long choice used to push it to the right).
+func _center() -> void:
+	var box := get_node_or_null("VBoxContainer") as Control
+	if box == null:
+		return
+	box.reset_size()
+	var screen := get_viewport().get_visible_rect().size
+	box.position = ((screen - box.size) / 2.0).floor()
 
 
 ## The chosen button flashes and the others fade, then the dialogue goes on.

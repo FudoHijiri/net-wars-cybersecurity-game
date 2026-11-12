@@ -28,7 +28,7 @@ const SAVE_VERSION := 1
 const _GameState := preload("res://autoload/game_state.gd")
 ## Keys that saves made before the key existed do not have, and what such a save gets for them. A new game
 ## gets the value of _new_data() instead: for "tutorial" that is the difference between a new save and an old one.
-const _OLD_SAVE_DEFAULTS := {"tutorial": [], "found_clues": [], "phase_findings": {}, "recovery_runs": {}, "equipped_history": {}}
+const _OLD_SAVE_DEFAULTS := {"tutorial": [], "tutorial_seen": [], "found_clues": [], "phase_findings": {}, "recovery_runs": {}, "equipped_history": {}, "assessment": {"alias": "", "pre": {}, "post": {}, "feedback": {}, "outbox": []}}
 const _TAG := "NWSV"
 const _IV_SIZE := 16
 const _MAC_SIZE := 32
@@ -147,6 +147,28 @@ func resume_point() -> Dictionary:
 	return {"day": DAY_COUNT, "phase": _GameState.PHASES[-1]}
 
 
+## True when all five phases of the day are finished in this slot.
+func is_day_complete(day: int) -> bool:
+	for phase: String in _GameState.PHASES:
+		if not is_phase_complete(day, phase):
+			return false
+	return true
+
+
+## Where the player left off on one day, as {"day", "phase"}: the first phase of that day not finished. Empty when
+## there is nothing to continue: the day was never played (no phase finished yet, so it starts from NEW GAME) or it
+## is finished. A phase left in the middle goes back to its start, as the save is made when a phase ends.
+func day_resume_point(day: int) -> Dictionary:
+	if is_day_complete(day):
+		return {}
+	for phase: String in _GameState.PHASES:
+		if is_phase_complete(day, phase):
+			for next: String in _GameState.PHASES:
+				if not is_phase_complete(day, next):
+					return {"day": day, "phase": next}
+	return {}
+
+
 ## Everything a fresh slot holds. The shape of a loaded slot is checked against this.
 func _new_data() -> Dictionary:
 	return {
@@ -163,6 +185,8 @@ func _new_data() -> Dictionary:
 		"phase_findings": {}, # day -> submitted Investigation/Monitoring context (Recovery briefing)
 		"recovery_runs": {}, # day -> Response handoff and Recovery progress
 		"equipped_history": {}, # day -> the upgrades equipped when that day's Hardening ended (later days' evidence echoes them)
+		"assessment": {"alias": "", "pre": {}, "post": {}, "feedback": {}, "outbox": []}, # the pre-test, the post-test and the feedback form (autoload Assessment); outbox: results not sent yet
+		"tutorial_seen": [], # the tutorials of later days that were shown (see Tutorial.maybe_show_new)
 		"tutorial": [ # the tutorials still to come: a phase, or a view inside it (see data/tutorials.json)
 			"investigation", "investigation_report", "monitoring", "hardening",
 			"hardening_shop", "hardening_deck_editor", "hardening_upgrade_editor", "response",
@@ -248,7 +272,13 @@ func _decode(bytes: PackedByteArray) -> Dictionary:
 		return {"status": Status.NEWER}
 	for key: String in _OLD_SAVE_DEFAULTS:
 		if not parsed.has(key):
-			parsed[key] = _OLD_SAVE_DEFAULTS[key].duplicate()
+			parsed[key] = _OLD_SAVE_DEFAULTS[key].duplicate(true)
+	var assessment: Variant = parsed.get("assessment")
+	if assessment is Dictionary: # a slot saved before the feedback form existed
+		var fresh: Dictionary = _OLD_SAVE_DEFAULTS["assessment"].duplicate(true)
+		for key: String in fresh:
+			if not assessment.has(key):
+				assessment[key] = fresh[key]
 	if not _has_shape(parsed, _new_data()):
 		return {"status": Status.CORRUPT}
 	return {"status": Status.OK, "data": parsed}

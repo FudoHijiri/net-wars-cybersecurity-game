@@ -62,6 +62,7 @@ func _ready() -> void:
 	reset_task()
 	if not _standalone(): # opened from the room: like a terminal starting up
 		UiFx.terminal_open([get_node_or_null("Frame"), get_node_or_null("Bezel"), get_node_or_null("TitleBar")], get_node_or_null("Dim"))
+		Tutorial.maybe_show_new(self, str(content.get("tutorial", ""))) # a task that is new on its day explains itself once
 
 
 func _show_machine() -> void:
@@ -109,6 +110,7 @@ func set_feedback(text: String, kind := "hint") -> void:
 ## A wrong move: explain why and count it. The move itself is undone by the caller.
 func note_mistake(reason: String) -> void:
 	mistakes += 1
+	Sfx.play(&"error")
 	set_feedback(reason, "bad")
 	_shake()
 
@@ -117,6 +119,8 @@ func succeed() -> void:
 	if solved or not RecoveryContext.is_cleared(runtime_outcome):
 		return
 	solved = true
+	Sfx.play(&"confirm", 2.0)
+	Sfx.play(&"clue")
 	_status.text = "[OK] Complete"
 	_status.theme_type_variation = &"RecoverySuccess"
 	set_feedback(str(content.get("success", "")), "good")

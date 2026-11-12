@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "It's contained. The message is stopped, but it is not gone.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. But stopped is not fixed. Forty inboxes still hold it, and Ravi's password is out there.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "And a thief's computer is still signed in as Ravi.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What do we fix first?": "C1",
+			"Do we tell the staff?": "C2"
+		}
+	},
+	"C1": {
+		"text": "Walk through the office and look for machines marked with a [b][color=red]![/color][/b]. The inboxes, the password, then the sign-in.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "Yes. Calmly, and with what to check: the sender and where the link goes. No panic, no blame.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "Fix one thing at a time. When everything is repaired, we run a [b][color=green]final check[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Got it. Clean the inboxes, reset the key, sign the thief out, and tell the staff what to look for.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

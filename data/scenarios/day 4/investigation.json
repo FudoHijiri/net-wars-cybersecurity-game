@@ -1,0 +1,1007 @@
+{
+	"id": "insider",
+	"day": 4,
+	"threat_name": "Insider Threat",
+	"speaker": "Joshua",
+	"clues_required": 4,
+	"tabs": {
+		"logs": "ACCESS LOG",
+		"computers": "PEOPLE",
+		"login": "PERMISSIONS"
+	},
+	"finish": {
+		"points_per_clue": 20,
+		"points_per_mistake": 5,
+		"bonus": 25,
+		"comments": {
+			"flawless": "Joshua: The report was right on the first try. Bonus approved.",
+			"done": "Joshua: Case closed. Next time, ask yourself whether the logs show it, or only suggest it."
+		}
+	},
+	"all_clues_monologue": [
+		"That's enough. Victor's access was real, and wrong for his job. He opened a folder that was not his, and 2 GB left for a personal cloud.",
+		"I know what he did. I do not know why. Time to press REPORT and sort what we know from what we do not."
+	],
+	"investigation": {
+		"email": {
+			"title": "EMAIL > MESSAGES, AND THE ONES YOU SEND",
+			"columns": [
+				"FROM",
+				"SUBJECT",
+				"TIME"
+			],
+			"widths": [
+				80,
+				170,
+				50
+			],
+			"entries": [
+				{
+					"id": "email_forward",
+					"cells": [
+						"Victor Lang",
+						"Fwd: Customer list",
+						"21:48"
+					],
+					"title": "Fwd: Customer list, to a personal address",
+					"detail": "From: Victor Lang\nTo: vlang.home@webmail.example\nTime: yesterday 21:48\nAttachment: customers_q3.xlsx\n\nNo message, only the forwarded file.",
+					"entities": [
+						"user:vlang",
+						"file:customers_q3.xlsx",
+						"domain:webmail.example"
+					],
+					"monologue": [
+						"Victor sent the customer list to a personal address, not a company one.",
+						"He works in Sales, so he may use that list. Sending it home is another matter. That's a real clue."
+					],
+					"summary": "Victor forwarded the customer list to a personal address.",
+					"is_clue": true
+				},
+				{
+					"id": "email_ask_hr",
+					"cells": [
+						"Joshua (draft)",
+						"To HR: about Victor",
+						"09:30"
+					],
+					"title": "To HR: a question about Victor",
+					"detail": "From: Joshua\nTo: Nadia Costa, HR\nTime: today 09:30\nStatus: not sent yet\n\nCan you tell me what role Victor Lang has, and whether his access matches it?",
+					"entities": [
+						"user:vlang",
+						"org:hr"
+					],
+					"monologue": [
+						"I do not know why Victor has that access. Before I decide anything, I should ask HR.",
+						"Sent. Now we wait for Nadia's answer: it will appear in the list."
+					],
+					"summary": "Joshua asked HR about Victor's role and access.",
+					"is_clue": false
+				},
+				{
+					"id": "email_hr_reply",
+					"cells": [
+						"Nadia Costa",
+						"Re: Victor's access",
+						"09:52"
+					],
+					"title": "Re: Victor's access",
+					"detail": "From: Nadia Costa, HR\nTo: Joshua\nTime: today 09:52\n\nVictor moved from Engineering to Sales three weeks ago. IT never closed his old access, so he can still open Engineering and the salary folder. He leaves on Friday.\n\nPlease do not confront him yet. I will speak with him.",
+					"entities": [
+						"user:vlang",
+						"org:hr",
+						"perm:victor-access"
+					],
+					"monologue": [
+						"Victor changed jobs three weeks ago and nobody took away his old access. That is how the salary folder stayed open to him.",
+						"HR also asks us to wait. We know what happened, not why. That's a real clue."
+					],
+					"summary": "Victor's old access was never removed when he changed jobs.",
+					"is_clue": true,
+					"after": "email_ask_hr"
+				},
+				{
+					"id": "email_wrong_recipient",
+					"cells": [
+						"Lena Moreau",
+						"Oops, wrong person",
+						"10:15"
+					],
+					"title": "\"Oops, wrong person\"",
+					"detail": "From: Lena Moreau\nTo: A customer, copied to Sales\nTime: yesterday 10:15\n\nI sent you our customer list by mistake. Please delete it. Sorry!",
+					"entities": [
+						"user:lmoreau",
+						"file:customers_q3.xlsx"
+					],
+					"monologue": [
+						"Lena sent the same list to a customer by mistake and asked for it back. An insider can be an accident too.",
+						"It happened in the morning, and she told everyone. Not our case."
+					],
+					"summary": "Lena sent the customer list to the wrong person and asked for it back.",
+					"is_clue": false
+				},
+				{
+					"id": "email_leaving",
+					"cells": [
+						"HR",
+						"Victor leaves on Friday",
+						"08:05"
+					],
+					"title": "Victor Lang leaves on Friday",
+					"detail": "From: HR\nTo: Management\nTime: today 08:05\n\nVictor Lang has resigned. His last day is Friday.",
+					"entities": [
+						"user:vlang",
+						"org:hr"
+					],
+					"monologue": [
+						"Victor is leaving on Friday. People often copy files in their last week, but a notice proves nothing."
+					],
+					"summary": "Victor Lang resigned. His last day is Friday.",
+					"is_clue": false
+				},
+				{
+					"id": "email_offsite",
+					"cells": [
+						"Facilities",
+						"Team offsite",
+						"09:00"
+					],
+					"title": "Team offsite",
+					"detail": "From: Facilities\nTo: All Staff\nTime: today 09:00\n\nThe team offsite is next month. Please vote for a date.",
+					"entities": [
+						"org:facilities"
+					],
+					"monologue": [
+						"A note about an offsite. Nothing to do with the files."
+					],
+					"summary": "A team offsite note.",
+					"is_clue": false
+				}
+			]
+		},
+		"logs": {
+			"title": "ACCESS LOG > WHO OPENED WHAT",
+			"columns": [
+				"TIME",
+				"WHO",
+				"ROLE",
+				"FOLDER"
+			],
+			"widths": [
+				46,
+				90,
+				70,
+				94
+			],
+			"entries": [
+				{
+					"id": "log_salaries",
+					"cells": [
+						"22:05",
+						"Victor Lang",
+						"Sales",
+						"Salaries"
+					],
+					"title": "Victor opens Salaries",
+					"detail": "Time: yesterday 22:05\nWho: Victor Lang\nRole: Sales\nFolder: Salaries\nFiles viewed: 14\n\nThe salary folder belongs to HR. Victor works in Sales.",
+					"entities": [
+						"user:vlang",
+						"folder:salaries",
+						"time:night"
+					],
+					"monologue": [
+						"Victor is in Sales, and the salary folder is HR's. The sign-in is real, so the question is why he opened it.",
+						"Fourteen files in one visit. That's a clue."
+					],
+					"summary": "Victor, from Sales, opened 14 files in the salary folder at night.",
+					"is_clue": true
+				},
+				{
+					"id": "log_nadia",
+					"cells": [
+						"09:10",
+						"Nadia Costa",
+						"HR",
+						"Salaries"
+					],
+					"title": "Nadia opens Salaries",
+					"detail": "Time: today 09:10\nWho: Nadia Costa\nRole: HR\nFolder: Salaries\nFiles viewed: 3",
+					"entities": [
+						"user:ncosta",
+						"folder:salaries"
+					],
+					"monologue": [
+						"Nadia is the HR manager. She is allowed in there. Real access is not the same as wrong access."
+					],
+					"summary": "The HR manager opened the salary folder, as her job needs.",
+					"is_clue": false
+				},
+				{
+					"id": "log_omar",
+					"cells": [
+						"22:40",
+						"Omar Singh",
+						"Engineering",
+						"Projects"
+					],
+					"title": "Omar opens Projects",
+					"detail": "Time: yesterday 22:40\nWho: Omar Singh\nRole: Engineering\nFolder: Projects\nFiles viewed: 6\n\nOmar had a deadline.",
+					"entities": [
+						"user:osingh",
+						"folder:projects"
+					],
+					"monologue": [
+						"Night access, but it is Omar's own folder and he had a deadline. The job explains it."
+					],
+					"summary": "Omar opened his own folder at night for a deadline.",
+					"is_clue": false
+				},
+				{
+					"id": "log_victor_projects",
+					"cells": [
+						"21:30",
+						"Victor Lang",
+						"Sales",
+						"Projects"
+					],
+					"title": "Victor opens Projects",
+					"detail": "Time: yesterday 21:30\nWho: Victor Lang\nRole: Sales\nFolder: Projects\nFiles viewed: 31\n\nProjects was his folder before he moved to Sales.",
+					"entities": [
+						"user:vlang",
+						"folder:projects"
+					],
+					"monologue": [
+						"Projects was Victor's folder, but he left Engineering. Why can he still open it?"
+					],
+					"summary": "Victor opened the Projects folder of his old job.",
+					"is_clue": false
+				},
+				{
+					"id": "log_carla",
+					"cells": [
+						"14:00",
+						"Carla Patel",
+						"IT",
+						"Servers"
+					],
+					"title": "Carla opens Servers",
+					"detail": "Time: today 14:00\nWho: Carla Patel\nRole: IT\nFolder: Servers\nFiles viewed: 2",
+					"entities": [
+						"user:cpatel",
+						"folder:servers"
+					],
+					"monologue": [
+						"Carla in IT opens the server folder at two o'clock. Ordinary work."
+					],
+					"summary": "Carla opened the server folder.",
+					"is_clue": false
+				}
+			]
+		},
+		"computers": {
+			"title": "PEOPLE > WHO WORKS HERE",
+			"columns": [
+				"NAME",
+				"ROLE",
+				"STATUS"
+			],
+			"widths": [
+				96,
+				100,
+				104
+			],
+			"entries": [
+				{
+					"id": "ppl_victor",
+					"cells": [
+						"Victor Lang",
+						"Sales",
+						"Leaving Friday"
+					],
+					"title": "Victor Lang",
+					"detail": "Name: Victor Lang\nRole now: Sales\nRole before: Engineering, until three weeks ago\nStatus: leaving on Friday",
+					"entities": [
+						"user:vlang",
+						"org:hr",
+						"perm:victor-access"
+					],
+					"monologue": [
+						"Victor changed from Engineering to Sales three weeks ago, and he leaves on Friday."
+					],
+					"summary": "Victor moved to Sales three weeks ago and leaves on Friday.",
+					"is_clue": false
+				},
+				{
+					"id": "ppl_nadia",
+					"cells": [
+						"Nadia Costa",
+						"HR manager",
+						"Staying"
+					],
+					"title": "Nadia Costa",
+					"detail": "Name: Nadia Costa\nRole: HR manager\nStatus: staying\nMay open: HR files, Salaries",
+					"entities": [
+						"user:ncosta",
+						"org:hr"
+					],
+					"monologue": [
+						"Nadia runs HR, so the salary folder is part of her job."
+					],
+					"summary": "Nadia is the HR manager.",
+					"is_clue": false
+				},
+				{
+					"id": "ppl_omar",
+					"cells": [
+						"Omar Singh",
+						"Engineering",
+						"Staying"
+					],
+					"title": "Omar Singh",
+					"detail": "Name: Omar Singh\nRole: Engineering\nStatus: staying",
+					"entities": [
+						"user:osingh"
+					],
+					"monologue": [
+						"Omar is in Engineering. Nothing unusual."
+					],
+					"summary": "Omar works in Engineering.",
+					"is_clue": false
+				},
+				{
+					"id": "ppl_lena",
+					"cells": [
+						"Lena Moreau",
+						"Sales",
+						"Staying"
+					],
+					"title": "Lena Moreau",
+					"detail": "Name: Lena Moreau\nRole: Sales\nStatus: staying",
+					"entities": [
+						"user:lmoreau"
+					],
+					"monologue": [
+						"Lena is in Sales. She sent the list to the wrong person by mistake."
+					],
+					"summary": "Lena works in Sales.",
+					"is_clue": false
+				},
+				{
+					"id": "ppl_carla",
+					"cells": [
+						"Carla Patel",
+						"IT",
+						"Staying"
+					],
+					"title": "Carla Patel",
+					"detail": "Name: Carla Patel\nRole: IT\nStatus: staying",
+					"entities": [
+						"user:cpatel"
+					],
+					"monologue": [
+						"Carla is in IT. Nothing unusual."
+					],
+					"summary": "Carla works in IT.",
+					"is_clue": false
+				}
+			]
+		},
+		"login": {
+			"title": "PERMISSIONS > WHO MAY OPEN WHAT",
+			"columns": [
+				"WHO",
+				"OPENS",
+				"SINCE",
+				"STATE"
+			],
+			"widths": [
+				64,
+				116,
+				60,
+				60
+			],
+			"entries": [
+				{
+					"id": "perm_victor",
+					"cells": [
+						"Victor",
+						"Engineering, Salaries",
+						"3 weeks",
+						"Still open"
+					],
+					"title": "Victor: Engineering and Salaries still open",
+					"detail": "Who: Victor Lang (Sales)\nMay open: Customers, Price lists, and also Engineering folders and Salaries\nOpen since: three weeks ago (his move)\nState: never removed\n\nHis new job gave him Sales folders. Nobody took the old ones away.",
+					"entities": [
+						"user:vlang",
+						"perm:victor-access",
+						"folder:salaries"
+					],
+					"monologue": [
+						"His old access and the salary folder were never closed. Nobody did it on purpose, and nobody noticed."
+					],
+					"summary": "Victor's old access and the salary folder were never closed.",
+					"is_clue": false
+				},
+				{
+					"id": "perm_salaries",
+					"cells": [
+						"Salaries",
+						"HR only",
+						"Always",
+						"In place"
+					],
+					"title": "Salaries: HR only",
+					"detail": "Folder: Salaries\nMay open: HR\nState: in place for everyone except Victor Lang",
+					"entities": [
+						"folder:salaries"
+					],
+					"monologue": [
+						"The salary folder is meant for HR only."
+					],
+					"summary": "The salary folder is meant for HR only.",
+					"is_clue": false
+				},
+				{
+					"id": "perm_customers",
+					"cells": [
+						"Customers",
+						"Sales",
+						"Always",
+						"In place"
+					],
+					"title": "Customers: Sales",
+					"detail": "Folder: Customers\nMay open: Sales\nState: in place",
+					"entities": [
+						"folder:customers"
+					],
+					"monologue": [
+						"Sales opens the customer folder. That fits the job."
+					],
+					"summary": "Sales may open the customer folder.",
+					"is_clue": false
+				},
+				{
+					"id": "perm_policy",
+					"cells": [
+						"Policy",
+						"Access = job",
+						"Always",
+						"Written"
+					],
+					"title": "The policy: access matches the job",
+					"detail": "Policy: a person may open only the folders their job needs.\nWhen a person changes jobs, the old access is closed.\nState: written down",
+					"entities": [
+						"org:policy"
+					],
+					"monologue": [
+						"The policy says old access is closed when a person changes jobs. Nobody followed it for Victor."
+					],
+					"summary": "The policy says to close old access when a person changes jobs.",
+					"is_clue": false
+				},
+				{
+					"id": "perm_finance_walled",
+					"cells": [
+						"Finance",
+						"Finance only",
+						"Last week",
+						"Walled"
+					],
+					"title": "Finance: kept apart",
+					"detail": "Folder: Finance\nMay open: Finance only\nState: walled off last week\n\nThe walls between the folders you put up last week kept Victor out of Finance.",
+					"entities": [
+						"folder:finance"
+					],
+					"monologue": [
+						"The walls from last week kept Victor out of Finance. They worked."
+					],
+					"summary": "Finance was walled off and Victor could not open it.",
+					"is_clue": false,
+					"if_equipped": [
+						"folders"
+					]
+				},
+				{
+					"id": "perm_finance_open",
+					"cells": [
+						"Finance",
+						"Finance, Victor",
+						"Old",
+						"Open"
+					],
+					"title": "Finance: Victor could open it too",
+					"detail": "Folder: Finance\nMay open: Finance, and Victor Lang through his old access\nState: open\n\nNo wall stopped him.",
+					"entities": [
+						"folder:finance",
+						"user:vlang"
+					],
+					"monologue": [
+						"Victor could open Finance too. Nothing stopped him there, only that he did not."
+					],
+					"summary": "Victor could open the Finance folder too.",
+					"is_clue": false,
+					"unless_equipped": [
+						"folders"
+					]
+				}
+			]
+		},
+		"files": {
+			"title": "FILES > COPIED, ZIPPED OR SENT",
+			"columns": [
+				"TIME",
+				"WHERE",
+				"DID",
+				"FILE"
+			],
+			"widths": [
+				40,
+				90,
+				56,
+				114
+			],
+			"entries": [
+				{
+					"id": "file_archive",
+					"cells": [
+						"22:20",
+						"Victor's laptop",
+						"Zipped",
+						"projects_all.zip (2 GB)"
+					],
+					"title": "Projects archive zipped, 2 GB",
+					"detail": "Time: yesterday 22:20\nWhere: Victor's laptop\nWhat happened: the Projects folder was zipped\nFile: projects_all.zip (2 GB)",
+					"entities": [
+						"user:vlang",
+						"file:projects-archive",
+						"device:victor-laptop"
+					],
+					"monologue": [
+						"He zipped his whole old Projects folder into one 2 GB file, five minutes before it went out."
+					],
+					"summary": "Victor zipped the Projects folder into a 2 GB file.",
+					"is_clue": false
+				},
+				{
+					"id": "file_customers",
+					"cells": [
+						"21:48",
+						"Victor's laptop",
+						"Sent",
+						"customers_q3.xlsx"
+					],
+					"title": "customers_q3.xlsx saved and sent",
+					"detail": "Time: yesterday 21:48\nWhere: Victor's laptop\nWhat happened: saved, then sent by email\nFile: customers_q3.xlsx",
+					"entities": [
+						"user:vlang",
+						"file:customers_q3.xlsx"
+					],
+					"monologue": [
+						"The customer file was saved and sent in the same minute."
+					],
+					"summary": "The customer list was saved and sent in the same minute.",
+					"is_clue": false
+				},
+				{
+					"id": "file_backup",
+					"cells": [
+						"01:00",
+						"File server",
+						"Archived",
+						"nightly_backup.zip"
+					],
+					"title": "Nightly backup archive",
+					"detail": "Time: today 01:00\nWhere: File server\nWhat happened: the nightly backup archive was written\nFile: nightly_backup.zip (9 GB)",
+					"entities": [
+						"prog:backup-agent"
+					],
+					"monologue": [
+						"A bigger file than Victor's, but it is the approved nightly backup."
+					],
+					"summary": "The nightly backup archive is larger, and approved.",
+					"is_clue": false
+				},
+				{
+					"id": "file_salary_view",
+					"cells": [
+						"22:05",
+						"File server",
+						"Viewed",
+						"Salaries (14 files)"
+					],
+					"title": "Salary files viewed",
+					"detail": "Time: yesterday 22:05\nWhere: File server\nWhat happened: 14 files were viewed, none changed",
+					"entities": [
+						"folder:salaries"
+					],
+					"monologue": [
+						"Viewed, not changed or copied. Read access can still be a problem."
+					],
+					"summary": "14 salary files were viewed, not changed.",
+					"is_clue": false
+				},
+				{
+					"id": "file_handbook",
+					"cells": [
+						"08:20",
+						"File server",
+						"Changed",
+						"Handbook"
+					],
+					"title": "Handbook",
+					"detail": "Time: today 08:20\nWhere: File server\nWhat happened: one file changed",
+					"entities": [
+						"file:handbook"
+					],
+					"monologue": [
+						"A small edit to the handbook. Not related."
+					],
+					"summary": "The handbook was edited.",
+					"is_clue": false
+				}
+			]
+		},
+		"network": {
+			"title": "NETWORK > WHAT LEFT THE BUILDING",
+			"columns": [
+				"TIME",
+				"FROM",
+				"SENT TO",
+				"HOW MUCH"
+			],
+			"widths": [
+				46,
+				90,
+				94,
+				70
+			],
+			"entries": [
+				{
+					"id": "net_upload",
+					"cells": [
+						"22:25",
+						"Victor's laptop",
+						"Personal cloud",
+						"2 GB"
+					],
+					"title": "2 GB to a personal cloud",
+					"detail": "Time: yesterday 22:25 to 22:41\nFrom: Victor's laptop\nSent to: a personal cloud storage address\nHow much: 2 GB\n\nA company laptop sending 2 GB to a personal cloud is unusual.",
+					"entities": [
+						"user:vlang",
+						"device:victor-laptop",
+						"file:projects-archive"
+					],
+					"monologue": [
+						"Two gigabytes left Victor's laptop for a personal cloud, right after the zip file. Real access, and a way out.",
+						"That's a clue."
+					],
+					"summary": "Victor's laptop sent 2 GB to a personal cloud.",
+					"is_clue": true
+				},
+				{
+					"id": "net_backup",
+					"cells": [
+						"01:00",
+						"File server",
+						"Backup computer",
+						"9 GB"
+					],
+					"title": "Nightly backup copy",
+					"detail": "Time: today 01:00\nFrom: File server\nSent to: Backup computer\nHow much: 9 GB\n\nApproved, and at its usual hour.",
+					"entities": [
+						"prog:backup-agent"
+					],
+					"monologue": [
+						"Much bigger than the upload, but approved, internal and at its hour. Size is not the point."
+					],
+					"summary": "The nightly backup copy is bigger, and approved.",
+					"is_clue": false
+				},
+				{
+					"id": "net_printer",
+					"cells": [
+						"08:30",
+						"Printer",
+						"File server",
+						"Small"
+					],
+					"title": "Printer",
+					"detail": "Time: today 08:30\nFrom: Printer, floor 2\nSent to: File server\nHow much: small",
+					"entities": [
+						"device:printer"
+					],
+					"monologue": [
+						"The printer sends scans to the file server. Normal."
+					],
+					"summary": "The printer sent a small scan.",
+					"is_clue": false
+				},
+				{
+					"id": "net_scrambled",
+					"cells": [
+						"22:25",
+						"Victor's laptop",
+						"Personal cloud",
+						"Scrambled"
+					],
+					"title": "The upload was scrambled",
+					"detail": "Time: yesterday 22:25\nWhat happened: the stored files were encrypted, so the 2 GB that left cannot be read without the key.",
+					"entities": [
+						"device:victor-laptop"
+					],
+					"monologue": [
+						"Encrypt Stored Data did its job: what reached the cloud is only noise."
+					],
+					"summary": "The files that left were encrypted and cannot be read.",
+					"is_clue": false,
+					"if_equipped": [
+						"encrypt"
+					]
+				},
+				{
+					"id": "net_readable",
+					"cells": [
+						"22:25",
+						"Victor's laptop",
+						"Personal cloud",
+						"Readable"
+					],
+					"title": "The upload was readable",
+					"detail": "Time: yesterday 22:25\nWhat happened: the files were not encrypted, so the 2 GB that left can be opened by anyone with the cloud account.",
+					"entities": [
+						"device:victor-laptop"
+					],
+					"monologue": [
+						"The files were not encrypted, so what left is readable. That raises the stakes."
+					],
+					"summary": "The files that left were readable.",
+					"is_clue": false,
+					"unless_equipped": [
+						"encrypt"
+					]
+				},
+				{
+					"id": "net_browsing",
+					"cells": [
+						"All day",
+						"Laptops",
+						"Web",
+						"Usual"
+					],
+					"title": "Normal web browsing",
+					"detail": "Time: all day\nFrom: the laptops\nSent to: websites\nHow much: usual",
+					"entities": [
+						"org:web"
+					],
+					"monologue": [
+						"Ordinary web browsing."
+					],
+					"summary": "Ordinary web browsing.",
+					"is_clue": false
+				}
+			]
+		},
+		"servers": {
+			"title": "SERVERS > THE MAIN COMPUTERS",
+			"columns": [
+				"COMPUTER",
+				"JOB",
+				"STATUS",
+				"BUSY"
+			],
+			"widths": [
+				100,
+				100,
+				55,
+				45
+			],
+			"entries": [
+				{
+					"id": "srv_file",
+					"cells": [
+						"File server",
+						"Shared folders",
+						"Running",
+						"35%"
+					],
+					"title": "File server",
+					"detail": "Computer: File server\nJob: Keeps the shared folders\nStatus: Running\nBusy: 35%\nNote: the Salaries folder was opened at 22:05 by Victor Lang's account",
+					"entities": [
+						"host:file-01",
+						"folder:salaries",
+						"user:vlang"
+					],
+					"monologue": [
+						"The file server recorded the salary folder opening, with Victor's account."
+					],
+					"summary": "The file server logged Victor opening the salary folder.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_hr",
+					"cells": [
+						"HR system",
+						"Keeps HR records",
+						"Running",
+						"12%"
+					],
+					"title": "HR system",
+					"detail": "Computer: HR system\nJob: Keeps the staff records and roles\nStatus: Running\nBusy: 12%\nNote: Victor's role changed to Sales three weeks ago",
+					"entities": [
+						"host:hr-01",
+						"user:vlang"
+					],
+					"monologue": [
+						"The HR system shows the change of role. The permissions never followed it."
+					],
+					"summary": "The HR system shows Victor's move to Sales.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_mail",
+					"cells": [
+						"Mail server",
+						"Receives email",
+						"Running",
+						"30%"
+					],
+					"title": "Mail server",
+					"detail": "Computer: Mail server\nJob: Receives and sends the company's email\nStatus: Running\nBusy: 30%\nNote: one message to a personal address at 21:48",
+					"entities": [
+						"host:mail-01",
+						"domain:webmail.example"
+					],
+					"monologue": [
+						"The mail server logged the message to the personal address."
+					],
+					"summary": "The mail server logged the forward.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_backup",
+					"cells": [
+						"Backup computer",
+						"Keeps the copies",
+						"Running",
+						"6%"
+					],
+					"title": "Backup computer",
+					"detail": "Computer: Backup computer\nJob: Keeps the backups\nStatus: Running\nBusy: 6%",
+					"entities": [
+						"device:backup-pc"
+					],
+					"monologue": [
+						"The backup computer is fine."
+					],
+					"summary": "The backup computer is fine.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_gateway",
+					"cells": [
+						"Cloud gateway",
+						"Sends data out",
+						"Running",
+						"20%"
+					],
+					"title": "Cloud gateway",
+					"detail": "Computer: Cloud gateway\nJob: Lets laptops reach the web\nStatus: Running\nBusy: 20%\nNote: 2 GB to a personal cloud at 22:25",
+					"entities": [
+						"host:gateway-01",
+						"device:victor-laptop"
+					],
+					"monologue": [
+						"The gateway saw the 2 GB go out, from Victor's laptop."
+					],
+					"summary": "The cloud gateway saw the 2 GB leave.",
+					"is_clue": false
+				}
+			]
+		}
+	},
+	"report": {
+		"text": "From the logs we KNOW that {1}, {2}, {3} and {4}. We do NOT know {5} or {6}.",
+		"answers": {
+			"1": [
+				"chip_salary",
+				"chip_upload",
+				"chip_forward",
+				"chip_access"
+			],
+			"2": [
+				"chip_salary",
+				"chip_upload",
+				"chip_forward",
+				"chip_access"
+			],
+			"3": [
+				"chip_salary",
+				"chip_upload",
+				"chip_forward",
+				"chip_access"
+			],
+			"4": [
+				"chip_salary",
+				"chip_upload",
+				"chip_forward",
+				"chip_access"
+			],
+			"5": [
+				"chip_why",
+				"chip_others"
+			],
+			"6": [
+				"chip_why",
+				"chip_others"
+			]
+		},
+		"chips": [
+			{
+				"id": "chip_salary",
+				"label": "Victor opened the salary folder at 22:05"
+			},
+			{
+				"id": "chip_upload",
+				"label": "2 GB went to a personal cloud at 22:25"
+			},
+			{
+				"id": "chip_forward",
+				"label": "the customer list was sent to a personal address"
+			},
+			{
+				"id": "chip_access",
+				"label": "his old access was never removed"
+			},
+			{
+				"id": "chip_why",
+				"label": "why he did it"
+			},
+			{
+				"id": "chip_others",
+				"label": "whether anyone else has the files"
+			},
+			{
+				"id": "chip_thief",
+				"label": "Victor is stealing for a rival",
+				"reason": "Nobody has shown that. The logs show what he did, never why. That is a guess, not a fact."
+			},
+			{
+				"id": "chip_nadia",
+				"label": "Nadia opened the salary folder at 09:10",
+				"reason": "Nadia is the HR manager, so she is allowed in there. That has nothing to do with Victor."
+			},
+			{
+				"id": "chip_omar",
+				"label": "Omar worked late on Projects",
+				"reason": "Omar worked in his own folder for a deadline. His access fits his job."
+			},
+			{
+				"id": "chip_lena",
+				"label": "Lena sent the list to the wrong person",
+				"reason": "That was a separate accident, and Lena asked for the list back. It is not part of Victor's case."
+			}
+		],
+		"slot_empty": "(empty)",
+		"slot_correct": "[OK]",
+		"chip_picked": "> ",
+		"submit_button": "SUBMIT REPORT",
+		"submit_locked": "FILL ALL BLANKS",
+		"continue_button": "CONTINUE >",
+		"icons": {
+			"prompt": "?",
+			"picked": ">",
+			"wrong": "!",
+			"solved": "OK"
+		},
+		"messages": {
+			"prompt": "Read your notes. Put each fact in KNOW, and each question in DO NOT KNOW.",
+			"picked": "Now click a blank to put \"{word}\" there.",
+			"some_wrong": "{right} of {total} are in the right place. {reason} Try again.",
+			"none_right": "None of these are in the right place yet. {reason} Try again.",
+			"solved": "Yes! That is the difference: the logs show what happened, and they never show why.",
+			"misplaced": "\"{word}\" is on the wrong side. The logs show what happened, not why."
+		},
+		"solved_explanation": "This is an insider threat: a person with real access who uses it the wrong way, on purpose or by mistake. The access was real, so look at what the person does, and give each person only the access the job needs.",
+		"objective": "FINISH THE REPORT BY SORTING FACTS FROM GUESSES",
+		"tutorial": "investigation_know"
+	}
+}

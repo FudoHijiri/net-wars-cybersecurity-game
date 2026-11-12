@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "The new defenses are in place. This attacker does not break in. It types its way in.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua! It sends pieces of text, a hole that was never closed, and a key to the master door.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "An injection, a known hole and a stolen admin. That is three tricks.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Each one is something we left open. Do not give it a way to join the pieces.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What is it doing?": "D1",
+			"Are we ready for this?": "D2"
+		}
+	},
+	"D1": {
+		"text": "[b][color=red]Injection[/color][/b]: pieces of a quote and of code. One alone is harmless, together they run. [b][color=red]Known hole[/color][/b]: it splits through a gap. [b][color=red]Stolen admin[/color][/b]: a new key to the master door.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"D2": {
+		"text": "That depends on the upgrades you equipped. Each trick has one defense that stops it. Without it, the trick comes back [b][color=red]harder[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Use your cards to hit it, and [b][color=green]Exploit[/color][/b] the moment it is Exposed. When it attacks, you dodge, and you never hold a quote and code together.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"text": "Understood. I will touch one piece, not two.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "G"
+	},
+	"G": {
+		"text": "Everything I set up in Hardening is about to be tested.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

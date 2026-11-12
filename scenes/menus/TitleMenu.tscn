@@ -500,11 +500,13 @@ text = "EXIT
 "
 
 [node name="SaveSelect" parent="MainContent" unique_id=1292606746 instance=ExtResource("8_qscjq")]
+visible = false
 layout_mode = 1
 offset_transform_enabled = true
 offset_transform_position = Vector2(536.15, 0)
 
 [node name="StageSelect" parent="MainContent" unique_id=1854193022 instance=ExtResource("10_hfivi")]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 grow_horizontal = 1
@@ -515,10 +517,10 @@ metadata/_edit_use_anchors_ = true
 [node name="ExitConfirmation" type="NinePatchRect" parent="MainContent" unique_id=808187875]
 visible = false
 layout_mode = 0
-offset_left = 208.0
-offset_top = 160.0
-offset_right = 432.0
-offset_bottom = 251.0
+anchor_left = 0.325
+anchor_top = 0.44444445
+anchor_right = 0.675
+anchor_bottom = 0.69722223
 offset_transform_enabled = true
 mouse_filter = 1
 texture = SubResource("AtlasTexture_3568o")
@@ -526,6 +528,7 @@ patch_margin_left = 8
 patch_margin_top = 9
 patch_margin_right = 8
 patch_margin_bottom = 9
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="MainContent/ExitConfirmation" unique_id=280953848]
 layout_mode = 0
@@ -571,12 +574,14 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_farh1")
 text = "NO"
 
 [node name="BookArchive" parent="MainContent" unique_id=771970757 instance=ExtResource("11_c17wx")]
+visible = false
 layout_mode = 1
 offset_transform_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MainContent" unique_id=911817797]
 libraries/ = SubResource("AnimationLibrary_hfivi")
 
+[connection signal="pressed" from="MainContent/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="MainContent/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MainContent/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MainContent/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

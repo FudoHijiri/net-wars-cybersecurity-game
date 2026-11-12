@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "Day seven. The site is back, the customers are happy, and the morning is quiet. At 09:40, the phone rings.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Ring ring...*",
+		"name": "Phone",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "IT desk, this is Joshua. How can I help?",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Joshua? It's Tessa, at the front desk. I got an email that says my password expires today. It looks like IT, but it feels hurried. Is it real?",
+		"name": "Tessa",
+		"art": "Phone",
+		"choices": {
+			"Did you click it?": "D1",
+			"Who else got it?": "D2"
+		}
+	},
+	"D1": {
+		"text": "No. I asked first. It just felt odd.",
+		"name": "Tessa",
+		"art": "Phone",
+		"next": "E1"
+	},
+	"E1": {
+		"text": "Good habit. That is the best thing anyone can do.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "F"
+	},
+	"D2": {
+		"text": "Forty of us, I think. It was in everybody's inbox at 09:12.",
+		"name": "Tessa",
+		"art": "Phone",
+		"next": "F"
+	},
+	"F": {
+		"text": "Then we look at it closely. Where it comes from, and where its link really goes. Not how it looks.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
+		"next": "G"
+	},
+	"G": {
+		"text": "[b][color=green]5 clues[/color][/b] should be enough. Then I look at the two messages side by side and say what was fake.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

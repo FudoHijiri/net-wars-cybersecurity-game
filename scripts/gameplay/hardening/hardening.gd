@@ -6,6 +6,10 @@ extends Control
 ## Opened from the day select with OPEN DECK (SceneManager.build_only) it is only the place to change the
 ## deck and the upgrades: no shop, no objective and no move to the next phase. It saves when it is left.
 
+## The decluttered layout (HardeningCompact, docs/hardening_declutter_plan.md): one column of tabs on the right, a FILTER
+## button for each list, a small Carla. false gives the layout of the scene as it was laid out, unchanged.
+const COMPACT_LAYOUT := true
+
 ## Panel name -> the text of the top bar.
 const TITLES := {"Deck": "1  BUILD HUB", "Shop": "2  SHOP", "DeckEditor": "3  EDIT DECK", "UpgradeEditor": "4  UPGRADES"}
 ## Button (path from this scene) -> the panel it opens. A button the scene does not have is skipped.
@@ -37,8 +41,10 @@ const BUILD_ONLY_HIDDEN := ["Deck/Buttons/OpenShop", "Deck/NextPhase", "TopBar/O
 
 var _state := HardeningState.new()
 var _next_text := ""
+var _doom_warned := false # the button warned that an upgrade is missing, and the next press goes on
 var _build_only := false
 var _shown_wallet := -1 # the wallet last shown, so a change counts up or down
+var _compact: HardeningCompact # null with the old layout
 
 
 func _ready() -> void:
@@ -46,6 +52,7 @@ func _ready() -> void:
 	SceneManager.build_only = false # it is for this visit only
 	_next_text = _next_phase.text
 	($TopBar/Label as Label).text = "Day %d" % GameState.current_day # the scene says Day 1 for the editor
+	($TopBar/Objective as Label).text = GameState.objective("objective", "hardening")
 	_deck.setup(_state)
 	_shop.setup(_state)
 	_deck_editor.setup(_state)
@@ -59,10 +66,19 @@ func _ready() -> void:
 	if _build_only:
 		for path: String in BUILD_ONLY_HIDDEN:
 			get_node(path).hide()
+	if COMPACT_LAYOUT:
+		_compact = HardeningCompact.new()
+		add_child(_compact)
+		_compact.setup(self, _build_only)
 	_show("Deck", false) # the editor shows one panel at a time while laying them out
 	if not _build_only:
 		await SceneManager.wait_for_transition()
 		Tutorial.maybe_show(self, "hardening")
+
+
+## The tutorial of Hardening points at the controls of the layout in use (see Tutorial).
+func adapt_tutorial(steps: Array) -> Array:
+	return _compact.adapt_steps(steps) if _compact != null else steps
 
 
 ## What is equipped now is what later days remember of this day (see GameState: some evidence echoes it).
@@ -96,12 +112,16 @@ func _show(panel: String, animate: bool = true) -> void:
 		var node := get_node(name) as Control
 		if name != panel and not (animate and node == old):
 			node.hide()
+	var sliding: Tween = null
 	if animate:
-		UiFx.swap_views(old, get_node(panel) as Control, dir)
+		sliding = UiFx.swap_views(old, get_node(panel) as Control, dir)
 		UiFx.fade_in(_screen_label, 0.18)
 	else:
 		get_node(panel).show()
 	_screen_label.text = TITLES[panel]
+	if _compact != null:
+		_compact.close_filters()
+		_compact.show_panel(panel)
 	if panel == "Deck":
 		_deck.refresh() # the deck may have changed in the Deck Editor
 	elif panel == "DeckEditor":
@@ -112,7 +132,11 @@ func _show(panel: String, animate: bool = true) -> void:
 		_shop.greet()
 	_refresh_wallet()
 	if not _build_only and VIEW_TUTORIALS.has(panel):
-		Tutorial.maybe_show(self, VIEW_TUTORIALS[panel])
+		# The tutorial pauses the game, which would freeze the view half way in (invisible): wait until it is there.
+		if sliding != null and sliding.is_valid():
+			await sliding.finished
+		if get_node(panel).visible: # the player may have moved on meanwhile
+			Tutorial.maybe_show(self, VIEW_TUTORIALS[panel])
 
 
 func _refresh_wallet() -> void:
@@ -147,12 +171,43 @@ func _warn_deck() -> void:
 	_next_phase.text = _next_text
 
 
+## The upgrade this day's threat cannot be beaten without (the "doom" of the Response data), when it is not equipped.
+func _missing_critical_upgrade() -> String:
+	var path := str(GameState.phase_info("response").get("data", ""))
+	var file := FileAccess.open(path, FileAccess.READ) if not path.is_empty() else null
+	if file == null:
+		return ""
+	var data: Variant = JSON.parse_string(file.get_as_text())
+	var doom: Dictionary = data.get("doom", {}) if data is Dictionary else {}
+	var counter := str(doom.get("counter", ""))
+	if counter.is_empty() or _state.equipped_list().has(counter):
+		return ""
+	return str(_state.upgrades.get(counter, {}).get("name", counter))
+
+
+## The button says it once: this fight cannot be won without that upgrade. Pressing it again goes on anyway.
+func _warn_missing(upgrade_name: String) -> void:
+	_doom_warned = true
+	_next_phase.text = "ATTACKS CANNOT BE STOPPED!\nPRESS AGAIN TO GO ON"
+	UiFx.float_text("MISSING: %s" % upgrade_name.to_upper(), UiFx.center_of(_next_phase) + Vector2(-70, 4), UiFx.RED, 6, 4.0)
+	UiFx.shake(_next_phase, 4.0)
+	UiFx.badge(Glyph.Kind.EXCLAIM, UiFx.RED, UiFx.center_of(_next_phase) + Vector2(_next_phase.size.x / 2.0 + 8.0, 0.0), 2, 2.4)
+	await get_tree().create_timer(5.0).timeout
+	_next_phase.text = _next_text
+	_doom_warned = false
+
+
 ## Hardening has no FinishScreen, so this is its save point: the phase counts as done and the
 ## game continues with the next phase (the Response phase is not built yet: the stage select).
 func _on_next_phase_pressed() -> void:
 	if _state.deck_list().size() < HardeningState.MIN_DECK:
 		_warn_deck()
 		return
+	if not _doom_warned and not _build_only:
+		var missing := _missing_critical_upgrade()
+		if not missing.is_empty():
+			_warn_missing(missing)
+			return
 	_next_phase.disabled = true
 	_remember_build()
 	if SaveManager.current_slot >= 0:

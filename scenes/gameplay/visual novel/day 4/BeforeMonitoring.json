@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "Report sent. We know what Victor did. We do not know why. And a real sign-in cannot be told from a wrong one by looking at the password.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua, I read your report. Not every odd access is bad. HR is allowed in the salary folder. IT works at night when on call.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "So tonight we watch who opens what. Each job has its own folders, and the hours matter too.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"How do I know who may open what?": "C1",
+			"Can't we just block everyone at night?": "C2"
+		}
+	},
+	"C1": {
+		"text": "The [b][color=green]rulebook[/color][/b] has a table: each role and its folders. If the folder does not match the job, that is the sign.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "No. Real work happens at odd hours too. We look at the job and the hour together.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "[b][color=red]Report[/color][/b] access that does not fit the job. Let the rest [b][color=green]pass[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "One folder at a time. A real person with a real badge can still be in the wrong place.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

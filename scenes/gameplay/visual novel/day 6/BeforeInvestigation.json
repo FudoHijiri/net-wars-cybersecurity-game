@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "Day six. The leak is closed, the key is changed, and the office is back to normal. At lunch, the phone rings again.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Ring ring...*",
+		"name": "Phone",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "IT desk, this is Joshua. How can I help?",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Joshua? It's Jonas Pike, the web admin. The website is down in the middle of lunch, and everybody says it is Marketing's sale.",
+		"name": "Jonas",
+		"art": "Phone",
+		"choices": {
+			"Could it just be the sale?": "D1",
+			"Since when is it slow?": "D2"
+		}
+	},
+	"D1": {
+		"text": "Possible. Evidence first.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "E1"
+	},
+	"E1": {
+		"text": "The sale is a lot of customers, sure. But the sale only starts at 12:00, and I would swear it was slow before that.",
+		"name": "Jonas",
+		"art": "Phone",
+		"next": "F"
+	},
+	"D2": {
+		"text": "Since 11:42, I think. The sale was planned for 12:00. That is eighteen minutes earlier.",
+		"name": "Jonas",
+		"art": "Phone",
+		"next": "F"
+	},
+	"F": {
+		"text": "Then we should not blame the crowd yet. A lot of traffic is not proof of anything. We look at who is asking, and what they do.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
+		"next": "G"
+	},
+	"G": {
+		"text": "[b][color=green]5 clues[/color][/b] should be enough. Then I compare the graphs and tell the rush from the attack.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

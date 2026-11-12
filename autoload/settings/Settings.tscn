@@ -6,7 +6,9 @@
 [ext_resource type="FontFile" uid="uid://dkx3t0k4t8re8" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="4_o7ld8"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="5_kd222"]
 [ext_resource type="Theme" uid="uid://do41m1dxvwx1w" path="res://assets/ui/scrollbar/scrollbar_theme.tres" id="5_t7be2"]
-[ext_resource type="FontFile" uid="uid://id688dn44k0j" path="res://assets/font/m3x6.ttf" id="6_17ua5"]
+[ext_resource type="Theme" uid="uid://d38ys1ts0cgv" path="res://assets/ui/optionbar/option_button_theme.tres" id="7_option"]
+[ext_resource type="Theme" uid="uid://cvab7rwyqya3v" path="res://assets/ui/checkbutton/checkbutton_theme.tres" id="8_check"]
+[ext_resource type="Theme" uid="uid://bgwrpen5rpy5d" path="res://assets/ui/slider/slider_theme.tres" id="9_slider"]
 
 [sub_resource type="Theme" id="Theme_yr6qk"]
 
@@ -22,24 +24,8 @@ default_font_size = 6
 default_font = ExtResource("5_kd222")
 default_font_size = 6
 
-[sub_resource type="Theme" id="Theme_kl3rf"]
-default_font = ExtResource("5_kd222")
-default_font_size = 6
-
-[sub_resource type="Theme" id="Theme_xttc1"]
-default_font = ExtResource("5_kd222")
-default_font_size = 6
-
-[sub_resource type="Theme" id="Theme_rjwuq"]
-default_font = ExtResource("5_kd222")
-default_font_size = 6
-
 [sub_resource type="Theme" id="Theme_farh1"]
 default_font = ExtResource("4_o7ld8")
-default_font_size = 6
-
-[sub_resource type="Theme" id="Theme_riil3"]
-default_font = ExtResource("5_kd222")
 default_font_size = 6
 
 [sub_resource type="Theme" id="Theme_5wmqr"]
@@ -112,7 +98,7 @@ anchors_preset = -1
 anchor_left = 0.0170166
 anchor_top = 0.13333334
 anchor_right = 0.98125
-anchor_bottom = 0.975
+anchor_bottom = 0.86944443
 mouse_filter = 2
 theme = ExtResource("5_t7be2")
 follow_focus = true
@@ -145,8 +131,8 @@ text = "Color Blind Mode"
 [node name="ColorblindModeOptions" type="OptionButton" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer/Colorblind" unique_id=1522374212]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "This is for Colorblind people."
-theme = SubResource("Theme_kl3rf")
+tooltip_text = "Previews the game as seen with a color-vision deficiency. It does not correct colors."
+theme = ExtResource("7_option")
 selected = 0
 item_count = 9
 popup/item_0/text = "Normal"
@@ -168,14 +154,6 @@ popup/item_7/id = 7
 popup/item_8/text = "Achromatomaly"
 popup/item_8/id = 8
 
-[node name="ColorblindHint" type="Label" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1717617740]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
-theme_override_fonts/font = ExtResource("6_17ua5")
-theme_override_font_sizes/font_size = 16
-text = "Previews the game as seen with a color-vision deficiency. It does not correct colors."
-autowrap_trim_flags = 0
-
 [node name="InterfaceColors" type="HBoxContainer" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=723025107]
 layout_mode = 2
 theme_override_constants/separation = 0
@@ -189,8 +167,8 @@ text = "Interface Colors"
 [node name="InterfaceColorsOptions" type="OptionButton" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer/InterfaceColors" unique_id=1829379414]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Changes the colors of buttons. Color Blind Mode still works on top of it."
-theme = SubResource("Theme_kl3rf")
+tooltip_text = "Changes button colors. High Contrast uses bold outlines; Blue and Orange avoids red and green. Color Blind Mode still works on top."
+theme = ExtResource("7_option")
 selected = 0
 item_count = 3
 popup/item_0/text = "Default"
@@ -200,39 +178,89 @@ popup/item_1/id = 1
 popup/item_2/text = "Blue and Orange"
 popup/item_2/id = 2
 
-[node name="InterfaceColorsHint" type="Label" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=466289763]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
-theme_override_fonts/font = ExtResource("6_17ua5")
-theme_override_font_sizes/font_size = 16
-text = "Changes button colors. High Contrast uses bold outlines; Blue and Orange avoids red and green."
-autowrap_mode = 3
-
 [node name="ReduceEffects" type="CheckButton" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1072445035]
 layout_mode = 2
-theme = SubResource("Theme_xttc1")
+tooltip_text = "Turns off the fade between screens."
+theme = ExtResource("8_check")
 text = "Reduce Screen Effects"
 
-[node name="ReduceEffectsHint" type="Label" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1494097275]
+[node name="DisplaySeparator" type="HSeparator" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=720292775]
 layout_mode = 2
+
+[node name="DisplayLabel" type="Label" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=70628255]
+layout_mode = 2
+theme = SubResource("Theme_farh1")
+text = "DISPLAY"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Resolution" type="HBoxContainer" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1886737582]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer/Resolution" unique_id=1848937182]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = SubResource("Theme_3568o")
+text = "Window Size"
+
+[node name="ResolutionOptions" type="OptionButton" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer/Resolution" unique_id=2053617071]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The size of the game, in whole multiples of 640 x 360 so pixels stay sharp. Only sizes that fit your screen are listed. The biggest one without a title bar is fullscreen."
+theme = ExtResource("7_option")
+selected = 0
+item_count = 1
+popup/item_0/text = "1280 x 720  (2x)"
+popup/item_0/id = 0
+
+[node name="BorderlessWindowed" type="CheckButton" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "On: no title bar, and the biggest size fills the screen. Off: a normal window with a title bar."
+theme = ExtResource("8_check")
+text = "Borderless Windowed"
+
+[node name="ColorsSeparator" type="HSeparator" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1808999395]
+layout_mode = 2
+
+[node name="CustomColorsLabel" type="Label" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1997911555]
+layout_mode = 2
+theme = SubResource("Theme_farh1")
+text = "CUSTOM COLORS"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="CustomColorsHint" type="Label" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1166214843]
+layout_mode = 2
+theme = SubResource("Theme_5wmqr")
 theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
-theme_override_fonts/font = ExtResource("6_17ua5")
-theme_override_font_sizes/font_size = 16
-text = "Turns off the fade between screens."
+text = "Change only the colors that carry a meaning. Pick a square for each."
 autowrap_mode = 3
 
-[node name="Shaking" type="CheckButton" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=2096225330]
+[node name="Palette" type="HBoxContainer" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1228043666]
 layout_mode = 2
-theme = SubResource("Theme_rjwuq")
-text = "Screen Shake"
 
-[node name="ShakingHint" type="Label" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=76899152]
+[node name="Label" type="Label" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer/Palette" unique_id=1804423986]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
-theme_override_fonts/font = ExtResource("6_17ua5")
-theme_override_font_sizes/font_size = 16
-text = "Allows screen shake. The game has none yet, so this changes nothing today."
-autowrap_mode = 3
+size_flags_horizontal = 2
+theme = SubResource("Theme_3568o")
+text = "Palette"
+
+[node name="PaletteOptions" type="OptionButton" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer/Palette" unique_id=1003740024]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Sets all the colors below at once. Custom is what you get by choosing your own."
+theme = ExtResource("7_option")
+selected = 0
+item_count = 3
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+popup/item_1/text = "Red-Green Safe"
+popup/item_1/id = 1
+popup/item_2/text = "Custom"
+popup/item_2/id = 2
+
+[node name="ColorRows" type="VBoxContainer" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=341635398]
+layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=41986672]
 layout_mode = 2
@@ -246,7 +274,7 @@ vertical_alignment = 2
 
 [node name="MuteInBackground" type="CheckButton" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=755521815]
 layout_mode = 2
-theme = SubResource("Theme_riil3")
+theme = ExtResource("8_check")
 text = "Mute in background"
 
 [node name="MasterVolume" type="HBoxContainer" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=146024779]
@@ -261,6 +289,7 @@ text = "Master Volume"
 [node name="MasterVolSlider" type="HSlider" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer/MasterVolume" unique_id=559706512]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("9_slider")
 value = 100.0
 
 [node name="MusicVolume" type="HBoxContainer" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1416781099]
@@ -275,6 +304,7 @@ text = "Music Volume"
 [node name="MusicVolSlider" type="HSlider" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer/MusicVolume" unique_id=1147148757]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("9_slider")
 value = 100.0
 
 [node name="SFXVolume" type="HBoxContainer" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=1920700696]
@@ -289,10 +319,41 @@ text = "Sound Effects Volume"
 [node name="SFXSlider" type="HSlider" parent="Control/NinePatchRect/ScrollContainer/VBoxContainer/SFXVolume" unique_id=1848138828]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("9_slider")
 value = 100.0
+
+[node name="DefaultButton" type="Button" parent="Control" unique_id=747877367]
+layout_mode = 0
+anchor_left = 0.8125
+anchor_top = 0.8888889
+anchor_right = 0.965625
+anchor_bottom = 0.95555556
+theme_override_fonts/font = ExtResource("5_kd222")
+theme_override_font_sizes/font_size = 6
+text = "RESET TO DEFAULT"
+metadata/_edit_use_anchors_ = true
+
+[node name="ApplyButton" type="Button" parent="Control" unique_id=336855732]
+layout_mode = 0
+anchor_left = 0.65
+anchor_top = 0.8888889
+anchor_right = 0.803125
+anchor_bottom = 0.95555556
+theme_override_fonts/font = ExtResource("5_kd222")
+theme_override_font_sizes/font_size = 6
+text = "APPLY SETTINGS"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Control/NinePatchRect/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="item_selected" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/Colorblind/ColorblindModeOptions" to="." method="_on_colorblind_mode_options_item_selected"]
 [connection signal="item_selected" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/InterfaceColors/InterfaceColorsOptions" to="." method="_on_interface_colors_options_item_selected"]
 [connection signal="toggled" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/ReduceEffects" to="." method="_on_reduce_effects_toggled"]
-[connection signal="toggled" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/Shaking" to="." method="_on_shaking_toggled"]
+[connection signal="item_selected" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/Resolution/ResolutionOptions" to="." method="_on_resolution_options_item_selected"]
+[connection signal="item_selected" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/Palette/PaletteOptions" to="." method="_on_palette_options_item_selected"]
+[connection signal="toggled" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/MuteInBackground" to="." method="_on_mute_in_background_toggled"]
+[connection signal="value_changed" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/MasterVolume/MasterVolSlider" to="." method="_on_master_vol_slider_value_changed"]
+[connection signal="value_changed" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/MusicVolume/MusicVolSlider" to="." method="_on_music_vol_slider_value_changed"]
+[connection signal="value_changed" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/SFXVolume/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="pressed" from="Control/DefaultButton" to="." method="_on_default_button_pressed"]
+[connection signal="pressed" from="Control/ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="toggled" from="Control/NinePatchRect/ScrollContainer/VBoxContainer/BorderlessWindowed" to="." method="_on_borderless_windowed_toggled"]

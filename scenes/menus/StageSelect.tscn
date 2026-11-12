@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="7_ope24"]
 [ext_resource type="Texture2D" uid="uid://xeo2vdke0o24" path="res://assets/ui/DeckButton Icon.png" id="9_ope24"]
 [ext_resource type="Texture2D" uid="uid://bvic4bs3hhc1v" path="res://assets/ui/Close Icon.png" id="10_ope24"]
+[ext_resource type="Theme" uid="uid://do41m1dxvwx1w" path="res://assets/ui/scrollbar/scrollbar_theme.tres" id="scrollbar_theme"]
 
 [sub_resource type="Theme" id="Theme_cvl1l"]
 default_font = ExtResource("3_nuuas")
@@ -188,6 +189,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect" unique_id=1207973782]
 layout_mode = 1
+theme = ExtResource("scrollbar_theme")
 anchors_preset = -1
 anchor_left = 0.024774775
 anchor_top = 0.14166667

@@ -1,0 +1,89 @@
+[gd_resource type="Theme" format=3 uid="uid://cvab7rwyqya3v"]
+
+[ext_resource type="Texture2D" uid="uid://da1n5w2ji8sq2" path="res://assets/ui/checkbutton/check_normal.png" id="1_normal"]
+[ext_resource type="Texture2D" uid="uid://y8eelha2hark" path="res://assets/ui/checkbutton/check_hover.png" id="2_hover"]
+[ext_resource type="Texture2D" uid="uid://cn32cq05swngp" path="res://assets/ui/checkbutton/check_pressed.png" id="3_pressed"]
+[ext_resource type="Texture2D" uid="uid://cjf351ag63t0s" path="res://assets/ui/checkbutton/check_disabled.png" id="4_disabled"]
+[ext_resource type="Texture2D" uid="uid://b22mqu6iqrbr0" path="res://assets/ui/checkbutton/check_focus.png" id="5_focus"]
+[ext_resource type="Texture2D" uid="uid://q8y3trlictjf" path="res://assets/ui/checkbutton/check_checked.png" id="6_checked"]
+[ext_resource type="Texture2D" uid="uid://c75rmo0hulu0d" path="res://assets/ui/checkbutton/check_unchecked.png" id="7_unchecked"]
+[ext_resource type="Texture2D" uid="uid://cuddnths88bno" path="res://assets/ui/checkbutton/check_checked_disabled.png" id="8_checked_disabled"]
+[ext_resource type="Texture2D" uid="uid://by1apkg5cs3a4" path="res://assets/ui/checkbutton/check_unchecked_disabled.png" id="9_unchecked_disabled"]
+[ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="font_mc"]
+
+[sub_resource type="StyleBoxTexture" id="sb_disabled"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+texture = ExtResource("4_disabled")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="sb_focus"]
+texture = ExtResource("5_focus")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="sb_hover"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+texture = ExtResource("2_hover")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="sb_pressed"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+texture = ExtResource("3_pressed")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="sb_normal"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+texture = ExtResource("1_normal")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[resource]
+CheckButton/colors/font_color = Color(0.957, 0.957, 0.957, 1)
+CheckButton/colors/font_disabled_color = Color(0.337, 0.424, 0.525, 1)
+CheckButton/colors/font_focus_color = Color(0.957, 0.957, 0.957, 1)
+CheckButton/colors/font_hover_color = Color(1, 1, 1, 1)
+CheckButton/colors/font_hover_pressed_color = Color(0.451, 0.937, 0.969, 1)
+CheckButton/colors/font_pressed_color = Color(0.451, 0.937, 0.969, 1)
+CheckButton/constants/check_v_offset = 0
+CheckButton/constants/h_separation = 6
+CheckButton/font_sizes/font_size = 6
+CheckButton/fonts/font = ExtResource("font_mc")
+CheckButton/icons/checked = ExtResource("6_checked")
+CheckButton/icons/checked_disabled = ExtResource("8_checked_disabled")
+CheckButton/icons/checked_disabled_mirrored = ExtResource("8_checked_disabled")
+CheckButton/icons/checked_mirrored = ExtResource("6_checked")
+CheckButton/icons/unchecked = ExtResource("7_unchecked")
+CheckButton/icons/unchecked_disabled = ExtResource("9_unchecked_disabled")
+CheckButton/icons/unchecked_disabled_mirrored = ExtResource("9_unchecked_disabled")
+CheckButton/icons/unchecked_mirrored = ExtResource("7_unchecked")
+CheckButton/styles/disabled = SubResource("sb_disabled")
+CheckButton/styles/focus = SubResource("sb_focus")
+CheckButton/styles/hover = SubResource("sb_hover")
+CheckButton/styles/hover_pressed = SubResource("sb_pressed")
+CheckButton/styles/normal = SubResource("sb_normal")
+CheckButton/styles/pressed = SubResource("sb_pressed")

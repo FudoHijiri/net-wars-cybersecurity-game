@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "Report sent. A look-alike domain made two days ago, a link that says one thing and goes to another, and one password typed.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua, I read your report. A fake does not need to be clever. It needs to look official and be in a hurry.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "So tonight you read each email as it arrives.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"How do I tell a fake from the real IT notice?": "C1",
+			"Can't we block every email with a link?": "C2"
+		}
+	},
+	"C1": {
+		"text": "The [b][color=green]rulebook[/color][/b] has it: the sender's domain, where the link really goes, and what it asks. Never how it looks.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "No. HR and IT send links too, and they are real. We check where each link goes.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "[b][color=red]Report[/color][/b] the fakes. Let the rest [b][color=green]pass[/color][/b], even the ones that look official.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "One email at a time. A fake can look perfect, and a real one can look odd.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

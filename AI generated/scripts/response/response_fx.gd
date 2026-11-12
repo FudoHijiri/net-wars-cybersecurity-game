@@ -44,8 +44,8 @@ func _draw() -> void:
 		var wobble := 0.0 if reduced else sin(_time * 5.0) * 0.12
 		var strength := clampf(_aura_alpha * (0.6 + wobble + _aura_pulse * 0.4), 0.0, 1.0)
 		draw_set_transform(_aura_at.round(), 0.0, Vector2(0.85, 1.0))
-		draw_circle(Vector2.ZERO, AURA_RADIUS, Color(CYAN, 0.10 * _aura_alpha + _aura_pulse * 0.15))
-		draw_arc(Vector2.ZERO, AURA_RADIUS, 0.0, TAU, 48, Color(CYAN, strength), 1.0, false)
+		draw_circle(Vector2.ZERO, AURA_RADIUS, Color(GameColors.block, 0.10 * _aura_alpha + _aura_pulse * 0.15))
+		draw_arc(Vector2.ZERO, AURA_RADIUS, 0.0, TAU, 48, Color(GameColors.block, strength), 1.0, false)
 		draw_arc(Vector2.ZERO, AURA_RADIUS - 3.0, 0.0, TAU, 48, Color(WHITE, strength * 0.35), 1.0, false)
 		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	super() # rings, slashes, sparks
@@ -90,10 +90,10 @@ func bolt(from: Vector2, to: Vector2, color: Color, power: float, on_land: Calla
 func set_aura(on: bool, at: Vector2) -> void:
 	_aura_at = at
 	if _aura_on and not on:
-		burst(at, CYAN, 16, 100.0)
-		ring(at, CYAN, AURA_RADIUS, AURA_RADIUS + 14.0, 0.35)
+		burst(at, GameColors.block, 16, 100.0)
+		ring(at, GameColors.block, AURA_RADIUS, AURA_RADIUS + 14.0, 0.35)
 	if on and not _aura_on:
-		ring(at, CYAN, 8.0, AURA_RADIUS + 4.0, 0.35)
+		ring(at, GameColors.block, 8.0, AURA_RADIUS + 4.0, 0.35)
 	_aura_on = on
 
 
@@ -101,7 +101,7 @@ func set_aura(on: bool, at: Vector2) -> void:
 func pulse_aura() -> void:
 	_aura_pulse = 1.0
 	if _aura_on:
-		burst(_aura_at + Vector2(randf_range(-20.0, 20.0), randf_range(-20.0, 10.0)), CYAN, 5, 50.0, 0.3)
+		burst(_aura_at + Vector2(randf_range(-20.0, 20.0), randf_range(-20.0, 10.0)), GameColors.block, 5, 50.0, 0.3)
 
 
 # --- the fighters ---
@@ -113,7 +113,7 @@ func prepare(sprite: AnimatedSprite2D) -> void:
 	sprite.material = material
 	for name in ["flash", "tint_amount", "gray", "dissolve"]: # a parameter can only be tweened once it has been set
 		material.set_shader_parameter(name, 0.0)
-	material.set_shader_parameter("tint", RED)
+	material.set_shader_parameter("tint", GameColors.bad)
 	_home[sprite] = sprite.offset
 
 
@@ -167,11 +167,11 @@ func appear(sprite: AnimatedSprite2D, delay: float = 0.0) -> Tween:
 	var tween := _start(sprite)
 	if tween == null:
 		return _idle()
-	_param(sprite, "tint", CYAN)
+	_param(sprite, "tint", GameColors.block)
 	_param(sprite, "dissolve", 1.0) # nothing to see until its turn comes
 	tween.tween_interval(delay)
 	_fade_param(tween, sprite, "dissolve", 1.0, 0.0, 0.6, false)
-	tween.parallel().tween_callback(func() -> void: ring(sprite.global_position, CYAN, 8.0, 44.0, 0.5))
+	tween.parallel().tween_callback(func() -> void: ring(sprite.global_position, GameColors.block, 8.0, 44.0, 0.5))
 	return tween
 
 
@@ -201,7 +201,7 @@ func hurt(sprite: AnimatedSprite2D, away: Vector2) -> Tween:
 	if tween == null:
 		return _idle()
 	var home: Vector2 = _home[sprite]
-	_param(sprite, "tint", RED)
+	_param(sprite, "tint", GameColors.bad)
 	_param(sprite, "tint_amount", 0.7)
 	if not reduced:
 		_param(sprite, "flash", 1.0)
@@ -234,13 +234,13 @@ func defeat(sprite: AnimatedSprite2D) -> Tween:
 	_locked[sprite] = true
 	var home: Vector2 = _home[sprite]
 	var center := sprite.global_position
-	_param(sprite, "tint", GOLD)
+	_param(sprite, "tint", GameColors.highlight)
 	if not reduced:
 		_param(sprite, "flash", 1.0)
 		_fade_param(tween, sprite, "flash", 1.0, 0.0, 0.25)
 		screen_flash()
 		ring(center, WHITE, 6.0, 60.0, 0.5)
-		burst(center, GOLD, 26, 130.0, 0.6)
+		burst(center, GameColors.highlight, 26, 130.0, 0.6)
 		for i in 7:
 			tween.tween_property(sprite, "offset", home + Vector2(randf_range(-3.0, 3.0), randf_range(-1.0, 1.0)), 0.05)
 	else:
@@ -248,7 +248,7 @@ func defeat(sprite: AnimatedSprite2D) -> Tween:
 	_fade_param(tween, sprite, "tint_amount", 0.0, 0.5, 0.2)
 	tween.tween_method(func(t: float) -> void:
 		if randf() < 0.6:
-			burst(center + Vector2(randf_range(-18.0, 18.0), randf_range(-24.0, 20.0)), GOLD, 2, 50.0, 0.4)
+			burst(center + Vector2(randf_range(-18.0, 18.0), randf_range(-24.0, 20.0)), GameColors.highlight, 2, 50.0, 0.4)
 		, 0.0, 1.0, 0.9)
 	_fade_param(tween, sprite, "dissolve", 0.0, 1.0, 0.9)
 	tween.parallel().tween_property(sprite, "offset", home + Vector2(0, 8), 0.9).set_ease(Tween.EASE_IN)
@@ -263,11 +263,11 @@ func knock_out(sprite: AnimatedSprite2D) -> Tween:
 		return _idle()
 	_locked[sprite] = true
 	var home: Vector2 = _home[sprite]
-	_param(sprite, "tint", RED)
+	_param(sprite, "tint", GameColors.bad)
 	if not reduced:
 		_param(sprite, "flash", 1.0)
 		_fade_param(tween, sprite, "flash", 1.0, 0.0, 0.2)
-		burst(sprite.global_position, RED, 18, 100.0, 0.5)
+		burst(sprite.global_position, GameColors.bad, 18, 100.0, 0.5)
 		for i in 5:
 			tween.tween_property(sprite, "offset", home + Vector2(randf_range(-3.0, 3.0), 0.0), 0.05)
 	else:
@@ -286,7 +286,7 @@ func victory(sprite: AnimatedSprite2D) -> Tween:
 	_locked[sprite] = true
 	var home: Vector2 = _home[sprite]
 	var feet := sprite.global_position + Vector2(0, 24)
-	_param(sprite, "tint", GOLD)
+	_param(sprite, "tint", GameColors.highlight)
 	confetti(sprite.global_position + Vector2(0, -16))
 	for i in 2:
 		tween.tween_property(sprite, "offset", home + Vector2(0, -14), 0.17).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
@@ -295,7 +295,7 @@ func victory(sprite: AnimatedSprite2D) -> Tween:
 		tween.tween_property(sprite, "offset", home, 0.17).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 		_fade_param(tween, sprite, "tint_amount", 0.35, 0.0, 0.17)
 		tween.tween_callback(func() -> void:
-			ring(feet, GOLD, 4.0, 20.0, 0.3)
-			burst(feet, GOLD, 8, 60.0, 0.35))
+			ring(feet, GameColors.highlight, 4.0, 20.0, 0.3)
+			burst(feet, GameColors.highlight, 8, 60.0, 0.35))
 	tween.tween_interval(0.2)
 	return tween

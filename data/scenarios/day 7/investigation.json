@@ -1,0 +1,1002 @@
+{
+	"id": "phishing",
+	"day": 7,
+	"threat_name": "Phishing",
+	"speaker": "Joshua",
+	"clues_required": 5,
+	"tabs": {
+		"logs": "CLICKS",
+		"computers": "PEOPLE",
+		"login": "SIGN-INS"
+	},
+	"finish": {
+		"points_per_clue": 20,
+		"points_per_mistake": 5,
+		"bonus": 25,
+		"comments": {
+			"flawless": "Joshua: The report was right on the first try. Bonus approved.",
+			"done": "Joshua: Case closed. Next time, look at the sender's domain and at where the link really goes before you decide."
+		}
+	},
+	"all_clues_monologue": [
+		"That's enough. A look-alike domain made two days ago sent a link that says one address and goes to another, and one person typed his password.",
+		"The real IT notice and HR's link look just as official. Time to press REPORT and spot what was fake in the message."
+	],
+	"investigation": {
+		"email": {
+			"title": "EMAIL > THE MESSAGE, THE FORWARD, THE REAL ONES",
+			"columns": [
+				"FROM",
+				"SUBJECT",
+				"TIME"
+			],
+			"widths": [
+				80,
+				170,
+				50
+			],
+			"entries": [
+				{
+					"id": "email_fake",
+					"cells": [
+						"IT Support",
+						"Your password expires today",
+						"09:12"
+					],
+					"title": "Your password expires today, from c0mpany-it.com",
+					"detail": "From: IT Support <it@c0mpany-it.com>\nTo: 40 staff\nTime: today 09:12\nSubject: Your password expires today\n\nDear colleague, your password expires today. Sign in now at portal.company-it.com to keep it.\n\nLook at the sender's domain: c0mpany-it.com has a zero where the o of company should be.",
+					"entities": [
+						"domain:c0mpany-it.com",
+						"event:phish"
+					],
+					"monologue": [
+						"The sender says IT, and the domain has a zero where the o should be. It is easy to read it wrong.",
+						"Would you spot that at a glance?"
+					],
+					"summary": "The email came at 09:12 from c0mpany-it.com, with a zero for an o.",
+					"is_clue": true
+				},
+				{
+					"id": "email_tessa",
+					"cells": [
+						"Tessa Brandt",
+						"Is this real?",
+						"09:40"
+					],
+					"title": "Is this real?",
+					"detail": "From: Tessa Brandt, front desk\nTo: IT desk\nTime: today 09:40\n\nI got this email that says my password expires today. It looks like IT, but it feels hurried. I did not click. Is it real?",
+					"entities": [
+						"user:tessa",
+						"event:phish"
+					],
+					"monologue": [
+						"Tessa did not click, and she asked. That is the best thing anyone did this morning.",
+						"Who else got it, and who did click?"
+					],
+					"summary": "Tessa asked IT about the email at 09:40, before she clicked.",
+					"is_clue": false
+				},
+				{
+					"id": "email_real_it",
+					"cells": [
+						"IT Support",
+						"Password policy reminder",
+						"Mon"
+					],
+					"title": "Password policy reminder, from company-it.com",
+					"detail": "From: IT Support <it@company-it.com>\nTo: all staff\nTime: last Monday 08:30\nSubject: Password policy reminder\n\nPlease change your password every 90 days. Open the portal yourself, at portal.company-it.com.",
+					"entities": [
+						"domain:company-it.com",
+						"user:carla"
+					],
+					"monologue": [
+						"This one also comes from IT and also talks about passwords. Its domain is the real one, and it tells you to open the portal yourself."
+					],
+					"summary": "The real IT reminder came last Monday from company-it.com.",
+					"is_clue": false
+				},
+				{
+					"id": "email_hr",
+					"cells": [
+						"Hana Ito",
+						"Benefits open until Friday",
+						"09:00"
+					],
+					"title": "Benefits open until Friday, from hr.company.com",
+					"detail": "From: Hana Ito, HR <hana@hr.company.com>\nTo: all staff\nTime: today 09:00\nSubject: Benefits open until Friday\n\nPick your benefits at benefits-partner.example before Friday.",
+					"entities": [
+						"domain:hr.company.com",
+						"user:hana"
+					],
+					"monologue": [
+						"HR sends a link to an outside partner, and that is fine: it is on the list. A link that goes outside is not enough to call it fake."
+					],
+					"summary": "HR's benefits message came at 09:00 from hr.company.com, with a link to the benefits partner.",
+					"is_clue": false
+				},
+				{
+					"id": "email_fire",
+					"cells": [
+						"Facilities",
+						"Fire drill on Thursday",
+						"Tue"
+					],
+					"title": "Fire drill on Thursday",
+					"detail": "From: Facilities\nTo: all staff\nTime: Tuesday\n\nThere will be a fire drill on Thursday at 11:00.",
+					"entities": [],
+					"monologue": [
+						"A fire drill on Thursday. Not our problem today."
+					],
+					"summary": "A fire drill is planned for Thursday at 11:00.",
+					"is_clue": false
+				}
+			]
+		},
+		"logs": {
+			"title": "CLICKS > WHO OPENED THE LINK",
+			"columns": [
+				"TIME",
+				"WHO",
+				"DID",
+				"THEN"
+			],
+			"widths": [
+				40,
+				76,
+				74,
+				110
+			],
+			"entries": [
+				{
+					"id": "click_three",
+					"cells": [
+						"09:18",
+						"3 clicked",
+						"1 typed",
+						"09:31"
+					],
+					"title": "Three people clicked the link, and one typed a password",
+					"detail": "Time: 09:18 to 09:31\nClicked the link: 3 people\nTyped something into the page: 1 person\nOpened it and said nothing: 0\n\nThe link opened a page that looked like the company sign-in.",
+					"entities": [
+						"event:phish",
+						"user:ravi",
+						"user:marta",
+						"user:ben"
+					],
+					"monologue": [
+						"Three clicked, and one went on to type. That is the one to follow.",
+						"Who typed?"
+					],
+					"summary": "3 people clicked the link between 09:18 and 09:31, and 1 typed a password.",
+					"is_clue": true
+				},
+				{
+					"id": "click_marta",
+					"cells": [
+						"09:18",
+						"Marta Silva",
+						"Clicked",
+						"Closed the page"
+					],
+					"title": "Marta clicked at 09:18, and closed the page",
+					"detail": "Time: 09:18\nWho: Marta Silva (Finance)\nWhat she did: clicked the link, saw a sign-in page, and closed it\nTyped: nothing",
+					"entities": [
+						"user:marta",
+						"event:phish"
+					],
+					"monologue": [
+						"Marta clicked, but she looked at the page and closed it. Nothing was given away."
+					],
+					"summary": "Marta clicked at 09:18 and closed the page.",
+					"is_clue": false
+				},
+				{
+					"id": "click_ben",
+					"cells": [
+						"09:21",
+						"Ben Okoye",
+						"Clicked",
+						"Closed the page"
+					],
+					"title": "Ben clicked at 09:21, and closed the page",
+					"detail": "Time: 09:21\nWho: Ben Okoye (Support)\nWhat he did: clicked the link, and closed the page when it asked for his password\nTyped: nothing",
+					"entities": [
+						"user:ben",
+						"event:phish"
+					],
+					"monologue": [
+						"Ben clicked too, and he stopped when it asked for a password. Good instinct."
+					],
+					"summary": "Ben clicked at 09:21 and closed the page.",
+					"is_clue": false
+				},
+				{
+					"id": "click_ravi",
+					"cells": [
+						"09:25",
+						"Ravi Menon",
+						"Clicked",
+						"Typed a password"
+					],
+					"title": "Ravi clicked at 09:25, and typed his password",
+					"detail": "Time: 09:25\nWho: Ravi Menon (Sales)\nWhat he did: clicked the link, and typed his username and password into the page\nTyped: his password",
+					"entities": [
+						"user:ravi",
+						"event:phish"
+					],
+					"monologue": [
+						"Ravi typed his password into a page that was not ours. From that moment someone else has it."
+					],
+					"summary": "Ravi clicked at 09:25 and typed his password.",
+					"is_clue": false
+				},
+				{
+					"id": "click_it",
+					"cells": [
+						"Mon",
+						"12 clicks",
+						"To the portal",
+						"All real"
+					],
+					"title": "The real IT notice: 12 clicks, all to the portal",
+					"detail": "Time: last Monday\nClicks: 12\nWhere they went: portal.company-it.com\nTyped: nothing, until each person signed in themselves",
+					"entities": [
+						"domain:company-it.com"
+					],
+					"monologue": [
+						"Twelve people followed the real notice, and every link went to our own portal."
+					],
+					"summary": "The real IT notice had 12 clicks, all to the portal.",
+					"is_clue": false
+				},
+				{
+					"id": "click_hr",
+					"cells": [
+						"09:05",
+						"18 clicks",
+						"To the partner",
+						"All real"
+					],
+					"title": "The benefits link: 18 clicks",
+					"detail": "Time: from 09:05\nClicks: 18\nWhere they went: benefits-partner.example\nTyped: their benefit choices",
+					"entities": [
+						"domain:hr.company.com"
+					],
+					"monologue": [
+						"Eighteen people followed HR's link to the benefits partner. A link outside the company, and a good one."
+					],
+					"summary": "The benefits link had 18 clicks, to the benefits partner.",
+					"is_clue": false
+				}
+			]
+		},
+		"computers": {
+			"title": "PEOPLE > WHO GOT IT",
+			"columns": [
+				"NAME",
+				"JOB",
+				"STATUS"
+			],
+			"widths": [
+				86,
+				90,
+				124
+			],
+			"entries": [
+				{
+					"id": "ppl_ravi",
+					"cells": [
+						"Ravi Menon",
+						"Sales",
+						"Typed a password"
+					],
+					"title": "Ravi Menon",
+					"detail": "Name: Ravi Menon\nRole: Sales\nStatus: typed his password into the fake page at 09:25\nHome: the office, usually",
+					"entities": [
+						"user:ravi"
+					],
+					"monologue": [
+						"Ravi is in Sales. He is not careless, he is busy, and the message was made for busy people."
+					],
+					"summary": "Ravi works in Sales and typed his password at 09:25.",
+					"is_clue": false
+				},
+				{
+					"id": "ppl_marta",
+					"cells": [
+						"Marta Silva",
+						"Finance",
+						"Clicked, closed"
+					],
+					"title": "Marta Silva",
+					"detail": "Name: Marta Silva\nRole: Finance\nStatus: clicked at 09:18 and closed the page",
+					"entities": [
+						"user:marta"
+					],
+					"monologue": [
+						"Marta clicked and closed it. She is fine."
+					],
+					"summary": "Marta works in Finance and only clicked.",
+					"is_clue": false
+				},
+				{
+					"id": "ppl_ben",
+					"cells": [
+						"Ben Okoye",
+						"Support",
+						"Clicked, closed"
+					],
+					"title": "Ben Okoye",
+					"detail": "Name: Ben Okoye\nRole: Support\nStatus: clicked at 09:21 and closed the page",
+					"entities": [
+						"user:ben"
+					],
+					"monologue": [
+						"Ben clicked and closed it. He is fine too."
+					],
+					"summary": "Ben works in Support and only clicked.",
+					"is_clue": false
+				},
+				{
+					"id": "ppl_tessa",
+					"cells": [
+						"Tessa Brandt",
+						"Front desk",
+						"Reported it"
+					],
+					"title": "Tessa Brandt",
+					"detail": "Name: Tessa Brandt\nRole: front desk\nStatus: did not click, and reported the email at 09:40",
+					"entities": [
+						"user:tessa"
+					],
+					"monologue": [
+						"Tessa reported it before anything else. That is what everyone should do."
+					],
+					"summary": "Tessa works at the front desk and reported the email.",
+					"is_clue": false
+				},
+				{
+					"id": "ppl_forty",
+					"cells": [
+						"40 people",
+						"All staff",
+						"Got the email"
+					],
+					"title": "The 40 who got the email",
+					"detail": "Who: 40 members of staff\nWhat they got: the email of 09:12\nWho clicked: 3\nWho typed: 1",
+					"entities": [
+						"event:phish"
+					],
+					"monologue": [
+						"Forty people got it, and most did nothing. The number alone is not the problem."
+					],
+					"summary": "The email went to 40 people.",
+					"is_clue": false
+				}
+			]
+		},
+		"login": {
+			"title": "SIGN-INS > WHEN AND FROM WHERE",
+			"columns": [
+				"TIME",
+				"ACCOUNT",
+				"FROM",
+				"DEVICE"
+			],
+			"widths": [
+				40,
+				86,
+				66,
+				108
+			],
+			"entries": [
+				{
+					"id": "sign_new",
+					"cells": [
+						"09:35",
+						"Ravi Menon",
+						"New place",
+						"Far away"
+					],
+					"title": "Ravi's account signed in at 09:35, from a new place",
+					"detail": "Time: 09:35 (ten minutes after he typed his password)\nAccount: Ravi Menon\nFrom: a place he has never signed in from, far away\nDevice: a computer nobody knows",
+					"entities": [
+						"user:ravi",
+						"event:phish",
+						"event:thief"
+					],
+					"monologue": [
+						"Ten minutes after Ravi typed his password, his account signed in from far away, on a computer nobody knows.",
+						"Who is that?"
+					],
+					"summary": "Ravi's account signed in at 09:35 from a new place, far away.",
+					"is_clue": true
+				},
+				{
+					"id": "sign_usual",
+					"cells": [
+						"08:40",
+						"Ravi Menon",
+						"Office",
+						"His laptop"
+					],
+					"title": "Ravi's usual sign-ins: the office, 08:40",
+					"detail": "Time: every morning about 08:40\nAccount: Ravi Menon\nFrom: the office\nDevice: Ravi's laptop and his phone",
+					"entities": [
+						"user:ravi"
+					],
+					"monologue": [
+						"Ravi signs in from the office, on his laptop. That is his baseline, and the new one is nothing like it."
+					],
+					"summary": "Ravi usually signs in at 08:40 from the office, on his laptop.",
+					"is_clue": false
+				},
+				{
+					"id": "sign_second_on",
+					"cells": [
+						"09:35",
+						"Second code",
+						"Asked",
+						"Failed"
+					],
+					"title": "The new sign-in asked for a second code, and failed",
+					"detail": "Time: 09:35\nAccount: Ravi Menon\nWhat happened: the new sign-in knew the password, but it was asked for a second code from Ravi's phone, and failed",
+					"entities": [
+						"user:ravi",
+						"event:thief"
+					],
+					"monologue": [
+						"The thief had the password and was stopped by the second code. One key was not enough."
+					],
+					"summary": "The new sign-in at 09:35 asked for a second code, and failed.",
+					"is_clue": false,
+					"if_equipped": [
+						"twostep"
+					]
+				},
+				{
+					"id": "sign_second_off",
+					"cells": [
+						"09:35",
+						"Second code",
+						"None",
+						"Worked"
+					],
+					"title": "The new sign-in needed only the password, and worked",
+					"detail": "Time: 09:35\nAccount: Ravi Menon\nWhat happened: the new sign-in needed only the password, and it worked",
+					"entities": [
+						"user:ravi",
+						"event:thief"
+					],
+					"monologue": [
+						"The password was enough. There was no second step to stop the thief."
+					],
+					"summary": "The new sign-in at 09:35 needed only the password, and worked.",
+					"is_clue": false,
+					"unless_equipped": [
+						"twostep"
+					]
+				},
+				{
+					"id": "sign_marta",
+					"cells": [
+						"08:55",
+						"Marta Silva",
+						"Office",
+						"Her computer"
+					],
+					"title": "Marta's sign-ins",
+					"detail": "Account: Marta Silva\nFrom: the office\nDevice: Marta's computer\nNothing new today.",
+					"entities": [
+						"user:marta"
+					],
+					"monologue": [
+						"Marta's sign-ins look like every other day."
+					],
+					"summary": "Marta's sign-ins are from the office, as usual.",
+					"is_clue": false
+				},
+				{
+					"id": "sign_ben",
+					"cells": [
+						"08:50",
+						"Ben Okoye",
+						"Office",
+						"His computer"
+					],
+					"title": "Ben's sign-ins",
+					"detail": "Account: Ben Okoye\nFrom: the office\nDevice: Ben's computer\nNothing new today.",
+					"entities": [
+						"user:ben"
+					],
+					"monologue": [
+						"Ben's sign-ins look like every other day."
+					],
+					"summary": "Ben's sign-ins are from the office, as usual.",
+					"is_clue": false
+				}
+			]
+		},
+		"files": {
+			"title": "FILES > THE MESSAGE'S SOURCE",
+			"columns": [
+				"TIME",
+				"WHAT",
+				"KIND",
+				"FILE"
+			],
+			"widths": [
+				40,
+				60,
+				60,
+				140
+			],
+			"entries": [
+				{
+					"id": "file_source",
+					"cells": [
+						"09:12",
+						"Source",
+						"Headers",
+						"message_B.eml"
+					],
+					"title": "The message's source: the text and the target disagree",
+					"detail": "File: the email's source, message B\nFrom: it@c0mpany-it.com\nReply-to: helpdesk@c0mpany-it.com\nLink text: portal.company-it.com\nLink goes to: c0mpany-it.com/login\n\nThe link says one address and goes to another.",
+					"entities": [
+						"domain:c0mpany-it.com",
+						"event:phish"
+					],
+					"monologue": [
+						"The link text says portal.company-it.com, and the link goes to c0mpany-it.com/login. What it says and where it goes do not match.",
+						"Which one do you believe?"
+					],
+					"summary": "The link says portal.company-it.com but goes to c0mpany-it.com/login.",
+					"is_clue": true
+				},
+				{
+					"id": "file_real_source",
+					"cells": [
+						"Mon",
+						"Source",
+						"Headers",
+						"message_A.eml"
+					],
+					"title": "The real IT notice's source",
+					"detail": "File: the email's source, message A\nFrom: it@company-it.com\nReply-to: helpdesk@company-it.com\nLink text: portal.company-it.com\nLink goes to: portal.company-it.com\n\nEverything matches the company.",
+					"entities": [
+						"domain:company-it.com"
+					],
+					"monologue": [
+						"Here the sender, the reply address and the link all say company-it.com. Everything matches."
+					],
+					"summary": "The real notice has company-it.com in its sender, its reply address and its link.",
+					"is_clue": false
+				},
+				{
+					"id": "file_hr_source",
+					"cells": [
+						"09:00",
+						"Source",
+						"Headers",
+						"benefits.eml"
+					],
+					"title": "The HR message's source",
+					"detail": "File: the email's source, the benefits message\nFrom: hana@hr.company.com\nLink goes to: benefits-partner.example\n\nThe link goes outside the company, to a partner on the approved list.",
+					"entities": [
+						"domain:hr.company.com"
+					],
+					"monologue": [
+						"HR's link goes outside, to a partner that is on the approved list. Outside is not the same as fake."
+					],
+					"summary": "HR's message links to benefits-partner.example, which is on the approved list.",
+					"is_clue": false
+				},
+				{
+					"id": "file_screenshot",
+					"cells": [
+						"09:30",
+						"Screen",
+						"Photo",
+						"fake_page.png"
+					],
+					"title": "A screenshot of the fake login page",
+					"detail": "File: fake_page.png\nWhat it shows: a page that looks like our sign-in, with our logo and two boxes, a name and a password\nAddress bar: c0mpany-it.com/login",
+					"entities": [
+						"domain:c0mpany-it.com",
+						"event:phish"
+					],
+					"monologue": [
+						"The page looks like ours, with our logo. Only the address bar tells the difference."
+					],
+					"summary": "The fake login page looked like ours, and its address was c0mpany-it.com/login.",
+					"is_clue": false
+				},
+				{
+					"id": "file_handbook",
+					"cells": [
+						"Old",
+						"Shared",
+						"Made",
+						"handbook.pdf"
+					],
+					"title": "handbook.pdf",
+					"detail": "Where: the shared folder\nFile: handbook.pdf, 2 MB\n\nThe staff handbook.",
+					"entities": [],
+					"monologue": [
+						"The staff handbook. Nothing to see."
+					],
+					"summary": "The staff handbook is in the shared folder.",
+					"is_clue": false
+				}
+			]
+		},
+		"network": {
+			"title": "NETWORK > THE SENDER'S DOMAIN",
+			"columns": [
+				"WHEN",
+				"NAME",
+				"STATE",
+				"WHERE"
+			],
+			"widths": [
+				52,
+				100,
+				84,
+				64
+			],
+			"entries": [
+				{
+					"id": "net_domain",
+					"cells": [
+						"Today",
+						"c0mpany-it.com",
+						"Made 2 days ago",
+						"Far away"
+					],
+					"title": "c0mpany-it.com was made 2 days ago and lives in another country",
+					"detail": "Name: c0mpany-it.com\nMade: 2 days ago\nWhere it lives: a server in another country\nWho owns it: hidden\n\nOur own domain is 6 years old.",
+					"entities": [
+						"domain:c0mpany-it.com",
+						"event:phish",
+						"event:thief"
+					],
+					"monologue": [
+						"Made two days ago, hosted far away, owner hidden. Our own domain is six years old.",
+						"Who registers a copy of our name?"
+					],
+					"summary": "c0mpany-it.com was made 2 days ago and lives in another country.",
+					"is_clue": true
+				},
+				{
+					"id": "net_portal",
+					"cells": [
+						"Daily",
+						"Portal",
+						"Normal",
+						"Our domain"
+					],
+					"title": "Traffic to the real IT portal: normal",
+					"detail": "Name: portal.company-it.com\nMade: 6 years ago\nWhere it lives: our own data center\nTraffic: normal",
+					"entities": [
+						"domain:company-it.com"
+					],
+					"monologue": [
+						"Our own portal, six years old, in our own data center. Normal."
+					],
+					"summary": "The real IT portal is 6 years old and in our own data center.",
+					"is_clue": false
+				},
+				{
+					"id": "net_partner",
+					"cells": [
+						"Daily",
+						"Partner",
+						"Normal",
+						"Approved"
+					],
+					"title": "Traffic to the benefits partner: normal",
+					"detail": "Name: benefits-partner.example\nOn the approved list: yes\nTraffic: normal",
+					"entities": [
+						"domain:hr.company.com"
+					],
+					"monologue": [
+						"The benefits partner is on the approved list. Normal traffic."
+					],
+					"summary": "The benefits partner is on the approved list.",
+					"is_clue": false
+				},
+				{
+					"id": "net_backup",
+					"cells": [
+						"01:00",
+						"backup-01",
+						"Backup cloud",
+						"9 GB"
+					],
+					"title": "Nightly backup",
+					"detail": "Time: every night 01:00\nFrom: backup-01\nSent to: the backup cloud\nHow much: 9 GB",
+					"entities": [],
+					"monologue": [
+						"The nightly backup. Not today's problem."
+					],
+					"summary": "The nightly backup copies 9 GB at 01:00.",
+					"is_clue": false
+				},
+				{
+					"id": "net_browse",
+					"cells": [
+						"All day",
+						"The office",
+						"Browsing",
+						"Small"
+					],
+					"title": "Staff browsing",
+					"detail": "Time: all day\nFrom: the office\nHow much: small",
+					"entities": [],
+					"monologue": [
+						"Staff browsing. Ordinary."
+					],
+					"summary": "Staff browsing is small.",
+					"is_clue": false
+				}
+			]
+		},
+		"servers": {
+			"title": "SERVERS > MAIL, FILTER, PORTAL",
+			"columns": [
+				"COMPUTER",
+				"JOB",
+				"DID",
+				"OF"
+			],
+			"widths": [
+				88,
+				96,
+				66,
+				50
+			],
+			"entries": [
+				{
+					"id": "srv_mail",
+					"cells": [
+						"Mail server",
+						"Staff mail",
+						"Delivered",
+						"40 copies"
+					],
+					"title": "The mail server delivered the message to 40 people at 09:12",
+					"detail": "Computer: the mail server\nJob: staff mail\nNote: the email from c0mpany-it.com was delivered to 40 inboxes at 09:12",
+					"entities": [
+						"host:mail",
+						"event:phish",
+						"domain:c0mpany-it.com"
+					],
+					"monologue": [
+						"The mail server delivered it to forty inboxes at 09:12. It sits in every one of them."
+					],
+					"summary": "The mail server delivered 40 copies of the email at 09:12.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_filter_on",
+					"cells": [
+						"Spam filter",
+						"Holds mail",
+						"Held 5",
+						"of 40"
+					],
+					"title": "The spam filter held 5 of the 40 copies",
+					"detail": "Computer: the spam filter\nNote: it held 5 of the 40 copies of the email from c0mpany-it.com, because their senders looked like a copy of ours",
+					"entities": [
+						"host:filter",
+						"event:phish"
+					],
+					"monologue": [
+						"The filter held five of the forty copies. It helped, and it was not enough."
+					],
+					"summary": "The spam filter held 5 of the 40 copies.",
+					"is_clue": false,
+					"if_equipped": [
+						"filter"
+					]
+				},
+				{
+					"id": "srv_filter_off",
+					"cells": [
+						"Spam filter",
+						"No filter",
+						"Held 0",
+						"of 40"
+					],
+					"title": "All 40 copies were delivered",
+					"detail": "Computer: the mail server\nNote: nothing stopped the email from c0mpany-it.com, so all 40 copies were delivered",
+					"entities": [
+						"host:filter",
+						"event:phish"
+					],
+					"monologue": [
+						"Nothing held any copy back. All forty were delivered."
+					],
+					"summary": "All 40 copies were delivered.",
+					"is_clue": false,
+					"unless_equipped": [
+						"filter"
+					]
+				},
+				{
+					"id": "srv_portal",
+					"cells": [
+						"IT portal",
+						"Real sign-in",
+						"Running",
+						"15%"
+					],
+					"title": "The IT portal: normal",
+					"detail": "Computer: the IT portal\nJob: the real sign-in page\nStatus: running\nBusy: 15%",
+					"entities": [
+						"domain:company-it.com"
+					],
+					"monologue": [
+						"The real portal. Running as usual."
+					],
+					"summary": "The IT portal is running as usual.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_gateway",
+					"cells": [
+						"The gateway",
+						"Web traffic",
+						"Running",
+						"20%"
+					],
+					"title": "The web gateway",
+					"detail": "Computer: the gateway\nJob: all web traffic out\nStatus: running\nBusy: 20%",
+					"entities": [],
+					"monologue": [
+						"Everything that leaves goes through the gateway. Running."
+					],
+					"summary": "The web gateway is running as usual.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_login",
+					"cells": [
+						"Login server",
+						"Checks sign-ins",
+						"Running",
+						"22%"
+					],
+					"title": "The login server",
+					"detail": "Computer: the login server\nJob: checks every sign-in\nStatus: running\nBusy: 22%",
+					"entities": [],
+					"monologue": [
+						"The login server. Running."
+					],
+					"summary": "The login server is running as usual.",
+					"is_clue": false
+				}
+			]
+		}
+	},
+	"report": {
+		"text": "Message {1} is the fake. Its sender is {2}, its link really goes to {3}, and it wants you to {4}. Ravi {5}.",
+		"answers": {
+			"1": "chip_b",
+			"2": "chip_lookalike",
+			"3": "chip_fakepage",
+			"4": "chip_type",
+			"5": "chip_ravi"
+		},
+		"chips": [
+			{
+				"id": "chip_b",
+				"label": "B"
+			},
+			{
+				"id": "chip_lookalike",
+				"label": "c0mpany-it.com, with a zero"
+			},
+			{
+				"id": "chip_fakepage",
+				"label": "a page on the look-alike domain"
+			},
+			{
+				"id": "chip_type",
+				"label": "type your password to keep it"
+			},
+			{
+				"id": "chip_ravi",
+				"label": "typed his password, and a thief signed in ten minutes later"
+			},
+			{
+				"id": "chip_a",
+				"label": "A",
+				"reason": "Message A is the real one: its sender, its reply address and its link all match the company. Click its parts to see."
+			},
+			{
+				"id": "chip_real",
+				"label": "company-it.com",
+				"reason": "That is our real domain, message A's. The fake has a zero instead of an o."
+			},
+			{
+				"id": "chip_hr",
+				"label": "hr.company.com",
+				"reason": "That is HR's domain, from the benefits message. It is not in these two messages."
+			},
+			{
+				"id": "chip_portal",
+				"label": "the real IT portal",
+				"reason": "The text says portal.company-it.com, but the link really goes to the look-alike. What a link says is not where it goes."
+			},
+			{
+				"id": "chip_partner",
+				"label": "the benefits partner",
+				"reason": "That is HR's link in another message. Neither of these two goes there."
+			},
+			{
+				"id": "chip_read",
+				"label": "read a notice",
+				"reason": "Message A asks you to open the portal yourself. The fake asks for your password."
+			},
+			{
+				"id": "chip_doc",
+				"label": "open a document",
+				"reason": "Neither message has a document. Look at what each one asks."
+			},
+			{
+				"id": "chip_closed",
+				"label": "only closed the page",
+				"reason": "That was Marta and Ben. Ravi typed his password."
+			},
+			{
+				"id": "chip_nothing",
+				"label": "did nothing",
+				"reason": "Ravi clicked at 09:25 and typed his password. His account signed in from far away at 09:35."
+			}
+		],
+		"slot_empty": "(empty)",
+		"slot_correct": "[OK]",
+		"chip_picked": "> ",
+		"submit_button": "SUBMIT REPORT",
+		"submit_locked": "FILL ALL BLANKS",
+		"continue_button": "CONTINUE >",
+		"icons": {
+			"prompt": "?",
+			"picked": ">",
+			"wrong": "!",
+			"solved": "OK"
+		},
+		"solved_explanation": "This is phishing: a fake message that looks official, to make you give away a password. Check who really sent it and where the link really goes, before you click.",
+		"tutorial": "investigation_inspect",
+		"objective": "SPOT WHAT WAS FAKE IN THE MESSAGE",
+		"cards": [
+			{
+				"label": "MESSAGE A",
+				"from_name": "IT Support",
+				"from_addr": "it@company-it.com",
+				"reply_to": "helpdesk@company-it.com",
+				"link_text": "portal.company-it.com",
+				"link_target": "portal.company-it.com",
+				"ask": "Open the portal yourself"
+			},
+			{
+				"label": "MESSAGE B",
+				"from_name": "IT Support",
+				"from_addr": "it@c0mpany-it.com",
+				"reply_to": "helpdesk@c0mpany-it.com",
+				"link_text": "portal.company-it.com",
+				"link_target": "c0mpany-it.com/login",
+				"ask": "Type your password to keep it"
+			}
+		],
+		"messages": {
+			"prompt": "Look at the two messages (click their parts to look closer) and read your notes. Which one is fake, and what did it do?",
+			"picked": "Now click a blank to put \"{word}\" there.",
+			"some_wrong": "{right} of {total} are in the right place. {reason} Try again.",
+			"none_right": "None of these are in the right place yet. {reason} Try again.",
+			"solved": "Yes! Message B has a sender with a zero, a link that goes somewhere other than it says, and it asks for your password. The real notice matches everywhere. Check the sender and the link, not the look.",
+			"misplaced": "\"{word}\" belongs in a different blank. Read what each blank asks for."
+		}
+	}
+}

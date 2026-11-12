@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "It's contained. The ransomware has stopped, but now we have to see what it left behind.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. But stopped is not fixed. The files are still locked, the laptop is still sick, and the doors are still open.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Anything it touched is still broken, or still open to it. We can't let people go back to work yet.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What do we fix first?": "C1",
+			"Can we get the files back?": "C2"
+		}
+	},
+	"C1": {
+		"text": "Walk through the office and look for machines marked with a [b][color=red]![/color][/b]. Start with the laptop, then the files, then the doors.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "Yes, from the offline backup. That is why we kept one. But it must be from before the infection, and we have to test it.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "Fix one thing at a time. When everything is repaired, we run a [b][color=green]final check[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Got it. Rebuild first, then restore, then check. I don't want Marta to lose her report.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

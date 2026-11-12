@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "The new defenses are in place. This attack does not break in. It crowds the door.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua! It floods the box from every side, it shoots from many sources at once, and it leaves slow connections that never close.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "A flood, many sources and a slow drip. That is three tricks.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Nothing is stolen. It only wants the site to stop.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What is it doing?": "D1",
+			"Are we ready for this?": "D2"
+		}
+	},
+	"D1": {
+		"text": "[b][color=red]Flood[/color][/b]: too much at once. [b][color=red]Many sources[/color][/b]: thousands of senders, each aiming at you. [b][color=red]Slow drip[/color][/b]: connections that stay and fill the room.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"D2": {
+		"text": "That depends on the upgrades you equipped. Each trick has one defense that stops it. Without it, the trick comes back [b][color=red]harder[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Use your cards to hit it, and [b][color=green]Cap[/color][/b] the big hits. When it attacks, you dodge. Keep going until it is [b][color=green]contained[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"text": "Understood. Let's keep the site up.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "G"
+	},
+	"G": {
+		"text": "Everything I set up in Hardening is about to be tested.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

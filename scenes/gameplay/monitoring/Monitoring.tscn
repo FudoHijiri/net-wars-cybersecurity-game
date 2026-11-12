@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ba0gtldl7ke3f" path="res://scripts/gameplay/monitoring/monitoring.gd" id="10_monitoring"]
 [ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="11_55bmu"]
 [ext_resource type="Script" uid="uid://jii58qpfiadb" path="res://scripts/gameplay/finish_screen.gd" id="finish_screen_script"]
+[ext_resource type="Theme" uid="uid://do41m1dxvwx1w" path="res://assets/ui/scrollbar/scrollbar_theme.tres" id="scrollbar_theme"]
 
 [sub_resource type="Theme" id="Theme_26po0"]
 default_font = ExtResource("3_55bmu")
@@ -745,9 +746,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="VScrollBar" type="ScrollContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Right/NotesPanel" unique_id=1758666180]
 layout_mode = 1
+theme = ExtResource("scrollbar_theme")
 anchors_preset = -1
 anchor_left = 0.014164306
-anchor_top = 0.0625
+anchor_top = 0.08
 anchor_right = 0.9858357
 anchor_bottom = 0.97596157
 metadata/_edit_use_anchors_ = true

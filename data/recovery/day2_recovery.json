@@ -1,7 +1,7 @@
 {
 	"_note": "The Day 2 (Malware) work order. Same format as day1_recovery.json. attacks: the Response patterns that got through become these repairs. Components: program (FixBlueScreen), updates (SwitchPanel), scan (ScanClean), file_server (the final check, FileServerRepair).",
 	"room": {
-		"counter": "{done}/{total} checks",
+		"counter": "Repairs {done}/{total}",
 		"controls": "WASD / arrows: move     E: use     Esc: pause",
 		"return": "Finish shift",
 		"finish": "Finish shift",
@@ -358,12 +358,5 @@
 			"approved_program": true,
 			"antivirus_on": true
 		}
-	},
-	"art_credits": [
-		"Recovery office v2 / supplied by the project owner\nOriginal pack, placement guide and source images retained under art_source/recovery/office_v2.\nPrepared by deterministic transparent cropping and GIF frame extraction. Original colours retained. No new image generation.\nCreator/licence information was not included in the supplied pack.",
-		"MetroCity / JIK-A-4\nhttps://jik-a-4.itch.io/metrocity-free-topdown-character-pack\nCC0: https://creativecommons.org/publicdomain/zero/1.0/\nBody, Outfit6 and short hair layers combined and recoloured to look like Joshua.",
-		"Pixel Office / 2dPig\nhttps://2dpig.itch.io/pixel-office\nCC0: https://creativecommons.org/publicdomain/zero/1.0/\nPlants, bookcase, wastebasket and clock cropped from the original asset sheet. Original pixels and colours retained.",
-		"Office Pixel Art by Imersa Studios\nhttps://imersastudios.itch.io/office-pixel-art\nFree edition used inside this project under its included licence. Authored rear desk, computer and cabinet views and front chair view, used unchanged at their native pixels. No generation or sprite flipping.",
-		"Midcentury Modern Furniture Set / 0_mem0ry\nhttps://0-mem0ry.itch.io/midcentury-modern-furniture-set-free\nFree creator-licensed assets for game projects. Rear sofa, rear armchairs, bookshelves, coffee table, plants, floor lamp, framed prints and wall clock cropped from the original sheet; original colours and pixels retained. No generation or sprite flipping."
-	]
+	}
 }

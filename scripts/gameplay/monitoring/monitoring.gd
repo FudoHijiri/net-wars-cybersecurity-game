@@ -22,18 +22,20 @@ enum Verdict { NONE, RIGHT, WRONG }
 
 const APP := "FramePanel/MainPanel/MainPanelAppView"
 const FONT := preload("res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf")
+const BOLD := preload("res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf")
+const MUTED := "#94b0c2" # the detail lines of a rule: they explain, the rule itself stands out
 ## A part that is unusual but allowed ("odd" in the log data) is tagged NORMAL: the player's call is binary.
 const TAG_STATE := {"ok": HintTag.State.OK, "odd": HintTag.State.OK, "bad": HintTag.State.BAD}
 const NEXT_TEXT := "NEXT LOG >"
 const RESULTS_TEXT := "SEE RESULTS >"
 const BREAKS_MARK := "[X] " # text marker for the part that broke a rule, so color is never the only signal
 const YELLOW := "#ffcd75"
-## The verdict bubbles use the colors of the NORMAL and SUSPICIOUS tags, with the text color that reads on each.
-const VERDICT_FILL := {Verdict.RIGHT: Color("38b764"), Verdict.WRONG: Color("b13e53")}
-const VERDICT_TEXT := {Verdict.RIGHT: HintTag.DARK_TEXT, Verdict.WRONG: HintTag.LIGHT_TEXT}
+## The verdict bubbles use the colors of the NORMAL and SUSPICIOUS tags (the Good and Bad colors of Settings > Custom Colors).
+const VERDICT_ROLE := {Verdict.RIGHT: &"good", Verdict.WRONG: &"bad"}
 
 var _data: Dictionary
 var _generator: LogGenerator
+var _stand_out_regex: RegEx
 var _log: Dictionary = {}
 var _step := Step.ANSWERED # before the first log it waits for NEXT LOG, like between two logs
 var _inspected: Dictionary = {} # part index -> true
@@ -79,6 +81,7 @@ func _ready() -> void:
 	_animation.animation_finished.connect(func(_name: StringName) -> void: _arriving = false)
 	GameState.set_phase("monitoring")
 	_data = GameState.scenario
+	($FramePanel/MainPanel/Objective as RichTextLabel).text = GameState.objective()
 	if _data.is_empty():
 		push_error("Monitoring: no data for day %d (see data/days.json)" % GameState.current_day)
 		set_process(false)
@@ -143,6 +146,7 @@ func _show_next_log() -> void:
 		_add_note(line)
 	_arriving = true
 	_log_card.show()
+	Sfx.play(&"open")
 	_animation.play(&"LogAnimation")
 	_animation.advance(0.0) # apply the first frame (empty card) before it is drawn
 	_refresh_clock()
@@ -164,6 +168,7 @@ func _on_field_pressed(index: int) -> void:
 			_add_note(_data["messages"]["no_time"])
 		return
 	_inspected[index] = true
+	Sfx.play(&"question")
 	_fields[index].set_pressed_no_signal(true)
 	UiFx.flash(_fields[index], UiFx.GOLD, 0.35)
 	if cost > 0.0:
@@ -347,10 +352,10 @@ func _add_note(text: String, verdict: Verdict = Verdict.NONE) -> PanelContainer:
 	content.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	if verdict != Verdict.NONE:
 		var box := bubble.get_theme_stylebox("panel").duplicate() as StyleBoxFlat # not the template's own
-		box.bg_color = VERDICT_FILL[verdict]
+		box.bg_color = GameColors.fill(VERDICT_ROLE[verdict])
 		box.border_color = box.bg_color.lightened(0.35)
 		bubble.add_theme_stylebox_override("panel", box)
-		content.add_theme_color_override("font_color", VERDICT_TEXT[verdict])
+		content.add_theme_color_override("font_color", GameColors.text_on(box.bg_color))
 	tag.hide() # a hint's tag is shown by _reveal_hint_tags
 	_notes.add_child(bubble)
 	UiFx.fade_in(bubble, 0.15)
@@ -437,6 +442,8 @@ func _build_rulebook() -> void:
 	text.name = "Text"
 	text.bbcode_enabled = true
 	text.add_theme_font_override("normal_font", FONT)
+	text.add_theme_font_override("bold_font", BOLD)
+	text.add_theme_font_size_override("bold_font_size", 6)
 	text.add_theme_font_size_override("normal_font_size", 6)
 	text.add_theme_color_override("default_color", Color("f4f4f4"))
 	text.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -464,27 +471,50 @@ func _build_rulebook() -> void:
 	_rulebook.add_child(close)
 
 
+## The rulebook, with what matters standing out: the rule itself is bold, the limits (times, amounts, file endings)
+## are colored like in the notes of the report (times gold, amounts cyan, file endings green), Good and Bad have
+## the colors of right and wrong, and the lines that only explain are dimmer.
 func _rulebook_text() -> String:
 	var book: Dictionary = _data.get("rulebook", {}) # the two sentences around the rules, from the scenario
+	var good := GameColors.good.to_html(false)
+	var bad := GameColors.bad.to_html(false)
+	var intro := str(book.get("intro", "REPORT a sign-in that breaks a rule. LET IT PASS if it follows every rule."))
+	intro = intro.replace("REPORT", "[b][color=%s]REPORT[/color][/b]" % bad).replace("LET PASS", "[b][color=%s]LET PASS[/color][/b]" % good).replace("LET IT PASS", "[b][color=%s]LET IT PASS[/color][/b]" % good)
 	var lines: Array[String] = [
-		"[color=%s]RULEBOOK[/color]" % YELLOW,
-		str(book.get("intro", "REPORT a sign-in that breaks a rule. LET IT PASS if it follows every rule.")),
+		"[b][color=%s]RULEBOOK[/color][/b]" % YELLOW,
+		intro,
 		"",
 	]
 	var number := 1
 	for rule: Dictionary in _data["rules"]:
-		lines.append("[color=%s]%d. %s[/color]" % [YELLOW, number, rule["name"]])
-		lines.append(rule["text"])
-		lines.append_array(rule.get("details", []))
+		lines.append("[b][color=%s]%d. %s[/color][/b]" % [YELLOW, number, rule["name"]])
+		lines.append("[b]%s[/b]" % _stand_out(str(rule["text"])))
+		for detail: String in rule.get("details", []):
+			lines.append("[color=%s]%s[/color]" % [MUTED, _stand_out(detail)])
 		if rule.has("exception_text"):
-			lines.append(rule["exception_text"])
+			lines.append("[color=%s]%s[/color]" % [MUTED, _stand_out(str(rule["exception_text"]))])
 		if rule.has("odd_margin"):
-			lines.append(str(book.get("margin", "Within %d minutes of the limit is a bit odd, but still allowed.")) % rule["odd_margin"])
-		lines.append("Good: %s    Bad: %s" % [rule["example_ok"], rule["example_bad"]])
-		lines.append("Why: %s" % rule["why"])
+			lines.append("[color=%s]%s[/color]" % [MUTED, str(book.get("margin", "Within %d minutes of the limit is a bit odd, but still allowed.")) % rule["odd_margin"]])
+		lines.append("[b][color=%s]Good:[/color][/b] %s    [b][color=%s]Bad:[/color][/b] %s" % [good, rule["example_ok"], bad, rule["example_bad"]])
+		lines.append("[color=%s]Why:[/color] %s" % [MUTED, rule["why"]])
 		lines.append("")
 		number += 1
 	return "\n".join(lines)
+
+
+## Times in gold, amounts in cyan and file endings in green, so the limits can be found at a glance.
+func _stand_out(text: String) -> String:
+	if _stand_out_regex == null:
+		_stand_out_regex = RegEx.create_from_string("(?<time>\\b\\d{1,2}:\\d{2}\\b)|(?<amount>\\b\\d[\\d,]*\\s?(?:files?|minutes?|seconds?|hours?|days?|GB|MB|KB|%|times|requests?|people)\\b)|(?<ending>\\.(?:docx|xlsx|pdf|txt|png|locked|exe|zip)\\b)")
+	var colors := {"time": YELLOW, "amount": "#73eff7", "ending": GameColors.good.to_html(false)}
+	var out := ""
+	var at := 0
+	for found in _stand_out_regex.search_all(text):
+		out += text.substr(at, found.get_start() - at)
+		var kind := "time" if found.get_string("time") != "" else ("amount" if found.get_string("amount") != "" else "ending")
+		out += "[color=%s]%s[/color]" % [colors[kind], found.get_string()]
+		at = found.get_end()
+	return out + text.substr(at)
 
 
 # --- Debug panel (=) ---

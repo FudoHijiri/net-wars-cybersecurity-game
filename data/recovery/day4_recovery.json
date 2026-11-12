@@ -1,0 +1,332 @@
+{
+	"_note": "The Day 4 (Insider Threat) work order. Same format as day3_recovery.json. attacks: the Response patterns that got through become these repairs. Components: folders (PermissionGrid), account (AccountAction: close the account, then talk to the person), restore (BackupTimeline in versions mode: one file, no 3-2-1 step), file_server (the final check, FileServerRepair).",
+	"room": {
+		"counter": "Repairs {done}/{total}",
+		"controls": "WASD / arrows: move     E: use     Esc: pause",
+		"return": "Finish shift",
+		"finish": "Finish shift",
+		"work_order": "Office exit / work order",
+		"waiting": "Waiting for Response",
+		"waiting_body": "Response has not confirmed that the insider is stopped. You can look around, but the equipment must stay dark until it is.",
+		"all_done": "Checks complete. Return to the office entrance to finish.",
+		"summary_title": "Recovery complete",
+		"summary_body": "The repairs and the final check passed.",
+		"summary_lesson": "Real access can still be wrong. Give each person only the access the job needs, close access the day someone leaves, and ask before you accuse.",
+		"unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
+		"hardening_unavailable": "No hardening results have been supplied.",
+		"verify_locked": "Finish the required restoration work before the final access checks.",
+		"not_required": "This equipment does not need restoration in this work order.",
+		"close": "Back"
+	},
+	"points": {
+		"base": 15,
+		"clean_bonus": 10
+	},
+	"finish": {
+		"comments": {
+			"clean": "Joshua: Access closed, file restored, and you asked before you accused. Not one wrong move.",
+			"done": "Joshua: Everything is fixed. Next time, think about what the logs show before you decide."
+		}
+	},
+	"task_ui": {
+		"hint": "Take your time. Read the labels before choosing.",
+		"needs_repair": "[!] REQUIRED",
+		"working": "[=] NO REPAIR NEEDED",
+		"restored": "[OK] CHECKED",
+		"waiting": "[?] AWAITING CLEARANCE",
+		"locked": "[>] RESTORE FIRST",
+		"stamp": "REPAIRED",
+		"machine_default": "Workstation"
+	},
+	"case": {
+		"day": 4,
+		"day_title": "Wrong Door",
+		"threat": "Insider Threat",
+		"brief": "The insider is stopped, but the access is still open. Victor can still open folders that are not his, his account still works, and one customer file was emptied. Fix each one, then check that normal work is safe.",
+		"lesson": "Give each person only the access the job needs, close it the day they leave, and ask before you accuse."
+	},
+	"attacks": [
+		{
+			"id": "trusted",
+			"label": "Trusted access",
+			"component": "folders"
+		},
+		{
+			"id": "slowcopy",
+			"label": "Slow copy",
+			"component": "account"
+		},
+		{
+			"id": "walkout",
+			"label": "Walk-out",
+			"component": "restore"
+		}
+	],
+	"components": {
+		"restore": {
+			"title": "Get the file back",
+			"system": "VERSIONS",
+			"instruction": "One customer file was emptied while the files were walking out. Pick the last good version, from before it was emptied. Test it, then restore it.",
+			"lesson": "A version history turns a mistake into an annoying day. Pick the last good version, not the newest.",
+			"heading": "customers_q3.xlsx, oldest to newest",
+			"pick": "Click a version to read about it.",
+			"choose": "Click a version to read about it.",
+			"marker": {
+				"after": "v2",
+				"label": "21:48\nEMPTIED"
+			},
+			"backups": [
+				{
+					"id": "v1",
+					"label": "Mon 16:10\nVersion 38",
+					"ok": false,
+					"detail": "Monday 16:10. Complete, but three days old: it is missing the changes made since.",
+					"bad": "This version is complete but old. It would lose three days of changes. Take the last good one."
+				},
+				{
+					"id": "v2",
+					"label": "Yesterday 20:55\nVersion 41",
+					"ok": true,
+					"detail": "Yesterday 20:55. Complete, with every change up to the evening. Made before the file was emptied.",
+					"bad": ""
+				},
+				{
+					"id": "v3",
+					"label": "21:50\nVersion 42",
+					"ok": false,
+					"detail": "Yesterday 21:50. Saved after the file was emptied.",
+					"bad": "This version was saved after the file was emptied, so it is empty too."
+				},
+				{
+					"id": "v4",
+					"label": "Today 08:00\nVersion 43",
+					"ok": false,
+					"detail": "Today 08:00. The newest, saved by the morning backup.",
+					"bad": "The newest version is a copy of the emptied file. The newest is not always the last good one."
+				}
+			],
+			"test": "TEST VERSION",
+			"restore": "RESTORE FILE",
+			"select_first": "Choose a version first.",
+			"tested": "Complete and from before the file was emptied. The restore test passed.",
+			"test_first": "Test the selected version before restoring it.",
+			"restored": "The customer file is back, as it was last evening.",
+			"lost": "Only the changes since 20:55 are lost.",
+			"tutorial": "recovery_restore",
+			"success": "The customer file is back with every change up to 20:55. Only about an hour of work is lost."
+		},
+		"folders": {
+			"title": "Take away the extra access",
+			"system": "PERMISSIONS",
+			"instruction": "Victor still opens folders from his old job, and others have more access than they need. Turn off what a person does not need, and keep what their job needs.",
+			"lesson": "Give only the access the job needs. When a person changes jobs, close the old access.",
+			"heading": "Who may open which folder",
+			"pick": "Turn off the access a person does not need. Keep what their job needs.",
+			"can_open": "May open",
+			"extra": "That person does not need this folder. Leave it off.",
+			"removed": "{who} no longer reaches that folder.",
+			"columns": [
+				{
+					"id": "projects",
+					"label": "Projects"
+				},
+				{
+					"id": "salaries",
+					"label": "Salaries"
+				},
+				{
+					"id": "customers",
+					"label": "Customers"
+				},
+				{
+					"id": "finance",
+					"label": "Finance"
+				}
+			],
+			"rows": [
+				{
+					"id": "victor",
+					"label": "Victor (Sales)",
+					"needs": [
+						"customers"
+					],
+					"start": [
+						"customers",
+						"projects",
+						"salaries"
+					],
+					"reason": "Victor works in Sales now. He needs the Customers folder."
+				},
+				{
+					"id": "omar",
+					"label": "Omar (Eng.)",
+					"needs": [
+						"projects"
+					],
+					"start": [
+						"projects",
+						"finance"
+					],
+					"reason": "Omar works in Engineering. He needs the Projects folder."
+				},
+				{
+					"id": "nadia",
+					"label": "Nadia (HR)",
+					"needs": [
+						"salaries"
+					],
+					"start": [
+						"salaries"
+					],
+					"reason": "Nadia is the HR manager. She needs the Salaries folder."
+				},
+				{
+					"id": "lena",
+					"label": "Lena (Sales)",
+					"needs": [
+						"customers"
+					],
+					"start": [
+						"customers"
+					],
+					"reason": "Lena works in Sales. She needs the Customers folder."
+				}
+			],
+			"tutorial": "recovery_folders",
+			"success": "Everyone has the access their job needs and no more. Victor can no longer open Projects or Salaries."
+		},
+		"file_server": {
+			"title": "Back to work",
+			"system": "FINAL CHECK",
+			"instruction": "Check that normal work is safe again. Each check proves one repair worked.",
+			"lesson": "Recovery is finished only when the work is safe and you have checked it.",
+			"checks": [
+				{
+					"id": "customer_file",
+					"label": "CUSTOMER FILE",
+					"expected": "Trusted record: the customer file should open, with its rows.",
+					"passed": "The customer file opened with all its rows.",
+					"failed": "The customer file is empty. Do not mark recovery complete.",
+					"icon": "file"
+				},
+				{
+					"id": "victor_access",
+					"label": "OLD ACCESS",
+					"expected": "Trusted record: Victor should open only Customers.",
+					"passed": "Victor opens only the Customers folder. Projects and Salaries are closed.",
+					"failed": "Victor can still open a folder that is not his. Recovery stays open.",
+					"icon": "account"
+				},
+				{
+					"id": "account_state",
+					"label": "ACCOUNT",
+					"expected": "Trusted record: Victor's account should be disabled.",
+					"passed": "Victor's account is disabled.",
+					"failed": "Victor's account still works. Recovery stays open.",
+					"icon": "contact"
+				}
+			],
+			"run": "Run check",
+			"confirm": "Confirm results",
+			"all_checks": "Run every check before confirming recovery.",
+			"failed": "A check failed. Keep recovery open and ask the response team to address the result.",
+			"passed": "[OK] {result}",
+			"failed_result": "[!] {result}",
+			"success": "The customer file opens, Victor's old access is closed and his account is disabled. Normal work is safe again.",
+			"points": {
+				"base": 20,
+				"clean_bonus": 0
+			}
+		},
+		"account": {
+			"title": "Disable the account, then talk",
+			"system": "ACCOUNTS",
+			"instruction": "Victor leaves on Friday and his account still reaches too much. Close the right account first. Then choose how to talk to him.",
+			"lesson": "Close a person's access the day they leave. Ask before you accuse: the logs show what happened, never why.",
+			"heading": "Which account should be disabled?",
+			"pick": "Click an account to read about it. Then press DISABLE ACCOUNT.",
+			"choose": "Click an account to read about it.",
+			"select_first": "Choose an account first.",
+			"disable": "DISABLE ACCOUNT",
+			"accounts": [
+				{
+					"id": "victor",
+					"label": "Victor's account",
+					"ok": true,
+					"detail": "Victor Lang. Leaves on Friday. His old access was never removed, and 2 GB left from this account."
+				},
+				{
+					"id": "admin",
+					"label": "Shared admin account",
+					"ok": false,
+					"detail": "Used by the whole IT team for everyday work.",
+					"reason": "Many people use the shared account. Disabling it stops everyone's work and does nothing about Victor."
+				},
+				{
+					"id": "nadia",
+					"label": "Nadia's account",
+					"ok": false,
+					"detail": "Nadia Costa, HR manager.",
+					"reason": "Nadia did nothing wrong. She is allowed in the salary folder, and she is the one who asked us to be careful."
+				},
+				{
+					"id": "lena",
+					"label": "Lena's account",
+					"ok": false,
+					"detail": "Lena Moreau, Sales.",
+					"reason": "Lena's mistake was an accident, and she already asked for the list back. It is not part of this case."
+				}
+			],
+			"disabled": "Victor's account is disabled. He cannot open anything more. Now, how do you talk to him?",
+			"talk_heading": "How do you talk to Victor?",
+			"talk": [
+				{
+					"id": "accuse",
+					"label": "Accuse him in front of the team",
+					"ok": false,
+					"reason": "He may have a reason. Accusing him in front of others is unfair, and it cannot be taken back."
+				},
+				{
+					"id": "ask",
+					"label": "Ask him in private, with HR there, and listen",
+					"ok": true
+				},
+				{
+					"id": "silence",
+					"label": "Say nothing and hope it stops",
+					"ok": false,
+					"reason": "Silence leaves the question open. The logs show what he did, so ask him why, with HR present."
+				}
+			],
+			"tutorial": "recovery_account",
+			"success": "Victor's account is disabled and you will ask him in private, with HR. You know what happened. Now you can find out why."
+		}
+	},
+	"equipment_selection": {
+		"folders": [
+			"network",
+			"servers"
+		],
+		"account": [
+			"access",
+			"monitoring"
+		],
+		"restore": [
+			"backup",
+			"servers"
+		],
+		"file_server": [
+			"servers"
+		]
+	},
+	"response_outcome": {
+		"contained": true,
+		"summary": "Response stopped the insider. The access, the account and the customer file are ready for repairs.",
+		"cleared_devices": {},
+		"verification": {
+			"customer_file": true,
+			"victor_access": true,
+			"account_state": true
+		}
+	}
+}

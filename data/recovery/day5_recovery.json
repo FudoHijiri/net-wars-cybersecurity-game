@@ -1,0 +1,351 @@
+{
+	"_note": "The Day 5 (Data Exfiltration) work order. Same format as day4_recovery.json. attacks: the Response patterns that got through become these repairs. Components: folders (PermissionGrid: which computer may send where), rotate (OrderSteps: change the key of the service account), archive (AccountAction with files: find the leftover archive and delete it, then choose whom to tell), file_server (the final check, FileServerRepair).",
+	"room": {
+		"counter": "Repairs {done}/{total}",
+		"controls": "WASD / arrows: move     E: use     Esc: pause",
+		"return": "Finish shift",
+		"finish": "Finish shift",
+		"work_order": "Office exit / work order",
+		"waiting": "Waiting for Response",
+		"waiting_body": "Response has not confirmed that the leak is stopped. You can look around, but the equipment must stay dark until it is.",
+		"all_done": "Checks complete. Return to the office entrance to finish.",
+		"summary_title": "Recovery complete",
+		"summary_body": "The repairs and the final check passed.",
+		"summary_lesson": "Close the door, change the key, find what is left, then tell the people who must know, plainly and honestly.",
+		"unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
+		"hardening_unavailable": "No hardening results have been supplied.",
+		"verify_locked": "Finish the required restoration work before the final access checks.",
+		"not_required": "This equipment does not need restoration in this work order.",
+		"close": "Back"
+	},
+	"points": {
+		"base": 15,
+		"clean_bonus": 10
+	},
+	"finish": {
+		"comments": {
+			"clean": "Joshua: Door closed, key changed, archive gone, and the right people told. Not one wrong move.",
+			"done": "Joshua: Everything is fixed. Next time, think about what the logs show before you decide."
+		}
+	},
+	"task_ui": {
+		"hint": "Take your time. Read the labels before choosing.",
+		"needs_repair": "[!] REQUIRED",
+		"working": "[=] NO REPAIR NEEDED",
+		"restored": "[OK] CHECKED",
+		"waiting": "[?] AWAITING CLEARANCE",
+		"locked": "[>] RESTORE FIRST",
+		"stamp": "REPAIRED",
+		"machine_default": "Workstation"
+	},
+	"case": {
+		"day": 5,
+		"day_title": "Slow Leak",
+		"threat": "Data Exfiltration",
+		"brief": "The leak is stopped, but the door is still open. db-01 may still send data to places nobody approved, the key of the account svc-report was never changed, and a leftover archive is still on the server. Fix each one, then check that nothing is still leaking.",
+		"lesson": "Allow only the places data is meant to go, change a key that was never changed, and tell the people who must know."
+	},
+	"attacks": [
+		{
+			"id": "door",
+			"label": "Hidden door",
+			"component": "folders"
+		},
+		{
+			"id": "trickle",
+			"label": "Quiet trickle",
+			"component": "rotate"
+		},
+		{
+			"id": "grab",
+			"label": "Big grab",
+			"component": "archive"
+		}
+	],
+	"components": {
+		"folders": {
+			"title": "Close the door: firewall rules",
+			"system": "FIREWALL",
+			"instruction": "db-01 and web-01 can still send data to places nobody approved. Turn off the places a computer does not need, and keep the ones its job needs.",
+			"lesson": "Allow only the places data is meant to go. Anything else stays closed.",
+			"heading": "Where each computer may send",
+			"pick": "Turn off the places a computer does not need. Keep what its job needs.",
+			"can_open": "May send",
+			"extra": "That computer does not need this place. Leave it off.",
+			"removed": "{who} can no longer send there.",
+			"columns": [
+				{
+					"id": "cloud",
+					"label": "Backup cloud"
+				},
+				{
+					"id": "updates",
+					"label": "Updates"
+				},
+				{
+					"id": "partner",
+					"label": "Partner"
+				},
+				{
+					"id": "unknown",
+					"label": "198.51.100.23"
+				}
+			],
+			"rows": [
+				{
+					"id": "db",
+					"label": "db-01",
+					"needs": [
+						"cloud"
+					],
+					"start": [
+						"cloud",
+						"partner",
+						"unknown"
+					],
+					"reason": "db-01 sends the nightly backup to the backup cloud. That is its job, so that place stays open."
+				},
+				{
+					"id": "backup",
+					"label": "backup-01",
+					"needs": [
+						"cloud"
+					],
+					"start": [
+						"cloud"
+					],
+					"reason": "backup-01 copies the backups to the backup cloud. If that is closed, there are no backups."
+				},
+				{
+					"id": "web",
+					"label": "web-01",
+					"needs": [
+						"updates",
+						"partner"
+					],
+					"start": [
+						"updates",
+						"partner",
+						"unknown"
+					],
+					"reason": "web-01 fetches updates and sends the hourly summary to the partner. Both are part of its job."
+				},
+				{
+					"id": "laptop",
+					"label": "Reception laptop",
+					"needs": [],
+					"start": [
+						"updates"
+					],
+					"reason": "The laptop does not need to send anything directly."
+				}
+			],
+			"tutorial": "recovery_folders",
+			"success": "Every computer may send only to its own places. 198.51.100.23 is closed for all of them."
+		},
+		"rotate": {
+			"title": "Change the key: svc-report",
+			"system": "KEYS",
+			"instruction": "The password of svc-report has never been changed, and the thief used it. Change it without breaking the report that needs it. Put the six steps in the right order.",
+			"lesson": "A password that never changes is a door that never closes. Make the new key first, then retire the old one.",
+			"heading": "Change the key, in order",
+			"pick": "Click the first step. Then the next, and so on.",
+			"wrong": "That step is not next yet. Think about what has to happen before it.",
+			"shuffled": [
+				"owner",
+				"disable",
+				"update_job",
+				"remove_old",
+				"create",
+				"test_job"
+			],
+			"steps": [
+				{
+					"id": "create",
+					"label": "Create a new, long password",
+					"done": "A new password exists. The old one still works for now.",
+					"early": "Make the new password first. Without it there is nothing to change to."
+				},
+				{
+					"id": "update_job",
+					"label": "Give the new password to the job that needs it",
+					"done": "The monthly report job has the new password.",
+					"early": "The job gets the new password only after it exists."
+				},
+				{
+					"id": "test_job",
+					"label": "Test that the job still works",
+					"done": "The report job ran with the new password.",
+					"early": "Test the job after it has the new password, and before the old one is turned off."
+				},
+				{
+					"id": "disable",
+					"label": "Disable the old password",
+					"done": "The old password stops working. The thief's copy is useless now.",
+					"early": "Do not turn the old password off before the job works with the new one, or the report breaks."
+				},
+				{
+					"id": "remove_old",
+					"label": "Remove the old password from every place it was saved",
+					"done": "The old password is gone from the scripts and the notes.",
+					"early": "Remove the saved copies after the old password is disabled, so nothing tries it again."
+				},
+				{
+					"id": "owner",
+					"label": "Write down who owns the account",
+					"done": "svc-report now has an owner. Nobody will forget it again.",
+					"early": "Write the owner down last, when the account is in order."
+				}
+			],
+			"success": "svc-report has a new key, the report still works, and someone owns the account.",
+			"tutorial": "recovery_rebuild"
+		},
+		"archive": {
+			"title": "Find what is left, then tell",
+			"system": "FILES",
+			"instruction": "A leftover archive of the customers is on db-01. Find it by its odd hour, delete it, then choose whom to tell.",
+			"lesson": "Find what is left, then tell the people who must know, plainly and honestly.",
+			"heading": "Which file is the leftover archive?",
+			"pick": "Click a file to read about it. Then press DELETE FILE.",
+			"choose": "Click a file to read about it.",
+			"select_first": "Choose a file first.",
+			"disable": "DELETE FILE",
+			"accounts": [
+				{
+					"id": "tmp",
+					"label": "tmp_cache.zip",
+					"ok": true,
+					"detail": "480 MB, in the temp folder of db-01. Made at 03:12 and deleted at 05:40, every night."
+				},
+				{
+					"id": "backup",
+					"label": "backup.tar",
+					"ok": false,
+					"detail": "9 GB. Made at 01:00 by the nightly backup, and kept for 30 days.",
+					"reason": "That is the nightly backup. It is approved and it is our only copy. Deleting it would hurt us, not the thief."
+				},
+				{
+					"id": "customers",
+					"label": "live.db",
+					"ok": false,
+					"detail": "The live customer database, used by Support all day.",
+					"reason": "That is the live database. Deleting it would stop Support, and the data is still needed."
+				},
+				{
+					"id": "partner",
+					"label": "summary.csv",
+					"ok": false,
+					"detail": "3 MB. Made every hour for the analytics partner.",
+					"reason": "That is the agreed partner report. It is small, regular and approved. It is not the leak."
+				},
+				{
+					"id": "march",
+					"label": "march.xlsx",
+					"ok": false,
+					"detail": "4 MB. The March report, opened by Marta.",
+					"reason": "That is Marta's report. It has nothing to do with the leak."
+				},
+				{
+					"id": "handbook",
+					"label": "guide.pdf",
+					"ok": false,
+					"detail": "2 MB. The staff handbook in the shared folder.",
+					"reason": "That is the staff handbook. It never left, and it is not private."
+				}
+			],
+			"disabled": "tmp_cache.zip is deleted. Nothing of the archive is left on db-01. Now, whom do you tell?",
+			"talk_heading": "Whom do you tell, and how?",
+			"talk": [
+				{
+					"id": "everyone",
+					"label": "Announce it to the whole company, with a loud alarm",
+					"ok": false,
+					"reason": "Most people are not affected, and panic helps nobody. Tell the people who must know."
+				},
+				{
+					"id": "right",
+					"label": "Tell the manager and the customers affected, plainly",
+					"ok": true
+				},
+				{
+					"id": "nobody",
+					"label": "Tell nobody and hope nobody noticed",
+					"ok": false,
+					"reason": "The customers already got spam. They will find out anyway, and they deserve to hear it from us first."
+				}
+			],
+			"tutorial": "recovery_archive",
+			"success": "The leftover archive is deleted, and the manager and the customers affected will be told plainly. The truth comes from us."
+		},
+		"file_server": {
+			"title": "Back to work",
+			"system": "FINAL CHECK",
+			"instruction": "Check that nothing is still leaking. Each check proves one repair worked.",
+			"lesson": "Recovery is finished only when nothing is leaking and you have checked it.",
+			"checks": [
+				{
+					"id": "leak_job",
+					"label": "THE JOB",
+					"expected": "Trusted record: the job sync_cache should be gone.",
+					"passed": "The job sync_cache is gone. Nothing runs at 03:10.",
+					"failed": "The job sync_cache still runs. Recovery stays open.",
+					"icon": "file"
+				},
+				{
+					"id": "transfers",
+					"label": "TRANSFERS",
+					"expected": "Trusted record: db-01 should not reach 198.51.100.23.",
+					"passed": "db-01 cannot reach 198.51.100.23. The transfers are blocked.",
+					"failed": "db-01 can still reach 198.51.100.23. Recovery stays open.",
+					"icon": "account"
+				},
+				{
+					"id": "password",
+					"label": "THE KEY",
+					"expected": "Trusted record: svc-report should have a new password.",
+					"passed": "svc-report has a new password.",
+					"failed": "svc-report still has the old password. Recovery stays open.",
+					"icon": "contact"
+				}
+			],
+			"run": "Run check",
+			"confirm": "Confirm results",
+			"all_checks": "Run every check before confirming recovery.",
+			"failed": "A check failed. Keep recovery open and ask the response team to address the result.",
+			"passed": "[OK] {result}",
+			"failed_result": "[!] {result}",
+			"success": "The job is gone, the transfers to the unknown host are blocked, and svc-report has a new key. Nothing is leaking.",
+			"points": {
+				"base": 20,
+				"clean_bonus": 0
+			}
+		}
+	},
+	"equipment_selection": {
+		"folders": [
+			"network",
+			"servers"
+		],
+		"rotate": [
+			"access",
+			"monitoring"
+		],
+		"archive": [
+			"backup",
+			"servers"
+		],
+		"file_server": [
+			"servers"
+		]
+	},
+	"response_outcome": {
+		"contained": true,
+		"summary": "Response stopped the leak. The door, the key and the leftover archive are ready for repairs.",
+		"cleared_devices": {},
+		"verification": {
+			"leak_job": true,
+			"transfers": true,
+			"password": true
+		}
+	}
+}

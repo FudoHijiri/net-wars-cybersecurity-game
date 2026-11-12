@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "It's contained. The insider is stopped, but now we have to see what he left open.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. But stopped is not fixed. The access is still open, the account still works, and there is a person in all this.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Anything he touched is still open, or still broken. We can't let people go back to work yet.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What do we fix first?": "C1",
+			"Should we tell the team?": "C2"
+		}
+	},
+	"C1": {
+		"text": "Walk through the office and look for machines marked with a [b][color=red]![/color][/b]. Close the access first, then the account, then bring the file back.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "No. We ask him in private, with HR there, and we listen. He may have a reason, and it cannot be taken back once it is said.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "Fix one thing at a time. When everything is repaired, we run a [b][color=green]final check[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Got it. Close the access, then the account, then talk. I want the truth, and I want to be fair.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

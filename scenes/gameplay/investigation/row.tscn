@@ -22,34 +22,6 @@ content_margin_right = 10.0
 font = ExtResource("1_2xnly")
 font_size = 6
 
-[sub_resource type="Theme" id="Theme_154kt"]
-default_font = ExtResource("1_2xnly")
-default_font_size = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sqd1f"]
-bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wkqd"]
-bg_color = Color(0.2, 0.23529412, 0.34117648, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8407"]
-bg_color = Color(0.23137255, 0.3647059, 0.7882353, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
-
 [node name="Row" type="Control" unique_id=270359512]
 layout_mode = 3
 anchors_preset = 15
@@ -109,19 +81,3 @@ label_settings = SubResource("LabelSettings_xttc1")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer" unique_id=1632995654]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/HBoxContainer" unique_id=1903793689]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="HSplitContainer/HBoxContainer/VBoxContainer" unique_id=1569355204]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 6
-theme = SubResource("Theme_154kt")
-theme_override_styles/normal = SubResource("StyleBoxFlat_sqd1f")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_0wkqd")
-theme_override_styles/hover = SubResource("StyleBoxFlat_a8407")
-text = " SELECT"

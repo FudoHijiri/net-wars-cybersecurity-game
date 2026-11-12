@@ -1,0 +1,155 @@
+{
+	"_note": "The Day 3 (Ransomware) fight. Same format as response_day2.json. Kinds: creep (a lock that spreads over a grid of cells: cell, seed every 'interval' seconds, spread_every, warn = seconds a cell blinks before it locks, cap = share of the cells that can be locked, wall_cols = grid columns where a wall stops the spread when the counter is equipped), demand (notes fall while a bar fills over fill_time seconds; when it is full a wall comes with a gap: walls = how many, wall_every = seconds between them; with the counter the bar stops at fill_cap and no wall comes), twin (a pair of files, one from each side; with the counter only the threat's side attacks). Everything else is as on Day 2.",
+	"threat": "Ransomware",
+	"enemy_frames": "res://assets/charactersprite/enemies/ransomware_frames.tres",
+	"player_hp": 90,
+	"boss_hp": 110,
+	"energy": 3,
+	"hand_size": 5,
+	"finish": {
+		"reward": 70,
+		"title_lost": "Response Failed",
+		"unpaid_text": "Fight lost, not paid: ",
+		"comments": {
+			"flawless": "Joshua: Nothing got through. Recovery only needs a final check.",
+			"won": "Joshua: {threat} is stopped. These got through: {names}. Recovery will repair them.",
+			"lost": "Joshua: {threat} got through. Check your upgrades and your deck, then try again."
+		}
+	},
+	"defenses": [
+		{
+			"id": "folders",
+			"name": "Limit Shared Folders",
+			"works": "The lock stopped at the wall, so only one folder was hit.",
+			"harder": "No Limit Shared Folders: the lock spreads faster, and nothing stops it between folders."
+		},
+		{
+			"id": "offline",
+			"name": "Offline Backups",
+			"works": "There was nothing to hold for ransom, so the demand never came.",
+			"harder": "No Offline Backups: the demand grows fast, and the walls that follow have tiny gaps."
+		},
+		{
+			"id": "encrypt",
+			"name": "Encrypt Stored Data",
+			"works": "The stolen copy could not be read, so only one side attacked.",
+			"harder": "No Encrypt Stored Data: the copy is readable, so pairs come from both sides, close together."
+		},
+		{
+			"id": "filter",
+			"name": "Filter Suspicious Email",
+			"works": "The filter spotted the attack early, so you had a little more time.",
+			"helper_warning": 0.6,
+			"helper_note": "FILTERED: early warning"
+		}
+	],
+	"patterns": [
+		{
+			"id": "masslock",
+			"name": "Mass lock",
+			"counter": "folders",
+			"kind": "creep",
+			"sprite": "res://assets/bullets/ransomware/bullet_lock.png",
+			"duration": 10.0,
+			"interval": 2.0,
+			"speed": 0,
+			"damage": 6,
+			"radius": 4.0,
+			"cell": 16,
+			"spread_every": 1.0,
+			"warn": 0.55,
+			"cap": 0.4,
+			"wall_cols": [
+				3,
+				5
+			],
+			"teach": "The lock spreads from one spot. Stay in the free part.",
+			"say": "Every file in the folder, locked.",
+			"works_note": "WALLED: the lock stops at the wall",
+			"box": [
+				112,
+				112
+			],
+			"lead": 0.5,
+			"harsh": {
+				"spread_every": 0.4,
+				"warn": 0.3,
+				"cap": 0.78,
+				"damage": 8,
+				"interval": 1.2
+			}
+		},
+		{
+			"id": "demand",
+			"name": "Ransom demand",
+			"counter": "offline",
+			"kind": "demand",
+			"sprite": "res://assets/bullets/ransomware/bullet_note.png",
+			"duration": 9.0,
+			"interval": 0.45,
+			"speed": 70,
+			"damage": 4,
+			"radius": 4.0,
+			"fill_time": 5.0,
+			"fill_cap": 0.6,
+			"wall_speed": 85,
+			"wall_gap": 44,
+			"wall_spacing": 8,
+			"wall_damage": 9,
+			"teach": "A bar fills as the demand grows. When it is full, a wall comes.",
+			"say": "Pay, or never see your files again.",
+			"works_note": "OFFLINE: nothing to ask for",
+			"box": [
+				112,
+				112
+			],
+			"lead": 1.5,
+			"harsh": {
+				"fill_time": 3.4,
+				"wall_gap": 26,
+				"wall_speed": 100,
+				"interval": 0.3,
+				"speed": 90,
+				"damage": 5,
+				"walls": 2,
+				"wall_every": 1.1
+			}
+		},
+		{
+			"id": "extortion",
+			"name": "Double extortion",
+			"counter": "encrypt",
+			"kind": "twin",
+			"sprite": "res://assets/bullets/ransomware/bullet_threat.png",
+			"sprite_copy": "res://assets/bullets/ransomware/bullet_copy.png",
+			"duration": 8.0,
+			"interval": 0.65,
+			"speed": 85,
+			"damage": 5,
+			"radius": 4.0,
+			"teach": "Two copies come, one from each side. Pay or be published.",
+			"say": "Pay, or the copy goes public.",
+			"works_note": "ENCRYPTED: the copy is useless",
+			"box": [
+				112,
+				112
+			],
+			"lead": 0.8,
+			"harsh": {
+				"interval": 0.36,
+				"damage": 6,
+				"speed": 105
+			}
+		}
+	],
+	"tutorial": "response_day3",
+	"doom": {
+		"counter": "offline",
+		"name": "NO OFFLINE BACKUP",
+		"percent": 30,
+		"warn": "WITHOUT THIS UPGRADE THE ATTACKS CANNOT BE STOPPED: they come as walls with no gap, Dodge does nothing, and every hit takes 30% of your HP.",
+		"strike": "More files are locked for good.",
+		"lost": "Joshua: With no backup kept apart from the network, the ransomware locked everything for good and there was nothing to restore. A backup apart from the network is what saves you."
+	},
+	"_doom_note": "doom: the upgrade this threat cannot be beaten without. When it is not equipped every pattern comes as a wall that fills the whole box (kind doomwall, no gap to dodge through), Dodge cards do nothing, and each hit takes 'percent' of the maximum HP (Block still takes its share). 'warn' is read at the start of the fight and 'lost' is Joshua's comment when the fight is lost."
+}

@@ -1,0 +1,987 @@
+{
+	"id": "webapp",
+	"day": 8,
+	"threat_name": "Web Application Attack",
+	"speaker": "Joshua",
+	"clues_required": 5,
+	"tabs": {
+		"logs": "WEB LOGS",
+		"computers": "ACCOUNTS",
+		"login": "SIGN-INS"
+	},
+	"finish": {
+		"points_per_clue": 20,
+		"points_per_mistake": 5,
+		"bonus": 25,
+		"comments": {
+			"flawless": "Joshua: The report was right on the first try. Bonus approved.",
+			"done": "Joshua: Case closed. Next time, read what was typed and what the site did with it before you decide."
+		}
+	},
+	"all_clues_monologue": [
+		"That's enough. One address typed code into the login form, the database answered with everything, and it left a file and an administrator behind.",
+		"An apostrophe in a name and our own scanner look odd too, but they are harmless. Time to press REPORT and show what was typed and what it did."
+	],
+	"investigation": {
+		"email": {
+			"title": "EMAIL > SAM'S REPORT, A CUSTOMER, THE SCAN",
+			"columns": [
+				"FROM",
+				"SUBJECT",
+				"TIME"
+			],
+			"widths": [
+				80,
+				170,
+				50
+			],
+			"entries": [
+				{
+					"id": "email_sam",
+					"cells": [
+						"Sam Kowalski",
+						"Odd errors and two odd orders",
+						"14:30"
+					],
+					"title": "Odd errors and two odd orders, from Sam",
+					"detail": "From: Sam Kowalski, web developer\nTo: IT desk\nTime: today 14:30\nSubject: Odd errors and two odd orders\n\nThe customer portal shows strange errors, and two orders came in that nobody placed. It started around 14:00. The site runs ShopKit.",
+					"entities": [
+						"user:sam",
+						"event:inject",
+						"host:web01"
+					],
+					"monologue": [
+						"Strange errors and two orders nobody placed. Starting around 14:00.",
+						"A customer typing into a form can cause that. Who typed what?"
+					],
+					"summary": "Sam reported strange errors and two odd orders at 14:30.",
+					"is_clue": false
+				},
+				{
+					"id": "email_obrien",
+					"cells": [
+						"Ciaran O'Brien",
+						"Is my name a problem?",
+						"10:35"
+					],
+					"title": "Is my name a problem?",
+					"detail": "From: Ciaran O'Brien, customer\nTo: Support\nTime: today 10:35\nSubject: Is my name a problem?\n\nMy name has an apostrophe, and a website once told me it was an error. Is that why the page looked odd this morning? Everything worked in the end.",
+					"entities": [
+						"user:ciaran"
+					],
+					"monologue": [
+						"A customer whose name has an apostrophe. Worth a thought, but an apostrophe in a name is just a name."
+					],
+					"summary": "Ciaran O'Brien asked at 10:35 if the apostrophe in his name is a problem.",
+					"is_clue": false
+				},
+				{
+					"id": "email_scan",
+					"cells": [
+						"Carla Patel",
+						"Security scan on Tuesday",
+						"09:00"
+					],
+					"title": "Security scan on Tuesday",
+					"detail": "From: Carla Patel, Security\nTo: IT desk\nTime: today 09:00\nSubject: Security scan on Tuesday\n\nOur approved scanner will test the customer portal today at 13:15, as it does every Tuesday. It will type test strings into the forms on purpose. Do not be alarmed.",
+					"entities": [
+						"host:scanner",
+						"user:carla"
+					],
+					"monologue": [
+						"Our own scanner tests the site every Tuesday, and it types odd text on purpose. Keep that in mind."
+					],
+					"summary": "Carla's approved scanner tests the portal at 13:15 every Tuesday.",
+					"is_clue": false
+				},
+				{
+					"id": "email_update",
+					"cells": [
+						"IT",
+						"Framework update next month",
+						"Mon"
+					],
+					"title": "Framework update next month",
+					"detail": "From: IT\nTo: web team\nTime: last Monday\nSubject: Framework update next month\n\nThe web framework ShopKit has a new version, 2.4, that fixes a login problem. We plan to install it next month.",
+					"entities": [
+						"software:shopkit",
+						"host:web01"
+					],
+					"monologue": [
+						"A fix for a login problem, planned for next month. Not done yet."
+					],
+					"summary": "The ShopKit 2.4 update is planned for next month, not installed.",
+					"is_clue": false
+				},
+				{
+					"id": "email_news",
+					"cells": [
+						"Newsletter",
+						"This week at the company",
+						"Fri"
+					],
+					"title": "This week at the company",
+					"detail": "From: Newsletter\nTo: all staff\nTime: Friday\n\nA birthday, a new coffee machine, and a reminder about the car park.",
+					"entities": [],
+					"monologue": [
+						"The weekly newsletter. Not today's problem."
+					],
+					"summary": "The weekly newsletter has company news.",
+					"is_clue": false
+				}
+			]
+		},
+		"logs": {
+			"title": "WEB LOGS > WHAT WAS TYPED, AND THE ANSWER",
+			"columns": [
+				"TIME",
+				"PAGE",
+				"TYPED",
+				"ANSWER"
+			],
+			"widths": [
+				40,
+				46,
+				120,
+				94
+			],
+			"entries": [
+				{
+					"id": "web_inject",
+					"cells": [
+						"14:02",
+						"/login",
+						"' OR 1=1 -- (x40)",
+						"2,400 rows"
+					],
+					"title": "' OR 1=1 -- typed into the login form 40 times, from 14:02",
+					"detail": "Time: from 14:02\nPage: /login\nTyped into the name box: ' OR 1=1 --\nHow many times: 40\nFrom: one address, 198.51.100.80\nAnswer: 2,400 rows (every customer)\n\nA name is never made of code.",
+					"entities": [
+						"ip:198.51.100.80",
+						"event:inject",
+						"host:db01"
+					],
+					"monologue": [
+						"A line of code, forty times, from one address, and the answer is every customer. Who types that into a name box?",
+						"That is not a name."
+					],
+					"summary": "At 14:02, ' OR 1=1 -- was typed into the login form 40 times, and the answer was 2,400 rows.",
+					"is_clue": true
+				},
+				{
+					"id": "web_limit_on",
+					"cells": [
+						"14:03",
+						"/login",
+						"The limit",
+						"Stopped at 40"
+					],
+					"title": "The request limit stopped the address after 40",
+					"detail": "Time: 14:03\nWho: 198.51.100.80\nWhat happened: the request limit stopped the address after 40 tries",
+					"entities": [
+						"ip:198.51.100.80",
+						"event:inject"
+					],
+					"monologue": [
+						"The limit cut the address off at forty. It could have been much worse."
+					],
+					"summary": "The request limit stopped the address after 40 requests.",
+					"is_clue": false,
+					"if_equipped": [
+						"limit"
+					]
+				},
+				{
+					"id": "web_limit_off",
+					"cells": [
+						"14:03",
+						"/login",
+						"No limit",
+						"4,000 more"
+					],
+					"title": "4,000 more requests followed, and nothing stopped them",
+					"detail": "Time: from 14:03\nWho: 198.51.100.80\nWhat happened: 4,000 more requests followed, and nothing stopped them",
+					"entities": [
+						"ip:198.51.100.80",
+						"event:inject"
+					],
+					"monologue": [
+						"Nothing slowed the address down. 4,000 more requests followed."
+					],
+					"summary": "4,000 more requests followed, nothing stopped them.",
+					"is_clue": false,
+					"unless_equipped": [
+						"limit"
+					]
+				},
+				{
+					"id": "web_obrien",
+					"cells": [
+						"10:20",
+						"/login",
+						"O'Brien",
+						"A page"
+					],
+					"title": "Ciaran O'Brien logs in, 10:20",
+					"detail": "Time: 10:20\nPage: /login\nTyped into the name box: O'Brien\nFrom: his own laptop\nAnswer: his page\n\nOne apostrophe in a name, and the site handled it.",
+					"entities": [
+						"user:ciaran"
+					],
+					"monologue": [
+						"An apostrophe in a name, and the site showed his page. Nothing odd here."
+					],
+					"summary": "Ciaran O'Brien logged in at 10:20 with an apostrophe in his name, and got his page.",
+					"is_clue": false
+				},
+				{
+					"id": "web_scanner",
+					"cells": [
+						"13:15",
+						"/login",
+						"Test strings",
+						"Refused"
+					],
+					"title": "The scanner's test strings, 13:15",
+					"detail": "Time: 13:15\nPage: /login\nTyped into the name box: test strings with code in them\nFrom: scanner.company.com\nAnswer: refused\n\nThe approved scanner, as planned.",
+					"entities": [
+						"host:scanner",
+						"domain:scanner.company.com"
+					],
+					"monologue": [
+						"Code in the requests, but from scanner.company.com, at the time Carla said. And the site refused them."
+					],
+					"summary": "The approved scanner typed code at 13:15, and the site refused it.",
+					"is_clue": false
+				},
+				{
+					"id": "web_search",
+					"cells": [
+						"11:40",
+						"/search",
+						"blue shirt",
+						"12 results"
+					],
+					"title": "A search for blue shirt",
+					"detail": "Time: 11:40\nPage: /search\nTyped: blue shirt\nAnswer: 12 results",
+					"entities": [],
+					"monologue": [
+						"Someone looking for a shirt."
+					],
+					"summary": "A search for blue shirt found 12 results.",
+					"is_clue": false
+				},
+				{
+					"id": "web_static",
+					"cells": [
+						"All day",
+						"/static",
+						"Images, styles",
+						"Fine"
+					],
+					"title": "Static files",
+					"detail": "Time: all day\nPage: /static\nWhat: pictures and style sheets\nAnswer: fine",
+					"entities": [],
+					"monologue": [
+						"Pictures and style sheets. Nothing to see."
+					],
+					"summary": "Static files are served as usual.",
+					"is_clue": false
+				}
+			]
+		},
+		"computers": {
+			"title": "ACCOUNTS > WHO CAN DO WHAT",
+			"columns": [
+				"NAME",
+				"ROLE",
+				"MADE"
+			],
+			"widths": [
+				86,
+				90,
+				124
+			],
+			"entries": [
+				{
+					"id": "acct_new",
+					"cells": [
+						"support_admin",
+						"Administrator",
+						"14:25 today"
+					],
+					"title": "support_admin, an administrator made at 14:25",
+					"detail": "Name: support_admin\nRole: administrator\nMade: today 14:25\nMade by: a request from 198.51.100.80\nAsked for by: nobody\n\nNo ticket, no name, no manager.",
+					"entities": [
+						"user:support_admin",
+						"ip:198.51.100.80"
+					],
+					"monologue": [
+						"A new administrator made at 14:25, and nobody asked for it. It sounds like a helpful name, and it is not."
+					],
+					"summary": "support_admin, a new administrator, was made at 14:25 and nobody asked for it.",
+					"is_clue": true
+				},
+				{
+					"id": "acct_sam",
+					"cells": [
+						"Sam Kowalski",
+						"Administrator",
+						"3 years ago"
+					],
+					"title": "Sam Kowalski, administrator",
+					"detail": "Name: Sam Kowalski\nRole: administrator\nMade: 3 years ago\nJob: the web developer",
+					"entities": [
+						"user:sam"
+					],
+					"monologue": [
+						"Sam is an administrator, and has been for three years."
+					],
+					"summary": "Sam Kowalski has been an administrator for 3 years.",
+					"is_clue": false
+				},
+				{
+					"id": "acct_carla",
+					"cells": [
+						"Carla Patel",
+						"Administrator",
+						"5 years ago"
+					],
+					"title": "Carla Patel, administrator",
+					"detail": "Name: Carla Patel\nRole: administrator\nMade: 5 years ago\nJob: security",
+					"entities": [
+						"user:carla"
+					],
+					"monologue": [
+						"Carla is an administrator, and has been for five years."
+					],
+					"summary": "Carla Patel has been an administrator for 5 years.",
+					"is_clue": false
+				},
+				{
+					"id": "acct_ciaran",
+					"cells": [
+						"Ciaran O'Brien",
+						"Customer",
+						"2 years ago"
+					],
+					"title": "Ciaran O'Brien, customer",
+					"detail": "Name: Ciaran O'Brien\nRole: customer\nMade: 2 years ago\nOrders: 14",
+					"entities": [
+						"user:ciaran"
+					],
+					"monologue": [
+						"A customer for two years. An ordinary account."
+					],
+					"summary": "Ciaran O'Brien is a customer of 2 years with 14 orders.",
+					"is_clue": false
+				},
+				{
+					"id": "acct_customers",
+					"cells": [
+						"2,400 accounts",
+						"Customers",
+						"Various"
+					],
+					"title": "2,400 customer accounts",
+					"detail": "Accounts: 2,400\nRole: customers\nNothing changed today except what the attack read.",
+					"entities": [],
+					"monologue": [
+						"The customers. 2,400 of them, and the attack read the whole list."
+					],
+					"summary": "There are 2,400 customer accounts.",
+					"is_clue": false
+				}
+			]
+		},
+		"login": {
+			"title": "SIGN-INS > WHEN AND FROM WHERE",
+			"columns": [
+				"TIME",
+				"ACCOUNT",
+				"FROM",
+				"DEVICE"
+			],
+			"widths": [
+				38,
+				80,
+				76,
+				106
+			],
+			"entries": [
+				{
+					"id": "sign_new",
+					"cells": [
+						"14:31",
+						"support_admin",
+						"New place",
+						"Unknown"
+					],
+					"title": "support_admin signed in at 14:31, from a new place",
+					"detail": "Time: 14:31\nAccount: support_admin\nFrom: 198.51.100.80\nDevice: a computer nobody knows\n\nSix minutes after the account was made, and from the same address that typed the code.",
+					"entities": [
+						"user:support_admin",
+						"ip:198.51.100.80"
+					],
+					"monologue": [
+						"The new administrator signed in six minutes after it was made, from the same address."
+					],
+					"summary": "support_admin signed in at 14:31 from 198.51.100.80.",
+					"is_clue": false
+				},
+				{
+					"id": "sign_key_on",
+					"cells": [
+						"14:31",
+						"support_admin",
+						"Security key",
+						"Failed"
+					],
+					"title": "It needed a security key, and failed",
+					"detail": "Time: 14:31\nAccount: support_admin\nWhat happened: the sign-in knew the password, but it was asked for a security key it did not have, and failed",
+					"entities": [
+						"user:support_admin",
+						"ip:198.51.100.80"
+					],
+					"monologue": [
+						"The password was not enough. The security key stopped the sign-in."
+					],
+					"summary": "The sign-in at 14:31 needed a security key and failed.",
+					"is_clue": false,
+					"if_equipped": [
+						"key"
+					]
+				},
+				{
+					"id": "sign_key_off",
+					"cells": [
+						"14:31",
+						"support_admin",
+						"Password only",
+						"Worked"
+					],
+					"title": "The password was enough, and it worked",
+					"detail": "Time: 14:31\nAccount: support_admin\nWhat happened: the sign-in needed only the password, and it worked",
+					"entities": [
+						"user:support_admin",
+						"ip:198.51.100.80"
+					],
+					"monologue": [
+						"Only the password, and it worked. Nothing else stood in the way."
+					],
+					"summary": "The sign-in at 14:31 needed only the password and worked.",
+					"is_clue": false,
+					"unless_equipped": [
+						"key"
+					]
+				},
+				{
+					"id": "sign_sam",
+					"cells": [
+						"08:50",
+						"Sam Kowalski",
+						"Office",
+						"His laptop"
+					],
+					"title": "Sam's usual sign-ins: the office, 08:50",
+					"detail": "Time: every morning about 08:50\nAccount: Sam Kowalski\nFrom: the office\nDevice: Sam's laptop",
+					"entities": [
+						"user:sam"
+					],
+					"monologue": [
+						"Sam signs in from the office, on his laptop. That is the baseline, and the new one is nothing like it."
+					],
+					"summary": "Sam usually signs in at 08:50 from the office, on his laptop.",
+					"is_clue": false
+				},
+				{
+					"id": "sign_carla",
+					"cells": [
+						"08:30",
+						"Carla Patel",
+						"Office",
+						"Her computer"
+					],
+					"title": "Carla's sign-ins",
+					"detail": "Account: Carla Patel\nFrom: the office\nDevice: Carla's computer\nNothing new today.",
+					"entities": [
+						"user:carla"
+					],
+					"monologue": [
+						"Carla's sign-ins look like every other day."
+					],
+					"summary": "Carla's sign-ins are from the office, as usual.",
+					"is_clue": false
+				},
+				{
+					"id": "sign_customers",
+					"cells": [
+						"All day",
+						"Customers",
+						"Home",
+						"Phones, laptops"
+					],
+					"title": "Customers' sign-ins",
+					"detail": "Time: all day\nAccounts: customers\nFrom: their homes\nNothing new today.",
+					"entities": [],
+					"monologue": [
+						"Customers signing in from home, as on any day."
+					],
+					"summary": "Customers sign in from home, as usual.",
+					"is_clue": false
+				}
+			]
+		},
+		"files": {
+			"title": "FILES > THE WEBSITE'S FOLDERS",
+			"columns": [
+				"TIME",
+				"WHERE",
+				"KIND",
+				"FILE"
+			],
+			"widths": [
+				40,
+				50,
+				60,
+				150
+			],
+			"entries": [
+				{
+					"id": "file_help",
+					"cells": [
+						"14:20",
+						"Uploads",
+						"New file",
+						"help.php"
+					],
+					"title": "help.php, a new file in the uploads folder at 14:20",
+					"detail": "Time: 14:20\nWhere: the website's uploads folder\nFile: help.php, 3 KB\nUploaded by: nobody on the team\nFrom: 198.51.100.80\n\nA program file in a folder that should only hold pictures.",
+					"entities": [
+						"file:help.php",
+						"ip:198.51.100.80"
+					],
+					"monologue": [
+						"A .php file in the folder where only pictures belong. Nobody on the team put it there.",
+						"That is a way back in."
+					],
+					"summary": "help.php appeared in the uploads folder at 14:20 and nobody uploaded it.",
+					"is_clue": true
+				},
+				{
+					"id": "file_report",
+					"cells": [
+						"Tue",
+						"Uploads",
+						"PDF",
+						"scanner_report.pdf"
+					],
+					"title": "scanner_report.pdf",
+					"detail": "Where: the uploads folder\nFile: scanner_report.pdf, 90 KB\nMade: last Tuesday\nBy: the security scanner\n\nLast week's scan report.",
+					"entities": [
+						"host:scanner"
+					],
+					"monologue": [
+						"The scanner's own report from last week. Nothing wrong with it."
+					],
+					"summary": "scanner_report.pdf is last week's report from the scanner.",
+					"is_clue": false
+				},
+				{
+					"id": "file_backup",
+					"cells": [
+						"14:00",
+						"Backup",
+						"Copy",
+						"site_backup_1400"
+					],
+					"title": "The site's backup of 14:00",
+					"detail": "Time: 14:00\nWhat: a full copy of the website and its data\nChecked: yes\n\nMade two minutes before the first code request. The last good copy.",
+					"entities": [
+						"host:web01",
+						"event:backup"
+					],
+					"monologue": [
+						"A copy made two minutes before the first code request. That is the last good one."
+					],
+					"summary": "The last good backup of the site was made at 14:00.",
+					"is_clue": false
+				},
+				{
+					"id": "file_logo",
+					"cells": [
+						"Old",
+						"Uploads",
+						"Picture",
+						"logo.png"
+					],
+					"title": "logo.png",
+					"detail": "Where: the uploads folder\nFile: logo.png, 12 KB\nMade: 2 years ago",
+					"entities": [],
+					"monologue": [
+						"The company logo. Nothing to see."
+					],
+					"summary": "logo.png is the company logo.",
+					"is_clue": false
+				},
+				{
+					"id": "file_robots",
+					"cells": [
+						"Old",
+						"Site",
+						"Text",
+						"robots.txt"
+					],
+					"title": "robots.txt",
+					"detail": "Where: the website's main folder\nFile: robots.txt, 1 KB\n\nTells search engines which pages to skip.",
+					"entities": [],
+					"monologue": [
+						"The usual robots.txt. Nothing odd."
+					],
+					"summary": "robots.txt tells search engines which pages to skip.",
+					"is_clue": false
+				}
+			]
+		},
+		"network": {
+			"title": "NETWORK > WHO TALKS TO THE SITE",
+			"columns": [
+				"WHEN",
+				"ADDRESS",
+				"DID",
+				"HOW"
+			],
+			"widths": [
+				40,
+				108,
+				82,
+				70
+			],
+			"entries": [
+				{
+					"id": "net_addr",
+					"cells": [
+						"14:02",
+						"198.51.100.80",
+						"Typed code",
+						"Back 14:31"
+					],
+					"title": "198.51.100.80: the code at 14:02 and the sign-in at 14:31",
+					"detail": "Address: 198.51.100.80\nWhere it lives: a rented server in another country\n14:02: 40 code requests to /login\n14:20: the file help.php came from it\n14:31: support_admin signed in from it\n\nThe same address, 29 minutes apart.",
+					"entities": [
+						"ip:198.51.100.80",
+						"event:inject",
+						"user:support_admin"
+					],
+					"monologue": [
+						"The address that typed the code is the address that signed in as the new administrator. 29 minutes apart.",
+						"One attacker, one address."
+					],
+					"summary": "198.51.100.80 typed the code at 14:02 and signed in at 14:31, 29 minutes apart.",
+					"is_clue": true
+				},
+				{
+					"id": "net_scanner",
+					"cells": [
+						"13:15",
+						"scanner.company.com",
+						"Test strings",
+						"Approved"
+					],
+					"title": "The scanner, 13:15",
+					"detail": "Address: scanner.company.com\nOn the approved list: yes\nTime: 13:15\nWhat it did: typed test strings into the forms",
+					"entities": [
+						"host:scanner",
+						"domain:scanner.company.com"
+					],
+					"monologue": [
+						"The scanner's address is on the approved list. Its traffic is expected."
+					],
+					"summary": "The scanner at scanner.company.com is on the approved list.",
+					"is_clue": false
+				},
+				{
+					"id": "net_customers",
+					"cells": [
+						"All day",
+						"Customers",
+						"Shopping",
+						"Normal"
+					],
+					"title": "Customer traffic",
+					"detail": "Time: all day\nFrom: customers\nWhat: browsing and buying\nHow much: usual",
+					"entities": [],
+					"monologue": [
+						"Customers shopping, as on any day."
+					],
+					"summary": "Customer traffic is usual.",
+					"is_clue": false
+				},
+				{
+					"id": "net_backup",
+					"cells": [
+						"01:00",
+						"backup-01",
+						"Backup cloud",
+						"9 GB"
+					],
+					"title": "Nightly backup",
+					"detail": "Time: every night 01:00\nFrom: backup-01\nSent to: the backup cloud\nHow much: 9 GB",
+					"entities": [],
+					"monologue": [
+						"The nightly backup. Not today's problem."
+					],
+					"summary": "The nightly backup copies 9 GB at 01:00.",
+					"is_clue": false
+				},
+				{
+					"id": "net_staff",
+					"cells": [
+						"All day",
+						"The office",
+						"Browsing",
+						"Small"
+					],
+					"title": "Staff browsing",
+					"detail": "Time: all day\nFrom: the office\nHow much: small",
+					"entities": [],
+					"monologue": [
+						"Staff browsing. Ordinary."
+					],
+					"summary": "Staff browsing is small.",
+					"is_clue": false
+				}
+			]
+		},
+		"servers": {
+			"title": "SERVERS > THE WEBSITE AND ITS DATABASE",
+			"columns": [
+				"COMPUTER",
+				"JOB",
+				"DID",
+				"OF"
+			],
+			"widths": [
+				66,
+				84,
+				84,
+				66
+			],
+			"entries": [
+				{
+					"id": "srv_db",
+					"cells": [
+						"db-01",
+						"The database",
+						"Errors",
+						"2 to 600"
+					],
+					"title": "db-01: database errors went from 2 to 600 an hour at 14:00",
+					"detail": "Computer: db-01\nJob: the customer database\nErrors an hour: 2 until 14:00, then 600\nWhat it says: queries it could not understand, and one that returned every row\n\nA database answers whatever it is asked.",
+					"entities": [
+						"host:db01",
+						"event:inject"
+					],
+					"monologue": [
+						"Two errors an hour, then six hundred. And one question that returned every row.",
+						"Something is putting strange questions to the database."
+					],
+					"summary": "db-01's errors went from 2 to 600 an hour at 14:00.",
+					"is_clue": true
+				},
+				{
+					"id": "srv_framework",
+					"cells": [
+						"web-01",
+						"The website",
+						"ShopKit 2.1",
+						"14 months"
+					],
+					"title": "web-01 runs ShopKit 2.1, fourteen months old",
+					"detail": "Computer: web-01\nJob: the customer portal\nFramework: ShopKit 2.1, installed 14 months ago\nNewest version: 2.4, which fixes the login hole\nInstalled: not yet",
+					"entities": [
+						"host:web01",
+						"software:shopkit"
+					],
+					"monologue": [
+						"The site runs an old version. The fix has been waiting for more than a year."
+					],
+					"summary": "web-01 runs ShopKit 2.1, fourteen months old, and the fix 2.4 was never installed.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_code",
+					"cells": [
+						"web-01",
+						"Login form",
+						"Glues text in",
+						"2 lines"
+					],
+					"title": "The login form builds its question by gluing the typed text in",
+					"detail": "Computer: web-01\nJob: the login form\nThe code that asks the database:\n  query = \"SELECT * FROM users WHERE name = '\" + typed + \"'\"\n  run(query)\n\nWhatever is typed becomes part of the question.",
+					"entities": [
+						"host:web01",
+						"event:inject"
+					],
+					"monologue": [
+						"Two lines of code. The text goes straight into the question, so the text can change the question."
+					],
+					"summary": "The login form glues whatever is typed into its database question.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_gateway",
+					"cells": [
+						"The gateway",
+						"Web traffic",
+						"Running",
+						"20%"
+					],
+					"title": "The web gateway",
+					"detail": "Computer: the gateway\nJob: all web traffic\nStatus: running\nBusy: 20%",
+					"entities": [],
+					"monologue": [
+						"Everything that leaves goes through the gateway. Running."
+					],
+					"summary": "The web gateway is running as usual.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_mail",
+					"cells": [
+						"Mail server",
+						"Staff mail",
+						"Running",
+						"15%"
+					],
+					"title": "The mail server",
+					"detail": "Computer: the mail server\nJob: staff mail\nStatus: running\nBusy: 15%",
+					"entities": [],
+					"monologue": [
+						"The mail server. Running."
+					],
+					"summary": "The mail server is running as usual.",
+					"is_clue": false
+				}
+			]
+		}
+	},
+	"report": {
+		"text": "At {1}, someone typed {2} into the {3}. The website {4}, and the attacker left {5} behind.",
+		"queries": [
+			{
+				"label": "QUERY A: MARIA",
+				"typed": "Maria",
+				"answer": "1 row",
+				"note": "One row: Maria. The text stayed text."
+			},
+			{
+				"label": "QUERY B: THE CODE",
+				"typed": "' OR 1=1 --",
+				"answer": "2,400 rows",
+				"note": "Every customer! The text joined in."
+			}
+		],
+		"answers": {
+			"1": "chip_time",
+			"2": "chip_code",
+			"3": "chip_login",
+			"4": "chip_ran",
+			"5": "chip_left"
+		},
+		"chips": [
+			{
+				"id": "chip_time",
+				"label": "14:02"
+			},
+			{
+				"id": "chip_code",
+				"label": "' OR 1=1 --, a piece of code"
+			},
+			{
+				"id": "chip_login",
+				"label": "login form"
+			},
+			{
+				"id": "chip_ran",
+				"label": "put it into its database question, and the database ran it"
+			},
+			{
+				"id": "chip_left",
+				"label": "a planted file and a new administrator"
+			},
+			{
+				"id": "chip_scan",
+				"label": "13:15",
+				"reason": "That is when the approved scanner tested the site. The attack started at 14:02."
+			},
+			{
+				"id": "chip_adminmade",
+				"label": "14:25",
+				"reason": "That is when the new administrator was made, after the attack began. The code was first typed at 14:02."
+			},
+			{
+				"id": "chip_obrien",
+				"label": "O'Brien, a customer's name",
+				"reason": "An apostrophe in a name is normal: the site handled O'Brien fine. The attack typed a line of code."
+			},
+			{
+				"id": "chip_blue",
+				"label": "a search for blue shirt",
+				"reason": "That was a normal search with a normal answer. Look at what returned 2,400 rows."
+			},
+			{
+				"id": "chip_search",
+				"label": "search box",
+				"reason": "The search worked normally. The code went into the login form."
+			},
+			{
+				"id": "chip_order",
+				"label": "order form",
+				"reason": "The order form is not in the logs of the attack. Look at the page that returned 2,400 rows."
+			},
+			{
+				"id": "chip_refused",
+				"label": "refused it and showed an error page",
+				"reason": "That is what a checked site does, and what the scanner got. This site answered with every customer."
+			},
+			{
+				"id": "chip_ignored",
+				"label": "ignored it",
+				"reason": "It did not ignore it: the database ran the code and returned 2,400 rows."
+			},
+			{
+				"id": "chip_nothing",
+				"label": "nothing",
+				"reason": "The attacker left help.php in the uploads folder and made the administrator support_admin."
+			},
+			{
+				"id": "chip_list",
+				"label": "a copy of the customer list",
+				"reason": "The attack read the list, but the clues show something else left behind: help.php and support_admin."
+			}
+		],
+		"slot_empty": "(empty)",
+		"slot_correct": "[OK]",
+		"chip_picked": "> ",
+		"submit_button": "SUBMIT REPORT",
+		"submit_locked": "FILL ALL BLANKS",
+		"continue_button": "CONTINUE >",
+		"icons": {
+			"prompt": "?",
+			"picked": ">",
+			"wrong": "!",
+			"solved": "OK"
+		},
+		"messages": {
+			"prompt": "Run the two queries and read your notes. When did it happen, what was typed, and what did the website do?",
+			"picked": "Now click a blank to put \"{word}\" there.",
+			"some_wrong": "{right} of {total} are in the right place. {reason} Try again.",
+			"none_right": "None of these are in the right place yet. {reason} Try again.",
+			"solved": "Yes! At 14:02 someone typed code into the login form. The site glued it into its database question and the database ran it. The attacker left a file and an administrator behind. Text typed into a website must be checked, and the software kept up to date.",
+			"misplaced": "\"{word}\" belongs in a different blank. Read what each blank asks for."
+		},
+		"solved_explanation": "This is a web application attack: code typed into a form, taken for a command because the site mixed it into its question. A website must check what people type and be kept up to date.",
+		"tutorial": "investigation_query",
+		"objective": "SHOW WHAT WAS TYPED AND WHAT IT DID"
+	}
+}

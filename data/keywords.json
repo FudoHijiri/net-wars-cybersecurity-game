@@ -1,0 +1,15 @@
+{
+	"_note": "The words of the cards that need a short explanation (see scripts/gameplay/keywords.gd). In the Response phase the panel beside the card shows its text with these words in color; pointing at one shows its text. words: what is matched in a card text (not case sensitive). A new effect on a later day is one entry here. role: the color role (GameColors) the player may change in Settings; the word then takes that color instead of color.",
+	"damage": {"name": "Damage", "color": "#ef7d57", "words": ["damage"], "text": "Lowers the threat's HP. When it reaches 0, the threat is contained."},
+	"block": {"name": "Block", "color": "#73eff7", "role": "block", "words": ["block"], "text": "Soaks up damage from hits. It is gone when the enemy's turn is over."},
+	"dodge": {"name": "Dodge", "color": "#d6a5ff", "role": "dodge", "words": ["dodge"], "text": "Each Dodge cancels one hit of the enemy's turn, so that hit does no damage. Unused Dodge is gone when the turn is over."},
+	"heal": {"name": "Heal", "color": "#a7f070", "role": "good", "words": ["heal"], "text": "Gives HP back to you. You can never go above your maximum."},
+	"draw": {"name": "Draw", "color": "#ffcd75", "role": "highlight", "words": ["draw"], "text": "Takes cards from your deck into your hand right away."},
+	"energy": {"name": "Energy", "color": "#41a6f6", "words": ["energy"], "text": "You spend Energy to play cards. It is full again at the start of every turn."},
+	"exposed": {"name": "Exposed", "color": "#ff8fb1", "role": "exposed", "words": ["exposed", "expose"], "text": "The threat takes more damage from every card you play after this one, until the end of your turn."},
+	"charge": {"name": "Charge", "color": "#41a6f6", "words": ["charge"], "text": "You get this much Energy at the start of your next turn."},
+	"leak": {"name": "Leak", "color": "#ff5a4d", "role": "bad", "words": ["leak"], "text": "Lose this much HP at the start of your next turn. Block cannot stop it."},
+	"cap": {"name": "Cap", "color": "#73eff7", "role": "block", "words": ["cap"], "text": "Each hit of the enemy's turn does at most this much damage."},
+	"reflect": {"name": "Reflect", "color": "#a7f070", "role": "good", "words": ["reflect"], "text": "Each time you are hit during the enemy's turn, the threat takes this much damage."},
+	"exploit": {"name": "Exploit", "color": "#ffcd75", "role": "highlight", "words": ["exploit"], "text": "If the threat is Exposed when you play this card, it deals this much more damage."}
+}

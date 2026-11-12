@@ -1,13 +1,13 @@
 {
 	"id": "day1_monitoring",
-	"shift_seconds": 180,
+	"shift_seconds": 120,
 	"log_seconds": 33,
 	"inspect_percent_per_click": 25,
-	"points_correct": 10,
+	"points_correct": 15,
 	"finish": {
 		"points_wrong": 5,
-		"bonus": 30,
-		"flawless_min_correct": 5,
+		"bonus": 40,
+		"flawless_min_correct": 4,
 		"good_accuracy": 0.7,
 		"comments": {
 			"flawless": "Joshua: No wrong calls. Bonus.",

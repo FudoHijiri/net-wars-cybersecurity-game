@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "It's contained. The attack is stopped, but it is not gone.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. But stopped is not fixed. The site is damaged, the hole is still open, and somebody left a spare key.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "A file in the uploads folder, and a new administrator that nobody asked for.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What do we fix first?": "C1",
+			"Do we tell the customers?": "C2"
+		}
+	},
+	"C1": {
+		"text": "Walk through the office and look for machines marked with a [b][color=red]![/color][/b]. Restore the site from a clean backup, patch the hole, then remove what was left.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "Yes, the ones whose orders were touched. Plainly, and with what we are doing about it. No panic, no blame.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "Fix one thing at a time. When everything is repaired, we run a [b][color=green]final check[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Got it. Restore the site, patch the hole after a test, and remove the file and the administrator.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

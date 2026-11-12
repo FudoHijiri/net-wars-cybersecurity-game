@@ -1,0 +1,328 @@
+{
+	"_note": "The Day 8 (Web Application Attack) work order. Same format as day7_recovery.json. attacks: the Response patterns that got through become these repairs. Components: restore (BackupTimeline, versions mode: the website from the last good backup), patch (SitePatch, new: back up, download from the maker, check the number, test on a copy with the attack string, then the live site), backdoor (AccountAction with new content: delete the planted file, then remove the new administrator), and file_server (the final check). Every repair is a hands-on picture the player works on, step by step.",
+	"room": {
+		"counter": "Repairs {done}/{total}",
+		"controls": "WASD / arrows: move     E: use     Esc: pause",
+		"return": "Finish shift",
+		"finish": "Finish shift",
+		"work_order": "Office exit / work order",
+		"waiting": "Waiting for Response",
+		"waiting_body": "Response has not confirmed that the attack is stopped. You can look around, but the equipment must stay dark until it is.",
+		"all_done": "Checks complete. Return to the office entrance to finish.",
+		"summary_title": "Recovery complete",
+		"summary_body": "The repairs and the final check passed.",
+		"summary_lesson": "Restore a copy that is clean, patch from the maker after a test, and remove what the attacker left.",
+		"unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
+		"hardening_unavailable": "No hardening results have been supplied.",
+		"verify_locked": "Finish the required restoration work before the final access checks.",
+		"not_required": "This equipment does not need restoration in this work order.",
+		"close": "Back"
+	},
+	"points": {
+		"base": 15,
+		"clean_bonus": 10
+	},
+	"finish": {
+		"comments": {
+			"clean": "Joshua: The site restored, the hole patched, and nothing left behind. Not one wrong move.",
+			"done": "Joshua: Everything is fixed. Next time, check what comes in, and keep the software up to date."
+		}
+	},
+	"task_ui": {
+		"hint": "Take your time. Read the labels before choosing.",
+		"needs_repair": "[!] REQUIRED",
+		"working": "[=] NO REPAIR NEEDED",
+		"restored": "[OK] CHECKED",
+		"waiting": "[?] AWAITING CLEARANCE",
+		"locked": "[>] RESTORE FIRST",
+		"stamp": "REPAIRED",
+		"machine_default": "Workstation"
+	},
+	"case": {
+		"day": 8,
+		"day_title": "Typed In",
+		"threat": "Web Application Attack",
+		"brief": "The attack is stopped, but the site is damaged, the hole is still open, and the attacker left a file and a spare administrator behind. Fix each one, then check that the site is safe.",
+		"lesson": "Restore a copy that is clean, patch from the maker after a test, and remove what the attacker left."
+	},
+	"attacks": [
+		{
+			"id": "inject",
+			"label": "Injection",
+			"component": "restore"
+		},
+		{
+			"id": "hole",
+			"label": "Known hole",
+			"component": "patch"
+		},
+		{
+			"id": "admin",
+			"label": "Stolen admin",
+			"component": "backdoor"
+		}
+	],
+	"components": {
+		"restore": {
+			"title": "Restore the website",
+			"system": "WEBSITE BACKUPS",
+			"instruction": "The code changed the site's data and left a file. Pick the last good backup, from before the code ran at 14:02. Test it, then restore it.",
+			"lesson": "A good backup turns a break-in into an annoying afternoon. Pick the last good one, not the newest.",
+			"heading": "The site's backups, oldest to newest",
+			"pick": "Click a version to read about it.",
+			"choose": "Click a version to read about it.",
+			"marker": {
+				"after": "v2",
+				"label": "14:02\nCODE RAN"
+			},
+			"backups": [
+				{
+					"id": "v1",
+					"label": "Mon 02:00\nVersion 61",
+					"ok": false,
+					"detail": "Monday 02:00. Clean, but a week old: it is missing every order since.",
+					"bad": "This backup is clean but old. Restoring it would lose a week of orders. Take the last good one."
+				},
+				{
+					"id": "v2",
+					"label": "Today 14:00\nVersion 64",
+					"ok": true,
+					"detail": "Today 14:00. Complete, with every order up to two minutes before the code ran.",
+					"bad": ""
+				},
+				{
+					"id": "v3",
+					"label": "Today 14:30\nVersion 65",
+					"ok": false,
+					"detail": "Today 14:30. Saved after the code ran: it holds the planted file help.php and the new administrator.",
+					"bad": "This backup was made after the attack, so it holds help.php and the new administrator. Restoring it would bring them back."
+				},
+				{
+					"id": "v4",
+					"label": "Today 15:00\nVersion 66",
+					"ok": false,
+					"detail": "Today 15:00. The newest, made by the afternoon backup.",
+					"bad": "The newest backup is a copy of the damaged site. The newest is not always the last good one."
+				}
+			],
+			"test": "TEST THE COPY",
+			"restore": "RESTORE THE SITE",
+			"select_first": "Choose a version first.",
+			"tested": "It loads, the orders are right, and help.php is not in it. The restore test passed.",
+			"test_first": "Test the selected version before restoring it.",
+			"restored": "The site is back, as it was at 14:00.",
+			"lost": "Only the orders since 14:00 are lost.",
+			"tutorial": "recovery_restore",
+			"success": "The site is back with every order up to 14:00. Only a few minutes of orders are lost, and you can ask those customers to order again."
+		},
+		"patch": {
+			"title": "Patch the hole, then prove it",
+			"system": "WEB SERVER",
+			"instruction": "The login form still has the hole. Install the maker's update, but do it safely: back up, take the update from the maker, check it, test it on a copy, then do the real site.",
+			"lesson": "Back it up, take the update from the maker, check it, test on a copy, then do the real one.",
+			"steps": [
+				"STEP 1 OF 6: BACK UP THE LIVE SITE FIRST.",
+				"STEP 2 OF 6: DOWNLOAD THE UPDATE. WHERE FROM?",
+				"STEP 3 OF 6: CHECK THE DOWNLOAD AGAINST THE MAKER'S NUMBER.",
+				"STEP 4 OF 6: INSTALL IT ON THE TEST COPY.",
+				"STEP 5 OF 6: PROVE IT: TRY THE ATTACK ON THE COPY.",
+				"STEP 6 OF 6: INSTALL IT ON THE LIVE SITE."
+			],
+			"test_title": "TEST COPY",
+			"live_title": "LIVE SITE",
+			"versions": {
+				"old": "ShopKit 2.1",
+				"new": "ShopKit 2.4"
+			},
+			"attack_string": "' OR 1=1 --",
+			"results": {
+				"before": "2,400 rows",
+				"after": "rejected"
+			},
+			"backup": "1  BACK UP THE LIVE SITE",
+			"backup_done": "The live site is backed up. If the update breaks something, you can go back.",
+			"sources_label": "2  DOWNLOAD THE UPDATE FROM:",
+			"sources": [
+				{
+					"id": "forum",
+					"label": "A link in a forum post",
+					"ok": false,
+					"reason": "Anyone can post a link. A copy of the update from a forum can carry something extra. Take it from the maker."
+				},
+				{
+					"id": "maker",
+					"label": "The maker's own site",
+					"ok": true
+				},
+				{
+					"id": "email",
+					"label": "An email attachment",
+					"ok": false,
+					"reason": "An email can say it is from the maker and not be. Go to the maker's site yourself."
+				}
+			],
+			"download_done": "Downloaded from the maker's own site. Now check that the file is the one the maker published.",
+			"maker_number": "7c1e-40d2",
+			"download_numbers": [
+				"7c1e-40d9",
+				"7c1e-40d2"
+			],
+			"number_format": "The maker says: %s     Your download: %s",
+			"match": "3  THE NUMBERS MATCH",
+			"differ": "3  THEY DIFFER: DOWNLOAD AGAIN",
+			"match_reason": "Look again: the last digit is different. A file that does not match the maker's number was changed or damaged. Do not install it.",
+			"differ_reason": "Read the two numbers digit by digit. They match, so the file is the one the maker published.",
+			"differ_done": "Good catch. A file that does not match is thrown away. Download it again.",
+			"check_done": "The numbers match, so this is the maker's file. Now try it on the test copy, not on the live site.",
+			"install_test": "4  INSTALL ON THE TEST COPY",
+			"install_test_done": "The test copy now runs ShopKit 2.4. Type the attack into it to prove the patch works.",
+			"try_attack": "5  TRY THE ATTACK ON THE COPY",
+			"try_before": "Before the patch the copy answers with 2,400 rows. That is why we patch.",
+			"try_done": "The copy rejected the attack. The patch works, and nothing else broke. Now do the live site.",
+			"install_live": "6  INSTALL ON THE LIVE SITE AND RESTART",
+			"pick": "Follow the glowing button: the next step is named above. A step done too early bounces back.",
+			"order_reasons": {
+				"backup": "The live site is already backed up. Follow the glowing steps in order.",
+				"download": "Not now. Follow the steps in order: back up first, then download.",
+				"check": "Not now. First download the update, then check its number.",
+				"install_test": "Not now. Follow the steps in order: back up, download, check the number, then the test copy.",
+				"try_attack": "Not now. First install the update on the test copy, then try the attack on it.",
+				"install_live": "Test on a copy first. A bad update can break the live site, and you have not proven this one works."
+			},
+			"tutorial": "recovery_patch",
+			"success": "The live site runs ShopKit 2.4, the attack string is rejected, and you tested before you trusted. The hole is closed."
+		},
+		"backdoor": {
+			"title": "Remove what the attacker left",
+			"system": "WEBSITE",
+			"instruction": "The attacker left a file in the uploads folder and made a spare administrator. Delete the file first, then remove the right administrator.",
+			"lesson": "Remove what the attacker left behind, and only that. A spare key left in place is another way in.",
+			"heading": "Which file in the uploads folder was planted?",
+			"pick": "Click a file to read about it. Then press DELETE THE FILE.",
+			"choose": "Click a file to read about it.",
+			"select_first": "Choose a file first.",
+			"disable": "DELETE THE FILE",
+			"accounts": [
+				{
+					"id": "help",
+					"label": "help.php",
+					"ok": true,
+					"detail": "help.php, 3 KB, made today 14:20. A program file. Nobody on the team uploaded it, and the uploads folder should only hold pictures and documents."
+				},
+				{
+					"id": "logo",
+					"label": "logo.png",
+					"ok": false,
+					"detail": "logo.png, 12 KB, made 2 years ago. The company logo.",
+					"reason": "That is the company logo, made 2 years ago. Deleting it would only break the site's header."
+				},
+				{
+					"id": "report",
+					"label": "scanner_report.pdf",
+					"ok": false,
+					"detail": "scanner_report.pdf, 90 KB, made last Tuesday. The security scanner's own report.",
+					"reason": "That is last week's report from our own scanner. Carla's team needs it."
+				},
+				{
+					"id": "photos",
+					"label": "product_photos.zip",
+					"ok": false,
+					"detail": "product_photos.zip, 4 MB, made last month by the shop team. Pictures for the catalogue.",
+					"reason": "The shop team uploaded those pictures last month. Nothing in it is wrong."
+				}
+			],
+			"disabled": "help.php is deleted. Now, which administrator should go?",
+			"talk_heading": "Which administrator did the attacker make?",
+			"talk": [
+				{
+					"id": "sam",
+					"label": "Sam Kowalski (3 years ago)",
+					"ok": false,
+					"reason": "Sam is the web developer, an administrator for 3 years. He is the one who reported the problem."
+				},
+				{
+					"id": "support_admin",
+					"label": "support_admin (made 14:25, nobody asked)",
+					"ok": true
+				},
+				{
+					"id": "carla",
+					"label": "Carla Patel (5 years ago)",
+					"ok": false,
+					"reason": "Carla is the security lead, an administrator for 5 years. She asked us to be careful."
+				}
+			],
+			"tutorial": "recovery_account",
+			"success": "help.php is gone and support_admin is removed. The attacker has no way back in."
+		},
+		"file_server": {
+			"title": "Back to work",
+			"system": "FINAL CHECK",
+			"instruction": "Check that the site is safe again. Each check proves one repair worked.",
+			"lesson": "Recovery is finished only when the site works, the hole is closed and nothing is left behind, and you have checked it.",
+			"checks": [
+				{
+					"id": "site_back",
+					"label": "THE WEBSITE",
+					"expected": "Trusted record: the site should load, with the orders as they were at 14:00.",
+					"passed": "The site loads and the orders are right.",
+					"failed": "The site is not back as it was. Recovery stays open.",
+					"icon": "file"
+				},
+				{
+					"id": "hole_closed",
+					"label": "THE LOGIN FORM",
+					"expected": "Trusted record: the attack string should be rejected, and the framework should be 2.4.",
+					"passed": "The attack string is rejected and the framework is up to date.",
+					"failed": "The login form still takes the attack string. Recovery stays open.",
+					"icon": "account"
+				},
+				{
+					"id": "backdoor_gone",
+					"label": "WHAT WAS LEFT",
+					"expected": "Trusted record: no help.php in the uploads folder, and only Sam and Carla as administrators.",
+					"passed": "help.php is gone and only Sam and Carla are administrators.",
+					"failed": "The planted file or the new administrator is still there. Recovery stays open.",
+					"icon": "contact"
+				}
+			],
+			"run": "Run check",
+			"confirm": "Confirm results",
+			"all_checks": "Run every check before confirming recovery.",
+			"failed": "A check failed. Keep recovery open and ask the response team to address the result.",
+			"passed": "[OK] {result}",
+			"failed_result": "[!] {result}",
+			"success": "The site is back, the hole is closed, and nothing of the attacker is left. The site now checks what people type.",
+			"points": {
+				"base": 20,
+				"clean_bonus": 0
+			}
+		}
+	},
+	"equipment_selection": {
+		"restore": [
+			"backup",
+			"servers"
+		],
+		"patch": [
+			"servers"
+		],
+		"backdoor": [
+			"access",
+			"monitoring"
+		],
+		"file_server": [
+			"servers"
+		]
+	},
+	"response_outcome": {
+		"contained": true,
+		"summary": "Response stopped the attack. The site, the hole and what the attacker left are ready for repairs.",
+		"cleared_devices": {},
+		"verification": {
+			"site_back": true,
+			"hole_closed": true,
+			"backdoor_gone": true
+		}
+	}
+}

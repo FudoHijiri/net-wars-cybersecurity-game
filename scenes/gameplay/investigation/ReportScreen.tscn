@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ckhs6ajdsqlfl" path="res://assets/ui/Investigation Icon.png" id="5_s8jo8"]
 [ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="8_gu6oc"]
 [ext_resource type="Script" uid="uid://436oop3ea01s" path="res://scripts/gameplay/investigation/report_screen.gd" id="9_report"]
+[ext_resource type="Theme" uid="uid://do41m1dxvwx1w" path="res://assets/ui/scrollbar/scrollbar_theme.tres" id="scrollbar_theme"]
 
 [sub_resource type="Theme" id="Theme_gihur"]
 default_font = ExtResource("2_7wr0k")
@@ -176,7 +177,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.012820511
-anchor_top = 0.6976744
+anchor_top = 0.7225
 anchor_right = 0.98717946
 anchor_bottom = 0.8988204
 grow_horizontal = 2
@@ -196,15 +197,21 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="ClueBox" type="VBoxContainer" parent="MainPanel/ClueWords" unique_id=288919992]
-layout_mode = 0
+[node name="ScrollContainer" type="ScrollContainer" parent="MainPanel/ClueWords" unique_id=839147887]
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.008223685
-anchor_top = 0.1734251
+anchor_top = 0.17342508
 anchor_right = 0.9917763
 anchor_bottom = 0.953837
+theme = ExtResource("scrollbar_theme")
 metadata/_edit_use_anchors_ = true
 
-[node name="Clues" type="HFlowContainer" parent="MainPanel/ClueWords/ClueBox" unique_id=591601879]
+[node name="ClueBox" type="VBoxContainer" parent="MainPanel/ClueWords/ScrollContainer" unique_id=288919992]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Clues" type="HFlowContainer" parent="MainPanel/ClueWords/ScrollContainer/ClueBox" unique_id=591601879]
 layout_mode = 2
 
 [node name="Notes" type="Panel" parent="MainPanel" unique_id=262150154]
@@ -274,7 +281,7 @@ anchors_preset = -1
 anchor_left = 0.012820511
 anchor_top = 0.55813956
 anchor_right = 0.98717946
-anchor_bottom = 0.6744186
+anchor_bottom = 0.7131
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xttc1")
@@ -284,9 +291,9 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.013157897
-anchor_top = 0.19999962
+anchor_top = 0.08
 anchor_right = 0.9868421
-anchor_bottom = 0.7999996
+anchor_bottom = 0.94
 metadata/_edit_use_anchors_ = true
 
 [node name="MessageIcon" type="Label" parent="MainPanel/Helper/HelperRow" unique_id=884685681]

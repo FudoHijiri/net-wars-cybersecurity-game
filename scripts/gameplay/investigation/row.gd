@@ -1,20 +1,24 @@
 class_name InvestigationRow
 extends Control
 
-## One table row of an investigation app. Add it to the tree before calling setup().
+## One table row of an investigation app. Add it to the tree before calling setup(). The row itself is what is
+## clicked (there is no button in it): the pointed row is lighter, the shown row has a color and a bar at its
+## left, and the shown entry is also named in the detail pane, so it is not only a color.
 
 signal selected(entry: Dictionary)
 
 const MIN_HEIGHT := 14.0
-const SELECT_TEXT := " SELECT "
-const VIEWING_TEXT := " VIEWING " # text, not just color, marks the shown entry
+const SHOWN_FILL := Color(0.23137255, 0.3647059, 0.7882353, 0.55)
+const HOVER_FILL := Color(0.23137255, 0.3647059, 0.7882353, 0.25)
 const TAG_FOUND := "FOUND"
 const TAG_READ := "READ"
+const TAG_NEW := "NEW" # an answer that appeared after a question was sent
 
 var entry: Dictionary = {}
+var _shown := false
+var _pointed := false
 
 @onready var _columns: HBoxContainer = %HSplitContainer
-@onready var _select_button: Button = %Button
 @onready var _tag: Label = $HSplitContainer/Tag
 
 
@@ -24,23 +28,19 @@ func _ready() -> void:
 	# drawing the row's content above and left of the row. Grow down and right only.
 	_columns.grow_horizontal = Control.GROW_DIRECTION_END
 	_columns.grow_vertical = Control.GROW_DIRECTION_END
-	# Reserve room for the longer of the two button texts so the column never
-	# changes width when a row becomes the selected one.
-	var font := _select_button.get_theme_font(&"font")
-	var font_size := _select_button.get_theme_font_size(&"font_size")
-	var text_width := 0.0
-	for text: String in [SELECT_TEXT, VIEWING_TEXT]:
-		text_width = maxf(text_width, font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x)
-	var style := _select_button.get_theme_stylebox(&"normal")
-	_select_button.custom_minimum_size.x = ceilf(text_width + style.get_minimum_size().x)
-	_select_button.text = SELECT_TEXT
-	_select_button.pressed.connect(_on_select_pressed)
+	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	mouse_entered.connect(func() -> void:
+		_pointed = true
+		queue_redraw())
+	mouse_exited.connect(func() -> void:
+		_pointed = false
+		queue_redraw())
 	# Same for the tag: reserve room for the longest tag word. Its font comes from
 	# label_settings, not the theme.
 	var tag_font := _tag.label_settings.font
 	var tag_font_size := _tag.label_settings.font_size
 	var tag_width := 0.0
-	for text: String in [TAG_FOUND, TAG_READ]:
+	for text: String in [TAG_FOUND, TAG_READ, TAG_NEW]:
 		tag_width = maxf(tag_width, tag_font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, tag_font_size).x)
 	# The label's own style (margins) adds to the width the text needs.
 	var tag_style := _tag.get_theme_stylebox(&"normal")
@@ -48,9 +48,9 @@ func _ready() -> void:
 	_tag.text = ""
 
 
-## Width of everything after the cells (tag and Select). The header adds a spacer of the same width.
+## Width of everything after the cells (the tag). The header adds a spacer of the same width.
 func get_trailing_width() -> float:
-	return _tag.custom_minimum_size.x + _select_button.custom_minimum_size.x
+	return _tag.custom_minimum_size.x
 
 
 ## TAG_FOUND, TAG_READ or an empty text. Text, not just color, shows the state.
@@ -101,6 +101,7 @@ func celebrate(is_clue: bool) -> void:
 	if not is_inside_tree():
 		return
 	var at := UiFx.center_of(_tag)
+	Sfx.play(&"clue" if is_clue else &"select")
 	if is_clue:
 		UiFx.pop(_tag, 0.3, 0.3)
 		UiFx.flash(self, UiFx.GOLD, 0.5)
@@ -111,8 +112,20 @@ func celebrate(is_clue: bool) -> void:
 
 
 func set_selected(value: bool) -> void:
-	_select_button.text = VIEWING_TEXT if value else SELECT_TEXT
+	_shown = value
+	queue_redraw()
 
 
-func _on_select_pressed() -> void:
-	selected.emit(entry)
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		Sfx.play(&"select")
+		selected.emit(entry)
+		accept_event()
+
+
+func _draw() -> void:
+	if _shown:
+		draw_rect(Rect2(Vector2.ZERO, size), SHOWN_FILL)
+		draw_rect(Rect2(0, 0, 2, size.y), GameColors.highlight)
+	elif _pointed:
+		draw_rect(Rect2(Vector2.ZERO, size), HOVER_FILL)

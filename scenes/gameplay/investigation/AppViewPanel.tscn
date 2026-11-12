@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://iced0phhadvj" path="res://scripts/gameplay/investigation/app_view_panel.gd" id="1_tqsl7"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="2_odnro"]
 [ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="4_ew880"]
+[ext_resource type="Theme" uid="uid://do41m1dxvwx1w" path="res://assets/ui/scrollbar/scrollbar_theme.tres" id="scrollbar_theme"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jljd"]
 bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
@@ -209,6 +210,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_pea6m")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel2" unique_id=709182586]
 layout_mode = 2
+theme = ExtResource("scrollbar_theme")
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel2/ScrollContainer" unique_id=556738793]

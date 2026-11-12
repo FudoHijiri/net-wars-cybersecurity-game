@@ -9,7 +9,6 @@ const DIALOG_SCENE := preload("res://scenes/gameplay/recovery/ui/RecoveryDialog.
 @export var preview_world: Node2D
 var _room: RecoveryRoom
 var _data: Dictionary = {}
-var _credits: RecoveryDialog
 var preset_buttons: Dictionary = {}
 
 @onready var _menu: Control = %Frame
@@ -53,21 +52,6 @@ func _focus_menu() -> void:
 			choices[i].focus_neighbor_bottom = choices[i + 2].get_path()
 	if not choices.is_empty():
 		choices[0].grab_focus()
-
-
-func _show_credits() -> void:
-	_menu.hide()
-	_credits = DIALOG_SCENE.instantiate() as RecoveryDialog
-	_credits.configure("Art credits", RecoveryData.credits(_data), [{"id": "close", "label": "Back to lab", "callback": _close_credits}])
-	add_child(_credits)
-
-
-func _close_credits() -> void:
-	remove_child(_credits)
-	_credits.queue_free()
-	_credits = null
-	_menu.show()
-	_focus_menu()
 
 
 func launch_preset(preset_id: String) -> void:

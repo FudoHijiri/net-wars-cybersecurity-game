@@ -13,7 +13,7 @@ recovery/
   RecoveryStatusMarker.tscn  The ! / ? / check bubble used by every prop
   ui/
     RecoveryHUD.tscn       Top bar (day, counter, Pause) and bottom hint
-    RecoveryDialog.tscn    Work order, findings, credits, summary
+    RecoveryDialog.tscn    Work order, findings, summary
   tasks/
     RecoveryTask.tscn      Shared repair frame (title, instruction, Body, feedback, Back / Start over)
     ResetPassword.tscn     Inherits RecoveryTask: approve the real Anna (RequestCards), pick a strong password (ChoiceCards), lockout on

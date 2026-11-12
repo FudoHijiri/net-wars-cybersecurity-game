@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "It's contained. The leak is stopped, but the door is still open and the key was never changed.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. But stopped is not fixed. The door is open, the key never changed, and the data is already out.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "What is out is out. What we can do is close the way it left, change the key, and tell the people who must know.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What do we fix first?": "C1",
+			"Do we tell the customers?": "C2"
+		}
+	},
+	"C1": {
+		"text": "Walk through the office and look for machines marked with a [b][color=red]![/color][/b]. The door first, then the key, then the leftover archive.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "Yes. Plainly, and after we know what left. People who trusted us deserve the truth.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "Fix one thing at a time. When everything is repaired, we run a [b][color=green]final check[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Got it. Close the door, change the key, find what is left, and tell the truth.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

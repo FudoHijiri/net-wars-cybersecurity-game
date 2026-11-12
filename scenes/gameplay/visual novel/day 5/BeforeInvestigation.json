@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "Day five. The insider is handled, and the office is quiet again. Quiet is when the next thing starts.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Ring ring...*",
+		"name": "Phone",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "IT desk, this is Joshua. How can I help?",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Joshua? It's Priya Anand, from Customer Support. A customer got spam on the address he gave only to us. Nobody else has that address.",
+		"name": "Priya",
+		"art": "Phone",
+		"choices": {
+			"Could it be a coincidence?": "D1",
+			"Which customers?": "D2"
+		}
+	},
+	"D1": {
+		"text": "Possible. Evidence first.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "E1"
+	},
+	"E1": {
+		"text": "Please check. A customer who trusted us now has spam, and he wants to know who sold his address.",
+		"name": "Priya",
+		"art": "Phone",
+		"next": "F"
+	},
+	"D2": {
+		"text": "I do not know. All of them, I fear. He is only the one who wrote to us.",
+		"name": "Priya",
+		"art": "Phone",
+		"next": "F"
+	},
+	"F": {
+		"text": "We do not know yet. If the list left the building, something sent it. Every transfer leaves a record, and so does every job that runs on a timer.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
+		"next": "G"
+	},
+	"G": {
+		"text": "[b][color=green]5 clues[/color][/b] should be enough to tell what left, how, and where. Then I fill in the report.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

@@ -29,6 +29,7 @@ func setup(state: HardeningState) -> void:
 	_recommended.toggle_mode = true
 	_recommended.toggled.connect(_on_filter_changed)
 	_load_filter.item_selected.connect(_on_filter_changed)
+	KeywordText.attach(_info_text)
 	_show_info("")
 	refresh()
 
@@ -103,6 +104,7 @@ func _on_equipped_input(event: InputEvent, id: String) -> void:
 	var click := event as InputEventMouseButton
 	if click != null and click.pressed and click.button_index == MOUSE_BUTTON_LEFT:
 		_state.equipped_list().erase(id)
+		Sfx.play(&"close")
 		refresh()
 
 
@@ -142,7 +144,6 @@ func _show_info(id: String) -> void:
 	_info_icon.show()
 	_info_icon.texture = UpgradeTile.icon(id)
 	_info_name.text = str(info.get("name", id))
-	var text := "Load %d\n%s" % [int(info.get("load", 0)), info.get("text", "")]
+	KeywordText.set_text(_info_text, str(info.get("text", "")), "Load %d\n" % int(info.get("load", 0)), true)
 	if _state.is_recommended(id):
-		text += "\n\nRecommended: it answers clues you found."
-	_info_text.text = text
+		_info_text.text += "\n\nRecommended: it answers clues you found."

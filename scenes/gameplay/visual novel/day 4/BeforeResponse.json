@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "The new defenses are in place. The insider does not need to break in. He already has the keys.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua! It does not shoot from outside this time. It appears inside, it copies a little at a time, and it walks files out.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "A badge inside the room, a slow copy and a walk-out. That is three tricks.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "That is what makes it hard. The access is real.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What is it doing?": "D1",
+			"Are we ready for this?": "D2"
+		}
+	},
+	"D1": {
+		"text": "[b][color=red]Trusted access[/color][/b]: a badge appears inside and bursts. [b][color=red]Slow copy[/color][/b]: a trickle that grows. [b][color=red]Walk-out[/color][/b]: carriers take files out unless you guard them.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"D2": {
+		"text": "That depends on the upgrades you equipped. Each trick has one defense that stops it. Without that defense, the trick comes back [b][color=red]harder[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Use your cards to [b][color=green]Expose[/color][/b] the threat and hit it. When it attacks, you dodge, and you stay near a file to guard it. Keep going until it is [b][color=green]contained[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"text": "Understood. Let's stop it before anything else leaves.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "G"
+	},
+	"G": {
+		"text": "Everything I set up in Hardening is about to be tested.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

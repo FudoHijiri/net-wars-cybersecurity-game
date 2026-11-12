@@ -1,0 +1,388 @@
+{
+	"_note": "Day 4 shift: a folder is opened. Built by the generic path of LogGenerator (event \"folder_open\"). The first rule is a \"lookup\" (the role decides which folders are allowed), the second a \"clock\" (work hours, the person on call may work at night). The threat is the Salaries folder that repeats in bad logs.",
+	"shift_seconds": 120,
+	"log_seconds": 33,
+	"inspect_percent_per_click": 25,
+	"points_correct": 15,
+	"finish": {
+		"points_wrong": 5,
+		"bonus": 40,
+		"flawless_min_correct": 4,
+		"good_accuracy": 0.7,
+		"comments": {
+			"flawless": "Joshua: No wrong calls. Bonus.",
+			"short": "Joshua: No mistakes, but too few logs. Be quicker.",
+			"good": "Joshua: Solid. Review: {reason}",
+			"rough": "Joshua: Rough. Review: {reason}"
+		}
+	},
+	"guided_kinds": [
+		"normal",
+		"bad",
+		"decoy"
+	],
+	"story_odds": {
+		"base": 0.05,
+		"per_solved": 0.04,
+		"max": 0.5
+	},
+	"mix": {
+		"normal": 6,
+		"bad": 3,
+		"decoy": 1
+	},
+	"on_call": "Carla Patel",
+	"first_names": [
+		"Evan",
+		"Farah",
+		"Gabriel",
+		"Hana",
+		"Ivan",
+		"Jada",
+		"Kai",
+		"Lena",
+		"Marcus",
+		"Nadia",
+		"Omar",
+		"Priya",
+		"Quentin",
+		"Rosa",
+		"Samir",
+		"Tessa",
+		"Umar",
+		"Vera",
+		"Wen",
+		"Xavier",
+		"Yara",
+		"Zane",
+		"Aiden",
+		"Bianca",
+		"Callum",
+		"Dalia",
+		"Elias",
+		"Freya",
+		"Hugo",
+		"Imani"
+	],
+	"last_names": [
+		"Brooks",
+		"Ali",
+		"Santos",
+		"Ito",
+		"Petrov",
+		"Okafor",
+		"Nakamura",
+		"Novak",
+		"Hughes",
+		"Rossi",
+		"Haddad",
+		"Singh",
+		"Moreau",
+		"Lindqvist",
+		"Costa",
+		"Oyelaran",
+		"Fischer",
+		"Kowalski",
+		"Tanaka",
+		"Mendoza",
+		"Abara",
+		"Larsen",
+		"Duarte",
+		"Park",
+		"Ivanova",
+		"Walsh",
+		"Cohen",
+		"Bianchi",
+		"Adeyemi",
+		"Sato"
+	],
+	"id": "day4_monitoring",
+	"event": "folder_open",
+	"reason_format": "This access %s.",
+	"hud_line": "Each job opens its own folders    On call tonight: {on_call}",
+	"story_people": [
+		{
+			"name": "Victor Lang",
+			"computer": "Victor's laptop"
+		},
+		{
+			"name": "Nadia Costa",
+			"computer": "Nadia's computer"
+		},
+		{
+			"name": "Omar Singh",
+			"computer": "Omar's laptop"
+		},
+		{
+			"name": "Carla Patel",
+			"computer": "Carla's computer"
+		}
+	],
+	"events": {
+		"folder_open": {
+			"title": "FOLDER OPENED",
+			"parts": [
+				{
+					"key": "user",
+					"label": "Who",
+					"entity": "account"
+				},
+				{
+					"key": "role",
+					"label": "Role"
+				},
+				{
+					"key": "folder",
+					"label": "Folder"
+				},
+				{
+					"key": "time",
+					"label": "Time"
+				}
+			]
+		}
+	},
+	"rules": [
+		{
+			"id": "folder_job",
+			"part": "folder",
+			"check": "lookup",
+			"by": "role",
+			"roles": [
+				"Engineering",
+				"Sales",
+				"HR",
+				"Finance",
+				"IT"
+			],
+			"table": {
+				"Engineering": [
+					"Projects",
+					"Design"
+				],
+				"Sales": [
+					"Customers",
+					"Price lists"
+				],
+				"HR": [
+					"HR files",
+					"Salaries"
+				],
+				"Finance": [
+					"Finance",
+					"Invoices"
+				],
+				"IT": [
+					"Servers",
+					"Backups"
+				]
+			},
+			"bad_values": [
+				"Projects",
+				"Design",
+				"Customers",
+				"Price lists",
+				"HR files",
+				"Salaries",
+				"Salaries",
+				"Salaries",
+				"Finance",
+				"Invoices",
+				"Servers",
+				"Backups"
+			],
+			"name": "Folders",
+			"text": "Each job opens only its own folders.",
+			"details": [
+				"Engineering: Projects, Design.",
+				"Sales: Customers, Price lists.",
+				"HR: HR files, Salaries.",
+				"Finance: Finance, Invoices.",
+				"IT: Servers, Backups."
+			],
+			"example_ok": "Sales opens Customers",
+			"example_bad": "Sales opens Salaries",
+			"why": "A person needs only the folders their job uses. Extra access is a way in.",
+			"broken": "opens a folder that does not belong to the job"
+		},
+		{
+			"id": "hours",
+			"part": "time",
+			"check": "clock",
+			"min": 420,
+			"max": 1140,
+			"odd_margin": 30,
+			"exception": "on_call",
+			"good_values": [
+				"08:10",
+				"09:15",
+				"10:40",
+				"11:20",
+				"13:05",
+				"14:20",
+				"15:45",
+				"16:30",
+				"17:25"
+			],
+			"bad_values": [
+				"22:05",
+				"23:30",
+				"02:10",
+				"05:40",
+				"21:15",
+				"03:20"
+			],
+			"name": "Hours",
+			"text": "Work happens between 07:00 and 19:00.",
+			"exception_text": "The person on call tonight may work at night.",
+			"example_ok": "14:20",
+			"example_bad": "22:05",
+			"why": "Real work happens in the day. Night access is rare and worth a look.",
+			"broken": "happens far outside work hours"
+		}
+	],
+	"threat": {
+		"part": "folder",
+		"value": "Salaries",
+		"chance": 0.7,
+		"rule_chance": 0.7
+	},
+	"decoys": [
+		{
+			"id": "hr_job",
+			"values": {
+				"role": "HR",
+				"folder": "Salaries"
+			},
+			"reason": "HR works with the salary folder. It is part of the job."
+		},
+		{
+			"id": "it_backups",
+			"values": {
+				"role": "IT",
+				"folder": "Backups"
+			},
+			"reason": "IT looks after the backups. It is part of the job."
+		},
+		{
+			"id": "end_of_day",
+			"values": {
+				"time": "18:40"
+			},
+			"reason": "18:40 is near the end of the day, but it is still inside work hours."
+		}
+	],
+	"story_logs": [
+		{
+			"id": "victor_customers",
+			"kind": "normal",
+			"user": "Victor Lang",
+			"values": {
+				"role": "Sales",
+				"folder": "Customers",
+				"time": "11:20"
+			}
+		},
+		{
+			"id": "victor_salaries",
+			"kind": "bad",
+			"user": "Victor Lang",
+			"values": {
+				"role": "Sales",
+				"folder": "Salaries",
+				"time": "22:05"
+			}
+		},
+		{
+			"id": "nadia_salaries",
+			"kind": "decoy",
+			"user": "Nadia Costa",
+			"values": {
+				"role": "HR",
+				"folder": "Salaries",
+				"time": "09:10"
+			},
+			"reason": "{first} is the HR manager. The salary folder is part of the job."
+		},
+		{
+			"id": "carla_night",
+			"kind": "decoy",
+			"user": "Carla Patel",
+			"values": {
+				"role": "IT",
+				"folder": "Servers",
+				"time": "02:10"
+			},
+			"reason": "{first} is on call tonight, so working at night is fine."
+		}
+	],
+	"hints": {
+		"user": {
+			"ok": [
+				"{first} works here.",
+				"{first} is on staff."
+			]
+		},
+		"role": {
+			"ok": [
+				"{first} works in {role}.",
+				"{first}'s job is {role}."
+			]
+		},
+		"folder": {
+			"ok": [
+				"{role} uses {folder}.",
+				"{folder} is a folder for {role}."
+			],
+			"bad": [
+				"{role} does not usually open {folder}.",
+				"{folder} is not a folder for {role}."
+			]
+		},
+		"time": {
+			"ok": [
+				"{time} is during the working day.",
+				"Work hours include {time}."
+			],
+			"odd": [
+				"{time} is near the end of the day."
+			],
+			"oncall": [
+				"{time} is late, but {first} is on call tonight."
+			],
+			"bad": [
+				"{time} is far outside work hours.",
+				"Nobody works at {time}."
+			]
+		}
+	},
+	"guide": {
+		"1": [
+			"New shift. This time you watch who opens which folder.",
+			"Click a line to ask me about it. The clock is frozen while you learn.",
+			"Rules are in the RULEBOOK. Then LET PASS or REPORT."
+		],
+		"2": [
+			"Check all four lines on the card."
+		],
+		"3": [
+			"Real access is not always right access. Ask what the job needs."
+		],
+		"4": [
+			"The clock runs now. Good luck."
+		]
+	},
+	"rulebook": {
+		"intro": "REPORT access that does not fit the job. LET PASS the rest.",
+		"margin": "Within %d minutes of the limit is a bit odd, but still allowed."
+	},
+	"messages": {
+		"right": "Correct. {reason}",
+		"wrong": "Wrong. {reason}",
+		"timeout": "Time ran out. It passed. {reason}",
+		"no_time": "No time to ask. Decide now.",
+		"start": "Press NEXT LOG to begin.",
+		"normal_reason": "It followed every rule.",
+		"end": "End of shift."
+	}
+}

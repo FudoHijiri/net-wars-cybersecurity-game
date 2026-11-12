@@ -1,0 +1,423 @@
+{
+	"_note": "Day 8 shift: a web request arrives. Built by the generic path of LogGenerator (event \"request\"). 'Sent by' and 'Typed in' are info parts (who sends it, and which box, decide nothing). 'What was typed' is an \"allowed\" rule with \"odd_values\" (an apostrophe in a name is fine) and an \"exempt\" (our own scanner may type code: it is cleared, but worth a second look: the Day 8 engine addition). 'Answer' is an \"allowed\" rule. The threat is the code ' OR 1=1 -- typed into the login name, which repeats in bad logs.",
+	"shift_seconds": 120,
+	"log_seconds": 33,
+	"inspect_percent_per_click": 25,
+	"points_correct": 15,
+	"finish": {
+		"points_wrong": 5,
+		"bonus": 40,
+		"flawless_min_correct": 4,
+		"good_accuracy": 0.7,
+		"comments": {
+			"flawless": "Joshua: No wrong calls. Bonus.",
+			"short": "Joshua: No mistakes, but too few logs. Be quicker.",
+			"good": "Joshua: Solid. Review: {reason}",
+			"rough": "Joshua: Rough. Review: {reason}"
+		}
+	},
+	"guided_kinds": [
+		"normal",
+		"bad",
+		"decoy"
+	],
+	"story_odds": {
+		"base": 0.05,
+		"per_solved": 0.04,
+		"max": 0.5
+	},
+	"mix": {
+		"normal": 6,
+		"bad": 3,
+		"decoy": 1
+	},
+	"on_call": "Carla Patel",
+	"first_names": [
+		"Evan",
+		"Farah",
+		"Gabriel",
+		"Hana",
+		"Ivan",
+		"Jada",
+		"Kai",
+		"Lena",
+		"Marcus",
+		"Nadia",
+		"Omar",
+		"Priya",
+		"Quentin",
+		"Rosa",
+		"Samir",
+		"Tessa",
+		"Umar",
+		"Vera",
+		"Wen",
+		"Xavier",
+		"Yara",
+		"Zane",
+		"Aiden",
+		"Bianca",
+		"Callum",
+		"Dalia",
+		"Elias",
+		"Freya",
+		"Hugo",
+		"Imani"
+	],
+	"last_names": [
+		"Brooks",
+		"Ali",
+		"Santos",
+		"Ito",
+		"Petrov",
+		"Okafor",
+		"Nakamura",
+		"Novak",
+		"Hughes",
+		"Rossi",
+		"Haddad",
+		"Singh",
+		"Moreau",
+		"Lindqvist",
+		"Costa",
+		"Oyelaran",
+		"Fischer",
+		"Kowalski",
+		"Tanaka",
+		"Mendoza",
+		"Abara",
+		"Larsen",
+		"Duarte",
+		"Park",
+		"Ivanova",
+		"Walsh",
+		"Cohen",
+		"Bianchi",
+		"Adeyemi",
+		"Sato"
+	],
+	"id": "day8_monitoring",
+	"event": "request",
+	"reason_format": "This request %s.",
+	"hud_line": "Read what was typed    On call: {on_call}",
+	"story_people": [
+		{
+			"name": "Ciaran O'Brien",
+			"computer": "Ciaran's laptop"
+		},
+		{
+			"name": "Maria Lopez",
+			"computer": "Maria's computer"
+		},
+		{
+			"name": "Sam Kowalski",
+			"computer": "Sam's computer"
+		},
+		{
+			"name": "Carla Patel",
+			"computer": "Carla's computer"
+		}
+	],
+	"events": {
+		"request": {
+			"title": "A WEB REQUEST",
+			"parts": [
+				{
+					"key": "by",
+					"label": "Sent by"
+				},
+				{
+					"key": "box",
+					"label": "Typed in"
+				},
+				{
+					"key": "typed",
+					"label": "What was typed"
+				},
+				{
+					"key": "answer",
+					"label": "Answer"
+				}
+			]
+		}
+	},
+	"rules": [
+		{
+			"id": "by",
+			"part": "by",
+			"check": "info",
+			"good_values": [
+				"a customer",
+				"a customer",
+				"a search engine"
+			],
+			"bad_values": [
+				"a customer"
+			],
+			"name": "Sent by",
+			"text": "Who sends it decides nothing. A customer can be an attacker, and our own scanner is not one.",
+			"details": [
+				"Ours: the security team's scanner, every Tuesday.",
+				"A customer may type anything into a box."
+			],
+			"example_ok": "a customer, typing Maria",
+			"example_bad": "a customer, typing code",
+			"why": "Look at what was typed and what came back.",
+			"broken": ""
+		},
+		{
+			"id": "box",
+			"part": "box",
+			"check": "info",
+			"good_values": [
+				"the login name",
+				"the search box",
+				"the order number"
+			],
+			"bad_values": [
+				"the login name"
+			],
+			"name": "Typed in",
+			"text": "The box decides nothing. Code can be typed into any box.",
+			"details": [
+				"The login form, the search box and the order form all take text."
+			],
+			"example_ok": "the search box",
+			"example_bad": "the login name",
+			"why": "Every box is a way in if its text is not checked.",
+			"broken": ""
+		},
+		{
+			"id": "typed",
+			"part": "typed",
+			"check": "allowed",
+			"allowed": [
+				"Maria",
+				"Dev Patel",
+				"blue shirt",
+				"order 4471",
+				"gift card",
+				"O'Brien",
+				"blue shirt, medium, red stripe"
+			],
+			"odd_values": [
+				"O'Brien",
+				"blue shirt, medium, red stripe"
+			],
+			"exempt": {
+				"part": "by",
+				"values": [
+					"Our scanner"
+				]
+			},
+			"good_values": [
+				"Maria",
+				"Dev Patel",
+				"blue shirt",
+				"order 4471",
+				"gift card"
+			],
+			"bad_values": [
+				"' OR 1=1 --",
+				"' OR 1=1 --",
+				"admin'--",
+				"1; DROP TABLE users",
+				"' UNION SELECT *"
+			],
+			"name": "What was typed",
+			"text": "A name, a search or an order number is letters, digits and spaces. An apostrophe in a name is fine. Code is not.",
+			"details": [
+				"Our own scanner may type code: it is testing us on purpose.",
+				"Look at the whole text, not at one character."
+			],
+			"example_ok": "O'Brien",
+			"example_bad": "' OR 1=1 --",
+			"why": "Typed text is data. It must never be taken for an order.",
+			"broken": "has code in what was typed"
+		},
+		{
+			"id": "answer",
+			"part": "answer",
+			"check": "allowed",
+			"allowed": [
+				"1 row",
+				"a page",
+				"not found"
+			],
+			"good_values": [
+				"1 row",
+				"a page",
+				"not found"
+			],
+			"bad_values": [
+				"2,400 rows",
+				"2,400 rows",
+				"a database error"
+			],
+			"name": "Answer",
+			"text": "A request gets back what it asked for: one row, a page, or a polite not found.",
+			"details": [
+				"Thousands of rows or a database error means the site did something it should not."
+			],
+			"example_ok": "1 row",
+			"example_bad": "2,400 rows",
+			"why": "The answer shows what the website really did.",
+			"broken": "got back thousands of rows or a database error"
+		}
+	],
+	"threat": {
+		"part": "typed",
+		"value": "' OR 1=1 --",
+		"chance": 0.8,
+		"rule_chance": 0.75
+	},
+	"decoys": [
+		{
+			"id": "obrien",
+			"values": {
+				"by": "a customer",
+				"box": "the login name",
+				"typed": "O'Brien",
+				"answer": "a page"
+			},
+			"reason": "An apostrophe in a name is normal text: it is a customer called O'Brien, and the site showed his page."
+		},
+		{
+			"id": "scanner",
+			"values": {
+				"by": "Our scanner",
+				"box": "the login name",
+				"typed": "' OR 1=1 --",
+				"answer": "not found"
+			},
+			"reason": "That is the security team's own scanner, testing the site on purpose. It typed code, and the site refused it."
+		},
+		{
+			"id": "long_search",
+			"values": {
+				"by": "a customer",
+				"box": "the search box",
+				"typed": "blue shirt, medium, red stripe",
+				"answer": "a page"
+			},
+			"reason": "A long search is still letters and spaces. Nothing in it is code."
+		}
+	],
+	"story_logs": [
+		{
+			"id": "obrien_login",
+			"kind": "decoy",
+			"user": "Ciaran O'Brien",
+			"values": {
+				"by": "a customer",
+				"box": "the login name",
+				"typed": "O'Brien",
+				"answer": "a page"
+			},
+			"reason": "{first} typed his own name, with an apostrophe, and the site showed his page."
+		},
+		{
+			"id": "scanner_tuesday",
+			"kind": "decoy",
+			"user": "Carla Patel",
+			"values": {
+				"by": "Our scanner",
+				"box": "the login name",
+				"typed": "' OR 1=1 --",
+				"answer": "not found"
+			},
+			"reason": "{first}'s team runs the scanner every Tuesday. It types code on purpose, and the site refused it."
+		},
+		{
+			"id": "attack_first",
+			"kind": "bad",
+			"user": "Maria Lopez",
+			"values": {
+				"by": "a customer",
+				"box": "the login name",
+				"typed": "' OR 1=1 --",
+				"answer": "2,400 rows"
+			}
+		},
+		{
+			"id": "attack_admin",
+			"kind": "bad",
+			"user": "Sam Kowalski",
+			"values": {
+				"by": "a customer",
+				"box": "the login name",
+				"typed": "admin'--",
+				"answer": "a page"
+			}
+		}
+	],
+	"hints": {
+		"by": {
+			"ok": [
+				"The sender, {by}, does not decide this.",
+				"Who sends it tells you little."
+			]
+		},
+		"box": {
+			"ok": [
+				"The box, {box}, tells you little.",
+				"Any box can be misused."
+			]
+		},
+		"typed": {
+			"ok": [
+				"{typed} is plain text.",
+				"Nothing in {typed} is code."
+			],
+			"odd": [
+				"An apostrophe or a long text is fine. Read all of it before you decide."
+			],
+			"exempt": [
+				"Code, but it comes from our own scanner. Look at who sent it."
+			],
+			"bad": [
+				"{typed} is code, not a name.",
+				"Read {typed} out loud. It is an order to the database."
+			]
+		},
+		"answer": {
+			"ok": [
+				"Getting {answer} is what a request should get.",
+				"{answer} is a fine answer."
+			],
+			"bad": [
+				"Getting {answer} means the site did something it should not.",
+				"{answer} is far more than anyone asked for."
+			]
+		}
+	},
+	"guide": {
+		"1": [
+			"New shift. Customers type into the website. Text is data, until a site takes it for an order. This time you read what was typed.",
+			"Click a line to ask me about it. The clock is frozen while you learn.",
+			"Rules are in the RULEBOOK. Then LET PASS or REPORT."
+		],
+		"2": [
+			"Check all four lines of the request."
+		],
+		"3": [
+			"An apostrophe is not an attack, and our own scanner types code on purpose. Read the whole text and who sent it."
+		],
+		"4": [
+			"The clock runs now. Good luck."
+		]
+	},
+	"rulebook": {
+		"intro": "REPORT requests that break a rule. LET PASS the rest, even the ones that look odd.",
+		"margin": "Within %d of the limit is a bit odd, but still allowed."
+	},
+	"messages": {
+		"right": "Correct. {reason}",
+		"wrong": "Wrong. {reason}",
+		"timeout": "Time ran out. It passed. {reason}",
+		"no_time": "No time to ask. Decide now.",
+		"start": "Press NEXT LOG to begin.",
+		"normal_reason": "It followed every rule.",
+		"end": "End of shift."
+	}
+}

@@ -49,7 +49,10 @@ func _ready() -> void:
 	_carla_animation = _extra_player()
 	_day_label.text = "Day %d" % GameState.current_day
 	_points_label.text = "%d SP" % GameState.wallet() # the points in the current save
-	get_json(jsonsrc if not jsonsrc.is_empty() else str(GameState.phase_info().get("dialogue", "")))
+	if GameState.play_ending:
+		Music.play(&"hope") # the ending of the last day is the one hopeful scene
+	var source := str(GameState.day_info().get("ending", "")) if GameState.play_ending else str(GameState.phase_info().get("dialogue", ""))
+	get_json(jsonsrc if not jsonsrc.is_empty() else source)
 	await _play_intro()
 	if _finished: # Skip was pressed during the opening
 		return
@@ -94,6 +97,7 @@ func get_json(src: String):
 
 func load_block(block : Dictionary):
 	_pending_choices = {}
+	_fade.voice = str(block.get("name", ""))
 	if block.has("text"): _fade.show_text(block["text"])
 	if block.has("name"):
 		if char_name.text != str(block["name"]):
@@ -122,7 +126,11 @@ func load_block(block : Dictionary):
 		if block["trigger"] == "start_phase": # the end of the dialogue: on to the phase itself
 			_finished = true
 			var scene := str(GameState.phase_info().get("scene", ""))
-			if scene.is_empty():
+			if GameState.play_ending: # the ending of the last day: back to the day select, never into the phase again
+				GameState.play_ending = false
+				if not Assessment.open_if_due(true): # the end of the last day: the post-test
+					SceneManager.load_stage_select()
+			elif scene.is_empty():
 				SceneManager.load_stage_select() # this phase is not built yet
 			else:
 				SceneManager.load_scene(scene)
@@ -164,6 +172,7 @@ func _hide_art(art: String) -> void:
 func next():
 	if _finished or ChoiceLayer.visible:
 		return
+	Sfx.play(&"advance") # the keyboard: a key for the next line
 	current_block = next_block
 	load_block(current_block)
 	

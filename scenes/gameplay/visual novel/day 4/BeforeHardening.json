@@ -1,0 +1,42 @@
+{
+	"start": {
+		"text": "The shift is over. The access that did not fit the job was mostly one folder: Salaries.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. The lesson is the same every time: give each person only the access the job needs, and close it when they leave.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Some of the new cards [b][color=green]Expose[/color][/b] the threat: point at the word to read it. Mark the threat first, then hit it.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "C"
+	},
+	"C": {
+		"text": "So I buy the upgrade my clues point at, and I mark the threat before I strike.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "D"
+	},
+	"D": {
+		"text": "Exactly. Use your Security Points, and read what your clues recommended.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Understood. A smaller door now means less to defend later.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

@@ -20,6 +20,9 @@ var _label: RichTextLabel
 var _text := ""
 var _tween: Tween
 var _next_press_at := 0
+## Who speaks: the typing sound is higher or lower for each voice (see data/sfx.json).
+var voice := ""
+var _beat := -1
 
 
 func _init(label: RichTextLabel) -> void:
@@ -32,6 +35,7 @@ func show_text(bbcode: String) -> void:
 	_text = bbcode
 	_label.text = bbcode # parsed once, only to count the visible characters
 	_next_press_at = Time.get_ticks_msec() + PRESS_PAUSE_MSEC
+	_beat = -1
 	var total := _label.get_total_character_count()
 	if total == 0 or chars_per_second <= 0.0:
 		return
@@ -67,6 +71,12 @@ func press() -> bool:
 
 
 func _set_fade_start(start: float) -> void:
+	var beat := int(start / 3.0) # a key press for every few letters
+	if start > 0.0 and beat != _beat:
+		_beat = beat
+		var sfx := (Engine.get_main_loop() as SceneTree).root.get_node_or_null("/root/Sfx")
+		if sfx != null:
+			sfx.call("type_tick", voice)
 	_label.text = "[fade start=%d length=%d]%s[/fade]" % [roundi(start), FADE_LENGTH, _text]
 
 

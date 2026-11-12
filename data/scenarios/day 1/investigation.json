@@ -18,7 +18,7 @@
 		"email": {
 			"title": "EMAIL > MESSAGES SENT TO STAFF",
 			"columns": ["FROM", "SUBJECT", "TIME"],
-			"widths": [80, 170, 50],
+			"widths": [72, 178, 50],
 			"entries": [
 				{
 					"id": "email_cafeteria_menu",
@@ -64,9 +64,9 @@
 					"id": "email_anna_reply",
 					"cells": ["Anna Reyes", "Re: Why was my password changed?", "06:58"],
 					"title": "Re: Why was my password changed?",
-					"detail": "From: Anna Reyes\nTo: IT Security\nTime: 06:58\n\nI did not reset my password. I was asleep at 2 AM.",
+					"detail": "From: Anna Reyes\nTo: IT Security\nTime: 06:58\n\nI did not reset my password. I was asleep at 02:00.",
 					"entities": ["user:anreyes", "org:it-security"],
-					"monologue": ["Anna says she didn't change her password. She was asleep at 2 AM.", "So who did? Someone else may be using her account. That's a real clue."],
+					"monologue": ["Anna says she didn't change her password. She was asleep at 02:00.", "So who did? Someone else may be using her account. That's a real clue."],
 					"summary": "Anna did not change her password. Someone else may be using her account.",
 					"is_clue": true
 				},
@@ -247,7 +247,7 @@
 					"title": "Anna signed in from the office",
 					"detail": "Time: 08:30\nWho: Anna\nResult: Signed in\nWhere from: Office\nComputer used: Anna's computer\n\nShe used her new password after the helpdesk helped her.",
 					"entities": ["user:anreyes", "device:ws-anna"],
-					"monologue": ["Anna is back at the office. Unlike the 2:43 AM sign-in, this one is fine."],
+					"monologue": ["Anna is back at the office. Unlike the 02:43 sign-in, this one is fine."],
 					"summary": "Anna's normal sign-in at the office.",
 					"is_clue": false
 				}
@@ -264,7 +264,7 @@
 					"title": "Payroll file copied",
 					"detail": "Time: 02:52\nWho: Anna's account\nWhat they did: Copied the file\nFile: payroll.xlsx (everyone's pay details)\nKept on: The file server\nSize: 48 MB",
 					"entities": ["user:anreyes", "host:fs-01", "file:payroll.xlsx"],
-					"monologue": ["Anna's account copied the payroll file at 2:52 AM, minutes after that strange sign-in.", "Someone took everyone's pay details. That's a clue."],
+					"monologue": ["Anna's account copied the payroll file at 02:52, minutes after that strange sign-in.", "Someone took everyone's pay details. That's a clue."],
 					"summary": "Anna's account downloaded the payroll file in the night.",
 					"is_clue": true
 				},

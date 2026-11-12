@@ -19,6 +19,8 @@ const NORMAL_SUMMARY_PREFIX := "[=] NORMAL: "
 signal all_clues_found
 
 var _selected_row: InvestigationRow
+var _app_id := "" # the app on the screen
+var _new_ids: Array[String] = [] # entries that just appeared because the one they wait for was investigated (tagged NEW)
 var _app_widths: Array = [] # the app's own column widths, before fitting
 var _app_columns: Array = []
 var _trailing_width := 0.0 # tag + Select button, after the cells
@@ -38,6 +40,7 @@ var monologue: Monologue
 @onready var _detail_body: RichTextLabel = %"Main Content"
 @onready var _hints: RichTextLabel = %EvidenceHints
 @onready var _investigate_button: Button = %MarkClueButton
+@onready var _guide: RichTextLabel = $Panel/Guide # "Click a row to inspect it": gone once the player has
 
 
 func _ready() -> void:
@@ -54,6 +57,7 @@ func load_app(app_id: String) -> void:
 	var app := GameState.get_app(app_id)
 	if app.is_empty():
 		push_warning("AppViewPanel: no data for app '%s'" % app_id)
+	_app_id = app_id
 
 	_app_widths = app.get("widths", [])
 	_app_columns = app.get("columns", [])
@@ -62,6 +66,9 @@ func load_app(app_id: String) -> void:
 
 	var entries: Array = app.get("entries", [])
 	for entry_data: Dictionary in entries:
+		var waits_for := str(entry_data.get("after", "")) # a reply that only exists once the question was sent
+		if not waits_for.is_empty() and not GameState.is_investigated(waits_for):
+			continue
 		var row := ROW_SCENE.instantiate() as InvestigationRow
 		_rows.add_child(row) # in the tree first: the row's @onready nodes must exist
 		row.setup(entry_data, _app_widths)
@@ -158,6 +165,8 @@ func _tag_for(entry_id: String) -> String:
 		return InvestigationRow.TAG_FOUND
 	if GameState.is_investigated(entry_id):
 		return InvestigationRow.TAG_READ
+	if _new_ids.has(entry_id):
+		return InvestigationRow.TAG_NEW
 	return ""
 
 
@@ -187,6 +196,7 @@ func _selected_entry_id() -> String:
 
 
 func _on_row_selected(_entry: Dictionary, row: InvestigationRow) -> void:
+	_guide.hide()
 	_select_row(row)
 
 
@@ -216,6 +226,7 @@ func _on_mark_clue_button_pressed() -> void:
 	if _selected_row == row:
 		_refresh_hints()
 		_refresh_investigate_button()
+	_show_unlocked_entries(entry_id)
 
 	# The last clue also tells the player what to do next.
 	if is_clue and GameState.marked_count() == GameState.clues_required():
@@ -224,6 +235,23 @@ func _on_mark_clue_button_pressed() -> void:
 			monologue.play(closing, _speaker())
 			await monologue.finished
 		all_clues_found.emit()
+
+
+## Entries of the app on the screen that were waiting for this one (a reply to a question) appear now, tagged NEW,
+## and the first of them is selected so the player sees what the answer was.
+func _show_unlocked_entries(entry_id: String) -> void:
+	var fresh: Array[String] = []
+	for entry: Dictionary in GameState.get_app(_app_id).get("entries", []):
+		if str(entry.get("after", "")) == entry_id:
+			fresh.append(str(entry["id"]))
+	if fresh.is_empty():
+		return
+	_new_ids.append_array(fresh)
+	await load_app(_app_id)
+	for row: InvestigationRow in _rows.get_children():
+		if str(row.entry.get("id", "")) == fresh[0]:
+			_select_row(row)
+			return
 
 
 func _speaker() -> String:

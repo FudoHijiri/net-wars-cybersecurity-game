@@ -1,0 +1,399 @@
+{
+	"_note": "Day 3 shift: files change. Built by the generic path of LogGenerator (event \"file_change\"). The speed rule is a \"threshold\" with an \"exempt\" program (the Backup Agent); the threat is the .locked ending that repeats in bad logs, with FinanceLock.exe as the program that repeats.",
+	"shift_seconds": 120,
+	"log_seconds": 33,
+	"inspect_percent_per_click": 25,
+	"points_correct": 15,
+	"finish": {
+		"points_wrong": 5,
+		"bonus": 40,
+		"flawless_min_correct": 4,
+		"good_accuracy": 0.7,
+		"comments": {
+			"flawless": "Joshua: No wrong calls. Bonus.",
+			"short": "Joshua: No mistakes, but too few logs. Be quicker.",
+			"good": "Joshua: Solid. Review: {reason}",
+			"rough": "Joshua: Rough. Review: {reason}"
+		}
+	},
+	"guided_kinds": [
+		"normal",
+		"bad",
+		"decoy"
+	],
+	"story_odds": {
+		"base": 0.05,
+		"per_solved": 0.04,
+		"max": 0.5
+	},
+	"mix": {
+		"normal": 6,
+		"bad": 3,
+		"decoy": 1
+	},
+	"on_call": "Carla Patel",
+	"first_names": [
+		"Evan",
+		"Farah",
+		"Gabriel",
+		"Hana",
+		"Ivan",
+		"Jada",
+		"Kai",
+		"Lena",
+		"Marcus",
+		"Nadia",
+		"Omar",
+		"Priya",
+		"Quentin",
+		"Rosa",
+		"Samir",
+		"Tessa",
+		"Umar",
+		"Vera",
+		"Wen",
+		"Xavier",
+		"Yara",
+		"Zane",
+		"Aiden",
+		"Bianca",
+		"Callum",
+		"Dalia",
+		"Elias",
+		"Freya",
+		"Hugo",
+		"Imani"
+	],
+	"last_names": [
+		"Brooks",
+		"Ali",
+		"Santos",
+		"Ito",
+		"Petrov",
+		"Okafor",
+		"Nakamura",
+		"Novak",
+		"Hughes",
+		"Rossi",
+		"Haddad",
+		"Singh",
+		"Moreau",
+		"Lindqvist",
+		"Costa",
+		"Oyelaran",
+		"Fischer",
+		"Kowalski",
+		"Tanaka",
+		"Mendoza",
+		"Abara",
+		"Larsen",
+		"Duarte",
+		"Park",
+		"Ivanova",
+		"Walsh",
+		"Cohen",
+		"Bianchi",
+		"Adeyemi",
+		"Sato"
+	],
+	"id": "day3_monitoring",
+	"event": "file_change",
+	"reason_format": "This activity %s.",
+	"hud_line": "Files: 20 a minute at most    On call tonight: {on_call}",
+	"story_people": [
+		{
+			"name": "Marta Silva",
+			"computer": "Marta's laptop"
+		},
+		{
+			"name": "Dana Pierce",
+			"computer": "Dana's laptop"
+		},
+		{
+			"name": "Carla Patel",
+			"computer": "Carla's computer"
+		}
+	],
+	"events": {
+		"file_change": {
+			"title": "FILES CHANGE",
+			"parts": [
+				{
+					"key": "program",
+					"label": "Program"
+				},
+				{
+					"key": "user",
+					"label": "Started by",
+					"entity": "account"
+				},
+				{
+					"key": "files",
+					"label": "Files a minute"
+				},
+				{
+					"key": "ending",
+					"label": "New ending"
+				}
+			]
+		}
+	},
+	"rules": [
+		{
+			"id": "approved_programs",
+			"part": "program",
+			"check": "allowed",
+			"allowed": [
+				"Office Suite",
+				"Browser",
+				"PDF Reader",
+				"Backup Agent",
+				"Accounting Tool",
+				"DesignPro",
+				"Scanner"
+			],
+			"good_values": [
+				"Office Suite",
+				"Browser",
+				"PDF Reader",
+				"Accounting Tool",
+				"DesignPro"
+			],
+			"bad_values": [
+				"FinanceLock.exe",
+				"FinanceLock.exe",
+				"FinanceLock.exe",
+				"pay_now.exe",
+				"FileCrypt.exe",
+				"DocFixer.exe"
+			],
+			"name": "Programs",
+			"text": "Only approved programs change files.",
+			"details": [
+				"Approved: Office Suite, Browser, PDF Reader, Backup Agent, Accounting Tool, DesignPro, Scanner."
+			],
+			"example_ok": "Accounting Tool",
+			"example_bad": "pay_now.exe",
+			"why": "A program nobody approved has no business changing the company's files.",
+			"broken": "comes from a program nobody approved"
+		},
+		{
+			"id": "speed",
+			"part": "files",
+			"check": "threshold",
+			"max": 20,
+			"odd_margin": 3,
+			"good_values": [
+				"3",
+				"5",
+				"6",
+				"8",
+				"12",
+				"15"
+			],
+			"bad_values": [
+				"90",
+				"120",
+				"240",
+				"300",
+				"480"
+			],
+			"exempt": {
+				"part": "program",
+				"values": [
+					"Backup Agent"
+				]
+			},
+			"name": "Speed",
+			"text": "A person changes at most 20 files a minute.",
+			"details": [
+				"The Backup Agent may change many files at once: copying them is its job."
+			],
+			"example_ok": "6",
+			"example_bad": "240",
+			"why": "Nobody edits files that fast. A program does.",
+			"broken": "changes files far too fast"
+		},
+		{
+			"id": "ending",
+			"part": "ending",
+			"check": "allowed",
+			"allowed": [
+				".docx",
+				".xlsx",
+				".pdf",
+				".txt",
+				".png"
+			],
+			"odd_values": [
+				".png"
+			],
+			"good_values": [
+				".docx",
+				".xlsx",
+				".pdf",
+				".txt"
+			],
+			"bad_values": [
+				".locked",
+				".crypt",
+				".enc"
+			],
+			"name": "Ending",
+			"text": "Files keep their usual ending (.docx, .xlsx, .pdf, .txt).",
+			"details": [
+				".png is fine for a scanned page."
+			],
+			"example_ok": ".xlsx",
+			"example_bad": ".locked",
+			"why": "A new ending means the file was changed into something else.",
+			"broken": "gives files an ending they should not have"
+		}
+	],
+	"threat": {
+		"part": "ending",
+		"value": ".locked",
+		"chance": 0.8,
+		"rule_chance": 0.7
+	},
+	"decoys": [
+		{
+			"id": "backup_agent",
+			"values": {
+				"program": "Backup Agent",
+				"files": "300",
+				"ending": ".xlsx"
+			},
+			"reason": "The Backup Agent is approved. It may change many files at once."
+		},
+		{
+			"id": "big_batch",
+			"values": {
+				"program": "Office Suite",
+				"files": "18",
+				"ending": ".xlsx"
+			},
+			"reason": "18 files a minute is a lot for a person, but it is under the limit and the rest is in order."
+		},
+		{
+			"id": "scanned_page",
+			"values": {
+				"program": "Scanner",
+				"files": "4",
+				"ending": ".png"
+			},
+			"reason": "A .png is fine for a scanned page, and the Scanner is approved."
+		}
+	],
+	"story_logs": [
+		{
+			"id": "marta_budget",
+			"kind": "normal",
+			"user": "Marta Silva",
+			"values": {
+				"program": "Accounting Tool",
+				"files": "6",
+				"ending": ".xlsx"
+			}
+		},
+		{
+			"id": "marta_financelock",
+			"kind": "bad",
+			"user": "Marta Silva",
+			"values": {
+				"program": "FinanceLock.exe",
+				"files": "240",
+				"ending": ".locked"
+			}
+		},
+		{
+			"id": "dana_design",
+			"kind": "decoy",
+			"user": "Dana Pierce",
+			"values": {
+				"program": "DesignPro",
+				"files": "18",
+				"ending": ".png"
+			},
+			"reason": "{first} is moving a design folder. DesignPro is approved and .png is fine."
+		}
+	],
+	"hints": {
+		"program": {
+			"ok": [
+				"{program} is a program we use.",
+				"{program} is on our list of programs."
+			],
+			"bad": [
+				"I do not know {program}.",
+				"{program} is not a program I know."
+			]
+		},
+		"user": {
+			"ok": [
+				"{first} works here.",
+				"{first} is on staff."
+			]
+		},
+		"files": {
+			"ok": [
+				"{files} files a minute is what a person does.",
+				"{files} a minute: a person could do that."
+			],
+			"odd": [
+				"{files} a minute is a lot for a person, but it is under the limit.",
+				"{files} a minute: close to what a person can do."
+			],
+			"exempt": [
+				"{files} a minute is many, but the Backup Agent copies files for a living.",
+				"The Backup Agent changes many files at once. That is its job."
+			],
+			"bad": [
+				"{files} a minute is far more than a person types.",
+				"Nobody saves {files} files in a minute."
+			]
+		},
+		"ending": {
+			"ok": [
+				"{ending} is a usual ending.",
+				"Files here end in {ending}, as always."
+			],
+			"odd": [
+				"{ending} is not our usual ending, but it fits a scanned page."
+			],
+			"bad": [
+				"Files here do not end in {ending}.",
+				"{ending} is not an ending I know."
+			]
+		}
+	},
+	"guide": {
+		"1": [
+			"New shift. This time you watch files that change.",
+			"Click a line to ask me about it. The clock is frozen while you learn.",
+			"Rules are in the RULEBOOK. Then LET PASS or REPORT."
+		],
+		"2": [
+			"Check all four lines on the card."
+		],
+		"3": [
+			"Many files at once can be fine. Ask who is changing them."
+		],
+		"4": [
+			"The clock runs now. Good luck."
+		]
+	},
+	"rulebook": {
+		"intro": "REPORT file changes that break a rule. LET PASS the rest.",
+		"margin": "Within %d files of the limit is a bit odd, but still allowed."
+	},
+	"messages": {
+		"right": "Correct. {reason}",
+		"wrong": "Wrong. {reason}",
+		"timeout": "Time ran out. It passed. {reason}",
+		"no_time": "No time to ask. Decide now.",
+		"start": "Press NEXT LOG to begin.",
+		"normal_reason": "It followed every rule.",
+		"end": "End of shift."
+	}
+}

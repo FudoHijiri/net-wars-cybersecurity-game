@@ -1,0 +1,176 @@
+{
+	"_note": "The Day 6 (DDoS) fight. Same format as response_day5.json. New kinds: flood (dense small bullets: with the counter 'spread' they come from one side at a time, 'side_order' of 'side_time' seconds each, and the firing edge of the box is marked; without it the right side and one more side fire at every tick), swarm ('sources' are places on the edge, as shares of the box; one is lit for 'warn' seconds, then shoots 'burst' bullets at where the heart is at that moment; with the counter 'limit' each source fires only 'source_cap' times and then shows a cross), drip (slow bullets that stop at a random place in the box and stay; 'max_held' is the most that stay at once, so there is always a way through; with the counter 'idle' a held bullet closes after 'hold_time' seconds; without it they stay until the pattern is over, and are bigger).",
+	"threat": "Distributed Denial-of-Service",
+	"tutorial": "response_day6",
+	"enemy_frames": "res://assets/charactersprite/enemies/ddos_frames.tres",
+	"player_hp": 90,
+	"boss_hp": 130,
+	"energy": 3,
+	"hand_size": 5,
+	"finish": {
+		"reward": 80,
+		"title_lost": "Response Failed",
+		"unpaid_text": "Fight lost, not paid: ",
+		"comments": {
+			"flawless": "Joshua: The site stayed up. Recovery only needs a final check.",
+			"won": "Joshua: {threat} is stopped. These got through: {names}. Recovery will repair them.",
+			"lost": "Joshua: {threat} took the site down. Check your upgrades and your deck, then try again."
+		}
+	},
+	"defenses": [
+		{
+			"id": "spread",
+			"name": "Spread the Load",
+			"works": "The load was shared, so the bullets came from one side at a time.",
+			"harder": "No Spread the Load: the right side and one more side fire at once, denser and faster."
+		},
+		{
+			"id": "limit",
+			"name": "Limit Requests",
+			"works": "Each source was limited, so it fired only twice.",
+			"harder": "No Limit Requests: the sources never stop, and they fire in pairs."
+		},
+		{
+			"id": "idle",
+			"name": "Close Idle Connections",
+			"works": "Idle connections were closed, so they did not stay and fill the box.",
+			"harder": "No Close Idle Connections: the connections stay until the attack is over, and they are bigger."
+		},
+		{
+			"id": "spare",
+			"name": "Spare Capacity",
+			"works": "The spare capacity gave you a little more time.",
+			"helper_warning": 0.6,
+			"helper_note": "SPARE CAPACITY: early warning"
+		}
+	],
+	"patterns": [
+		{
+			"id": "flood",
+			"name": "Flood",
+			"counter": "spread",
+			"kind": "flood",
+			"sprite": "res://assets/bullets/ddos/bullet_request.png",
+			"duration": 9.0,
+			"interval": 0.22,
+			"speed": 64,
+			"damage": 3,
+			"radius": 3.0,
+			"side_time": 1.8,
+			"side_order": [
+				"right",
+				"top",
+				"right",
+				"bottom"
+			],
+			"teach": "Too much at once from every side. Share it out.",
+			"say": "Everybody, all at once!",
+			"works_note": "SHARED: one side at a time",
+			"box": [
+				116,
+				116
+			],
+			"lead": 0.4,
+			"harsh": {
+				"interval": 0.19,
+				"speed": 68,
+				"damage": 3
+			}
+		},
+		{
+			"id": "sources",
+			"name": "Many sources",
+			"counter": "limit",
+			"kind": "swarm",
+			"sprite": "res://assets/bullets/ddos/bullet_shot.png",
+			"duration": 10.0,
+			"interval": 0.55,
+			"speed": 78,
+			"damage": 4,
+			"radius": 3.2,
+			"warn": 0.35,
+			"burst": 1,
+			"source_cap": 2,
+			"sources": [
+				[
+					1.0,
+					0.2
+				],
+				[
+					1.0,
+					0.5
+				],
+				[
+					1.0,
+					0.8
+				],
+				[
+					0.3,
+					0.0
+				],
+				[
+					0.7,
+					1.0
+				],
+				[
+					0.0,
+					0.5
+				]
+			],
+			"teach": "Thousands of senders. Cap each one.",
+			"say": "We are legion.",
+			"works_note": "LIMITED: each source fires twice",
+			"box": [
+				120,
+				120
+			],
+			"lead": 0.4,
+			"harsh": {
+				"interval": 0.22,
+				"burst": 3,
+				"speed": 105,
+				"damage": 5,
+				"warn": 0.1
+			}
+		},
+		{
+			"id": "drip",
+			"name": "Slow drip",
+			"counter": "idle",
+			"kind": "drip",
+			"sprite": "res://assets/bullets/ddos/bullet_link.png",
+			"duration": 10.0,
+			"interval": 1.0,
+			"speed": 42,
+			"damage": 4,
+			"radius": 4.0,
+			"hold_time": 2.5,
+			"max_held": 8,
+			"teach": "Connections that never close fill the room.",
+			"say": "I will just stay a while.",
+			"works_note": "IDLE CLOSED: connections do not stay",
+			"box": [
+				116,
+				116
+			],
+			"lead": 0.4,
+			"harsh": {
+				"hold_time": 999.0,
+				"radius": 7.0,
+				"scale": 1.7,
+				"interval": 0.25,
+				"damage": 5,
+				"max_held": 24
+			}
+		}
+	],
+	"doom": {
+		"counter": "spread",
+		"name": "NO LOAD SHARING",
+		"percent": 30,
+		"warn": "WITHOUT THIS UPGRADE THE ATTACKS CANNOT BE STOPPED: they come as walls with no gap, Dodge does nothing, and every hit takes 30% of your HP.",
+		"strike": "The flood takes more of the site down.",
+		"lost": "Joshua: One server took the whole flood and the site went down. Spread the load, so no single place has to hold it all."
+	},
+	"_doom_note": "doom: the upgrade this threat cannot be beaten without. When it is not equipped every pattern comes as a wall that fills the whole box (kind doomwall, no gap to dodge through), Dodge cards do nothing, and each hit takes 'percent' of the maximum HP (Block still takes its share). 'warn' is read at the start of the fight and 'lost' is Joshua's comment when the fight is lost."
+}

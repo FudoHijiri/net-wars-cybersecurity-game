@@ -392,10 +392,6 @@ func _test_day1_journey() -> void:
 	await _key(KEY_PAGEUP)
 	room.get("_context").evidence = original_evidence
 	await _press(room.dialog.buttons["back"])
-	await _press(room.dialog.buttons["credits"])
-	await _snapshot("17-room-credits")
-	check(room.dialog != null, "Art attribution is available from the live work order")
-	await _press(room.dialog.buttons["back"])
 	await _close_briefing(room)
 	await _snapshot("02-workroom")
 	check(room.get("_hud").get_node("Header").size == Vector2(640, 24), "The single HUD strip leaves the room viewport clear")
@@ -551,11 +547,17 @@ func _test_day1_minigames() -> void:
 	var registry = load("res://scripts/gameplay/recovery/recovery_data.gd")
 	var data: Dictionary = registry.load_data()
 	var day2: Dictionary = registry.load_data("res://data/recovery/day2_recovery.json") # the tasks that Day 2 added have their content there
+	var day3: Dictionary = registry.load_data("res://data/recovery/day3_recovery.json") # and so do the ones of Day 3
+	var day4: Dictionary = registry.load_data("res://data/recovery/day4_recovery.json") # and Day 4
+	var day5: Dictionary = registry.load_data("res://data/recovery/day5_recovery.json") # and Day 5
+	var day6: Dictionary = registry.load_data("res://data/recovery/day6_recovery.json") # and Day 6
+	var day7: Dictionary = registry.load_data("res://data/recovery/day7_recovery.json") # and Day 7
+	var day8: Dictionary = registry.load_data("res://data/recovery/day8_recovery.json") # and Day 8
 	var registry_ok := true
 	for id: String in registry.COMPONENT_IDS:
 		var scene: PackedScene = registry.task_scene(id)
 		var task = scene.instantiate() if scene else null
-		registry_ok = registry_ok and task != null and task.has_signal("completed") and task.component_id == id and (data.components.has(id) or day2.components.has(id))
+		registry_ok = registry_ok and task != null and task.has_signal("completed") and task.component_id == id and (data.components.has(id) or day2.components.has(id) or day3.components.has(id) or day4.components.has(id) or day5.components.has(id) or day6.components.has(id) or day7.components.has(id) or day8.components.has(id))
 		if task:
 			task.free()
 	check(registry_ok, "Every registered minigame has a scene with the matching ID and content")
@@ -886,11 +888,6 @@ func _test_live_state_and_lab() -> void:
 			preview_indicators_hidden = preview_indicators_hidden and not marker.is_visible_in_tree()
 	check(preview_indicators_hidden, "Background preview markers cannot draw over the Lab menu")
 	await _snapshot("00-lab")
-	demo.call("_show_credits")
-	await process_frame
-	check(demo.get("_credits") != null, "In-game credits identify the active source artists")
-	await _snapshot("14-art-credits")
-	await _press(demo.get("_credits").buttons["close"])
 	for id in ["all", "server", "day1", "current", "backup", "healthy", "waiting"]:
 		demo.launch_preset(id)
 		await process_frame

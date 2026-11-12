@@ -19,10 +19,33 @@ static func maybe_show(scene: Node, phase: String) -> void:
 	if steps.is_empty():
 		return
 	due.erase(phase)
+	if scene.has_method(&"adapt_tutorial"):
+		steps = scene.call(&"adapt_tutorial", steps) # a scene laid out differently points at its own controls
 	var overlay := TutorialOverlay.new()
 	scene.add_child(overlay)
 	overlay.play(steps, scene)
 	overlay.finished.connect(func() -> void: SaveManager.save()) # so it stays gone even if the player quits now
+
+
+## The tutorial of something a later day adds (a new effect, a new kind of task, a new report): shown once, the
+## first time that thing is on the screen, in any save. The day's data names its key (for example "tutorial":
+## "response_day3" in the Response data); the steps are in data/tutorials.json. The save remembers what it showed
+## in "tutorial_seen".
+static func maybe_show_new(scene: Node, key: String) -> void:
+	if SaveManager.current_slot < 0 or key.is_empty():
+		return
+	var seen: Array = SaveManager.data.get("tutorial_seen", [])
+	var steps: Array = _load_steps().get(key, [])
+	if seen.has(key) or steps.is_empty():
+		return
+	seen.append(key)
+	SaveManager.data["tutorial_seen"] = seen
+	if scene.has_method(&"adapt_tutorial"):
+		steps = scene.call(&"adapt_tutorial", steps)
+	var overlay := TutorialOverlay.new()
+	scene.add_child(overlay)
+	overlay.play(steps, scene)
+	overlay.finished.connect(func() -> void: SaveManager.save())
 
 
 static func _load_steps() -> Dictionary:

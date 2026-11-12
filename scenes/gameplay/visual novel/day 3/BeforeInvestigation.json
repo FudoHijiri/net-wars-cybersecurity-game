@@ -1,0 +1,69 @@
+{
+	"start": {
+		"text": "Day three. The malware is gone, the office is calm, and it is only 09:40. I should have known better.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Ring ring...*",
+		"name": "Phone",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "IT desk, this is Joshua. How can I help?",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Joshua? It's Marta Silva, from Finance. All my files end in .locked, and there is a note on my screen asking for money! The month-end report is in there!",
+		"name": "Marta",
+		"art": "Phone",
+		"choices": {
+			"Did you click a link?": "D1",
+			"Is it plugged in?": "D2"
+		}
+	},
+	"D1": {
+		"text": "A link? I... a parcel notice, this morning. It said my parcel could not be delivered. I clicked to choose a new date. Oh no.",
+		"name": "Marta",
+		"art": "Phone",
+		"next": "E"
+	},
+	"D2": {
+		"text": "Yes, but I unplugged the cable just now! Was that right? It said something about money, and I panicked.",
+		"name": "Marta",
+		"art": "Phone",
+		"next": "E"
+	},
+	"E": {
+		"text": "Unplugging was right. Do not pay, and do not touch anything. Paying promises nothing, and it only pays for the next attack.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "F"
+	},
+	"F": {
+		"text": "Please hurry. Everything for Friday is in there!",
+		"name": "Marta",
+		"art": "Phone",
+		"next": "G"
+	},
+	"G": {
+		"text": "Every file, every copy and every message leaves a record somewhere. I only have to know where to look.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
+		"next": "H"
+	},
+	"H": {
+		"text": "[b][color=green]4 clues[/color][/b] should be enough to show what really happened. Then I put it in order.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "I"
+	},
+	"I": {
+		"trigger": "start_phase"
+	}
+}

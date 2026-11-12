@@ -77,7 +77,9 @@ func _rebuild() -> void:
 
 	_add_section("GAME STATE")
 	_add_action("+%d Security Points" % BONUS_POINTS, _add_points.bind(BONUS_POINTS))
+	_add_action("Unlock all days", _unlock_all_days, SaveManager.current_slot < 0)
 	_add_action("Reset game state", GameState.reset_progress)
+	_add_action("Forget study aliases (this computer)", Assessment.forget_everyone)
 	_refresh_info()
 
 
@@ -136,6 +138,18 @@ func _play_phase(phase: String, with_dialogue: bool) -> void:
 		SceneManager.open_current_phase()
 	else:
 		SceneManager.load_scene(str(GameState.phase_info()["scene"]))
+
+
+## Marks every phase of every day as finished in the loaded slot, so the Book Archive shows every threat and RESUME
+## goes to the end. Saved at once. Needs a slot (the button is off without one).
+func _unlock_all_days() -> void:
+	if SaveManager.current_slot < 0:
+		return
+	for day in range(1, SaveManager.DAY_COUNT + 1):
+		for phase: String in GameState.PHASES:
+			SaveManager.complete_phase(day, phase)
+	SaveManager.save()
+	_rebuild()
 
 
 ## Not saved to disk: it is saved with the next phase.

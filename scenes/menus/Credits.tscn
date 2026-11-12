@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/menus/credits.gd" id="1_credits"]
+[ext_resource type="FontFile" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="2_title"]
+[ext_resource type="FontFile" path="res://assets/font/Minecraft Standard 6px/MinecraftStandardBold.otf" id="3_bold"]
+[ext_resource type="Theme" path="res://assets/ui/scrollbar/scrollbar_theme.tres" id="4_scroll"]
+
+[sub_resource type="StyleBoxFlat" id="panel"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8039216, 0.45882353, 1)
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 4.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="button_normal"]
+bg_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="button_pressed"]
+bg_color = Color(0.3372549, 0.42352942, 0.5254902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="button_hover"]
+bg_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="button_focus"]
+bg_color = Color(0.3647059, 0.15294118, 0.3647059, 1)
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_credits")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.07058824, 0.07450981, 0.12156863, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 640.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(1, 0.8039216, 0.45882353, 1)
+theme_override_fonts/font = ExtResource("2_title")
+theme_override_font_sizes/font_size = 16
+text = "CREDITS"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 36.0
+offset_right = 600.0
+offset_bottom = 318.0
+theme_override_styles/panel = SubResource("panel")
+
+[node name="Scroll" type="ScrollContainer" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 552.0
+offset_bottom = 274.0
+theme = ExtResource("4_scroll")
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Panel/Scroll"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(530, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 326.0
+offset_right = 120.0
+offset_bottom = 350.0
+theme_override_fonts/font = ExtResource("2_title")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("button_normal")
+theme_override_styles/pressed = SubResource("button_pressed")
+theme_override_styles/hover = SubResource("button_hover")
+theme_override_styles/focus = SubResource("button_focus")
+text = "Back"

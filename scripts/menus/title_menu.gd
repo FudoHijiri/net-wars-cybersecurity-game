@@ -39,6 +39,9 @@ func _on_animation_started(animation: StringName) -> void:
 
 ## A save slot was picked: slide from the slots to the day select.
 func _on_slot_chosen(_slot: int) -> void:
+	if Assessment.open_if_due(): # the pre-test comes before anything else in a slot
+		return
+	Music.play(&"stage_select")
 	stage_select.show()
 	animation_player.play("stage_select_animation")
 	await animation_player.animation_finished
@@ -54,6 +57,9 @@ func _on_save_select_exit_requested() -> void:
 
 ## Jumps to the end of the two slide animations (title to save slots, save slots to day select).
 func _show_stage_select_now() -> void:
+	if Assessment.open_if_due():
+		return
+	Music.play(&"stage_select")
 	stage_select.show()
 	for animation: StringName in [&"save_select_animation", &"stage_select_animation"]:
 		animation_player.play(animation)
@@ -67,6 +73,10 @@ func _on_play_button_pressed() -> void:
 
 func _on_settings_button_pressed() -> void:
 	SceneManager.fade_through(Settings.open) # covers the whole screen: fade out, open, fade in
+
+
+func _on_credits_button_pressed() -> void:
+	SceneManager.load_scene("res://scenes/menus/Credits.tscn")
 
 
 func _on_exit_button_pressed() -> void:

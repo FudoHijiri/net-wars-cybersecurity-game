@@ -1,0 +1,148 @@
+{
+	"_note": "The Day 5 (Data Exfiltration) fight. Same format as response_day4.json. New kinds: leak (small slow bullets in a steady stream; each hit does 'damage' (1) and adds 'leak' Leak to the player: HP lost at the start of the next turn, Block cannot stop it. With the counter a hit adds no Leak), blob (one huge package homes toward the heart: it turns at 'turn' radians a second at 'speed'; a hit costs 'damage'; with the counter it comes apart after 'split_after' seconds into 3 small pieces ('piece_damage', 'piece_speed') that do not home; a new package comes 'interval' seconds after the last one is gone), lanes (the box has 'lanes' horizontal lanes; every 'interval' seconds one lane is lit for 'warn' seconds, then fires a volley of 'count' bolts 'gap' pixels apart across the whole box; with the counter 'warn' is long, without it only a flash).",
+	"threat": "Data Exfiltration",
+	"tutorial": "response_day5",
+	"enemy_frames": "res://assets/charactersprite/enemies/data_exfiltration_frames.tres",
+	"player_hp": 90,
+	"boss_hp": 125,
+	"energy": 3,
+	"hand_size": 5,
+	"finish": {
+		"reward": 75,
+		"title_lost": "Response Failed",
+		"unpaid_text": "Fight lost, not paid: ",
+		"comments": {
+			"flawless": "Joshua: Nothing got through. Recovery only needs a final check.",
+			"won": "Joshua: {threat} is stopped. These got through: {names}. Recovery will repair them.",
+			"lost": "Joshua: {threat} got through. Check your upgrades and your deck, then try again."
+		}
+	},
+	"defenses": [
+		{
+			"id": "egress",
+			"name": "Approved Destinations Only",
+			"works": "The leak was closed, so the small bullets added no Leak.",
+			"harder": "No Approved Destinations Only: every small hit adds 2 Leak, and the stream is denser."
+		},
+		{
+			"id": "flagodd",
+			"name": "Flag Odd Transfers",
+			"works": "The odd transfer was flagged, and the big package came apart into small pieces.",
+			"harder": "No Flag Odd Transfers: two packages, faster, turning tighter, and each hits for 24."
+		},
+		{
+			"id": "ports",
+			"name": "Close Unused Ports",
+			"works": "The port was closed, and the lane about to fire lit up first.",
+			"harder": "No Close Unused Ports: two lanes at a time, and only a flash before they fire."
+		},
+		{
+			"id": "labels",
+			"name": "Label Sensitive Data",
+			"works": "Labeling the data gave you a little more time.",
+			"helper_warning": 0.6,
+			"helper_note": "DATA LABELED: early warning"
+		}
+	],
+	"patterns": [
+		{
+			"id": "trickle",
+			"name": "Quiet trickle",
+			"counter": "egress",
+			"kind": "leak",
+			"sprite": "res://assets/bullets/exfil/bullet_packet.png",
+			"duration": 9.0,
+			"interval": 0.3,
+			"speed": 55,
+			"damage": 1,
+			"leak": 1,
+			"radius": 3.0,
+			"teach": "Each hit is tiny, but they add up at the start of your turn.",
+			"say": "Nobody counts a few bytes.",
+			"works_note": "APPROVED ONLY: the leak is closed",
+			"box": [
+				112,
+				112
+			],
+			"lead": 0.5,
+			"harsh": {
+				"interval": 0.11,
+				"leak": 2,
+				"speed": 66
+			}
+		},
+		{
+			"id": "grab",
+			"name": "Big grab",
+			"counter": "flagodd",
+			"kind": "blob",
+			"sprite": "res://assets/bullets/exfil/bullet_package.png",
+			"sprite_copy": "res://assets/bullets/exfil/bullet_packet.png",
+			"duration": 10.0,
+			"interval": 4.5,
+			"speed": 36,
+			"turn": 1.5,
+			"damage": 18,
+			"radius": 8.0,
+			"split_after": 1.1,
+			"piece_damage": 4,
+			"piece_speed": 70,
+			"teach": "One big package follows you. Keep moving, or block it.",
+			"say": "I will just take it all at once.",
+			"works_note": "FLAGGED: the package comes apart",
+			"box": [
+				120,
+				120
+			],
+			"lead": 0.5,
+			"harsh": {
+				"speed": 58,
+				"turn": 3.8,
+				"damage": 24,
+				"interval": 3.0,
+				"blobs": 2
+			}
+		},
+		{
+			"id": "door",
+			"name": "Hidden door",
+			"counter": "ports",
+			"kind": "lanes",
+			"sprite": "res://assets/bullets/exfil/bullet_bolt.png",
+			"duration": 10.0,
+			"interval": 1.5,
+			"speed": 190,
+			"damage": 5,
+			"radius": 3.5,
+			"lanes": 5,
+			"count": 4,
+			"gap": 16,
+			"warn": 0.8,
+			"teach": "A lane fires without warning. Stay between the lanes.",
+			"say": "Did you know about this door?",
+			"works_note": "PORT CLOSED: the lane lights up first",
+			"box": [
+				120,
+				110
+			],
+			"lead": 0.2,
+			"harsh": {
+				"warn": 0.15,
+				"speed": 280,
+				"damage": 7,
+				"interval": 0.55,
+				"multi": 2,
+				"count": 5
+			}
+		}
+	],
+	"doom": {
+		"counter": "egress",
+		"name": "NO APPROVED DESTINATIONS",
+		"percent": 30,
+		"warn": "WITHOUT THIS UPGRADE THE ATTACKS CANNOT BE STOPPED: they come as walls with no gap, Dodge does nothing, and every hit takes 30% of your HP.",
+		"strike": "More data flows out of the network.",
+		"lost": "Joshua: Data could leave for anywhere, so it all left, unseen. Allow data to go only where it is meant to go."
+	},
+	"_doom_note": "doom: the upgrade this threat cannot be beaten without. When it is not equipped every pattern comes as a wall that fills the whole box (kind doomwall, no gap to dodge through), Dodge cards do nothing, and each hit takes 'percent' of the maximum HP (Block still takes its share). 'warn' is read at the start of the fight and 'lost' is Joshua's comment when the fight is lost."
+}

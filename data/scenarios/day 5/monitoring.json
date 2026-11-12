@@ -1,0 +1,400 @@
+{
+	"_note": "Day 5 shift: a computer sends data out. Built by the generic path of LogGenerator (event \"transfer\"). The first rule is a \"lookup\" (the computer decides where it may send), the second a \"threshold\" (transfers an hour), the third an \"info\" rule: SIZE is shown on the card and is never a rule, which is the lesson of the day (the 9,000 MB backup is fine, the 2 MB trickle is the leak). The threat is the unapproved host 198.51.100.23 that repeats in bad logs.",
+	"shift_seconds": 120,
+	"log_seconds": 33,
+	"inspect_percent_per_click": 25,
+	"points_correct": 15,
+	"finish": {
+		"points_wrong": 5,
+		"bonus": 40,
+		"flawless_min_correct": 4,
+		"good_accuracy": 0.7,
+		"comments": {
+			"flawless": "Joshua: No wrong calls. Bonus.",
+			"short": "Joshua: No mistakes, but too few logs. Be quicker.",
+			"good": "Joshua: Solid. Review: {reason}",
+			"rough": "Joshua: Rough. Review: {reason}"
+		}
+	},
+	"guided_kinds": [
+		"normal",
+		"bad",
+		"decoy"
+	],
+	"story_odds": {
+		"base": 0.05,
+		"per_solved": 0.04,
+		"max": 0.5
+	},
+	"mix": {
+		"normal": 6,
+		"bad": 3,
+		"decoy": 1
+	},
+	"on_call": "Carla Patel",
+	"first_names": [
+		"Evan",
+		"Farah",
+		"Gabriel",
+		"Hana",
+		"Ivan",
+		"Jada",
+		"Kai",
+		"Lena",
+		"Marcus",
+		"Nadia",
+		"Omar",
+		"Priya",
+		"Quentin",
+		"Rosa",
+		"Samir",
+		"Tessa",
+		"Umar",
+		"Vera",
+		"Wen",
+		"Xavier",
+		"Yara",
+		"Zane",
+		"Aiden",
+		"Bianca",
+		"Callum",
+		"Dalia",
+		"Elias",
+		"Freya",
+		"Hugo",
+		"Imani"
+	],
+	"last_names": [
+		"Brooks",
+		"Ali",
+		"Santos",
+		"Ito",
+		"Petrov",
+		"Okafor",
+		"Nakamura",
+		"Novak",
+		"Hughes",
+		"Rossi",
+		"Haddad",
+		"Singh",
+		"Moreau",
+		"Lindqvist",
+		"Costa",
+		"Oyelaran",
+		"Fischer",
+		"Kowalski",
+		"Tanaka",
+		"Mendoza",
+		"Abara",
+		"Larsen",
+		"Duarte",
+		"Park",
+		"Ivanova",
+		"Walsh",
+		"Cohen",
+		"Bianchi",
+		"Adeyemi",
+		"Sato"
+	],
+	"id": "day5_monitoring",
+	"event": "transfer",
+	"reason_format": "This transfer %s.",
+	"hud_line": "Approved places per computer    On call tonight: {on_call}",
+	"story_people": [
+		{
+			"name": "Tomas Ruiz",
+			"computer": "Tomas's laptop"
+		},
+		{
+			"name": "Priya Anand",
+			"computer": "Priya's computer"
+		},
+		{
+			"name": "svc-report",
+			"computer": "db-01"
+		},
+		{
+			"name": "Carla Patel",
+			"computer": "Carla's computer"
+		}
+	],
+	"events": {
+		"transfer": {
+			"title": "DATA SENT OUT",
+			"parts": [
+				{
+					"key": "host",
+					"label": "Computer"
+				},
+				{
+					"key": "dest",
+					"label": "Sent to"
+				},
+				{
+					"key": "size",
+					"label": "Size"
+				},
+				{
+					"key": "hour",
+					"label": "Sent this hour"
+				}
+			]
+		}
+	},
+	"rules": [
+		{
+			"id": "places",
+			"part": "dest",
+			"check": "lookup",
+			"by": "host",
+			"roles": [
+				"db-01",
+				"backup-01",
+				"web-01",
+				"mail-01"
+			],
+			"table": {
+				"db-01": [
+					"Backup cloud"
+				],
+				"backup-01": [
+					"Backup cloud"
+				],
+				"web-01": [
+					"Update server",
+					"Analytics partner"
+				],
+				"mail-01": [
+					"Mail relay"
+				]
+			},
+			"bad_values": [
+				"198.51.100.23",
+				"198.51.100.23",
+				"198.51.100.23",
+				"203.0.113.9",
+				"Personal cloud",
+				"Unknown host"
+			],
+			"name": "Where",
+			"text": "Each computer may send only to its own approved places.",
+			"details": [
+				"db-01: the backup cloud.",
+				"backup-01: the backup cloud.",
+				"web-01: the update server, the analytics partner.",
+				"mail-01: the mail relay."
+			],
+			"example_ok": "backup-01 sends to the backup cloud",
+			"example_bad": "db-01 sends to 198.51.100.23",
+			"why": "Data should only go where somebody agreed it may go.",
+			"broken": "goes to a place that is not approved for that computer"
+		},
+		{
+			"id": "rhythm",
+			"part": "hour",
+			"check": "threshold",
+			"max": 6,
+			"odd_margin": 2,
+			"good_values": [
+				"1",
+				"2",
+				"3",
+				"4"
+			],
+			"bad_values": [
+				"9",
+				"12",
+				"12",
+				"12",
+				"15",
+				"20"
+			],
+			"name": "How often",
+			"text": "A computer makes at most 6 transfers an hour.",
+			"details": [
+				"A steady trickle is a pattern. A person does not send data 12 times an hour."
+			],
+			"example_ok": "2",
+			"example_bad": "12",
+			"why": "Programs send data on a timer. A short list of regular transfers is normal, a long one is worth a look.",
+			"broken": "is one of far too many in an hour"
+		},
+		{
+			"id": "size",
+			"part": "size",
+			"check": "info",
+			"good_values": [
+				"1 MB",
+				"2 MB",
+				"3 MB",
+				"5 MB",
+				"40 MB",
+				"220 MB",
+				"600 MB"
+			],
+			"bad_values": [
+				"2 MB"
+			],
+			"name": "Size",
+			"text": "Size is not a rule. It does not make a transfer good or bad.",
+			"details": [
+				"A huge backup can be fine, and a tiny trickle can be a leak."
+			],
+			"example_ok": "9,000 MB, backup-01 to the backup cloud",
+			"example_bad": "2 MB, db-01 to 198.51.100.23",
+			"why": "Look at where it goes and how often. The size alone decides nothing.",
+			"broken": ""
+		}
+	],
+	"threat": {
+		"part": "dest",
+		"value": "198.51.100.23",
+		"chance": 0.75,
+		"rule_chance": 0.75
+	},
+	"decoys": [
+		{
+			"id": "nightly_backup",
+			"values": {
+				"host": "backup-01",
+				"dest": "Backup cloud",
+				"size": "9,000 MB",
+				"hour": "1"
+			},
+			"reason": "9,000 MB is huge, but it is the nightly backup, and backup-01 may send to the backup cloud."
+		},
+		{
+			"id": "partner_upload",
+			"values": {
+				"host": "web-01",
+				"dest": "Analytics partner",
+				"size": "3 MB",
+				"hour": "1"
+			},
+			"reason": "The analytics partner is approved for web-01, and one small upload an hour is its schedule."
+		},
+		{
+			"id": "update_batch",
+			"values": {
+				"host": "web-01",
+				"dest": "Update server",
+				"size": "600 MB",
+				"hour": "2"
+			},
+			"reason": "600 MB is a lot, but the update server is approved for web-01, and 2 an hour is few."
+		}
+	],
+	"story_logs": [
+		{
+			"id": "tomas_partner",
+			"kind": "normal",
+			"user": "Tomas Ruiz",
+			"values": {
+				"host": "web-01",
+				"dest": "Analytics partner",
+				"size": "3 MB",
+				"hour": "1"
+			}
+		},
+		{
+			"id": "tomas_backup",
+			"kind": "decoy",
+			"user": "Tomas Ruiz",
+			"values": {
+				"host": "backup-01",
+				"dest": "Backup cloud",
+				"size": "9,000 MB",
+				"hour": "1"
+			},
+			"reason": "{first} runs the nightly backup. It is the biggest transfer of the night, to an approved place."
+		},
+		{
+			"id": "leak_first",
+			"kind": "bad",
+			"user": "svc-report",
+			"values": {
+				"host": "db-01",
+				"dest": "198.51.100.23",
+				"size": "2 MB",
+				"hour": "12"
+			}
+		},
+		{
+			"id": "leak_second",
+			"kind": "bad",
+			"user": "svc-report",
+			"values": {
+				"host": "db-01",
+				"dest": "198.51.100.23",
+				"size": "2 MB",
+				"hour": "12"
+			}
+		}
+	],
+	"hints": {
+		"host": {
+			"ok": [
+				"{host} is one of our computers.",
+				"{host} is on the network list."
+			]
+		},
+		"dest": {
+			"ok": [
+				"{host} may send to {dest}.",
+				"{dest} is an approved place for {host}."
+			],
+			"bad": [
+				"{dest} is not an approved place for {host}.",
+				"{host} has no reason to send to {dest}."
+			]
+		},
+		"size": {
+			"ok": [
+				"Size alone does not decide.",
+				"{size} tells you little by itself."
+			]
+		},
+		"hour": {
+			"ok": [
+				"{hour} in an hour is a small number.",
+				"{hour} transfers an hour is not many."
+			],
+			"odd": [
+				"{hour} an hour is near the limit."
+			],
+			"bad": [
+				"{hour} an hour is far too many.",
+				"Nobody sends data {hour} times an hour."
+			]
+		}
+	},
+	"guide": {
+		"1": [
+			"New shift. This time you watch what leaves, and where it goes.",
+			"Click a line to ask me about it. The clock is frozen while you learn.",
+			"Rules are in the RULEBOOK. Then LET PASS or REPORT."
+		],
+		"2": [
+			"Check all four lines on the card."
+		],
+		"3": [
+			"Do not look at the size. Look at where it goes and how often."
+		],
+		"4": [
+			"The clock runs now. Good luck."
+		]
+	},
+	"rulebook": {
+		"intro": "REPORT transfers that break a rule. LET PASS the rest.",
+		"margin": "Within %d transfers of the limit is a bit odd, but still allowed."
+	},
+	"messages": {
+		"right": "Correct. {reason}",
+		"wrong": "Wrong. {reason}",
+		"timeout": "Time ran out. It passed. {reason}",
+		"no_time": "No time to ask. Decide now.",
+		"start": "Press NEXT LOG to begin.",
+		"normal_reason": "It followed every rule.",
+		"end": "End of shift."
+	}
+}

@@ -1,0 +1,990 @@
+{
+	"id": "ddos",
+	"day": 6,
+	"threat_name": "Distributed Denial-of-Service",
+	"speaker": "Joshua",
+	"clues_required": 5,
+	"tabs": {
+		"logs": "TRAFFIC",
+		"computers": "SOURCES",
+		"login": "ORDERS"
+	},
+	"finish": {
+		"points_per_clue": 20,
+		"points_per_mistake": 5,
+		"bonus": 25,
+		"comments": {
+			"flawless": "Joshua: The report was right on the first try. Bonus approved.",
+			"done": "Joshua: Case closed. Next time, look at the shape of the graph and at what each visitor does before you blame the crowd."
+		}
+	},
+	"all_clues_monologue": [
+		"That's enough. Nine thousand devices sent 41,000 requests a minute to one page, with one browser name, and not one of them bought anything.",
+		"The sale was real, and it came after. Time to press REPORT and tell the rush from the attack."
+	],
+	"investigation": {
+		"email": {
+			"title": "EMAIL > THE SITE, THE SALE, THE CALLS",
+			"columns": [
+				"FROM",
+				"SUBJECT",
+				"TIME"
+			],
+			"widths": [
+				80,
+				170,
+				50
+			],
+			"entries": [
+				{
+					"id": "email_down",
+					"cells": [
+						"Jonas Pike",
+						"The site is down!",
+						"11:58"
+					],
+					"title": "The site is down!",
+					"detail": "From: Jonas Pike, web admin\nTo: IT desk\nTime: today 11:58\n\nThe site was slow from 11:42 and has been down since 11:50. Everybody says it is Marketing's lunch sale. Can you check?",
+					"entities": [
+						"user:jonas",
+						"host:web-01",
+						"event:sale"
+					],
+					"monologue": [
+						"The site was slow at 11:42, and the sale starts at 12:00. Eighteen minutes before the sale is a strange time to be crowded.",
+						"Is it the sale, or something else?"
+					],
+					"summary": "Jonas says the site was slow from 11:42 and down by 11:50.",
+					"is_clue": false
+				},
+				{
+					"id": "email_sale",
+					"cells": [
+						"Leila Haddad",
+						"Lunch sale, 12:00",
+						"09:30"
+					],
+					"title": "Lunch sale, 12:00",
+					"detail": "From: Leila Haddad, Marketing\nTo: all customers, all staff\nTime: today 09:30\n\nOur lunch sale starts at 12:00 and runs until 13:00. Half price on the best sellers.",
+					"entities": [
+						"user:leila",
+						"event:sale"
+					],
+					"monologue": [
+						"The sale was announced at 09:30 and starts at 12:00. It is real, and it explains a crowd at noon.",
+						"Does it explain a crowd at 11:42?"
+					],
+					"summary": "Marketing's lunch sale starts at 12:00, announced at 09:30.",
+					"is_clue": false
+				},
+				{
+					"id": "email_support",
+					"cells": [
+						"Support",
+						"Customers cannot buy",
+						"12:15"
+					],
+					"title": "Customers cannot buy",
+					"detail": "From: Support\nTo: IT desk\nTime: today 12:15\n\nA customer called: the page will not load at the checkout. A second customer says the same. They are real, and they are leaving.",
+					"entities": [
+						"event:sale",
+						"host:web-01"
+					],
+					"monologue": [
+						"Real customers cannot get in. Whatever this is, it blocks the people we want."
+					],
+					"summary": "Real customers could not buy at 12:15.",
+					"is_clue": false
+				},
+				{
+					"id": "email_maintenance",
+					"cells": [
+						"IT desk",
+						"Maintenance window Sunday",
+						"Mon"
+					],
+					"title": "Maintenance window on Sunday",
+					"detail": "From: IT desk\nTo: all staff\nTime: Monday\n\nThe servers will restart on Sunday at 03:00. It will take about ten minutes.",
+					"entities": [],
+					"monologue": [
+						"A planned restart on Sunday. Not today."
+					],
+					"summary": "A planned restart is on Sunday at 03:00.",
+					"is_clue": false
+				},
+				{
+					"id": "email_parking",
+					"cells": [
+						"Facilities",
+						"Parking permits",
+						"Tue"
+					],
+					"title": "Parking permits",
+					"detail": "From: Facilities\nTo: all staff\nTime: Tuesday\n\nNew permits for the car park are ready at the front desk.",
+					"entities": [],
+					"monologue": [
+						"Parking permits. Nothing here."
+					],
+					"summary": "New car park permits are at the front desk.",
+					"is_clue": false
+				}
+			]
+		},
+		"logs": {
+			"title": "TRAFFIC > WHAT VISITORS ASK FOR",
+			"columns": [
+				"TIME",
+				"PAGE",
+				"REQUESTS",
+				"BROWSER"
+			],
+			"widths": [
+				38,
+				96,
+				74,
+				92
+			],
+			"entries": [
+				{
+					"id": "traffic_search",
+					"cells": [
+						"11:42",
+						"/search?q=",
+						"41,000 a minute",
+						"all the same"
+					],
+					"title": "/search?q=, 41,000 requests a minute from 11:42",
+					"detail": "Time: from 11:42, still going\nPage: /search?q=\nRequests: 41,000 a minute\nOther pages: almost none\n\nEvery request asks for the same search page, with the same empty search.",
+					"entities": [
+						"page:search",
+						"event:flood",
+						"host:web-01"
+					],
+					"monologue": [
+						"Forty-one thousand requests a minute, and all of them ask for the same page. A real shopper looks around.",
+						"Why would so many people search for nothing?"
+					],
+					"summary": "41,000 requests a minute, from 11:42, all ask for the same page: /search?q=.",
+					"is_clue": true
+				},
+				{
+					"id": "traffic_browser",
+					"cells": [
+						"11:42",
+						"All pages",
+						"97% of them",
+						"bot-kit/1.0"
+					],
+					"title": "97% of the requests use the browser name bot-kit/1.0",
+					"detail": "Time: from 11:42\nBrowser name: bot-kit/1.0\nShare of the requests: 97%\nReal browsers: Chrome, Firefox, Safari, Edge\n\nThousands of different addresses, and all of them call their browser the same made-up name.",
+					"entities": [
+						"browser:bot-kit",
+						"event:flood"
+					],
+					"monologue": [
+						"Ninety-seven percent of the requests use one browser name, and it is not a browser anyone uses.",
+						"Can thousands of people share one name?"
+					],
+					"summary": "97% of the requests carry the browser name bot-kit/1.0.",
+					"is_clue": true
+				},
+				{
+					"id": "traffic_sale",
+					"cells": [
+						"12:05",
+						"Shop and checkout",
+						"14,000 a minute",
+						"Chrome, Safari"
+					],
+					"title": "Shop and checkout pages, 14,000 requests a minute from 12:05",
+					"detail": "Time: from 12:05\nPages: the shop, products, the cart, the checkout\nRequests: 14,000 a minute\nBrowsers: Chrome, Firefox, Safari, Edge\n\nMany pages, real browsers: people shopping.",
+					"entities": [
+						"event:sale",
+						"page:shop"
+					],
+					"monologue": [
+						"This one is big too, but it walks through the whole shop with real browsers. That is how people behave."
+					],
+					"summary": "The sale brought 14,000 requests a minute from 12:05, to many pages, in real browsers.",
+					"is_clue": false
+				},
+				{
+					"id": "traffic_crawler",
+					"cells": [
+						"Hourly",
+						"Many pages",
+						"30 a minute",
+						"friendly-bot/2.1"
+					],
+					"title": "A search-engine crawler, 30 requests a minute",
+					"detail": "Time: every hour\nPages: many, in order\nRequests: 30 a minute\nBrowser name: friendly-bot/2.1\n\nListed in robots.txt as allowed. It reads politely and slowly.",
+					"entities": [
+						"browser:friendly-bot",
+						"file:robots.txt"
+					],
+					"monologue": [
+						"A crawler. It is a program, but it is polite, it is listed, and it is slow."
+					],
+					"summary": "A search-engine crawler reads 30 requests a minute and is allowed.",
+					"is_clue": false
+				},
+				{
+					"id": "traffic_normal",
+					"cells": [
+						"Tue",
+						"Many pages",
+						"900 a minute",
+						"Chrome, Edge"
+					],
+					"title": "A normal Tuesday: 900 requests a minute",
+					"detail": "Time: a normal Tuesday\nPages: many\nRequests: 900 a minute\nBrowsers: real ones\n\nThis is what the site looks like on a quiet day.",
+					"entities": [
+						"host:web-01"
+					],
+					"monologue": [
+						"900 requests a minute is the usual. It is the baseline, and it makes 41,000 look as odd as it is."
+					],
+					"summary": "On a normal Tuesday the site gets 900 requests a minute.",
+					"is_clue": false
+				},
+				{
+					"id": "traffic_images",
+					"cells": [
+						"Daily",
+						"/images",
+						"300 a minute",
+						"Chrome"
+					],
+					"title": "Image downloads",
+					"detail": "Time: all day\nPages: /images\nRequests: 300 a minute\n\nThe pictures of the shop, loaded with every page.",
+					"entities": [],
+					"monologue": [
+						"Pictures for the shop. Ordinary."
+					],
+					"summary": "Image downloads are 300 requests a minute.",
+					"is_clue": false
+				}
+			]
+		},
+		"computers": {
+			"title": "SOURCES > WHO IS ASKING",
+			"columns": [
+				"GROUP",
+				"ADDRESSES",
+				"WHAT"
+			],
+			"widths": [
+				84,
+				72,
+				144
+			],
+			"entries": [
+				{
+					"id": "src_botnet",
+					"cells": [
+						"9,200 addresses",
+						"40 ranges",
+						"Cameras, routers, servers"
+					],
+					"title": "9,200 addresses in 40 ranges",
+					"detail": "Group: the flood\nAddresses: 9,200, in 40 ranges\nWhat they are: cameras, routers and small servers\nOwners: nobody here\n\nDevices that were taken over and do what they are told.",
+					"entities": [
+						"event:flood",
+						"host:botnet"
+					],
+					"monologue": [
+						"Cameras and routers do not browse for fun. Someone took them over and sends them all at once.",
+						"Who controls that many devices?"
+					],
+					"summary": "9,200 addresses in 40 ranges, mostly cameras and routers, sent the flood.",
+					"is_clue": false
+				},
+				{
+					"id": "src_customers",
+					"cells": [
+						"Sale customers",
+						"3,100",
+						"Six countries, real people"
+					],
+					"title": "The sale's customers: 3,100 addresses",
+					"detail": "Group: the sale's customers\nAddresses: 3,100\nWhere: six countries\nWhat they are: phones and laptops of real people\n\nDifferent every minute, as people come and go.",
+					"entities": [
+						"event:sale"
+					],
+					"monologue": [
+						"Phones and laptops, in six countries, different every minute. Real people."
+					],
+					"summary": "The sale's customers are 3,100 addresses, real people in six countries.",
+					"is_clue": false
+				},
+				{
+					"id": "src_office",
+					"cells": [
+						"The office",
+						"40",
+						"Staff laptops"
+					],
+					"title": "The office",
+					"detail": "Group: the office\nAddresses: 40\nWhat they are: staff laptops",
+					"entities": [],
+					"monologue": [
+						"Our own office. A few dozen laptops."
+					],
+					"summary": "The office is 40 addresses.",
+					"is_clue": false
+				},
+				{
+					"id": "src_partner",
+					"cells": [
+						"Partner API",
+						"2",
+						"The analytics partner"
+					],
+					"title": "The partner's API",
+					"detail": "Group: the partner's API\nAddresses: 2\nWhat they are: the analytics partner's two servers",
+					"entities": [],
+					"monologue": [
+						"The partner's two servers. Known and agreed."
+					],
+					"summary": "The partner's API is two addresses.",
+					"is_clue": false
+				},
+				{
+					"id": "src_monitor",
+					"cells": [
+						"Our monitor",
+						"1",
+						"Checks the site"
+					],
+					"title": "Our own monitor",
+					"detail": "Group: our own monitor\nAddresses: 1\nWhat it does: asks for the shop page 600 times a minute to see whether it is up\nBrowser name: Our monitor",
+					"entities": [
+						"browser:monitor"
+					],
+					"monologue": [
+						"Our monitor asks a lot, but it is ours, and it is checking the shop."
+					],
+					"summary": "Our own monitor asks the shop page 600 times a minute from one address.",
+					"is_clue": false
+				}
+			]
+		},
+		"login": {
+			"title": "ORDERS > WHO LOGGED IN AND WHO BOUGHT",
+			"columns": [
+				"GROUP",
+				"LOGINS",
+				"ORDERS",
+				"WHEN"
+			],
+			"widths": [
+				90,
+				64,
+				62,
+				84
+			],
+			"entries": [
+				{
+					"id": "ord_flood",
+					"cells": [
+						"The 9,200",
+						"0 logins",
+						"0 orders",
+						"From 11:42"
+					],
+					"title": "The 9,200 addresses: 0 logins, 0 orders",
+					"detail": "Group: the 9,200 addresses of the flood\nLogins: 0\nOrders: 0\nTime: from 11:42\n\nNot one of them has signed in, put anything in a cart or bought anything.",
+					"entities": [
+						"event:flood",
+						"host:botnet"
+					],
+					"monologue": [
+						"Not one login and not one order from 9,200 addresses. Real visitors want something.",
+						"What do they want, then?"
+					],
+					"summary": "The 9,200 addresses made 0 logins and 0 orders.",
+					"is_clue": true
+				},
+				{
+					"id": "ord_sale",
+					"cells": [
+						"The sale",
+						"620 logins",
+						"412 orders",
+						"12:00 to 12:20"
+					],
+					"title": "The sale: 412 orders in 20 minutes",
+					"detail": "Group: the sale's customers\nLogins: 620\nOrders: 412\nTime: 12:00 to 12:20\n\nReal people, buying.",
+					"entities": [
+						"event:sale"
+					],
+					"monologue": [
+						"412 orders in twenty minutes. That is a crowd with money in its hand."
+					],
+					"summary": "The sale brought 412 orders in 20 minutes.",
+					"is_clue": false
+				},
+				{
+					"id": "ord_resets",
+					"cells": [
+						"Password resets",
+						"14 a day",
+						"0 orders",
+						"Daily"
+					],
+					"title": "Password resets",
+					"detail": "What: password resets\nHow many: 14 a day\nTime: all day",
+					"entities": [],
+					"monologue": [
+						"Fourteen resets a day. Ordinary."
+					],
+					"summary": "There are about 14 password resets a day.",
+					"is_clue": false
+				},
+				{
+					"id": "ord_refunds",
+					"cells": [
+						"Refunds",
+						"3 a day",
+						"0 orders",
+						"Daily"
+					],
+					"title": "Refunds",
+					"detail": "What: refunds\nHow many: 3 a day\nTime: all day",
+					"entities": [],
+					"monologue": [
+						"Three refunds a day. Ordinary."
+					],
+					"summary": "There are about 3 refunds a day.",
+					"is_clue": false
+				},
+				{
+					"id": "ord_news",
+					"cells": [
+						"Newsletter",
+						"21 sign-ups",
+						"0 orders",
+						"Today"
+					],
+					"title": "Newsletter sign-ups",
+					"detail": "What: newsletter sign-ups\nHow many: 21 today\nTime: today",
+					"entities": [],
+					"monologue": [
+						"A few newsletter sign-ups. Ordinary."
+					],
+					"summary": "There were 21 newsletter sign-ups today.",
+					"is_clue": false
+				}
+			]
+		},
+		"files": {
+			"title": "FILES > SETTINGS AND LOGS",
+			"columns": [
+				"TIME",
+				"WHERE",
+				"DID",
+				"FILE"
+			],
+			"widths": [
+				38,
+				54,
+				64,
+				144
+			],
+			"entries": [
+				{
+					"id": "file_limit",
+					"cells": [
+						"Setting",
+						"web-01",
+						"Request limit",
+						"none"
+					],
+					"title": "Request limit: none",
+					"detail": "Setting: the request limit\nWhere: web-01\nValue: none\n\nNothing stops one visitor from asking as often as it likes.",
+					"entities": [
+						"host:web-01",
+						"setting:limit"
+					],
+					"monologue": [
+						"No limit at all on web-01. One visitor may ask a million times."
+					],
+					"summary": "web-01 has no limit on how often one visitor may ask.",
+					"is_clue": false
+				},
+				{
+					"id": "file_log",
+					"cells": [
+						"11:42",
+						"web-01",
+						"Grew",
+						"access.log (2 GB)"
+					],
+					"title": "access.log: 40 MB to 2 GB since 11:42",
+					"detail": "Time: from 11:42\nWhere: web-01\nWhat happened: the log of requests grew from 40 MB to 2 GB in 40 minutes\nFile: access.log",
+					"entities": [
+						"host:web-01",
+						"file:access.log",
+						"event:flood"
+					],
+					"monologue": [
+						"The log of requests grew by fifty times in forty minutes. It is full of the same line."
+					],
+					"summary": "access.log grew from 40 MB to 2 GB in 40 minutes.",
+					"is_clue": false
+				},
+				{
+					"id": "file_banner",
+					"cells": [
+						"09:20",
+						"Shared",
+						"Made",
+						"promo_banner.png"
+					],
+					"title": "promo_banner.png",
+					"detail": "Time: today 09:20\nWhere: the shared folder\nFile: promo_banner.png, 600 KB\n\nMarketing's picture for the sale.",
+					"entities": [
+						"user:leila",
+						"event:sale"
+					],
+					"monologue": [
+						"Marketing's banner. A picture. It has nothing to do with the load."
+					],
+					"summary": "The sale banner is a 600 KB picture from Marketing.",
+					"is_clue": false
+				},
+				{
+					"id": "file_robots",
+					"cells": [
+						"Old",
+						"web-01",
+						"Setting",
+						"robots.txt"
+					],
+					"title": "robots.txt",
+					"detail": "Where: web-01\nFile: robots.txt\nContent: the search engine's crawler may read the shop, politely",
+					"entities": [
+						"file:robots.txt"
+					],
+					"monologue": [
+						"It says which crawlers may read the shop. The polite crawler is listed."
+					],
+					"summary": "robots.txt lists which crawlers may read the shop.",
+					"is_clue": false
+				},
+				{
+					"id": "file_maintenance",
+					"cells": [
+						"Old",
+						"web-01",
+						"Page",
+						"maintenance.html"
+					],
+					"title": "maintenance.html",
+					"detail": "Where: web-01\nFile: maintenance.html\nContent: the page customers see when the site is down for work",
+					"entities": [],
+					"monologue": [
+						"The sorry-we-are-closed page. Not in use today."
+					],
+					"summary": "maintenance.html is the page shown during planned work.",
+					"is_clue": false
+				}
+			]
+		},
+		"network": {
+			"title": "NETWORK > REQUESTS BY THE MINUTE",
+			"columns": [
+				"TIME",
+				"FROM",
+				"REQUESTS",
+				"SHAPE"
+			],
+			"widths": [
+				44,
+				96,
+				90,
+				70
+			],
+			"entries": [
+				{
+					"id": "net_flood",
+					"cells": [
+						"11:42",
+						"9,200 addresses",
+						"41,000 a minute",
+						"Flat"
+					],
+					"title": "41,000 requests a minute from 9,200 addresses, from 11:42",
+					"detail": "Time: from 11:42\nFrom: 9,200 addresses\nRequests: 41,000 a minute\nShape: up in two minutes, then flat\n\nA rush rises, peaks and falls. This one jumped and stayed.",
+					"entities": [
+						"event:flood",
+						"host:botnet",
+						"host:web-01"
+					],
+					"monologue": [
+						"Up to 41,000 in two minutes, then flat as a table. A crowd of people does not do that.",
+						"What makes a flat line?"
+					],
+					"summary": "41,000 requests a minute from 9,200 addresses began at 11:42.",
+					"is_clue": true
+				},
+				{
+					"id": "net_sale",
+					"cells": [
+						"12:00",
+						"3,100 addresses",
+						"14,000 a minute",
+						"Peak 12:20"
+					],
+					"title": "The sale: 14,000 requests a minute from 12:00, peak at 12:20",
+					"detail": "Time: from 12:00\nFrom: 3,100 addresses\nRequests: up to 14,000 a minute\nShape: rises, peaks at 12:20, then falls\n\nA real rush.",
+					"entities": [
+						"event:sale"
+					],
+					"monologue": [
+						"It rises, peaks at 12:20 and falls. That is the shape of people who came for a sale."
+					],
+					"summary": "The sale rose from 12:00, peaked at 12:20 with 14,000 requests a minute, then fell.",
+					"is_clue": false
+				},
+				{
+					"id": "net_backup",
+					"cells": [
+						"01:00",
+						"backup-01",
+						"Backup cloud",
+						"9 GB"
+					],
+					"title": "Nightly backup",
+					"detail": "Time: every night 01:00\nFrom: backup-01\nSent to: the backup cloud\nHow much: 9 GB",
+					"entities": [],
+					"monologue": [
+						"The nightly backup. Not today's problem."
+					],
+					"summary": "The nightly backup copies 9 GB at 01:00.",
+					"is_clue": false
+				},
+				{
+					"id": "net_staff",
+					"cells": [
+						"All day",
+						"The office",
+						"Browsing",
+						"Small"
+					],
+					"title": "Staff browsing",
+					"detail": "Time: all day\nFrom: the office\nHow much: small",
+					"entities": [],
+					"monologue": [
+						"Staff browsing. Ordinary."
+					],
+					"summary": "Staff browsing is small.",
+					"is_clue": false
+				},
+				{
+					"id": "net_gateway_on",
+					"cells": [
+						"11:43",
+						"Gateway",
+						"Flagged",
+						"The spike"
+					],
+					"title": "Gateway note: the spike was flagged",
+					"detail": "Time: today 11:43\nFrom: the gateway\nNote: the gateway flagged the spike of requests as odd at 11:43 and logged it",
+					"entities": [
+						"host:gateway",
+						"event:flood"
+					],
+					"monologue": [
+						"The gateway flagged the spike at 11:43, one minute after it began. The note was there to read."
+					],
+					"summary": "The gateway flagged the spike as odd at 11:43.",
+					"is_clue": false,
+					"if_equipped": [
+						"flagodd"
+					]
+				},
+				{
+					"id": "net_gateway_off",
+					"cells": [
+						"11:43",
+						"Gateway",
+						"No note",
+						"The spike"
+					],
+					"title": "Gateway note: nothing",
+					"detail": "Time: today 11:43\nFrom: the gateway\nNote: the gateway let the spike of requests through without a note",
+					"entities": [
+						"host:gateway",
+						"event:flood"
+					],
+					"monologue": [
+						"The gateway let the spike through without a note. Nobody was told."
+					],
+					"summary": "The gateway let the spike through without a note.",
+					"is_clue": false,
+					"unless_equipped": [
+						"flagodd"
+					]
+				}
+			]
+		},
+		"servers": {
+			"title": "SERVERS > THE MAIN COMPUTERS",
+			"columns": [
+				"COMPUTER",
+				"JOB",
+				"STATUS",
+				"BUSY"
+			],
+			"widths": [
+				82,
+				96,
+				56,
+				66
+			],
+			"entries": [
+				{
+					"id": "srv_web",
+					"cells": [
+						"web-01",
+						"The website",
+						"Overloaded",
+						"100%"
+					],
+					"title": "web-01: processor at 100% since 11:43",
+					"detail": "Computer: web-01\nJob: the website\nStatus: overloaded since 11:43\nBusy: 100%\nNote: the queue of waiting requests is full, so new ones are turned away",
+					"entities": [
+						"host:web-01",
+						"event:flood"
+					],
+					"monologue": [
+						"web-01 is at 100% and its queue is full. It cannot take one more visitor, real or not.",
+						"What filled it?"
+					],
+					"summary": "web-01 has had its processor at 100% since 11:43, and its queue is full.",
+					"is_clue": true
+				},
+				{
+					"id": "srv_db",
+					"cells": [
+						"db-01",
+						"The database",
+						"Running",
+						"30%"
+					],
+					"title": "db-01",
+					"detail": "Computer: db-01\nJob: the database\nStatus: running\nBusy: 30%\nNote: it is not the one under attack",
+					"entities": [
+						"host:db-01"
+					],
+					"monologue": [
+						"db-01 is calm. The trouble is at the front door, not the database."
+					],
+					"summary": "db-01 is running calmly at 30%.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_balancer",
+					"cells": [
+						"Load balancer",
+						"Shares the load",
+						"Running",
+						"20%"
+					],
+					"title": "The load balancer",
+					"detail": "Computer: the load balancer\nJob: shares requests between servers\nStatus: running\nNote: it has only one server to send to, web-01",
+					"entities": [
+						"host:balancer",
+						"host:web-01"
+					],
+					"monologue": [
+						"The balancer has only one server to send requests to. There is nobody to share the load with."
+					],
+					"summary": "The load balancer has only one server to send to, web-01.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_port_on",
+					"cells": [
+						"web-01",
+						"Ports",
+						"Closed",
+						"80, 443"
+					],
+					"title": "Ports: only 80 and 443 are open",
+					"detail": "Computer: web-01\nJob: what is open to the outside\nNote: only ports 80 and 443 are open: the shop and its secure version",
+					"entities": [
+						"host:web-01",
+						"port:8081"
+					],
+					"monologue": [
+						"Only the two doors the shop needs are open. Nothing forgotten."
+					],
+					"summary": "Only ports 80 and 443 are open on web-01.",
+					"is_clue": false,
+					"if_equipped": [
+						"ports"
+					]
+				},
+				{
+					"id": "srv_port_off",
+					"cells": [
+						"web-01",
+						"Ports",
+						"Test page",
+						"80, 443, 8081"
+					],
+					"title": "Ports: an old test page on 8081 is open",
+					"detail": "Computer: web-01\nJob: what is open to the outside\nNote: an old test page on port 8081 is open, and the flood is hitting it too",
+					"entities": [
+						"host:web-01",
+						"port:8081",
+						"event:flood"
+					],
+					"monologue": [
+						"An old test page on port 8081 is open to the whole world, and the flood is hitting it too."
+					],
+					"summary": "An old test page on port 8081 is open, and is being hit too.",
+					"is_clue": false,
+					"unless_equipped": [
+						"ports"
+					]
+				},
+				{
+					"id": "srv_update",
+					"cells": [
+						"Update server",
+						"Updates",
+						"Running",
+						"9%"
+					],
+					"title": "The update server",
+					"detail": "Computer: the update server\nJob: sends updates to the laptops\nStatus: running\nBusy: 9%",
+					"entities": [],
+					"monologue": [
+						"The update server. Quiet."
+					],
+					"summary": "The update server is quiet at 9%.",
+					"is_clue": false
+				}
+			]
+		}
+	},
+	"report": {
+		"text": "Graph A is {1}, and graph B is {2}. The flood began {3}. Every request asked for {4}, and none of them {5}.",
+		"graphs": [
+			{
+				"label": "GRAPH A",
+				"points": [
+					900,
+					900,
+					900,
+					900,
+					900,
+					900,
+					3000,
+					11000,
+					14000,
+					9000,
+					5000,
+					3000,
+					2000
+				]
+			},
+			{
+				"label": "GRAPH B",
+				"points": [
+					900,
+					900,
+					900,
+					900,
+					900,
+					41000,
+					41000,
+					41000,
+					41000,
+					41000,
+					41000,
+					41000,
+					41000
+				]
+			}
+		],
+		"graph_axis": {
+			"start": "11:00",
+			"middle": "12:00",
+			"end": "13:00",
+			"max": 45000
+		},
+		"answers": {
+			"1": "chip_real",
+			"2": "chip_attack",
+			"3": "chip_before",
+			"4": "chip_same",
+			"5": "chip_nobuy"
+		},
+		"chips": [
+			{
+				"id": "chip_real",
+				"label": "the real rush of customers",
+				"reason": "The rush of customers rises at 12:00, peaks at 12:20 and falls. Look at which graph does that."
+			},
+			{
+				"id": "chip_attack",
+				"label": "the attack",
+				"reason": "The attack jumps at 11:42 and stays flat. Look at which graph does that."
+			},
+			{
+				"id": "chip_before",
+				"label": "at 11:42, before the sale"
+			},
+			{
+				"id": "chip_same",
+				"label": "the same page, from one browser"
+			},
+			{
+				"id": "chip_nobuy",
+				"label": "log in or buy anything"
+			},
+			{
+				"id": "chip_noon",
+				"label": "at 12:00, when the sale began",
+				"reason": "At 12:00 the real customers came. The flood was already there, 18 minutes earlier."
+			},
+			{
+				"id": "chip_many",
+				"label": "many different pages",
+				"reason": "Real visitors look at many pages. The flood asked for one: /search?q=."
+			},
+			{
+				"id": "chip_office",
+				"label": "come from our office",
+				"reason": "The office is 40 addresses. The flood is 9,200 addresses in 40 ranges."
+			}
+		],
+		"slot_empty": "(empty)",
+		"slot_correct": "[OK]",
+		"chip_picked": "> ",
+		"submit_button": "SUBMIT REPORT",
+		"submit_locked": "FILL ALL BLANKS",
+		"continue_button": "CONTINUE >",
+		"icons": {
+			"prompt": "?",
+			"picked": ">",
+			"wrong": "!",
+			"solved": "OK"
+		},
+		"messages": {
+			"prompt": "Look at the two graphs and read your notes. Which is the sale, which is the attack, and what did the attack do?",
+			"picked": "Now click a blank to put \"{word}\" there.",
+			"some_wrong": "{right} of {total} are in the right place. {reason} Try again.",
+			"none_right": "None of these are in the right place yet. {reason} Try again.",
+			"solved": "Yes! The sale rises, peaks and falls: real people. The attack jumps and stays flat, and nobody in it buys anything. A crowd is not proof, what each visitor does is.",
+			"misplaced": "\"{word}\" belongs in a different blank. Read what each blank asks for."
+		},
+		"solved_explanation": "This is a DDoS: so many requests at once that real customers cannot get in. A big crowd is not proof by itself. Look at who is asking and what they do.",
+		"tutorial": "investigation_compare",
+		"objective": "TELL THE RUSH FROM THE ATTACK"
+	}
+}

@@ -20,6 +20,7 @@ static func fill(grid: GridContainer, ids: Array, cards: Dictionary, slots: int)
 			var view: CardView = CARD_SCENE.instantiate()
 			grid.add_child(view)
 			view.setup(ids[slot], cards[ids[slot]])
+			view.tooltip_text = KeywordText.card_tooltip(str(cards[ids[slot]].get("text", "")))
 			views.append(view)
 		else:
 			grid.add_child(_empty_slot())

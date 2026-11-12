@@ -1,0 +1,69 @@
+{
+	"start": {
+		"text": "Day four. The ransomware is gone, the files are back, and the office is calm. A calm office is never a good sign.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Ring ring...*",
+		"name": "Phone",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "IT desk, this is Joshua. How can I help?",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Joshua? It's Nadia Costa, from HR. Victor Lang leaves on Friday, and the access system says he opened the salary folder last night. Sales has no business in there.",
+		"name": "Nadia",
+		"art": "Phone",
+		"choices": {
+			"Is he stealing?": "D1",
+			"What do you need from me?": "D2"
+		}
+	},
+	"D1": {
+		"text": "I... I don't know. He has been here for six years. I would hate to think so.",
+		"name": "Nadia",
+		"art": "Phone",
+		"next": "E"
+	},
+	"D2": {
+		"text": "Find out what happened, please. But do not confront him. Not yet. I want to speak with him myself.",
+		"name": "Nadia",
+		"art": "Phone",
+		"next": "E"
+	},
+	"E": {
+		"text": "We do not know yet. His sign-in is real, so I need evidence of what he did, and I will not guess why.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "F"
+	},
+	"F": {
+		"text": "Thank you. Please be careful with him.",
+		"name": "Nadia",
+		"art": "Phone",
+		"next": "G"
+	},
+	"G": {
+		"text": "Every file opened and every file sent leaves a record. And if I need an answer from HR, I can always ask.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
+		"next": "H"
+	},
+	"H": {
+		"text": "[b][color=green]4 clues[/color][/b] should be enough to show what he did. Then I sort what I know from what I do not.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "I"
+	},
+	"I": {
+		"trigger": "start_phase"
+	}
+}

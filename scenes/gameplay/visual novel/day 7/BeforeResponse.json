@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "The new defenses are in place. This attacker does not break in. It offers you something.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua! It sends envelopes, a page that looks like ours, and a key that is not its own.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "A lure, a fake login page and a stolen password. That is three tricks.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Each one wants you to trust it. Look closely before you touch.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What is it doing?": "D1",
+			"Are we ready for this?": "D2"
+		}
+	},
+	"D1": {
+		"text": "[b][color=red]Lure[/color][/b]: envelopes with words on them. Fakes shout URGENT or PRIZE, and real ones heal you. [b][color=red]Fake login page[/color][/b]: it looks harmless, then turns. [b][color=red]Stolen password[/color][/b]: a key that is not its own.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"D2": {
+		"text": "That depends on the upgrades you equipped. Each trick has one defense that stops it. Without it, the trick comes back [b][color=red]harder[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Use your cards to hit it, and [b][color=green]Reflect[/color][/b] what lands on you. When it attacks, you dodge, and you read the envelopes.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"text": "Understood. Let's look closer, and not trust the shine.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "G"
+	},
+	"G": {
+		"text": "Everything I set up in Hardening is about to be tested.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

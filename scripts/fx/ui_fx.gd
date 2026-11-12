@@ -24,6 +24,13 @@ static func _autoload(autoload_name: String) -> Node:
 	return (Engine.get_main_loop() as SceneTree).root.get_node_or_null("/root/" + autoload_name)
 
 
+## A sound effect of the group (the sounds do not depend on Reduce Screen Effects: they are not motion).
+static func sfx(group: StringName, volume_offset: float = 0.0) -> void:
+	var player := _autoload("Sfx")
+	if player != null:
+		player.call("play", group, volume_offset)
+
+
 static func reduced() -> bool:
 	var effects := _autoload("ScreenEffects")
 	return effects != null and bool(effects.get("reduce_effects"))
@@ -96,6 +103,8 @@ static func pop(node: CanvasItem, amount: float = 0.15, time: float = 0.2) -> Tw
 ## Wrong or refused: a short horizontal shake (not with Reduce Screen Effects or Screen Shake off: the cross
 ## and the text still say it).
 static func shake(node: CanvasItem, strength: float = 3.0, steps: int = 5) -> Tween:
+	if steps == 5:
+		sfx(&"error") # a refused move (the phone that vibrates uses more steps)
 	if reduced() or not _shake_allowed() or not node.is_inside_tree():
 		return instant()
 	var origin: Vector2 = _rest(node, "shake", node.position)
@@ -135,6 +144,7 @@ static func fade_in(node: CanvasItem, time: float = 0.2) -> Tween:
 ## The node slides in from `from` (an offset) while it fades in. Not for children of a container: the
 ## container puts them back.
 static func slide_in(node: Control, from: Vector2 = Vector2(0, 16), time: float = 0.2) -> Tween:
+	sfx(&"panel")
 	node.show()
 	if reduced() or not node.is_inside_tree():
 		node.modulate.a = 1.0
@@ -151,6 +161,7 @@ static func slide_in(node: Control, from: Vector2 = Vector2(0, 16), time: float 
 
 ## The node slides away by `to` while it fades out, then hides and goes back to where it was.
 static func slide_out(node: Control, to: Vector2 = Vector2(0, 16), time: float = 0.18) -> Tween:
+	sfx(&"panel_out")
 	if reduced() or not node.is_inside_tree() or not node.visible:
 		node.hide()
 		return instant()
@@ -169,6 +180,7 @@ static func slide_out(node: Control, to: Vector2 = Vector2(0, 16), time: float =
 ## Switching views: the old one slides out one way, the new one slides in from the other. dir is +1 when
 ## the new view is "further on" (to the right) and -1 when it is back.
 static func swap_views(old: Control, new: Control, dir: int = 1, time: float = 0.18, distance: float = 24.0) -> Tween:
+	sfx(&"tab")
 	if old != null and old != new and old.visible:
 		slide_out(old, Vector2(-dir * distance, 0), time)
 	return slide_in(new, Vector2(dir * distance, 0), time)
@@ -286,6 +298,7 @@ static func float_text(text: String, at: Vector2, color: Color = WHITE, size: in
 ## An icon flies from one screen position to another along an arc, and on_land is called when it arrives.
 ## Returns how long it takes (0 with Reduce Screen Effects: on_land is called at once).
 static func fly(kind: Glyph.Kind, color: Color, from: Vector2, to: Vector2, on_land: Callable = Callable(), time: float = 0.4, arc: float = 24.0) -> float:
+	sfx(&"drop" if kind == Glyph.Kind.CARD else &"toggle")
 	if reduced():
 		if on_land.is_valid():
 			on_land.call()
@@ -308,6 +321,15 @@ static func fly(kind: Glyph.Kind, color: Color, from: Vector2, to: Vector2, on_l
 
 ## A glyph that pops in next to a node ("the second cue"): a check for right, a cross for wrong, a star for a find.
 static func badge(kind: Glyph.Kind, color: Color, at: Vector2, pixel: int = 2, life: float = 1.2) -> Glyph:
+	match kind:
+		Glyph.Kind.CHECK:
+			sfx(&"confirm")
+		Glyph.Kind.CROSS:
+			sfx(&"error")
+		Glyph.Kind.STAR, Glyph.Kind.COIN:
+			sfx(&"clue")
+		Glyph.Kind.EXCLAIM:
+			sfx(&"alert")
 	var glyph := Glyph.make(kind, color, pixel)
 	glyph.position = (at - glyph.size / 2.0).round()
 	glyph.z_index = 10
@@ -328,6 +350,7 @@ static func badge(kind: Glyph.Kind, color: Color, at: Vector2, pixel: int = 2, l
 ## A word in a bordered box that slams onto the screen at `at` (REPORTED, CASE SOLVED, SOLD...), stays
 ## for `life` seconds, then fades. size is 6 or 12. Returns the box.
 static func stamp_label(text: String, color: Color, at: Vector2, size: int = 12, life: float = 1.3) -> PanelContainer:
+	sfx(&"drop")
 	assert(size % 6 == 0, "UiFx.stamp_label: the font is 6px, so the size must be 6 or 12")
 	var box := PanelContainer.new()
 	var style := StyleBoxFlat.new()
@@ -358,7 +381,8 @@ static func stamp_label(text: String, color: Color, at: Vector2, size: int = 12,
 
 ## A wide strip with a word that sweeps across the screen (YOUR TURN, ENEMY TURN, SHIFT OVER) and goes. It
 ## does not take the mouse. Reduce Screen Effects: the strip just fades in and out where it stops.
-static func banner(text: String, color: Color, y: float = 150.0, hold: float = 0.5) -> void:
+static func banner(text: String, color: Color, y: float = 150.0, hold: float = 0.5, sound: StringName = &"alert") -> void:
+	sfx(sound)
 	var strip := Panel.new()
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(DARK, 0.88)
@@ -405,19 +429,20 @@ static func _common_center(panels: Array) -> Vector2:
 
 ## A window opens like a terminal: it grows from a thin line while the dim behind it fades in. The sizes are
 ## only known after the first frame, so it waits for that (the panels are invisible until then).
-static func terminal_open(panels: Array, dim: CanvasItem = null) -> void:
+static func terminal_open(panels: Array, backdrop: CanvasItem = null) -> void:
+	sfx(&"open")
 	if reduced():
 		return
 	for panel in panels:
 		if panel is CanvasItem:
 			(panel as CanvasItem).modulate.a = 0.0
-	if dim != null:
-		dim.modulate.a = 0.0
+	if backdrop != null:
+		backdrop.modulate.a = 0.0
 	await _tree().process_frame
 	# These keep running while the game is paused (Esc while a window opens): a window left half-open is a bug.
-	if dim != null and is_instance_valid(dim):
-		var dim_tween := dim.create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-		dim_tween.tween_property(dim, "modulate:a", 1.0, 0.15)
+	if backdrop != null and is_instance_valid(backdrop):
+		var dim_tween := backdrop.create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		dim_tween.tween_property(backdrop, "modulate:a", 1.0, 0.15)
 	var center := _common_center(panels)
 	for panel in panels:
 		if not (panel is Control) or not is_instance_valid(panel):
@@ -432,7 +457,8 @@ static func terminal_open(panels: Array, dim: CanvasItem = null) -> void:
 
 ## The same, backwards: the window shrinks to a line and fades. The tween belongs to the tree, so it runs even
 ## when the window is switched off. Returns it (chain a callback to remove the window afterwards).
-static func terminal_close(panels: Array, dim: CanvasItem = null) -> Tween:
+static func terminal_close(panels: Array, backdrop: CanvasItem = null) -> Tween:
+	sfx(&"close")
 	var tween := _tree().create_tween().set_parallel(true).set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	var center := _common_center(panels)
 	for panel in panels:
@@ -442,8 +468,8 @@ static func terminal_close(panels: Array, dim: CanvasItem = null) -> Tween:
 		control.pivot_offset = center - control.global_position
 		tween.tween_property(control, "scale:y", 0.04, 0.15).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 		tween.tween_property(control, "modulate:a", 0.0, 0.15)
-	if dim != null and is_instance_valid(dim):
-		tween.tween_property(dim, "modulate:a", 0.0, 0.15)
+	if backdrop != null and is_instance_valid(backdrop):
+		tween.tween_property(backdrop, "modulate:a", 0.0, 0.15)
 	if panels.is_empty():
 		tween.tween_interval(0.01)
 	return tween

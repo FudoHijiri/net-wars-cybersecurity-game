@@ -1,0 +1,976 @@
+{
+	"id": "exfiltration",
+	"day": 5,
+	"threat_name": "Data Exfiltration",
+	"speaker": "Joshua",
+	"clues_required": 5,
+	"tabs": {
+		"logs": "JOBS",
+		"computers": "HOSTS",
+		"login": "DESTINATIONS"
+	},
+	"finish": {
+		"points_per_clue": 20,
+		"points_per_mistake": 5,
+		"bonus": 25,
+		"comments": {
+			"flawless": "Joshua: The report was right on the first try. Bonus approved.",
+			"done": "Joshua: Case closed. Next time, ask where the data went and how often before you look at how big it was."
+		}
+	},
+	"all_clues_monologue": [
+		"That's enough. A job nobody remembers copied the customer table to an address nobody approved, 2 MB at a time, for eleven nights.",
+		"The big transfer of the night was the harmless one. Time to press REPORT and fill in what left, how and where."
+	],
+	"investigation": {
+		"email": {
+			"title": "EMAIL > COMPLAINTS AND NOTICES",
+			"columns": [
+				"FROM",
+				"SUBJECT",
+				"TIME"
+			],
+			"widths": [
+				80,
+				170,
+				50
+			],
+			"entries": [
+				{
+					"id": "email_spam",
+					"cells": [
+						"Priya Anand",
+						"Spam to my private address",
+						"08:15"
+					],
+					"title": "Spam to the address I gave only to you",
+					"detail": "From: Priya Anand, Support\nTo: IT desk\nTime: today 08:15\n\nA customer, Mr. Okafor, got spam on the address he gave only to us. He wants to know who sold it. Other customers may have the same.",
+					"entities": [
+						"user:priya",
+						"data:customers"
+					],
+					"monologue": [
+						"A private address that only we have, and now spam on it. Either he told someone else, or the list left the building.",
+						"Which one fits what I will find in the logs?"
+					],
+					"summary": "Priya's customer got spam at an address he gave only to us.",
+					"is_clue": false
+				},
+				{
+					"id": "email_partner",
+					"cells": [
+						"Tomas Ruiz",
+						"Partner report, 08:00",
+						"08:00"
+					],
+					"title": "Partner report, 08:00",
+					"detail": "From: Tomas Ruiz, database admin\nTo: analytics partner\nTime: today 08:00\nAttachment: hourly_summary.csv (3 MB)\n\nThe hourly summary the partner asked for. It goes out every hour, from the web server.",
+					"entities": [
+						"user:tomas",
+						"dest:partner",
+						"file:hourly_summary.csv"
+					],
+					"monologue": [
+						"Tomas sends a 3 MB summary to the analytics partner every hour. It is a data transfer, and it is on the list of things we agreed.",
+						"Data leaving is not the same as data leaking. Who approved this one?"
+					],
+					"summary": "Tomas sends a 3 MB summary to the analytics partner every hour, as agreed.",
+					"is_clue": false
+				},
+				{
+					"id": "email_backup_notice",
+					"cells": [
+						"IT desk",
+						"Notice: nightly backup",
+						"Mon"
+					],
+					"title": "Notice: the nightly backup",
+					"detail": "From: IT desk\nTo: all staff\nTime: Monday\n\nThe nightly backup runs at 01:00 and copies the servers to the backup cloud. You may notice the network is busy at that hour. That is normal.",
+					"entities": [
+						"job:nightly_backup",
+						"dest:backup-cloud"
+					],
+					"monologue": [
+						"The backup runs at 01:00 and everybody was told. A busy network at that hour is expected."
+					],
+					"summary": "The nightly backup runs at 01:00 and everybody was told.",
+					"is_clue": false
+				},
+				{
+					"id": "email_lunch",
+					"cells": [
+						"Facilities",
+						"Lunch menu, training day",
+						"Tue"
+					],
+					"title": "Lunch menu, training day",
+					"detail": "From: Facilities\nTo: all staff\nTime: Tuesday\n\nTraining day lunch: soup, sandwiches, and fruit.",
+					"entities": [],
+					"monologue": [
+						"Soup and sandwiches. Nothing for me here."
+					],
+					"summary": "A lunch menu for the training day.",
+					"is_clue": false
+				},
+				{
+					"id": "email_alert_on",
+					"cells": [
+						"Alert system",
+						"Alert summary",
+						"07:00"
+					],
+					"title": "Alert summary: db-01",
+					"detail": "From: Alert system\nTo: IT desk\nTime: today 07:00\n\nThe alerts flagged db-01 three times this week: an export at 03:10 each time. Nobody read them.",
+					"entities": [
+						"host:db-01",
+						"job:sync_cache"
+					],
+					"monologue": [
+						"The alerts did their job. db-01 was flagged three times this week, and nobody read them.",
+						"An alert nobody reads is not much of a defense. What was it trying to say?"
+					],
+					"summary": "The alerts flagged db-01 three times this week. Nobody read them.",
+					"is_clue": false,
+					"if_equipped": [
+						"activity"
+					]
+				},
+				{
+					"id": "email_alert_off",
+					"cells": [
+						"Alert system",
+						"Alert summary",
+						"07:00"
+					],
+					"title": "Alert summary: nothing",
+					"detail": "From: Alert system\nTo: IT desk\nTime: today 07:00\n\nNo alert fired on db-01 this week.",
+					"entities": [
+						"host:db-01"
+					],
+					"monologue": [
+						"No alert on db-01 all week. Quiet is what a careful thief aims for."
+					],
+					"summary": "No alert fired on db-01 this week.",
+					"is_clue": false,
+					"unless_equipped": [
+						"activity"
+					]
+				}
+			]
+		},
+		"logs": {
+			"title": "JOBS > WHAT RUNS ON A TIMER",
+			"columns": [
+				"JOB",
+				"MADE BY",
+				"RUNS",
+				"MADE"
+			],
+			"widths": [
+				78,
+				66,
+				82,
+				74
+			],
+			"entries": [
+				{
+					"id": "job_sync",
+					"cells": [
+						"sync_cache",
+						"svc-report",
+						"03:10 nightly",
+						"11 days"
+					],
+					"title": "sync_cache, made by svc-report 11 days ago",
+					"detail": "Job: sync_cache\nMade by: svc-report (the reporting account)\nRuns: every night at 03:10\nMade: 11 days ago\n\nNobody remembers making it. It is not in the job list the team keeps.",
+					"entities": [
+						"job:sync_cache",
+						"user:svc-report",
+						"host:db-01"
+					],
+					"monologue": [
+						"A job nobody remembers, made by the reporting account, running at 03:10 every night for eleven nights.",
+						"Who needs a cache synced at 03:10?"
+					],
+					"summary": "The job sync_cache, made by svc-report 11 days ago, runs every night at 03:10.",
+					"is_clue": true
+				},
+				{
+					"id": "job_backup",
+					"cells": [
+						"nightly_backup",
+						"Carla Patel",
+						"01:00 nightly",
+						"2 years"
+					],
+					"title": "nightly_backup, made by Carla",
+					"detail": "Job: nightly_backup\nMade by: Carla Patel\nRuns: every night at 01:00\nMade: 2 years ago\n\nOn the team's job list. Copies the servers to the backup cloud.",
+					"entities": [
+						"job:nightly_backup",
+						"user:carla",
+						"dest:backup-cloud"
+					],
+					"monologue": [
+						"The backup is Carla's. It is on the list, it has a name I know, and it runs at the hour everybody was told."
+					],
+					"summary": "The nightly_backup job is Carla's, runs at 01:00, and is on the team's list.",
+					"is_clue": false
+				},
+				{
+					"id": "job_rotate",
+					"cells": [
+						"Log rotation",
+						"System",
+						"00:30 nightly",
+						"3 years"
+					],
+					"title": "Log rotation",
+					"detail": "Job: Log rotation\nMade by: the system\nRuns: every night at 00:30\n\nKeeps the log files small.",
+					"entities": [],
+					"monologue": [
+						"Log rotation. Housekeeping."
+					],
+					"summary": "Log rotation runs every night at 00:30.",
+					"is_clue": false
+				},
+				{
+					"id": "job_updates",
+					"cells": [
+						"Updates check",
+						"System",
+						"06:00 daily",
+						"3 years"
+					],
+					"title": "Updates check",
+					"detail": "Job: Updates check\nMade by: the system\nRuns: every day at 06:00\n\nAsks the update server whether something new is ready.",
+					"entities": [
+						"dest:update-server"
+					],
+					"monologue": [
+						"It asks the update server for news. On the list, and small."
+					],
+					"summary": "The updates check runs every day at 06:00.",
+					"is_clue": false
+				},
+				{
+					"id": "job_svcpass",
+					"cells": [
+						"svc-report",
+						"account",
+						"password",
+						"never"
+					],
+					"title": "svc-report: password never changed",
+					"detail": "Account: svc-report\nUsed for: the monthly report\nPassword last changed: never\nCan log in to: db-01\n\nA service account is used by a program, not a person, so nobody notices it.",
+					"entities": [
+						"user:svc-report",
+						"host:db-01"
+					],
+					"monologue": [
+						"A service account whose password was never changed. Anyone who learned it could use it for as long as they liked."
+					],
+					"summary": "The account svc-report has never had its password changed.",
+					"is_clue": false
+				},
+				{
+					"id": "job_weekly",
+					"cells": [
+						"Weekly report",
+						"Tomas Ruiz",
+						"Mon 07:00",
+						"1 year"
+					],
+					"title": "Weekly report",
+					"detail": "Job: Weekly report\nMade by: Tomas Ruiz\nRuns: every Monday at 07:00\n\nBuilds the weekly numbers for the managers.",
+					"entities": [
+						"user:tomas"
+					],
+					"monologue": [
+						"The weekly report. One run a week, from Tomas."
+					],
+					"summary": "The weekly report runs on Mondays at 07:00.",
+					"is_clue": false
+				}
+			]
+		},
+		"computers": {
+			"title": "HOSTS > EACH COMPUTER AND WHAT IS NORMAL FOR IT",
+			"columns": [
+				"HOST",
+				"JOB",
+				"NORMAL"
+			],
+			"widths": [
+				86,
+				96,
+				118
+			],
+			"entries": [
+				{
+					"id": "host_db",
+					"cells": [
+						"db-01",
+						"Customer database",
+						"1 an hour, 5 MB"
+					],
+					"title": "db-01: what is normal",
+					"detail": "Host: db-01\nJob: the customer database\nNormal: about 1 transfer an hour, 5 MB each\nAt night: quiet, except the 01:00 backup\nMay send to: the backup cloud",
+					"entities": [
+						"host:db-01",
+						"dest:backup-cloud"
+					],
+					"monologue": [
+						"db-01 is quiet at night. One small transfer an hour, and the backup at 01:00. That is its normal.",
+						"Anything else at night is a question."
+					],
+					"summary": "db-01 is quiet at night: about 1 transfer an hour of 5 MB.",
+					"is_clue": false
+				},
+				{
+					"id": "host_backup",
+					"cells": [
+						"backup-01",
+						"Backup server",
+						"9 GB at 01:00"
+					],
+					"title": "backup-01: what is normal",
+					"detail": "Host: backup-01\nJob: the backup server\nNormal: one big copy of 9 GB at 01:00\nMay send to: the backup cloud",
+					"entities": [
+						"host:backup-01",
+						"dest:backup-cloud"
+					],
+					"monologue": [
+						"9 GB at 01:00 is big, and it is exactly what backup-01 does. Big is normal for this one."
+					],
+					"summary": "backup-01 sends 9 GB at 01:00 to the backup cloud, which is normal for it.",
+					"is_clue": false
+				},
+				{
+					"id": "host_reception",
+					"cells": [
+						"Reception laptop",
+						"Front desk",
+						"Browsing, mail"
+					],
+					"title": "Reception laptop",
+					"detail": "Host: Reception laptop\nJob: the front desk\nNormal: browsing and mail\nMay send to: nobody directly",
+					"entities": [],
+					"monologue": [
+						"Browsing and mail. Nothing unusual."
+					],
+					"summary": "The reception laptop only browses and sends mail.",
+					"is_clue": false
+				},
+				{
+					"id": "host_carla",
+					"cells": [
+						"Carla's laptop",
+						"IT",
+						"Browsing, tools"
+					],
+					"title": "Carla's laptop",
+					"detail": "Host: Carla's laptop\nJob: IT work\nNormal: tools and updates\nMay send to: nobody directly",
+					"entities": [
+						"user:carla"
+					],
+					"monologue": [
+						"Carla's laptop. Tools and updates."
+					],
+					"summary": "Carla's laptop only runs tools and updates.",
+					"is_clue": false
+				},
+				{
+					"id": "host_marta",
+					"cells": [
+						"Marta's laptop",
+						"Finance",
+						"Office, mail"
+					],
+					"title": "Marta's laptop",
+					"detail": "Host: Marta's laptop\nJob: Finance\nNormal: office programs and mail\nMay send to: nobody directly",
+					"entities": [
+						"user:marta"
+					],
+					"monologue": [
+						"Marta's laptop. Office programs and mail."
+					],
+					"summary": "Marta's laptop only runs office programs and mail.",
+					"is_clue": false
+				}
+			]
+		},
+		"login": {
+			"title": "DESTINATIONS > WHERE DATA MAY GO",
+			"columns": [
+				"PLACE",
+				"STATE",
+				"SEEN"
+			],
+			"widths": [
+				98,
+				100,
+				102
+			],
+			"entries": [
+				{
+					"id": "dest_unknown",
+					"cells": [
+						"198.51.100.23",
+						"Not on the list",
+						"11 nights ago"
+					],
+					"title": "198.51.100.23: not on the approved list",
+					"detail": "Place: 198.51.100.23\nState: not on the approved list\nFirst seen: 11 nights ago\nSeen from: db-01\n\nNobody here has ever agreed to send anything to this address.",
+					"entities": [
+						"dest:198.51.100.23",
+						"host:db-01"
+					],
+					"monologue": [
+						"An address that is not on the list, first seen eleven nights ago, and only db-01 talks to it.",
+						"Who is on the other end?"
+					],
+					"summary": "198.51.100.23 is not on the approved list. It was first seen 11 nights ago.",
+					"is_clue": true
+				},
+				{
+					"id": "dest_cloud",
+					"cells": [
+						"Backup cloud",
+						"Approved",
+						"01:00 nightly"
+					],
+					"title": "Backup cloud: approved",
+					"detail": "Place: the backup cloud\nState: approved\nSeen: every night at 01:00\nFrom: backup-01 and db-01",
+					"entities": [
+						"dest:backup-cloud"
+					],
+					"monologue": [
+						"The backup cloud is on the list. Big and regular, and nothing to worry about."
+					],
+					"summary": "The backup cloud is on the approved list and gets 9 GB at 01:00.",
+					"is_clue": false
+				},
+				{
+					"id": "dest_partner",
+					"cells": [
+						"Analytics partner",
+						"Approved",
+						"Every hour"
+					],
+					"title": "Analytics partner: approved",
+					"detail": "Place: the analytics partner\nState: approved\nSeen: every hour\nFrom: the web server",
+					"entities": [
+						"dest:partner"
+					],
+					"monologue": [
+						"The partner is on the list, and the hourly summary is small. This one is fine."
+					],
+					"summary": "The analytics partner is on the approved list and gets 3 MB every hour.",
+					"is_clue": false
+				},
+				{
+					"id": "dest_update",
+					"cells": [
+						"Update server",
+						"Approved",
+						"06:00 daily"
+					],
+					"title": "Update server: approved",
+					"detail": "Place: the update server\nState: approved\nSeen: every day at 06:00",
+					"entities": [
+						"dest:update-server"
+					],
+					"monologue": [
+						"Updates come from a place we chose. Fine."
+					],
+					"summary": "The update server is on the approved list.",
+					"is_clue": false
+				},
+				{
+					"id": "dest_policy",
+					"cells": [
+						"Approved list",
+						"Policy",
+						"Every host"
+					],
+					"title": "The approved list: the policy",
+					"detail": "Policy: each host may send only to the places on its own approved list.\nA new place is added only after IT agrees.\nLast change: 8 months ago.",
+					"entities": [],
+					"monologue": [
+						"The rule is simple: data goes only to places someone agreed to."
+					],
+					"summary": "Each host may send data only to the places on its approved list.",
+					"is_clue": false
+				},
+				{
+					"id": "dest_gateway_on",
+					"cells": [
+						"Gateway log",
+						"Flagged",
+						"Every night"
+					],
+					"title": "Gateway log: the host was flagged",
+					"detail": "Place: the gateway log\nState: the gateway flagged 198.51.100.23 as odd and logged it\nSeen: every night",
+					"entities": [
+						"dest:198.51.100.23",
+						"host:gateway"
+					],
+					"monologue": [
+						"The gateway flagged the host as odd and logged it. The note was there to read."
+					],
+					"summary": "The gateway flagged 198.51.100.23 as odd and logged it.",
+					"is_clue": false,
+					"if_equipped": [
+						"outgoing"
+					]
+				},
+				{
+					"id": "dest_gateway_off",
+					"cells": [
+						"Gateway log",
+						"No note",
+						"Every night"
+					],
+					"title": "Gateway log: no note",
+					"detail": "Place: the gateway log\nState: the gateway let the transfers through without a note\nSeen: every night",
+					"entities": [
+						"dest:198.51.100.23",
+						"host:gateway"
+					],
+					"monologue": [
+						"The gateway let everything through without a note. Nothing to read."
+					],
+					"summary": "The gateway let the transfers through without a note.",
+					"is_clue": false,
+					"unless_equipped": [
+						"outgoing"
+					]
+				}
+			]
+		},
+		"files": {
+			"title": "FILES > ARCHIVES AND TEMPORARY FILES",
+			"columns": [
+				"TIME",
+				"WHERE",
+				"DID",
+				"FILE"
+			],
+			"widths": [
+				40,
+				64,
+				48,
+				148
+			],
+			"entries": [
+				{
+					"id": "file_tmp",
+					"cells": [
+						"03:12",
+						"db-01",
+						"Made",
+						"tmp_cache.zip (480 MB)"
+					],
+					"title": "tmp_cache.zip, 480 MB, in the temp folder of db-01",
+					"detail": "Time: every night 03:12 (deleted at 05:40)\nWhere: the temp folder of db-01\nWhat happened: a zip file was made, then deleted\nFile: tmp_cache.zip, 480 MB\n\nIt is gone every morning, so nobody sees it.",
+					"entities": [
+						"file:tmp_cache.zip",
+						"host:db-01",
+						"job:sync_cache"
+					],
+					"monologue": [
+						"A 480 MB zip appears at 03:12 and is gone by 05:40, every night. Something packs the data and cleans up after itself.",
+						"Why delete it every morning?"
+					],
+					"summary": "tmp_cache.zip, 480 MB, appears on db-01 at 03:12 and is deleted at 05:40.",
+					"is_clue": true
+				},
+				{
+					"id": "file_backup",
+					"cells": [
+						"01:00",
+						"backup-01",
+						"Made",
+						"backup_night.tar (9 GB)"
+					],
+					"title": "Nightly backup archive, 9 GB",
+					"detail": "Time: every night 01:00\nWhere: backup-01\nWhat happened: the nightly archive was made and sent\nFile: backup_night.tar, 9 GB\n\nKept for 30 days, then replaced.",
+					"entities": [
+						"file:backup_night.tar",
+						"host:backup-01",
+						"job:nightly_backup"
+					],
+					"monologue": [
+						"The backup archive is 9 GB, and it is meant to be. It is kept, not deleted in the morning."
+					],
+					"summary": "The nightly backup archive is 9 GB and is kept for 30 days.",
+					"is_clue": false
+				},
+				{
+					"id": "file_handbook",
+					"cells": [
+						"Mon",
+						"Shared",
+						"Made",
+						"handbook.pdf"
+					],
+					"title": "handbook.pdf",
+					"detail": "Time: Monday\nWhere: the shared folder\nFile: handbook.pdf, 2 MB\n\nThe staff handbook.",
+					"entities": [],
+					"monologue": [
+						"The staff handbook. Nothing to see."
+					],
+					"summary": "The staff handbook is a 2 MB file in the shared folder.",
+					"is_clue": false
+				},
+				{
+					"id": "file_onboarding",
+					"cells": [
+						"Tue",
+						"Shared",
+						"Made",
+						"onboarding.pdf"
+					],
+					"title": "onboarding.pdf",
+					"detail": "Time: Tuesday\nWhere: the shared folder\nFile: onboarding.pdf, 1 MB\n\nThe guide for new staff.",
+					"entities": [],
+					"monologue": [
+						"The onboarding guide. Nothing to see."
+					],
+					"summary": "The onboarding guide is a 1 MB file in the shared folder.",
+					"is_clue": false
+				},
+				{
+					"id": "file_march",
+					"cells": [
+						"Wed",
+						"Shared",
+						"Changed",
+						"report_march.xlsx"
+					],
+					"title": "report_march.xlsx",
+					"detail": "Time: Wednesday\nWhere: the shared folder\nFile: report_march.xlsx, 4 MB\n\nThe March report, opened by Marta.",
+					"entities": [
+						"user:marta"
+					],
+					"monologue": [
+						"The March report, opened by Marta. Ordinary."
+					],
+					"summary": "The March report is a 4 MB file that Marta opened.",
+					"is_clue": false
+				}
+			]
+		},
+		"network": {
+			"title": "NETWORK > WHAT LEFT THE BUILDING",
+			"columns": [
+				"TIME",
+				"FROM",
+				"SENT TO",
+				"HOW MUCH"
+			],
+			"widths": [
+				44,
+				58,
+				100,
+				98
+			],
+			"entries": [
+				{
+					"id": "net_trickle",
+					"cells": [
+						"03:15",
+						"db-01",
+						"198.51.100.23",
+						"29 x 2 MB"
+					],
+					"title": "29 transfers of 2 MB to 198.51.100.23",
+					"detail": "Time: 03:15 to 05:35, every night\nFrom: db-01\nSent to: 198.51.100.23\nHow much: 29 transfers of 2 MB, one every five minutes\n\nTogether about 58 MB, in small pieces.",
+					"entities": [
+						"host:db-01",
+						"dest:198.51.100.23",
+						"job:sync_cache"
+					],
+					"monologue": [
+						"Every five minutes, 2 MB, all the same size, all night. That is not how a person sends files.",
+						"Why would someone send it in small pieces?"
+					],
+					"summary": "29 transfers of 2 MB, from 03:15 to 05:35, went to 198.51.100.23.",
+					"is_clue": true
+				},
+				{
+					"id": "net_backup",
+					"cells": [
+						"01:00",
+						"backup-01",
+						"Backup cloud",
+						"9 GB"
+					],
+					"title": "Nightly backup copy, 9 GB",
+					"detail": "Time: today 01:00\nFrom: backup-01\nSent to: the backup cloud\nHow much: 9 GB, one transfer\n\nApproved, and at its own hour.",
+					"entities": [
+						"host:backup-01",
+						"dest:backup-cloud",
+						"job:nightly_backup"
+					],
+					"monologue": [
+						"It is by far the biggest thing on the network tonight. It goes to an approved place at its own hour. Size is not the point."
+					],
+					"summary": "The nightly backup copy is 9 GB and goes to the backup cloud at 01:00.",
+					"is_clue": false
+				},
+				{
+					"id": "net_partner",
+					"cells": [
+						"08:00",
+						"web-01",
+						"Analytics partner",
+						"3 MB"
+					],
+					"title": "Partner upload, 3 MB every hour",
+					"detail": "Time: every hour, last at 08:00\nFrom: web-01\nSent to: the analytics partner\nHow much: 3 MB",
+					"entities": [
+						"dest:partner",
+						"user:tomas"
+					],
+					"monologue": [
+						"Small, regular, and to a partner we approved."
+					],
+					"summary": "The partner upload is 3 MB every hour to the analytics partner.",
+					"is_clue": false
+				},
+				{
+					"id": "net_printer",
+					"cells": [
+						"10:20",
+						"Printer",
+						"Browsing",
+						"Small"
+					],
+					"title": "Printer, browsing",
+					"detail": "Time: today 10:20\nFrom: the printer\nSent to: the vendor's site\nHow much: a few KB, to check for updates",
+					"entities": [],
+					"monologue": [
+						"The printer checking for updates. Tiny."
+					],
+					"summary": "The printer checked for updates at 10:20.",
+					"is_clue": false
+				}
+			]
+		},
+		"servers": {
+			"title": "SERVERS > THE MAIN COMPUTERS",
+			"columns": [
+				"COMPUTER",
+				"JOB",
+				"STATUS",
+				"BUSY"
+			],
+			"widths": [
+				88,
+				104,
+				58,
+				50
+			],
+			"entries": [
+				{
+					"id": "srv_db",
+					"cells": [
+						"db-01",
+						"Customer export",
+						"Busy",
+						"62%"
+					],
+					"title": "db-01: export at 03:10, 41,000 rows",
+					"detail": "Computer: db-01\nJob: the customer database\nStatus: busy at 03:10\nNote: an export of 41,000 customer rows at 03:10, started by the job sync_cache, with the account svc-report",
+					"entities": [
+						"host:db-01",
+						"job:sync_cache",
+						"user:svc-report",
+						"data:customers"
+					],
+					"monologue": [
+						"db-01 exported 41,000 customer rows at 03:10, with the account svc-report. That is the whole customer table.",
+						"Who needs the whole table at 03:10?"
+					],
+					"summary": "db-01 exported 41,000 customer rows at 03:10, by the job sync_cache.",
+					"is_clue": true
+				},
+				{
+					"id": "srv_backup",
+					"cells": [
+						"backup-01",
+						"Backups",
+						"Running",
+						"35%"
+					],
+					"title": "backup-01",
+					"detail": "Computer: backup-01\nJob: keeps the nightly backups\nStatus: running\nBusy: 35%\nNote: the 01:00 copy finished at 01:42",
+					"entities": [
+						"host:backup-01"
+					],
+					"monologue": [
+						"backup-01 finished its copy at 01:42, as it does every night."
+					],
+					"summary": "backup-01 finished its 9 GB copy at 01:42.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_gateway",
+					"cells": [
+						"Gateway",
+						"Connects us out",
+						"Running",
+						"20%"
+					],
+					"title": "The gateway",
+					"detail": "Computer: the gateway\nJob: everything that leaves the building goes through it\nStatus: running\nBusy: 20%",
+					"entities": [
+						"host:gateway"
+					],
+					"monologue": [
+						"Everything that leaves goes through the gateway. It sees it all, if someone reads it."
+					],
+					"summary": "The gateway sees everything that leaves the building.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_mail",
+					"cells": [
+						"Mail server",
+						"Staff mail",
+						"Running",
+						"28%"
+					],
+					"title": "The mail server",
+					"detail": "Computer: the mail server\nJob: staff mail\nStatus: running\nBusy: 28%",
+					"entities": [],
+					"monologue": [
+						"The mail server. Running normally."
+					],
+					"summary": "The mail server is running normally.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_update",
+					"cells": [
+						"Update server",
+						"Updates",
+						"Running",
+						"9%"
+					],
+					"title": "The update server",
+					"detail": "Computer: the update server\nJob: sends updates to the laptops\nStatus: running\nBusy: 9%\nNote: a 600 MB update went to a laptop at 06:05",
+					"entities": [
+						"dest:update-server"
+					],
+					"monologue": [
+						"An update of 600 MB went to a laptop. Big, and it is on the list."
+					],
+					"summary": "The update server sent a 600 MB update to a laptop at 06:05.",
+					"is_clue": false
+				}
+			]
+		}
+	},
+	"report": {
+		"text": "At {1}, the job {2} began copying {3}, {4}, to {5}.",
+		"answers": {
+			"1": "chip_when",
+			"2": "chip_sync",
+			"3": "chip_customers",
+			"4": "chip_trickle",
+			"5": "chip_unapproved"
+		},
+		"chips": [
+			{
+				"id": "chip_when",
+				"label": "eleven nights ago, at 03:10"
+			},
+			{
+				"id": "chip_sync",
+				"label": "sync_cache"
+			},
+			{
+				"id": "chip_customers",
+				"label": "the customer table"
+			},
+			{
+				"id": "chip_trickle",
+				"label": "a little at a time, 2 MB every five minutes"
+			},
+			{
+				"id": "chip_unapproved",
+				"label": "a host that is not on the approved list"
+			},
+			{
+				"id": "chip_lastnight",
+				"label": "last night, at 01:00",
+				"reason": "That is the nightly backup. It is big, but it goes to an approved place at its own hour."
+			},
+			{
+				"id": "chip_morning",
+				"label": "this morning, at 08:00",
+				"reason": "That is the hourly partner report. It is small, regular and agreed. It is not the leak."
+			},
+			{
+				"id": "chip_nightly",
+				"label": "nightly_backup",
+				"reason": "nightly_backup is Carla's job, on the team's list. It is not the one nobody remembers making."
+			},
+			{
+				"id": "chip_weekly",
+				"label": "the weekly report",
+				"reason": "The weekly report runs once a week, from Tomas. It does not run at 03:10."
+			},
+			{
+				"id": "chip_finance",
+				"label": "the finance folder",
+				"reason": "Nothing shows the finance folder leaving. The export was the customer table, 41,000 rows."
+			},
+			{
+				"id": "chip_handbook",
+				"label": "the handbook",
+				"reason": "The handbook is a harmless 2 MB file in the shared folder. It never left."
+			},
+			{
+				"id": "chip_bigdl",
+				"label": "in one big download of 9 GB",
+				"reason": "The 9 GB is the nightly backup. The leak is the opposite: small pieces, all night."
+			},
+			{
+				"id": "chip_cloud",
+				"label": "the backup cloud",
+				"reason": "The backup cloud is on the approved list. The data went somewhere that is not."
+			},
+			{
+				"id": "chip_partner",
+				"label": "the analytics partner",
+				"reason": "The analytics partner is approved, and gets only the small hourly summary."
+			}
+		],
+		"slot_empty": "(empty)",
+		"slot_correct": "[OK]",
+		"chip_picked": "> ",
+		"submit_button": "SUBMIT REPORT",
+		"submit_locked": "FILL ALL BLANKS",
+		"continue_button": "CONTINUE >",
+		"icons": {
+			"prompt": "?",
+			"picked": ">",
+			"wrong": "!",
+			"solved": "OK"
+		},
+		"messages": {
+			"prompt": "Read your notes. Fill each blank with what it asks for: when, which job, what, how and where.",
+			"picked": "Now click a blank to put \"{word}\" there.",
+			"some_wrong": "{right} of {total} are in the right place. {reason} Try again.",
+			"none_right": "None of these are in the right place yet. {reason} Try again.",
+			"solved": "Yes! A small copy every five minutes, to a place nobody approved. Size did not give it away. The place and the rhythm did.",
+			"misplaced": "\"{word}\" belongs in a different blank. Read what each blank asks for."
+		},
+		"solved_explanation": "This is data exfiltration: private data leaving, often a little at a time so nobody notices. A normal amount is a baseline for each computer, not a size. Look at where the data goes and how often.",
+		"tutorial": "investigation_report",
+		"objective": "FILL IN WHAT LEFT, HOW AND WHERE"
+	}
+}

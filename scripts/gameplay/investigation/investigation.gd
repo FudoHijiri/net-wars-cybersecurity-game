@@ -7,8 +7,6 @@ extends Control
 ## The buttons' `pressed` signals are connected in Investigation.tscn.
 
 const DEFAULT_APP := "email"
-const OBJECTIVE_FIND_TEXT := "OBJECTIVE - INVESTIGATE AND FIND CLUES"
-const OBJECTIVE_REPORT_TEXT := "OBJECTIVE - WRITE THE REPORT"
 
 var _shown_clues := -1 # the clue count last shown, so only a new clue makes the counter jump
 
@@ -55,12 +53,12 @@ func _ready() -> void:
 	_update_clues_found()
 
 	# REPORT unlocks after the monologue that follows the last clue.
+	# Until then there is no REPORT button at all: a button that cannot be pressed is only noise.
 	_report_button.disabled = GameState.marked_count() < GameState.clues_required()
+	_report_button.visible = not _report_button.disabled
 	if not _report_button.disabled:
 		UiFx.attention(_report_button)
-	_app_view.all_clues_found.connect(func() -> void:
-		_report_button.disabled = false
-		UiFx.attention(_report_button)) # it bounces until it is pressed
+	_app_view.all_clues_found.connect(_show_report_button) # it bounces until it is pressed
 
 	_report.completed.connect(_on_report_completed)
 
@@ -103,6 +101,7 @@ func _on_report_button_pressed() -> void:
 	_report.open()
 	await _animation.animation_finished # the tutorial pauses the game, so it waits for the screen to be there
 	Tutorial.maybe_show(_report, "investigation_report")
+	Tutorial.maybe_show_new(_report, str(GameState.scenario.get("report", {}).get("tutorial", "")))
 
 
 ## The report is right and CONTINUE was pressed: the phase is over. The FinishScreen pays out and goes on.
@@ -133,7 +132,7 @@ func _update_clues_found() -> void:
 	_clues_found.text = "Found Clues: %d/%d" % [GameState.marked_count(), GameState.clues_required()]
 	# With every clue found, the next step is the REPORT button.
 	var done := GameState.marked_count() >= GameState.clues_required()
-	_objective.text = OBJECTIVE_REPORT_TEXT if done else OBJECTIVE_FIND_TEXT
+	_objective.text = GameState.objective("objective_report" if done else "objective", "investigation")
 
 
 func _on_pause_button_pressed() -> void:
@@ -161,14 +160,25 @@ func debug_find_all_clues() -> void:
 			if entry.get("is_clue", false):
 				GameState.set_investigated(str(entry["id"]))
 				GameState.set_marked(str(entry["id"]), true)
+	_show_report_button()
+
+
+## The REPORT button appears (the way it does after the monologue of the last clue).
+func _show_report_button() -> void:
+	if _report_button.visible and not _report_button.disabled:
+		return
 	_report_button.disabled = false
+	_report_button.show()
+	UiFx.attention(_report_button)
 
 
 func debug_clear_clues() -> void:
 	GameState.marked_clues.clear()
 	GameState.investigated.clear()
 	GameState.clues_changed.emit()
+	UiFx.stop_attention(_report_button)
 	_report_button.disabled = true
+	_report_button.hide() # no REPORT button until every clue is found again
 
 
 func debug_open_report() -> void:

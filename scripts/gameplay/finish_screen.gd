@@ -256,6 +256,8 @@ func _wait(time: float) -> void:
 
 ## The number runs from `from` to `to` and slows down as it arrives.
 func _count(label: Label, from: int, to: int, time: float, format: String) -> void:
+	if from != to and not _skipping:
+		Sfx.play(&"count")
 	var elapsed := 0.0
 	while elapsed < time and not _skipping and from != to:
 		elapsed += get_process_delta_time()
@@ -305,6 +307,10 @@ func _on_continue_pressed() -> void:
 		return
 	var next := GameState.PHASES.find(GameState.current_phase) + 1
 	if next >= GameState.PHASES.size():
+		if not str(GameState.day_info().get("ending", "")).is_empty(): # the last day closes with a short scene
+			GameState.play_ending = true
+			SceneManager.load_scene(SceneManager.DIALOGUE_SCENE)
+			return
 		SceneManager.load_stage_select()
 		return
 	GameState.set_phase(GameState.PHASES[next])

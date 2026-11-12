@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "Day eight. The last day of the week. At 14:30, the phone rings.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "*Ring ring...*",
+		"name": "Phone",
+		"art": "Phone",
+		"next": "B"
+	},
+	"B": {
+		"text": "IT desk, this is Joshua. How can I help?",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "Joshua? It's Sam, the web developer. The customer portal is showing strange errors, and two orders came in that nobody placed.",
+		"name": "Sam",
+		"art": "Phone",
+		"choices": {
+			"Could it be a customer's typing mistake?": "D1",
+			"When did it start?": "D2"
+		}
+	},
+	"D1": {
+		"text": "A typing mistake does not place an order. But I do not know what else it could be.",
+		"name": "Sam",
+		"art": "Phone",
+		"next": "E1"
+	},
+	"E1": {
+		"text": "Possible. Evidence first. Let us see what was typed.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "F"
+	},
+	"D2": {
+		"text": "Around 14:00. The errors go up every minute.",
+		"name": "Sam",
+		"art": "Phone",
+		"next": "F"
+	},
+	"F": {
+		"text": "Then we look at the web logs, the accounts and the database. What was typed, and what the site did with it.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Phone",
+		"next": "G"
+	},
+	"G": {
+		"text": "[b][color=green]5 clues[/color][/b] should be enough. Then I run two queries side by side and show what happened.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

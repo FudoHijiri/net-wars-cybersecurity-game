@@ -6,7 +6,7 @@
 		{"text": "Click a row to read the whole entry here.", "target": "FramePanel/MainPanel/MainPanelAppView"},
 		{"text": "Press INVESTIGATE to look closer. A real clue is marked FOUND. An ordinary entry is only marked READ.", "target": "%MarkClueButton"},
 		{"text": "This counts the clues you have found. You need all of them.", "target": "FramePanel/MainPanel/CluesFound"},
-		{"text": "With every clue found, REPORT opens. There you say what happened, so take your time.", "target": "FramePanel/MainPanel/ReportButton"}
+		{"text": "With every clue found, a REPORT button appears here. There you say what happened, so take your time.", "target": "FramePanel/MainPanel/CluesFound"}
 	],
 	"monitoring": [
 		{"text": "MONITORING. You watch the sign-ins as they happen. For each one, decide: normal, or suspicious.", "target": ""},
@@ -29,13 +29,46 @@
 	],
 	"response": [
 		{"text": "RESPONSE. The threat attacks. Each round has two parts: you play cards, then you dodge its attack.", "target": ""},
-		{"text": "Your cards. Hover over one to read it, and click it to play it.", "target": "Hand"},
-		{"text": "Every card costs energy. Your energy is the limit on what you can play each turn.", "target": "EnergyLabel"},
-		{"text": "This shows the next attack before it comes, so you can plan.", "target": "Intent"},
+		{"text": "Your cards. Hover over one to read it, and click it to play it.", "target": "Hand"}, {"text": "A panel opens beside the card. Its colored words, like Block or Draw, tell you what they mean when you point at them.", "target": ""},
+		{"text": "Every card costs energy. Your energy is the limit on what you can play each turn.", "target": "Energy"},
+		{"text": "Above the threat is its next attack, shown before it comes so you can plan. Point at it to read about it.", "target": "Intent"},
 		{"text": "End your turn to let the threat attack.", "target": "EndTurn"},
 		{"text": "Then you steer the heart with the arrow keys or WASD, and dodge the bullets in the box.", "target": ""},
 		{"text": "The upgrades you equipped show here. Without the right one, that attack comes in a harder version.", "target": "UpgradeIcons"}
 	],
+	"response_day3": [
+		{"text": "NEW: DODGE. Some cards give Dodge. Each Dodge makes one hit of the enemy turn do nothing, and it is gone when the turn is over.", "target": ""},
+		{"text": "Your Dodge shows under your HP bar, after Block. Point at it to read it.", "target": "PlayerBar"},
+		{"text": "The new attacks show their cue in the box: a lock that spreads, a bar that fills, and files from both sides. Watch the box.", "target": ""}
+	],
+	"investigation_order": [
+		{"text": "This time you put what happened in order, from first to last. The times in your notes tell you the order.", "target": ""},
+		{"text": "Some of the events did happen, but they are not part of the attack. They go in no blank.", "target": ""}
+	],
+	"recovery_rebuild": [
+		{"text": "Put the steps in order, one click after another. A step that comes too early tells you why it has to wait.", "target": ""}
+	],
+	"recovery_restore": [
+		{"text": "Pick a backup from before the red marker, and kept apart from the network. Test it before you restore it.", "target": ""},
+		{"text": "After the restore, set up the 3-2-1 rule: three copies, on two kinds of storage, one of them offline.", "target": ""}
+	],
+	"recovery_folders": [
+		{"text": "Turn off the access a person does not need, and keep what their job needs. Taking away something they need bounces back.", "target": ""}
+	],
+	"response_day4": [
+		{"text": "NEW: EXPOSED. Some cards Expose the threat. Every card you play after it deals more damage, until the end of your turn.", "target": ""},
+		{"text": "The threat's Exposed shows under its HP bar. Point at it to read it. Mark the threat first, then hit it.", "target": "BossBar"},
+		{"text": "This threat acts from inside the box: a badge that bursts, a slow copy, and carriers that take files. Stay near a file to guard it.", "target": ""}
+	],
+	"investigation_know": [
+		{"text": "This time you sort what you KNOW from what you do NOT know. The logs show what happened. They never show why.", "target": ""},
+		{"text": "Put each fact in KNOW and each question in DO NOT KNOW. A guess is not a fact, so it goes in neither.", "target": ""}
+	],
+	"recovery_account": [
+		{"text": "First close the right account. Then choose how to talk to the person. A wrong choice tells you why.", "target": ""}
+	],
+	"response_day5": [{"text": "NEW: CHARGE and LEAK. Charge gives you Energy at the start of your next turn. Leak takes HP at the start of your next turn, and Block cannot stop it.", "target": ""}, {"text": "Both show as small marks under YOUR HP bar. Point at one to read it.", "target": "PlayerBar"}, {"text": "This threat is small and steady, big and homing, and it fires along lanes. Read the strip before each attack.", "target": ""}],
+	"recovery_archive": [{"text": "Two steps. First find the leftover archive and delete it. Then choose who to tell and how. A wrong choice tells you why.", "target": ""}],
 	"investigation_report": [
 		{"text": "THE REPORT. Now you tell what happened. The story has blanks, and you fill them with what you found.", "target": ""},
 		{"text": "This is the story. Some of its words are missing.", "target": "MainPanel/Case"},
@@ -66,5 +99,46 @@
 		{"text": "Your other upgrades are here. Click one to equip it. A * means it answers a clue you found.", "target": "UpgradeEditor/Collection"},
 		{"text": "RECOMMENDED shows only those.", "target": "UpgradeEditor/Collection/RecommendedFilter"},
 		{"text": "Point at an upgrade to read it. ALWAYS works in every fight. AGAINST stops one attack.", "target": "UpgradeEditor/Info"}
+	],
+	"response_day6": [
+		{"text": "NEW: CAP. Some cards Cap the enemy's turn: each hit does at most that much damage until the turn is over.", "target": ""},
+		{"text": "Cap shows as a small mark under YOUR HP bar. Point at it to read it.", "target": "PlayerBar"},
+		{"text": "This threat floods the box from every side, fires from many sources, and leaves slow connections that stay. Read the strip before each attack.", "target": ""}
+	],
+	"investigation_compare": [
+		{"text": "NEW: two graphs. One is the lunch sale and one is the attack. Look at when each one starts, and what it does after.", "target": "MainPanel/Case"},
+		{"text": "Then fill the blanks: which graph is which, when the flood began, and what its requests did and did not do.", "target": ""}
+	],
+	"recovery_dial": [
+		{"text": "Move the dial to set the limit. Blue dots are real customers, red dots are bots. Watch who gets through.", "target": ""}
+	],
+	"recovery_hardware": [
+		{"text": "Hardware jobs go step by step. The next step glows, and a wrong move tells you why.", "target": ""},
+		{"text": "Always shut a machine down and unplug it before you open it.", "target": ""}
+	],
+	"response_day7": [
+		{"text": "NEW: REFLECT. Some cards Reflect: each time you are hit during the enemy's turn, the threat takes that much damage.", "target": ""},
+		{"text": "Reflect shows as a small mirror under YOUR HP bar. Point at it to read it.", "target": "PlayerBar"},
+		{"text": "This threat offers you things. Envelopes carry words: read them before you touch one. Fake ones hurt, real ones heal.", "target": ""}
+	],
+	"investigation_inspect": [
+		{"text": "NEW: two messages. One is real and one is fake, and they look alike. Click a part of a message to look closer.", "target": "MainPanel/Case"},
+		{"text": "Then fill the blanks: which message is fake, its sender, where its link really goes, what it asks, and what Ravi did.", "target": ""}
+	],
+	"recovery_mailbox": [
+		{"text": "Three steps. Delete every copy of the fake from the inboxes, build the filter, then choose the warning for the staff.", "target": ""},
+		{"text": "The real IT notice and the HR message are in the inboxes too. Do not delete those.", "target": ""}
+	],
+	"response_day8": [
+		{"text": "NEW: EXPLOIT. Some cards say Exploit: if the threat is Exposed when you play them, they deal that much more damage. Play an Expose card first.", "target": ""},
+		{"text": "This threat sends pieces of text. Touch one and the heart holds it: it shows under the box. A quote and a piece of code held together are run, and that hurts.", "target": ""}
+	],
+	"investigation_query": [
+		{"text": "NEW: two queries. Each shows what the website asks its database after someone types something. Press RUN to see the answer.", "target": "MainPanel/Case"},
+		{"text": "Then fill the blanks: when it happened, what was typed, where, what the website did, and what was left behind.", "target": ""}
+	],
+	"recovery_patch": [
+		{"text": "Follow the glowing button, one step at a time: back up, download from the maker, check the number, test on the copy, then the live site.", "target": ""},
+		{"text": "Never try an update on the live site first. A bad update can break it.", "target": ""}
 	]
 }

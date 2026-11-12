@@ -17,10 +17,23 @@ const COMPONENTS := {
 	"scan": TASKS + "ScanClean.tscn",
 	"network": TASKS + "NetworkRepair.tscn",
 	"backup_database": TASKS + "BackupRepair.tscn",
+	"rebuild": TASKS + "OrderSteps.tscn",
+	"restore": TASKS + "BackupTimeline.tscn",
+	"folders": TASKS + "PermissionGrid.tscn",
+	"account": TASKS + "AccountAction.tscn",
+	"rotate": TASKS + "RotateKey.tscn",
+	"archive": TASKS + "FindArchive.tscn",
+	"limit": TASKS + "RateDial.tscn",
+	"fan": TASKS + "FanSwap.tscn",
+	"powercycle": TASKS + "RackPower.tscn",
+	"block": TASKS + "BlockSources.tscn",
+	"mail": TASKS + "MailCleanup.tscn",
+	"patch": TASKS + "SitePatch.tscn",
+	"backdoor": TASKS + "RemoveBackdoor.tscn",
 	"file_server": TASKS + "FileServerRepair.tscn",
 }
 const FINAL_CHECK := "file_server"
-const COMPONENT_IDS: Array[String] = ["password", "settings", "sessions", "reused", "program", "updates", "scan", "network", "backup_database", "file_server"]
+const COMPONENT_IDS: Array[String] = ["password", "settings", "sessions", "reused", "program", "updates", "scan", "network", "backup_database", "rebuild", "restore", "folders", "account", "rotate", "archive", "limit", "fan", "powercycle", "block", "mail", "patch", "backdoor", "file_server"]
 
 
 static func load_data(path: String = DEFAULT_PATH) -> Dictionary:
@@ -39,14 +52,24 @@ static func task_scene(component_id: String) -> PackedScene:
 	return load(COMPONENTS[component_id]) as PackedScene if COMPONENTS.has(component_id) else null
 
 
+## An attack's repairs: its "components" (a list, when it breaks more than one thing) or its "component".
+static func components_of(attack: Dictionary) -> Array[String]:
+	var found: Array[String] = []
+	for id: Variant in attack.get("components", [attack.get("component", "")]):
+		found.append(str(id))
+	return found
+
+
 ## Response hand-off (option A): each enemy attack in the Day's "attacks" list stands
 ## for one component. Attacks the player was hit by become the components to repair.
 static func components_for_attacks(data: Dictionary, hit_attack_ids: Array) -> Array[String]:
 	var damaged: Array[String] = []
 	for attack: Dictionary in data.get("attacks", []):
-		var component := str(attack.get("component", ""))
-		if hit_attack_ids.has(attack.get("id", "")) and COMPONENT_IDS.has(component) and not damaged.has(component):
-			damaged.append(component)
+		if not hit_attack_ids.has(attack.get("id", "")):
+			continue
+		for component in components_of(attack):
+			if COMPONENT_IDS.has(component) and not damaged.has(component):
+				damaged.append(component)
 	return damaged
 
 
@@ -99,9 +122,3 @@ static func results(data: Dictionary, required: Array[String], mistakes: Diction
 ## Editor dropdown text for an @export String that must hold a component ID.
 static func enum_hint(extra: Array[String] = []) -> String:
 	return ",".join(COMPONENT_IDS + extra)
-
-
-static func credits(data: Dictionary) -> Array[String]:
-	var paragraphs: Array[String] = []
-	paragraphs.assign(data.get("art_credits", []))
-	return paragraphs

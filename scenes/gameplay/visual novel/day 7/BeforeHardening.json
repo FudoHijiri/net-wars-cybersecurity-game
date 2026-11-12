@@ -1,0 +1,42 @@
+{
+	"start": {
+		"text": "The shift is over. The fakes had one thing in common: a domain that only looked like ours.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. The lesson is the same every time: check the sender, teach the staff, and ask for a second proof.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Some of the new cards [b][color=green]Reflect[/color][/b]. Point at the word to read it. Every hit that lands on you is sent back.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "C"
+	},
+	"C": {
+		"text": "So a hit on me hurts the threat too. And I buy the upgrade my clues point at.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "D"
+	},
+	"D": {
+		"text": "Exactly. Use your Security Points, and read what your clues recommended.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Understood. Check the sender, train the staff, and hold a key that is not a password.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

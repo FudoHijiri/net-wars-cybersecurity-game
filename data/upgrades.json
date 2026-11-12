@@ -1,5 +1,5 @@
 {
-	"_note": "Upgrades sold in the Hardening shop. day is the day the upgrade belongs to: the shop sells the upgrades of the current day and of the earlier days. load is what the upgrade uses of the upgrade load (2 on Day 1, 2N on Day N). price is in Security Points. The icon is assets/upgrades/icon_<id>.png. Every upgrade does two things: its passive (ALWAYS: a general benefit in every fight, see response.gd _apply_passives; keys max_hp, block_per_turn, heal_per_turn, attack_bonus, first_draw, first_energy) and its AGAINST effect (the attack pattern it counters, defined by the pattern's counter in the day's response data). text shows both. clues are the ids of the Investigation clues the upgrade answers: when the player found one, the Upgrade Editor recommends the upgrade.",
+	"_note": "Upgrades sold in the Hardening shop. day is the day the upgrade belongs to: the shop sells the upgrades of the current day and of the earlier days. load is what the upgrade uses of the upgrade load (2 on Day 1, 2N on Day N). price is in Security Points. The icon is assets/upgrades/icon_<id>.png. Every upgrade does two things: its passive (ALWAYS: a general benefit in every fight, see response.gd _apply_passives; keys max_hp, block_per_turn, heal_per_turn, dodge_per_turn, attack_bonus, first_draw, first_energy) and its AGAINST effect (the attack pattern it counters, defined by the pattern's counter in the day's response data). text shows both. clues are the ids of the Investigation clues the upgrade answers: when the player found one, the Upgrade Editor recommends the upgrade.",
 	"upgrades": {
 		"unique": {
 			"name": "Unique Passwords",
@@ -111,6 +111,340 @@
 			"clues": [
 				"email_invoice"
 			]
+		},
+		"filter": {
+			"name": "Filter Suspicious Email",
+			"day": 3,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"attack_bonus": 1
+			},
+			"against": "Every attack: a longer warning before it starts.",
+			"text": "ALWAYS: Attack cards deal +1 damage.\nAGAINST Every attack: a longer warning before it starts.",
+			"clues": [
+				"email_parcel"
+			]
+		},
+		"folders": {
+			"name": "Limit Shared Folders",
+			"day": 3,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"heal_per_turn": 2
+			},
+			"against": "Mass lock: the lock cannot cross the wall between folders.",
+			"text": "ALWAYS: Heal 2 HP at the start of each of your turns.\nAGAINST Mass lock: the lock cannot cross the wall between folders.",
+			"clues": [
+				"alert_mass_change"
+			]
+		},
+		"offline": {
+			"name": "Offline Backups",
+			"day": 3,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"first_energy": 1
+			},
+			"against": "Ransom demand: the demand bar never fills, because there is nothing to ask for.",
+			"text": "ALWAYS: +1 Energy on your first turn.\nAGAINST Ransom demand: the demand bar never fills, because there is nothing to ask for.",
+			"clues": [
+				"bk_offline"
+			]
+		},
+		"encrypt": {
+			"name": "Encrypt Stored Data",
+			"day": 3,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"block_per_turn": 4
+			},
+			"against": "Double extortion: the stolen copy is useless, so the second wave does not come.",
+			"text": "ALWAYS: +4 Block at the start of each of your turns.\nAGAINST Double extortion: the stolen copy is useless, so the second wave does not come.",
+			"clues": []
+		},
+		"least": {
+			"name": "Least Access",
+			"day": 4,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"max_hp": 10
+			},
+			"against": "Trusted access: the bullets can only appear in the far part of the box.",
+			"text": "ALWAYS: +10 max HP.\nAGAINST Trusted access: the bullets can only appear in the far part of the box.",
+			"clues": [
+				"log_salaries"
+			]
+		},
+		"activity": {
+			"name": "Unusual Activity Alerts",
+			"day": 4,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"heal_per_turn": 2
+			},
+			"against": "Slow copy: an alert fires half way and the copying stops.",
+			"text": "ALWAYS: Heal 2 HP at the start of each of your turns.\nAGAINST Slow copy: an alert fires half way and the copying stops.",
+			"clues": [
+				"email_forward"
+			]
+		},
+		"outgoing": {
+			"name": "Watch Outgoing Data",
+			"day": 4,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"block_per_turn": 5
+			},
+			"against": "Walk-out: the carriers are slow, and the file they want is marked.",
+			"text": "ALWAYS: +5 Block at the start of each of your turns.\nAGAINST Walk-out: the carriers are slow, and the file they want is marked.",
+			"clues": [
+				"net_upload"
+			]
+		},
+		"exit": {
+			"name": "Close Access on Exit",
+			"day": 4,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"first_draw": 2
+			},
+			"against": "Every attack: a longer warning before it starts.",
+			"text": "ALWAYS: Draw 2 extra cards in your first hand.\nAGAINST Every attack: a longer warning before it starts.",
+			"clues": [
+				"email_hr_reply"
+			]
+		},
+		"egress": {
+			"name": "Approved Destinations Only",
+			"day": 5,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"attack_bonus": 1
+			},
+			"against": "Quiet trickle: the leak is closed, so small bullets do not add Leak.",
+			"text": "ALWAYS: Attack cards deal +1 damage.\nAGAINST Quiet trickle: the leak is closed, so small bullets do not add Leak.",
+			"clues": [
+				"dest_unknown"
+			]
+		},
+		"flagodd": {
+			"name": "Flag Odd Transfers",
+			"day": 5,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"block_per_turn": 3
+			},
+			"against": "Big grab: it comes apart into three small pieces that do not home.",
+			"text": "ALWAYS: +3 Block at the start of each of your turns.\nAGAINST Big grab: it comes apart into three small pieces that do not home.",
+			"clues": [
+				"srv_db"
+			]
+		},
+		"ports": {
+			"name": "Close Unused Ports",
+			"day": 5,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"max_hp": 20
+			},
+			"against": "Hidden door: the lane about to fire lights up first.",
+			"text": "ALWAYS: +20 max HP.\nAGAINST Hidden door: the lane about to fire lights up first.",
+			"clues": [
+				"file_tmp"
+			]
+		},
+		"labels": {
+			"name": "Label Sensitive Data",
+			"day": 5,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"first_energy": 1
+			},
+			"against": "Every attack: a longer warning before it starts.",
+			"text": "ALWAYS: +1 Energy on your first turn.\nAGAINST Every attack: a longer warning before it starts.",
+			"clues": [
+				"job_sync"
+			]
+		},
+		"spread": {
+			"name": "Spread the Load",
+			"day": 6,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"heal_per_turn": 3
+			},
+			"against": "Flood: the load is shared, so the bullets come from one side at a time.",
+			"text": "ALWAYS: Heal 3 HP at the start of each of your turns.\nAGAINST Flood: the load is shared, so the bullets come from one side at a time.",
+			"clues": [
+				"net_flood"
+			]
+		},
+		"limit": {
+			"name": "Limit Requests",
+			"day": 6,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"dodge_per_turn": 1
+			},
+			"against": "Many sources: each source may fire only twice.",
+			"text": "ALWAYS: +1 Dodge at the start of each of your turns.\nAGAINST Many sources: each source may fire only twice.",
+			"clues": [
+				"traffic_browser"
+			]
+		},
+		"idle": {
+			"name": "Close Idle Connections",
+			"day": 6,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"attack_bonus": 1
+			},
+			"against": "Slow drip: a held connection closes after 2.5 seconds.",
+			"text": "ALWAYS: Attack cards deal +1 damage.\nAGAINST Slow drip: a held connection closes after 2.5 seconds.",
+			"clues": [
+				"ord_flood"
+			]
+		},
+		"spare": {
+			"name": "Spare Capacity",
+			"day": 6,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"max_hp": 10
+			},
+			"against": "Every attack: a longer warning before it starts.",
+			"text": "ALWAYS: +10 max HP.\nAGAINST Every attack: a longer warning before it starts.",
+			"clues": [
+				"srv_web"
+			]
+		},
+		"sender": {
+			"name": "Check the Sender",
+			"day": 7,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"block_per_turn": 4
+			},
+			"against": "Lure: every fake envelope carries a warning mark.",
+			"text": "ALWAYS: +4 Block at the start of each of your turns.\nAGAINST Lure: every fake envelope carries a warning mark.",
+			"clues": [
+				"email_fake"
+			]
+		},
+		"training": {
+			"name": "Staff Training",
+			"day": 7,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"heal_per_turn": 2
+			},
+			"against": "Fake login page: the page is shown as a hook from the start.",
+			"text": "ALWAYS: Heal 2 HP at the start of each of your turns.\nAGAINST Fake login page: the page is shown as a hook from the start.",
+			"clues": [
+				"file_source"
+			]
+		},
+		"key": {
+			"name": "Security Key",
+			"day": 7,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"max_hp": 15
+			},
+			"against": "Stolen password: each hit does only a third of the damage.",
+			"text": "ALWAYS: +15 max HP.\nAGAINST Stolen password: each hit does only a third of the damage.",
+			"clues": [
+				"sign_new"
+			]
+		},
+		"reporter": {
+			"name": "Report Button",
+			"day": 7,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"first_energy": 1
+			},
+			"against": "Every attack: a longer warning before it starts.",
+			"text": "ALWAYS: +1 Energy on your first turn.\nAGAINST Every attack: a longer warning before it starts.",
+			"clues": [
+				"click_three"
+			]
+		},
+		"input": {
+			"name": "Check Input",
+			"day": 8,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"block_per_turn": 3
+			},
+			"against": "Injection: a piece you touch is cleaned, so it cannot join another.",
+			"text": "ALWAYS: +3 Block at the start of each of your turns.\nAGAINST Injection: a piece you touch is cleaned, so it cannot join another.",
+			"clues": [
+				"web_inject"
+			]
+		},
+		"framework": {
+			"name": "Patch the Framework",
+			"day": 8,
+			"load": 1,
+			"price": 30,
+			"passive": {
+				"max_hp": 15
+			},
+			"against": "Known hole: the bullet splits only once.",
+			"text": "ALWAYS: +15 max HP.\nAGAINST Known hole: the bullet splits only once.",
+			"clues": [
+				"file_help"
+			]
+		},
+		"adminlock": {
+			"name": "Admin Lockdown",
+			"day": 8,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"heal_per_turn": 3
+			},
+			"against": "Stolen admin: each hit does only a third of the damage.",
+			"text": "ALWAYS: Heal 3 HP at the start of each of your turns.\nAGAINST Stolen admin: each hit does only a third of the damage.",
+			"clues": [
+				"acct_new"
+			]
+		},
+		"waf": {
+			"name": "Web Firewall",
+			"day": 8,
+			"load": 2,
+			"price": 50,
+			"passive": {
+				"first_draw": 2
+			},
+			"against": "Every attack: a longer warning before it starts.",
+			"text": "ALWAYS: Draw 2 extra cards in your first hand.\nAGAINST Every attack: a longer warning before it starts.",
+			"clues": [
+				"net_addr"
+			]
 		}
 	},
 	"shop": [
@@ -121,6 +455,30 @@
 		"allowlist",
 		"updates",
 		"antivirus",
-		"attachments"
+		"attachments",
+		"filter",
+		"folders",
+		"offline",
+		"encrypt",
+		"least",
+		"activity",
+		"outgoing",
+		"exit",
+		"egress",
+		"flagodd",
+		"ports",
+		"labels",
+		"spread",
+		"limit",
+		"idle",
+		"spare",
+		"sender",
+		"training",
+		"key",
+		"reporter",
+		"input",
+		"framework",
+		"adminlock",
+		"waf"
 	]
 }

@@ -1,0 +1,713 @@
+{
+	"_note": "The sound effects of the game (autoload Sfx, autoload/sfx.gd). groups: name -> {files, volume (dB), pitch (the random spread of the pitch), gap (seconds before the group may play again), use}. A group plays a different file each time (never the same twice in a row), with a little random pitch and volume, so the sounds that come up a lot do not get monotonous. The interface uses Kenney's Interface Sounds (CC0), each for what its name says (click, select, confirmation, back, close, open, switch, toggle, drop, error, tick, scroll...); the text uses the Unicae keyboard pack (free to use); the Response fight (groups r_...) uses the Beats Warrior Nian SFX pack. button_rules: which group a button makes (see autoload/sfx.gd). voices: the pitch of the typing of each speaker. Played on the SFX bus.",
+	"voices": {
+		"Joshua": 1.0,
+		"Carla": 1.18,
+		"Phone": 0.82,
+		"Enemy": 0.7,
+		"default": 0.95
+	},
+	"button_rules": [
+		{
+			"group": "r_end_turn",
+			"names": [
+				"endturn"
+			]
+		},
+		{
+			"group": "advance",
+			"names": [
+				"digit"
+			]
+		},
+		{
+			"group": "",
+			"names": [
+				"fieldbutton"
+			]
+		},
+		{
+			"group": "close",
+			"names": [
+				"close",
+				"exit"
+			],
+			"texture": true
+		},
+		{
+			"group": "close",
+			"texts": [
+				"close"
+			]
+		},
+		{
+			"group": "back",
+			"names": [
+				"backbutton",
+				"backtostage",
+				"backtotitle",
+				"leavebutton",
+				"nobutton",
+				"skipbutton",
+				"cancel"
+			],
+			"texts": [
+				"back",
+				"leave",
+				"cancel",
+				"no",
+				"skip",
+				"reject",
+				"undo",
+				"exit"
+			]
+		},
+		{
+			"group": "close",
+			"names": [
+				"deletebutton",
+				"signout"
+			],
+			"texts": [
+				"delete"
+			]
+		},
+		{
+			"group": "tab",
+			"names": [
+				"openshop",
+				"editdeck",
+				"editpassives",
+				"editupgrades",
+				"gotoshop"
+			]
+		},
+		{
+			"group": "open",
+			"names": [
+				"pausebutton",
+				"settingsbutton",
+				"archivebutton",
+				"opendeck",
+				"creditsbutton",
+				"markclue"
+			]
+		},
+		{
+			"group": "open",
+			"state": true,
+			"names": [
+				"rulebook"
+			]
+		},
+		{
+			"group": "confirm",
+			"names": [
+				"playbutton",
+				"newgame",
+				"yesbutton",
+				"applybutton",
+				"nextphase",
+				"finishreport",
+				"pricebutton",
+				"resumebutton",
+				"signinbutton",
+				"restorebutton",
+				"extrabutton"
+			],
+			"texts": [
+				"continue",
+				"apply",
+				"submit",
+				"confirm",
+				"yes",
+				"buy",
+				"resume",
+				"start",
+				"play",
+				"retry",
+				"again",
+				"approve",
+				"restore",
+				"ok"
+			]
+		},
+		{
+			"group": "select",
+			"names": [
+				"day",
+				"save",
+				"choice",
+				"threat",
+				"malware",
+				"ransomware",
+				"phishing",
+				"ddos",
+				"insiderthreat",
+				"dataexfiltration",
+				"credentialthreat",
+				"webapplicationattack",
+				"reportbutton",
+				"letpass",
+				"nextlog"
+			]
+		}
+	],
+	"groups": {
+		"click": {
+			"files": [
+				"click_001.ogg",
+				"click_002.ogg",
+				"click_003.ogg",
+				"click_004.ogg",
+				"click_005.ogg"
+			],
+			"volume": -5.0,
+			"pitch": 0.04,
+			"gap": 0.03,
+			"use": "a plain button"
+		},
+		"hover": {
+			"files": [
+				"tick_001.ogg",
+				"tick_002.ogg",
+				"tick_004.ogg"
+			],
+			"volume": -17.0,
+			"pitch": 0.08,
+			"gap": 0.08,
+			"use": "the pointer is over a button"
+		},
+		"select": {
+			"files": [
+				"select_001.ogg",
+				"select_002.ogg",
+				"select_003.ogg",
+				"select_004.ogg",
+				"select_005.ogg",
+				"select_006.ogg",
+				"select_007.ogg",
+				"select_008.ogg"
+			],
+			"volume": -7.0,
+			"pitch": 0.04,
+			"gap": 0.05,
+			"use": "something in a list is chosen"
+		},
+		"confirm": {
+			"files": [
+				"confirmation_001.ogg",
+				"confirmation_002.ogg",
+				"confirmation_003.ogg",
+				"confirmation_004.ogg"
+			],
+			"volume": -5.0,
+			"pitch": 0.03,
+			"gap": 0.08,
+			"use": "continue, buy, apply, a right answer"
+		},
+		"back": {
+			"files": [
+				"back_001.ogg",
+				"back_002.ogg",
+				"back_003.ogg",
+				"back_004.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.04,
+			"gap": 0.08,
+			"use": "back, leave, skip, cancel, no"
+		},
+		"close": {
+			"files": [
+				"close_001.ogg",
+				"close_002.ogg",
+				"close_003.ogg",
+				"close_004.ogg"
+			],
+			"volume": -7.0,
+			"pitch": 0.04,
+			"gap": 0.1,
+			"use": "a window closes, the X"
+		},
+		"open": {
+			"files": [
+				"open_001.ogg",
+				"open_002.ogg",
+				"open_003.ogg",
+				"open_004.ogg"
+			],
+			"volume": -7.0,
+			"pitch": 0.04,
+			"gap": 0.1,
+			"use": "a window, a list or a terminal opens"
+		},
+		"error": {
+			"files": [
+				"error_001.ogg",
+				"error_002.ogg",
+				"error_003.ogg",
+				"error_004.ogg",
+				"error_005.ogg",
+				"error_006.ogg",
+				"error_007.ogg",
+				"error_008.ogg"
+			],
+			"volume": -8.0,
+			"pitch": 0.03,
+			"gap": 0.15,
+			"use": "a wrong move, something not allowed"
+		},
+		"toggle": {
+			"files": [
+				"toggle_001.ogg",
+				"toggle_002.ogg",
+				"toggle_003.ogg",
+				"toggle_004.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.04,
+			"gap": 0.05,
+			"use": "a switch or a check box"
+		},
+		"tab": {
+			"files": [
+				"switch_001.ogg",
+				"switch_002.ogg",
+				"switch_003.ogg",
+				"switch_004.ogg",
+				"switch_005.ogg",
+				"switch_006.ogg",
+				"switch_007.ogg"
+			],
+			"volume": -8.0,
+			"pitch": 0.04,
+			"gap": 0.08,
+			"use": "a tab or a view changes"
+		},
+		"panel": {
+			"files": [
+				"maximize_001.ogg",
+				"maximize_002.ogg",
+				"maximize_003.ogg",
+				"maximize_004.ogg",
+				"maximize_005.ogg",
+				"maximize_006.ogg",
+				"maximize_007.ogg",
+				"maximize_008.ogg",
+				"maximize_009.ogg"
+			],
+			"volume": -11.0,
+			"pitch": 0.04,
+			"gap": 0.1,
+			"use": "a panel grows in"
+		},
+		"panel_out": {
+			"files": [
+				"minimize_001.ogg",
+				"minimize_002.ogg",
+				"minimize_003.ogg",
+				"minimize_004.ogg",
+				"minimize_005.ogg",
+				"minimize_006.ogg",
+				"minimize_007.ogg",
+				"minimize_008.ogg",
+				"minimize_009.ogg"
+			],
+			"volume": -11.0,
+			"pitch": 0.04,
+			"gap": 0.1,
+			"use": "a panel shrinks away"
+		},
+		"drop": {
+			"files": [
+				"drop_001.ogg",
+				"drop_002.ogg",
+				"drop_003.ogg",
+				"drop_004.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.05,
+			"gap": 0.06,
+			"use": "something is put in place (a word, a card, a stamp)"
+		},
+		"question": {
+			"files": [
+				"question_001.ogg",
+				"question_002.ogg",
+				"question_003.ogg",
+				"question_004.ogg"
+			],
+			"volume": -9.0,
+			"pitch": 0.04,
+			"gap": 0.08,
+			"use": "asking about a part of a log"
+		},
+		"clue": {
+			"files": [
+				"pluck_001.ogg",
+				"pluck_002.ogg"
+			],
+			"volume": -4.0,
+			"pitch": 0.03,
+			"gap": 0.15,
+			"use": "a clue is found, something is gained"
+		},
+		"alert": {
+			"files": [
+				"bong_001.ogg"
+			],
+			"volume": -9.0,
+			"pitch": 0.03,
+			"gap": 0.3,
+			"use": "a banner"
+		},
+		"slider": {
+			"files": [
+				"tick_001.ogg",
+				"tick_002.ogg",
+				"tick_004.ogg"
+			],
+			"volume": -12.0,
+			"pitch": 0.12,
+			"gap": 0.06,
+			"use": "a volume slider moves"
+		},
+		"count": {
+			"files": [
+				"tick_001.ogg",
+				"tick_002.ogg",
+				"tick_004.ogg"
+			],
+			"volume": -13.0,
+			"pitch": 0.06,
+			"gap": 0.05,
+			"use": "numbers count up"
+		},
+		"scroll": {
+			"files": [
+				"scroll_short_1.ogg",
+				"scroll_short_2.ogg",
+				"scroll_short_3.ogg",
+				"scroll_short_4.ogg",
+				"scroll_short_5.ogg"
+			],
+			"volume": -7.0,
+			"pitch": 0.05,
+			"gap": 0.15,
+			"use": "a list scrolls: one soft tick per wheel step (the clips are short so they never pile up)"
+		},
+		"glitch": {
+			"files": [
+				"glitch_001.ogg",
+				"glitch_002.ogg",
+				"glitch_003.ogg",
+				"glitch_004.ogg"
+			],
+			"volume": -8.0,
+			"pitch": 0.05,
+			"gap": 0.1,
+			"use": "something breaks (a refused or corrupted thing)"
+		},
+		"type": {
+			"files": [
+				"key_001.wav",
+				"key_002.wav",
+				"key_003.wav",
+				"key_004.wav",
+				"key_005.wav",
+				"key_006.wav",
+				"key_007.wav",
+				"key_008.wav",
+				"key_009.wav",
+				"key_010.wav",
+				"key_011.wav",
+				"key_012.wav",
+				"key_013.wav",
+				"key_014.wav",
+				"key_015.wav",
+				"key_016.wav",
+				"key_017.wav",
+				"key_018.wav",
+				"key_019.wav",
+				"key_020.wav",
+				"key_021.wav",
+				"key_022.wav",
+				"key_023.wav",
+				"key_024.wav",
+				"key_025.wav",
+				"key_026.wav",
+				"key_027.wav",
+				"key_028.wav",
+				"key_029.wav",
+				"key_030.wav",
+				"key_031.wav",
+				"key_032.wav"
+			],
+			"volume": -13.0,
+			"pitch": 0.1,
+			"gap": 0.05,
+			"use": "text appears letter by letter"
+		},
+		"advance": {
+			"files": [
+				"key_001.wav",
+				"key_002.wav",
+				"key_003.wav",
+				"key_004.wav",
+				"key_005.wav",
+				"key_006.wav",
+				"key_007.wav",
+				"key_008.wav",
+				"key_009.wav",
+				"key_010.wav",
+				"key_011.wav",
+				"key_012.wav",
+				"key_013.wav",
+				"key_014.wav",
+				"key_015.wav",
+				"key_016.wav",
+				"key_017.wav",
+				"key_018.wav",
+				"key_019.wav",
+				"key_020.wav",
+				"key_021.wav",
+				"key_022.wav",
+				"key_023.wav",
+				"key_024.wav",
+				"key_025.wav",
+				"key_026.wav",
+				"key_027.wav",
+				"key_028.wav",
+				"key_029.wav",
+				"key_030.wav",
+				"key_031.wav",
+				"key_032.wav"
+			],
+			"volume": -7.0,
+			"pitch": 0.07,
+			"gap": 0.1,
+			"use": "the next line of a dialogue, a keypad button"
+		},
+		"r_card": {
+			"files": [
+				"bw_system_dialog_press.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.05,
+			"gap": 0.05,
+			"use": "a card is played"
+		},
+		"r_strike": {
+			"files": [
+				"bw_enemy_damaged.ogg",
+				"bw_boss_damaged.ogg",
+				"bw_groundpunch_out.ogg",
+				"bw_sealpup_awakehit.ogg"
+			],
+			"volume": -4.0,
+			"pitch": 0.06,
+			"gap": 0.05,
+			"use": "a card hits the threat"
+		},
+		"r_block": {
+			"files": [
+				"bw_blocker_down.ogg",
+				"bw_blocker_powersave.ogg",
+				"bw_woodman_shield_out.ogg"
+			],
+			"volume": -4.0,
+			"pitch": 0.05,
+			"gap": 0.06,
+			"use": "Block goes up"
+		},
+		"r_cap": {
+			"files": [
+				"bw_blocker_powersave.ogg"
+			],
+			"volume": -5.0,
+			"pitch": 0.05,
+			"gap": 0.1,
+			"use": "Cap"
+		},
+		"r_dodge": {
+			"files": [
+				"bw_player_move.ogg",
+				"bw_player_jump.ogg",
+				"bw_chick_jump.ogg",
+				"bw_jumpfish_inout.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.06,
+			"gap": 0.06,
+			"use": "Dodge"
+		},
+		"r_heal": {
+			"files": [
+				"bw_kenoh_animationshow_heart.ogg",
+				"bw_icebrust_snowflake.ogg"
+			],
+			"volume": -5.0,
+			"pitch": 0.05,
+			"gap": 0.1,
+			"use": "Heal"
+		},
+		"r_expose": {
+			"files": [
+				"bw_kenoh_animationshow_eye.ogg",
+				"bw_fallsword_notice.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.05,
+			"gap": 0.1,
+			"use": "Expose"
+		},
+		"r_reflect": {
+			"files": [
+				"bw_player_brust.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.05,
+			"gap": 0.1,
+			"use": "Reflect"
+		},
+		"r_energy": {
+			"files": [
+				"bw_system_countdown_greenclick.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.04,
+			"gap": 0.1,
+			"use": "Energy or Charge"
+		},
+		"r_draw": {
+			"files": [
+				"bw_home_bird_wing.ogg",
+				"bw_system_menu_select_move.ogg"
+			],
+			"volume": -8.0,
+			"pitch": 0.06,
+			"gap": 0.06,
+			"use": "cards are drawn"
+		},
+		"r_hurt": {
+			"files": [
+				"bw_player_damaged.ogg",
+				"bw_ghost_bite.ogg"
+			],
+			"volume": -3.0,
+			"pitch": 0.06,
+			"gap": 0.08,
+			"use": "a hit lands on you"
+		},
+		"r_stopped": {
+			"files": [
+				"bw_blocker_down.ogg",
+				"bw_woodman_shield_out.ogg"
+			],
+			"volume": -5.0,
+			"pitch": 0.05,
+			"gap": 0.08,
+			"use": "a hit that was dodged"
+		},
+		"r_enemy_attack": {
+			"files": [
+				"bw_boss_attack_t1.ogg",
+				"bw_boss_attack_t2.ogg",
+				"bw_boss_attack_t3.ogg"
+			],
+			"volume": -4.0,
+			"pitch": 0.04,
+			"gap": 0.2,
+			"use": "the threat strikes"
+		},
+		"r_windup": {
+			"files": [
+				"bw_base_boss_prehit.ogg",
+				"bw_boss_prehit.ogg",
+				"bw_boss_prehit_2.ogg",
+				"bw_boss_prehit_t2.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.04,
+			"gap": 0.2,
+			"use": "the threat gets ready"
+		},
+		"r_shoot": {
+			"files": [
+				"bw_shootfish_shoot.ogg"
+			],
+			"volume": -8.0,
+			"pitch": 0.08,
+			"gap": 0.2,
+			"use": "the bullets start"
+		},
+		"r_harder": {
+			"files": [
+				"bw_screen_shake.ogg",
+				"bw_gamuking_to_anger.ogg",
+				"bw_boss_jump.ogg"
+			],
+			"volume": -4.0,
+			"pitch": 0.04,
+			"gap": 0.3,
+			"use": "the harder version is announced"
+		},
+		"r_win": {
+			"files": [
+				"bw_player_win_flash.ogg"
+			],
+			"volume": -3.0,
+			"pitch": 0.03,
+			"gap": 0.3,
+			"use": "the threat is stopped"
+		},
+		"r_defeat": {
+			"files": [
+				"bw_boss_explosion.ogg",
+				"bw_rockmio_diamondbrust.ogg"
+			],
+			"volume": -3.0,
+			"pitch": 0.04,
+			"gap": 0.3,
+			"use": "the threat falls apart"
+		},
+		"r_lose": {
+			"files": [
+				"bw_player_wrong.ogg",
+				"bw_fallblade_fall.ogg"
+			],
+			"volume": -3.0,
+			"pitch": 0.03,
+			"gap": 0.3,
+			"use": "the fight is lost"
+		},
+		"r_turn_you": {
+			"files": [
+				"bw_system_countdown_greenclick.ogg"
+			],
+			"volume": -7.0,
+			"pitch": 0.03,
+			"gap": 0.3,
+			"use": "YOUR TURN"
+		},
+		"r_turn_enemy": {
+			"files": [
+				"bw_system_pause_in.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.03,
+			"gap": 0.3,
+			"use": "ENEMY TURN"
+		},
+		"r_end_turn": {
+			"files": [
+				"bw_system_menu_select_confirm.ogg"
+			],
+			"volume": -6.0,
+			"pitch": 0.03,
+			"gap": 0.2,
+			"use": "the END TURN button"
+		}
+	}
+}

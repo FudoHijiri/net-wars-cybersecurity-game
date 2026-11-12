@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/gameplay/recovery/tasks/RecoveryTask.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scripts/gameplay/recovery/account_action.gd" id="2_task"]
+
+[node name="RemoveBackdoor" instance=ExtResource("1_base")]
+script = ExtResource("2_task")
+component_id = "backdoor"

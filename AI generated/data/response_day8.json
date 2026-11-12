@@ -1,0 +1,153 @@
+{
+	"_note": "The Day 8 (Web Application Attack) fight. Same format as response_day7.json. New kind: inject (pieces of a quote and of code drift across the box; one piece alone is harmless, the heart holds what it touches for 'hold_time' seconds (shown under the box), and holding a quote and a piece of code at the same time runs the code: a hit of 'damage'. With the counter a touched piece is cleaned and held by no one. The harder version never lets go of a held piece ('hold_time' very large), has more pieces, and the partner of a held piece looks for the heart ('pull')). split is the Day 2 kind (a bullet breaks into copies: the counter makes it split only once). aimed is the Day 1 kind: its counter is the pattern's own (Admin Lockdown: a hit does only 'reduced_damage').",
+	"threat": "Web Application Attack",
+	"tutorial": "response_day8",
+	"enemy_frames": "res://assets/charactersprite/enemies/web_app_attack_frames.tres",
+	"player_hp": 90,
+	"boss_hp": 130,
+	"energy": 3,
+	"hand_size": 5,
+	"finish": {
+		"reward": 90,
+		"title_lost": "Response Failed",
+		"unpaid_text": "Fight lost, not paid: ",
+		"comments": {
+			"flawless": "Joshua: Nothing got through. Recovery only needs a final check.",
+			"won": "Joshua: {threat} is stopped. These got through: {names}. Recovery will repair them.",
+			"lost": "Joshua: {threat} got through. Check your upgrades and your deck, then try again."
+		}
+	},
+	"defenses": [
+		{
+			"id": "input",
+			"name": "Check Input",
+			"works": "The input was checked, so every piece you touched was cleaned and could not join another.",
+			"harder": "No Check Input: pieces never fade, there are more of them, and the partner of a piece you hold looks for you."
+		},
+		{
+			"id": "framework",
+			"name": "Patch the Framework",
+			"works": "The framework was patched, so the hole closed after one split.",
+			"harder": "No Patch the Framework: the hole splits again and again, and faster."
+		},
+		{
+			"id": "adminlock",
+			"name": "Admin Lockdown",
+			"works": "The admin door was locked, so each stolen-key hit did only a third of the damage.",
+			"harder": "No Admin Lockdown: the stolen key does full damage, and there is less warning."
+		},
+		{
+			"id": "waf",
+			"name": "Web Firewall",
+			"works": "The firewall held the first requests back, and that gave you a little more time.",
+			"helper_warning": 0.6,
+			"helper_note": "WEB FIREWALL: early warning"
+		}
+	],
+	"patterns": [
+		{
+			"id": "inject",
+			"name": "Injection",
+			"counter": "input",
+			"kind": "inject",
+			"sprite": "res://assets/bullets/webapp/bullet_quote.png",
+			"sprite_copy": "res://assets/bullets/webapp/bullet_code.png",
+			"duration": 10.0,
+			"interval": 0.55,
+			"speed": 46,
+			"damage": 7,
+			"radius": 4.5,
+			"hold_time": 3.0,
+			"teach": "Pieces are harmless alone. Do not hold a quote and a piece of code together.",
+			"say": "Just my name, please.",
+			"works_note": "INPUT CHECKED: a piece is cleaned",
+			"box": [
+				124,
+				116
+			],
+			"lead": 0.4,
+			"harsh": {
+				"interval": 0.17,
+				"speed": 78,
+				"hold_time": 99.0,
+				"pull": 4.0,
+				"damage": 8
+			}
+		},
+		{
+			"id": "hole",
+			"name": "Known hole",
+			"counter": "framework",
+			"kind": "split",
+			"sprite": "res://assets/bullets/webapp/bullet_crack.png",
+			"sprite_copy": "res://assets/bullets/webapp/bullet_crack.png",
+			"duration": 8.0,
+			"interval": 0.7,
+			"speed": 78,
+			"damage": 5,
+			"radius": 4.0,
+			"generations": 1,
+			"split_after": 0.85,
+			"split_angle": 28,
+			"teach": "An old hole is open to everyone.",
+			"say": "The door was never locked.",
+			"box": [
+				112,
+				112
+			],
+			"lead": 0.5,
+			"harsh": {
+				"generations": 4,
+				"split_after": 0.5,
+				"interval": 0.4,
+				"speed": 88,
+				"damage": 6
+			}
+		},
+		{
+			"id": "admin",
+			"name": "Stolen admin",
+			"counter": "adminlock",
+			"kind": "aimed",
+			"sprite": "res://assets/bullets/credential_abuse/bullet_key.png",
+			"rotate": true,
+			"scale": 2,
+			"duration": 8.0,
+			"interval": 1.3,
+			"speed": 110,
+			"damage": 9,
+			"reduced_damage": 3,
+			"radius": 6.0,
+			"warning": 0.6,
+			"volley_every": 3,
+			"volley_count": 3,
+			"spread": 22,
+			"hit_note": "ADMIN LOCKED: mostly blocked",
+			"teach": "A new key to the master door.",
+			"say": "I am the administrator now.",
+			"box": [
+				112,
+				112
+			],
+			"lead": 0.5,
+			"harsh": {
+				"warning": 0.4,
+				"speed": 125,
+				"interval": 1.1,
+				"volley_every": 3,
+				"volley_count": 3,
+				"spread": 18,
+				"damage": 9
+			}
+		}
+	],
+	"doom": {
+		"counter": "input",
+		"name": "NO INPUT CHECK",
+		"percent": 30,
+		"warn": "WITHOUT THIS UPGRADE THE ATTACKS CANNOT BE STOPPED: they come as walls with no gap, Dodge does nothing, and every hit takes 30% of your HP.",
+		"strike": "The code that was typed runs again and takes more.",
+		"lost": "Joshua: The site took whatever was typed for an order, and the attacker ran the whole database. Check what comes in."
+	},
+	"_doom_note": "doom: the upgrade this threat cannot be beaten without. When it is not equipped every pattern comes as a wall that fills the whole box (kind doomwall, no gap to dodge through), Dodge cards do nothing, and each hit takes 'percent' of the maximum HP (Block still takes its share). 'warn' is read at the start of the fight and 'lost' is Joshua's comment when the fight is lost."
+}

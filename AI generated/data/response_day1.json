@@ -137,5 +137,14 @@
 				"damage": 10
 			}
 		}
-	]
+	],
+	"doom": {
+		"counter": "twostep",
+		"name": "NO SECOND STEP",
+		"percent": 30,
+		"warn": "WITHOUT THIS UPGRADE THE ATTACKS CANNOT BE STOPPED: they come as walls with no gap, Dodge does nothing, and every hit takes 30% of your HP.",
+		"strike": "The thief signs in to more accounts.",
+		"lost": "Joshua: With only a password, the thief opened every account and the network fell. A password alone is never enough: ask for a second step."
+	},
+	"_doom_note": "doom: the upgrade this threat cannot be beaten without. When it is not equipped every pattern comes as a wall that fills the whole box (kind doomwall, no gap to dodge through), Dodge cards do nothing, and each hit takes 'percent' of the maximum HP (Block still takes its share). 'warn' is read at the start of the fight and 'lost' is Joshua's comment when the fight is lost."
 }

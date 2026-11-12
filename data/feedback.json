@@ -1,0 +1,22 @@
+{
+	"_note": "The feedback form after the post-test (see autoload/assessment.gd). The ratings are 1 (strongly disagree) to 5 (strongly agree). Each item has a characteristic of ISO/IEC 25010 (the product quality model of Objective 5) or one of the three subjects the objective names (accessibility, gameplay experience, cybersecurity understanding). Keep the ids: the Google Sheet columns are the ids. The characteristics that only an IT expert can judge (maintainability, portability) are not here: they go on the expert checklist.",
+	"title": "FEEDBACK",
+	"scale": ["strongly disagree", "disagree", "neutral", "agree", "strongly agree"],
+	"comment_prompt": "Anything else you want to tell us? (optional)",
+	"items": [
+		{"id": "f01", "characteristic": "functional suitability", "text": "The game has everything I needed to learn about the cyber threats it covers."},
+		{"id": "f02", "characteristic": "cybersecurity understanding", "text": "The game helped me understand cyber threats better."},
+		{"id": "f03", "characteristic": "functional suitability", "text": "The challenges of each day matched the threat of that day."},
+		{"id": "f04", "characteristic": "performance efficiency", "text": "The game responded quickly when I clicked, changed screens and saved."},
+		{"id": "f05", "characteristic": "compatibility", "text": "The game ran on my computer without any extra setup."},
+		{"id": "f06", "characteristic": "usability", "text": "I always knew what to do in each phase."},
+		{"id": "f07", "characteristic": "usability", "text": "The controls were easy to learn."},
+		{"id": "f08", "characteristic": "usability", "text": "The tooltips, the information book and the explanations were clear."},
+		{"id": "f09", "characteristic": "accessibility", "text": "The text, the colours and the sounds were easy to read and to hear."},
+		{"id": "f10", "characteristic": "reliability", "text": "The game did not crash, freeze or show errors."},
+		{"id": "f11", "characteristic": "reliability", "text": "My progress was kept when I saved and came back."},
+		{"id": "f12", "characteristic": "security", "text": "I trusted the game with my alias and my answers."},
+		{"id": "f13", "characteristic": "gameplay experience", "text": "I enjoyed playing the game."},
+		{"id": "f14", "characteristic": "gameplay experience", "text": "I wanted to keep playing after each stage."}
+	]
+}

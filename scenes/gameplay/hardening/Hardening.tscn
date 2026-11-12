@@ -7,9 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://clkckk6kl8rpn" path="res://assets/ui/Hardening Icon.png" id="5_wycbq"]
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="6_bme43"]
 [ext_resource type="Script" uid="uid://c3faek12v086k" path="res://scripts/gameplay/hardening/hardening.gd" id="7_hardening"]
-[ext_resource type="Texture2D" uid="uid://cjoepvtg2vcmq" path="res://assets/ui/HeartIcon.png" id="8_5csqv"]
 [ext_resource type="Script" uid="uid://djaqbquktur7q" path="res://scripts/gameplay/hardening/deck.gd" id="8_iemnb"]
-[ext_resource type="Texture2D" uid="uid://c1m0kvcdasl62" path="res://assets/ui/Cost Orb S Icon.png" id="9_5csqv"]
 [ext_resource type="Texture2D" uid="uid://bwd5e1ut5jf8d" path="res://assets/cards/type_icons/type_icon_attack.png" id="10_ljqbp"]
 [ext_resource type="Texture2D" uid="uid://550t0j4lmvqb" path="res://assets/cards/type_icons/type_icon_defense.png" id="11_e7m5n"]
 [ext_resource type="Texture2D" uid="uid://cqrni186g2kaq" path="res://assets/cards/type_icons/type_icon_spell.png" id="12_vakpl"]
@@ -47,6 +45,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3568o"]
 shader = ExtResource("1_ox2nw")
 shader_parameter/tile = ExtResource("2_45bi6")
+shader_parameter/tile_size = 8
 shader_parameter/area = Vector2(640, 360)
 shader_parameter/scroll_speed = 4.0
 shader_parameter/light_chance = 0.06
@@ -105,16 +104,6 @@ border_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3568o"]
 content_margin_left = 2.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_oyxaa"]
-font = ExtResource("6_bme43")
-font_size = 6
-font_color = Color(0.69411767, 0.24313726, 0.3254902, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_gigji"]
-font = ExtResource("6_bme43")
-font_size = 6
-font_color = Color(0.4509804, 0.9372549, 0.96862745, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_6ywjb"]
 font = ExtResource("6_bme43")
 font_size = 6
@@ -150,11 +139,6 @@ font_color = Color(0.25490198, 0.6509804, 0.9647059, 1)
 font = ExtResource("6_bme43")
 font_size = 6
 font_color = Color(1, 0.8039216, 0.45882353, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_hg06o"]
-font = ExtResource("6_bme43")
-font_size = 6
-font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
 
 [sub_resource type="Theme" id="Theme_wycbq"]
 default_font = ExtResource("6_bme43")
@@ -696,6 +680,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Deck" type="Panel" parent="." unique_id=1973665176]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.06666667
@@ -740,53 +725,6 @@ anchor_bottom = 0.30952382
 theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
 metadata/_edit_use_anchors_ = true
 
-[node name="HPIcon" type="TextureRect" parent="Deck/Stats" unique_id=877109047]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.02173912
-anchor_top = 0.056818184
-anchor_right = 0.07065217
-anchor_bottom = 0.1590909
-offset_transform_enabled = true
-texture = ExtResource("8_5csqv")
-metadata/_edit_use_anchors_ = true
-
-[node name="HP" type="Label" parent="Deck/Stats" unique_id=1849319768]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.06521739
-anchor_top = 0.03409091
-anchor_right = 0.25543478
-anchor_bottom = 0.17045455
-theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
-text = "HP 90"
-label_settings = SubResource("LabelSettings_oyxaa")
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="EnergyIcon" type="TextureRect" parent="Deck/Stats" unique_id=1544866692]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.25543478
-anchor_top = 0.056818184
-anchor_right = 0.30434784
-anchor_bottom = 0.1590909
-texture = ExtResource("9_5csqv")
-metadata/_edit_use_anchors_ = true
-
-[node name="Energy" type="Label" parent="Deck/Stats" unique_id=336292231]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.29891306
-anchor_top = 0.03409091
-anchor_right = 0.5543479
-anchor_bottom = 0.17045455
-theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
-text = "Energy 3"
-label_settings = SubResource("LabelSettings_gigji")
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
 [node name="CardsInDeck" type="Label" parent="Deck/Stats" unique_id=82075950]
 layout_mode = 1
 anchors_preset = -1
@@ -800,26 +738,13 @@ label_settings = SubResource("LabelSettings_6ywjb")
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="DrawCards" type="Label" parent="Deck/Stats" unique_id=2098320543]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.010869565
-anchor_top = 0.20454545
-anchor_right = 0.45108697
-anchor_bottom = 0.3409091
-theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
-text = "Draw 1 per turn"
-label_settings = SubResource("LabelSettings_gqfwf")
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
 [node name="CostCurve" type="Label" parent="Deck/Stats" unique_id=1892154571]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.010869565
-anchor_top = 0.35227272
+anchor_top = 0.03409091
 anchor_right = 0.3206522
-anchor_bottom = 0.48863637
+anchor_bottom = 0.17045455
 theme_override_styles/normal = SubResource("StyleBoxEmpty_3568o")
 text = "Cost Curve"
 label_settings = SubResource("LabelSettings_gqfwf")
@@ -830,7 +755,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.016304348
-anchor_top = 0.5
+anchor_top = 0.2
 anchor_right = 0.5054348
 anchor_bottom = 0.8863636
 metadata/_edit_use_anchors_ = true
@@ -1015,14 +940,6 @@ layout_mode = 2
 text = "# Utility"
 label_settings = SubResource("LabelSettings_vakpl")
 
-[node name="Average Cost" type="HBoxContainer" parent="Deck/Stats/DeckStats" unique_id=1576663931]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Deck/Stats/DeckStats/Average Cost" unique_id=2083969049]
-layout_mode = 2
-text = "Avg, Cost - #.#"
-label_settings = SubResource("LabelSettings_hg06o")
-
 [node name="Upgrades" type="Panel" parent="Deck" unique_id=1653190336]
 layout_mode = 1
 anchors_preset = -1
@@ -1148,7 +1065,7 @@ layout_mode = 0
 anchor_left = 0.0125
 anchor_top = 0.33333334
 anchor_right = 0.1625
-anchor_bottom = 0.5
+anchor_bottom = 0.7
 theme_override_styles/panel = SubResource("StyleBoxEmpty_xjx1w")
 metadata/_edit_use_anchors_ = true
 

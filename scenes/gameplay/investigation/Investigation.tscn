@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://iced0phhadvj" path="res://scripts/gameplay/investigation/app_view_panel.gd" id="12_appview"]
 [ext_resource type="PackedScene" uid="uid://dvw4gl5e4m4of" path="res://scenes/gameplay/investigation/Monologue.tscn" id="13_hcl70"]
 [ext_resource type="Script" uid="uid://jii58qpfiadb" path="res://scripts/gameplay/finish_screen.gd" id="finish_screen_script"]
+[ext_resource type="Theme" uid="uid://do41m1dxvwx1w" path="res://assets/ui/scrollbar/scrollbar_theme.tres" id="scrollbar_theme"]
 
 [sub_resource type="Theme" id="Theme_rjwuq"]
 default_font = ExtResource("5_hcl70")
@@ -557,6 +558,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mjqds")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel2" unique_id=978720500]
 layout_mode = 2
+theme = ExtResource("scrollbar_theme")
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FramePanel/MainPanel/MainPanelAppView/HSplitContainer/Left/VBoxContainer/Panel2/ScrollContainer" unique_id=432290190]

@@ -3,24 +3,30 @@
 		"title": "An Unusual Login",
 		"phases": {
 			"investigation": {
+				"objective": "INVESTIGATE AND FIND CLUES",
+				"objective_report": "WRITE THE REPORT",
 				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeInvestigation.json",
 				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
 				"data": "res://data/scenarios/day 1/investigation.json"
 			},
 			"monitoring": {
+				"objective": "MONITOR AND REPORT SUSPICIOUS LOGS WHILE LETTING NORMAL LOGS PASS THROUGH",
 				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeMonitoring.json",
 				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
 				"data": "res://data/scenarios/day 1/monitoring.json"
 			},
 			"hardening": {
+				"objective": "HARDEN AND BUILD YOUR DEFENSE",
 				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeHardening.json",
 				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
 			},
 			"response": {
+				"objective": "STOP THE ATTACKER: PLAY CARDS, THEN DODGE",
 				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeResponse.json",
 				"scene": "res://AI generated/scenes/response/Response.tscn"
 			},
 			"recovery": {
+				"objective": "REPAIR WHAT THE ATTACK DAMAGED",
 				"dialogue": "res://scenes/gameplay/visual novel/day 1/BeforeRecovery.json",
 				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
 				"data": "res://data/recovery/day1_recovery.json"
@@ -29,30 +35,254 @@
 	},
 	"2": {
 		"title": "A Slow Laptop",
+		"blurb": "The first attack is over, but a laptop is slow and strange programs are running. Something got in. Find what it is.",
 		"phases": {
 			"investigation": {
+				"objective": "INVESTIGATE AND FIND CLUES",
+				"objective_report": "WRITE THE REPORT",
 				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeInvestigation.json",
 				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
 				"data": "res://data/scenarios/day 2/investigation.json"
 			},
 			"monitoring": {
+				"objective": "MONITOR PROGRAMS AND REPORT THE UNAPPROVED ONES",
 				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeMonitoring.json",
 				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
 				"data": "res://data/scenarios/day 2/monitoring.json"
 			},
 			"hardening": {
+				"objective": "HARDEN AND BUILD YOUR DEFENSE",
 				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeHardening.json",
 				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
 			},
 			"response": {
+				"objective": "STOP THE MALWARE: PLAY CARDS, THEN DODGE",
 				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeResponse.json",
 				"scene": "res://AI generated/scenes/response/Response.tscn",
 				"data": "res://AI generated/data/response_day2.json"
 			},
 			"recovery": {
+				"objective": "REPAIR WHAT THE MALWARE DAMAGED",
 				"dialogue": "res://scenes/gameplay/visual novel/day 2/BeforeRecovery.json",
 				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
 				"data": "res://data/recovery/day2_recovery.json"
+			}
+		}
+	},
+	"3": {
+		"title": "Locked Out",
+		"blurb": "Files are locked and a message demands payment. Find how it started, then get the company back to work.",
+		"phases": {
+			"investigation": {
+				"objective": "INVESTIGATE AND FIND CLUES",
+				"objective_report": "PUT WHAT HAPPENED IN ORDER",
+				"dialogue": "res://scenes/gameplay/visual novel/day 3/BeforeInvestigation.json",
+				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
+				"data": "res://data/scenarios/day 3/investigation.json"
+			},
+			"monitoring": {
+				"objective": "WATCH FILE CHANGES AND REPORT THE ONES THAT BREAK A RULE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 3/BeforeMonitoring.json",
+				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
+				"data": "res://data/scenarios/day 3/monitoring.json"
+			},
+			"hardening": {
+				"objective": "HARDEN AND KEEP A COPY APART",
+				"dialogue": "res://scenes/gameplay/visual novel/day 3/BeforeHardening.json",
+				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
+			},
+			"response": {
+				"objective": "STOP THE RANSOMWARE: PLAY CARDS, THEN DODGE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 3/BeforeResponse.json",
+				"scene": "res://AI generated/scenes/response/Response.tscn",
+				"data": "res://AI generated/data/response_day3.json"
+			},
+			"recovery": {
+				"objective": "RESTORE THE FILES FROM A SAFE BACKUP",
+				"dialogue": "res://scenes/gameplay/visual novel/day 3/BeforeRecovery.json",
+				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
+				"data": "res://data/recovery/day3_recovery.json"
+			}
+		}
+	},
+	"4": {
+		"title": "Wrong Door",
+		"blurb": "Someone with real access is doing something they should not. Look closely before you decide who.",
+		"phases": {
+			"investigation": {
+				"objective": "INVESTIGATE AND FIND CLUES",
+				"objective_report": "SEPARATE WHAT WE KNOW FROM WHAT WE DO NOT",
+				"dialogue": "res://scenes/gameplay/visual novel/day 4/BeforeInvestigation.json",
+				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
+				"data": "res://data/scenarios/day 4/investigation.json"
+			},
+			"monitoring": {
+				"objective": "CHECK WHO OPENS WHAT AND REPORT ACCESS THAT DOES NOT FIT THE JOB",
+				"dialogue": "res://scenes/gameplay/visual novel/day 4/BeforeMonitoring.json",
+				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
+				"data": "res://data/scenarios/day 4/monitoring.json"
+			},
+			"hardening": {
+				"objective": "HARDEN AND LIMIT ACCESS",
+				"dialogue": "res://scenes/gameplay/visual novel/day 4/BeforeHardening.json",
+				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
+			},
+			"response": {
+				"objective": "STOP THE INSIDER: PLAY CARDS, THEN DODGE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 4/BeforeResponse.json",
+				"scene": "res://AI generated/scenes/response/Response.tscn",
+				"data": "res://AI generated/data/response_day4.json"
+			},
+			"recovery": {
+				"objective": "FIX THE ACCESS AND ASK BEFORE YOU ACCUSE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 4/BeforeRecovery.json",
+				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
+				"data": "res://data/recovery/day4_recovery.json"
+			}
+		}
+	},
+	"5": {
+		"title": "Slow Leak",
+		"blurb": "Data is leaving the company, a little at a time. Find where it goes and who is sending it.",
+		"phases": {
+			"investigation": {
+				"objective": "INVESTIGATE AND FIND CLUES",
+				"objective_report": "FILL IN WHAT LEFT, HOW AND WHERE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 5/BeforeInvestigation.json",
+				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
+				"data": "res://data/scenarios/day 5/investigation.json"
+			},
+			"monitoring": {
+				"objective": "WATCH WHAT LEAVES AND REPORT TRANSFERS THAT DO NOT FIT",
+				"dialogue": "res://scenes/gameplay/visual novel/day 5/BeforeMonitoring.json",
+				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
+				"data": "res://data/scenarios/day 5/monitoring.json"
+			},
+			"hardening": {
+				"objective": "HARDEN AND WATCH WHAT LEAVES",
+				"dialogue": "res://scenes/gameplay/visual novel/day 5/BeforeHardening.json",
+				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
+			},
+			"response": {
+				"objective": "STOP THE LEAK: PLAY CARDS, THEN DODGE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 5/BeforeResponse.json",
+				"scene": "res://AI generated/scenes/response/Response.tscn",
+				"data": "res://AI generated/data/response_day5.json"
+			},
+			"recovery": {
+				"objective": "CLOSE THE DOOR AND CHANGE THE KEYS",
+				"dialogue": "res://scenes/gameplay/visual novel/day 5/BeforeRecovery.json",
+				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
+				"data": "res://data/recovery/day5_recovery.json"
+			}
+		}
+	},
+	"6": {
+		"title": "Locked Door",
+		"blurb": "The website crawls under a flood of requests. Find the flood, keep customers in and the attacker out.",
+		"phases": {
+			"investigation": {
+				"objective": "INVESTIGATE AND FIND CLUES",
+				"objective_report": "TELL THE RUSH FROM THE ATTACK",
+				"dialogue": "res://scenes/gameplay/visual novel/day 6/BeforeInvestigation.json",
+				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
+				"data": "res://data/scenarios/day 6/investigation.json"
+			},
+			"monitoring": {
+				"objective": "WATCH THE TRAFFIC AND REPORT WHAT IS NOT REAL CUSTOMERS",
+				"dialogue": "res://scenes/gameplay/visual novel/day 6/BeforeMonitoring.json",
+				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
+				"data": "res://data/scenarios/day 6/monitoring.json"
+			},
+			"hardening": {
+				"objective": "HARDEN AND KEEP THE SITE UP",
+				"dialogue": "res://scenes/gameplay/visual novel/day 6/BeforeHardening.json",
+				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
+			},
+			"response": {
+				"objective": "KEEP THE SITE UP: PLAY CARDS, THEN DODGE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 6/BeforeResponse.json",
+				"scene": "res://AI generated/scenes/response/Response.tscn",
+				"data": "res://AI generated/data/response_day6.json"
+			},
+			"recovery": {
+				"objective": "SET THE LIMIT AND BRING THE SITE BACK",
+				"dialogue": "res://scenes/gameplay/visual novel/day 6/BeforeRecovery.json",
+				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
+				"data": "res://data/recovery/day6_recovery.json"
+			}
+		}
+	},
+	"7": {
+		"title": "Look Closer",
+		"blurb": "A message looks official, but something is off. Look closer, and find out who fell for it.",
+		"phases": {
+			"investigation": {
+				"objective": "INVESTIGATE AND FIND CLUES",
+				"objective_report": "SPOT WHAT WAS FAKE IN THE MESSAGE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 7/BeforeInvestigation.json",
+				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
+				"data": "res://data/scenarios/day 7/investigation.json"
+			},
+			"monitoring": {
+				"objective": "READ EACH EMAIL AND REPORT THE FAKES",
+				"dialogue": "res://scenes/gameplay/visual novel/day 7/BeforeMonitoring.json",
+				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
+				"data": "res://data/scenarios/day 7/monitoring.json"
+			},
+			"hardening": {
+				"objective": "HARDEN AGAINST FAKE EMAIL",
+				"dialogue": "res://scenes/gameplay/visual novel/day 7/BeforeHardening.json",
+				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
+			},
+			"response": {
+				"objective": "READ BEFORE YOU TOUCH: PLAY CARDS, THEN DODGE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 7/BeforeResponse.json",
+				"scene": "res://AI generated/scenes/response/Response.tscn",
+				"data": "res://AI generated/data/response_day7.json"
+			},
+			"recovery": {
+				"objective": "RESET THE KEYS, CLEAN THE INBOXES, WARN THE STAFF",
+				"dialogue": "res://scenes/gameplay/visual novel/day 7/BeforeRecovery.json",
+				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
+				"data": "res://data/recovery/day7_recovery.json"
+			}
+		}
+	},
+	"8": {
+		"title": "Typed In",
+		"blurb": "The customer portal shows odd errors and orders nobody placed. Someone typed their way in. Find out how.",
+		"ending": "res://scenes/gameplay/visual novel/day 8/AfterRecovery.json",
+		"phases": {
+			"investigation": {
+				"objective": "INVESTIGATE AND FIND CLUES",
+				"objective_report": "SHOW WHAT WAS TYPED AND WHAT IT DID",
+				"dialogue": "res://scenes/gameplay/visual novel/day 8/BeforeInvestigation.json",
+				"scene": "res://scenes/gameplay/investigation/Investigation.tscn",
+				"data": "res://data/scenarios/day 8/investigation.json"
+			},
+			"monitoring": {
+				"objective": "CHECK EACH REQUEST AND REPORT THE CODE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 8/BeforeMonitoring.json",
+				"scene": "res://scenes/gameplay/monitoring/Monitoring.tscn",
+				"data": "res://data/scenarios/day 8/monitoring.json"
+			},
+			"hardening": {
+				"objective": "HARDEN THE WEBSITE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 8/BeforeHardening.json",
+				"scene": "res://scenes/gameplay/hardening/Hardening.tscn"
+			},
+			"response": {
+				"objective": "DO NOT JOIN THE PIECES: PLAY CARDS, THEN DODGE",
+				"dialogue": "res://scenes/gameplay/visual novel/day 8/BeforeResponse.json",
+				"scene": "res://AI generated/scenes/response/Response.tscn",
+				"data": "res://AI generated/data/response_day8.json"
+			},
+			"recovery": {
+				"objective": "RESTORE THE SITE, PATCH THE HOLE, REMOVE WHAT WAS LEFT",
+				"dialogue": "res://scenes/gameplay/visual novel/day 8/BeforeRecovery.json",
+				"scene": "res://scenes/gameplay/recovery/Recovery.tscn",
+				"data": "res://data/recovery/day8_recovery.json"
 			}
 		}
 	}

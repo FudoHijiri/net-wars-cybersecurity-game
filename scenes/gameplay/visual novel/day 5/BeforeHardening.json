@@ -1,0 +1,42 @@
+{
+	"start": {
+		"text": "The shift is over. The transfers that did not fit were mostly one place: 198.51.100.23.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work. The lesson is the same every time: allow only the places data is meant to go, and watch what leaves.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "Some of the new cards [b][color=green]Charge[/color][/b]. Point at the word to read it. It pays now for Energy at the start of your next turn.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "C"
+	},
+	"C": {
+		"text": "So I can spend a little now to have more next turn. And I buy the upgrade my clues point at.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "D"
+	},
+	"D": {
+		"text": "Exactly. Use your Security Points, and read what your clues recommended.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Understood. Fewer open doors, and a longer look at what goes through them.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

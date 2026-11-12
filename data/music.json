@@ -1,0 +1,123 @@
+{
+	"_note": "The music of the game (autoload Music, autoload/music.gd). tracks: name -> {files, volume (dB, measured so every loop is equally loud), use, thresholds}. A track with several files is one tune in stages with the same length: Music.set_intensity(0..1) moves to the next stage at each threshold and keeps the position in the loop. scenes: which track starts when a scene is opened (a script may call Music.play(name) to change it). Played on the Music bus, so the volume sliders of Settings count.",
+	"fade": 1.0,
+	"paused_db": -9.0,
+	"tracks": {
+		"title": {
+			"files": [
+				"week_35_reverence_endless.ogg"
+			],
+			"volume": 0.7,
+			"use": "title menu and save slots"
+		},
+		"stage_select": {
+			"files": [
+				"sketchbook_2024_10_13.ogg"
+			],
+			"volume": -4.6,
+			"use": "the day select"
+		},
+		"intro": {
+			"files": [
+				"ludum_dare_32_05.ogg"
+			],
+			"volume": -7.2,
+			"use": "the intro before Day 1"
+		},
+		"dialogue": {
+			"files": [
+				"sketchbook_2023_11_29.ogg"
+			],
+			"volume": -3.9,
+			"use": "the story scenes"
+		},
+		"investigation": {
+			"files": [
+				"patreon_challenge_01.ogg"
+			],
+			"volume": 0.2,
+			"use": "Investigation"
+		},
+		"monitoring": {
+			"files": [
+				"sketchbook_2025_11_12.ogg"
+			],
+			"volume": -7.3,
+			"use": "Monitoring"
+		},
+		"hardening": {
+			"files": [
+				"sketchbook_2024_09_25.ogg"
+			],
+			"volume": -5.4,
+			"use": "Hardening, the shop, the deck"
+		},
+		"response": {
+			"files": [
+				"week_4_cloak_of_darkness_stage_1.ogg",
+				"week_4_cloak_of_darkness_stage_2.ogg",
+				"week_4_cloak_of_darkness_stage_3.ogg"
+			],
+			"volume": -9.5,
+			"use": "Response: one more instrument at each stage",
+			"thresholds": [
+				0.34,
+				0.67
+			]
+		},
+		"response_doom": {
+			"files": [
+				"week_6_never_miss_fire.ogg"
+			],
+			"volume": -8.6,
+			"use": "Response when the counter upgrade is missing"
+		},
+		"hope": {
+			"files": [
+				"week_2_ruined_lands_hope.ogg"
+			],
+			"volume": -7.2,
+			"use": "a threat is stopped; the ending of Day 8"
+		},
+		"defeat": {
+			"files": [
+				"sketchbook_2024_06_26.ogg"
+			],
+			"volume": -2.2,
+			"use": "Response lost"
+		},
+		"recovery": {
+			"files": [
+				"sketchbook_2024_11_13.ogg"
+			],
+			"volume": -1.4,
+			"use": "Recovery"
+		},
+		"credits": {
+			"files": [
+				"week_20_dust_bowl_hope_of_rain.ogg"
+			],
+			"volume": -5.1,
+			"use": "the credits"
+		},
+		"archive": {
+			"files": [
+				"troubadeck_31_thinking_back.ogg"
+			],
+			"volume": -3.7,
+			"use": "the Book Archive (the only Troubadeck track)"
+		}
+	},
+	"scenes": {
+		"res://scenes/menus/TitleMenu.tscn": "title",
+		"res://scenes/menus/Intro.tscn": "intro",
+		"res://scenes/gameplay/visual novel/Dialogue.tscn": "dialogue",
+		"res://scenes/gameplay/investigation/Investigation.tscn": "investigation",
+		"res://scenes/gameplay/monitoring/Monitoring.tscn": "monitoring",
+		"res://scenes/gameplay/hardening/Hardening.tscn": "hardening",
+		"res://AI generated/scenes/response/Response.tscn": "response",
+		"res://scenes/gameplay/recovery/Recovery.tscn": "recovery",
+		"res://scenes/menus/Credits.tscn": "credits",
+		"res://scenes/menus/Assessment.tscn": "dialogue"
+	}
+}

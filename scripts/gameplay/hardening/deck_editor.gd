@@ -7,7 +7,6 @@ extends Panel
 signal leave_requested
 
 const ART := "res://assets/cards/art/art_%s.png"
-const ANY_COST := 5 # the id of "-" in the cost filter
 const TYPE_NAMES := {"offensive": "Offensive", "defensive": "Defensive", "utility": "Utility"}
 const HELP := "Click a card in the collection to add it to the deck. Click a card in the deck to take it out."
 
@@ -36,6 +35,7 @@ func setup(state: HardeningState) -> void:
 		button.toggled.connect(_on_filter_changed)
 	_cost.item_selected.connect(_on_filter_changed)
 	$Buttons/LeaveButton.pressed.connect(leave_requested.emit)
+	KeywordText.attach(_info_text)
 	_show_info("")
 	refresh()
 
@@ -81,8 +81,8 @@ func _passes_filters(card: Dictionary) -> bool:
 		types.append("utility")
 	if not types.is_empty() and not types.has(str(card.get("type", ""))):
 		return false
-	var cost_id := _cost.get_item_id(_cost.selected)
-	return cost_id == ANY_COST or int(card.get("cost", 0)) == cost_id
+	var wanted := _cost.get_item_text(_cost.selected) # "-" is any (read from the text: the editor may renumber the ids)
+	return wanted == "-" or int(card.get("cost", 0)) == int(wanted)
 
 
 func _on_filter_changed(_value: Variant) -> void:
@@ -151,4 +151,4 @@ func _show_info(id: String) -> void:
 	_info_card.show()
 	_info_card.setup(id, card)
 	_info_name.text = str(card.get("name", id))
-	_info_text.text = "%s  -  %d energy\n%s" % [TYPE_NAMES.get(type, type), int(card.get("cost", 0)), card.get("text", "")]
+	KeywordText.set_text(_info_text, str(card.get("text", "")), "%s  -  %d energy\n" % [TYPE_NAMES.get(type, type), int(card.get("cost", 0))], true)

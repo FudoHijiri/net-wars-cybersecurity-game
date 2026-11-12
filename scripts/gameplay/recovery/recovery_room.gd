@@ -74,7 +74,7 @@ func _on_run_changed() -> void:
 ## The HUD layout is authored in RecoveryHUD.tscn; only its text is set here.
 func _setup_hud() -> void:
 	_hud = hud.root
-	hud.set_day(_context.get("day", 1))
+	hud.set_objective(GameState.objective("objective", "recovery"))
 	hud.set_practice(demo_mode)
 
 func _register_stations() -> void:
@@ -401,7 +401,6 @@ func open_briefing() -> void:
 	var actions: Array[Dictionary] = [
 		{"id": "close", "label": "Back to work", "callback": close_dialog},
 		{"id": "findings", "label": "Findings", "callback": _show_findings},
-		{"id": "credits", "label": "Art credits", "callback": _show_credits},
 	]
 	if demo_mode:
 		actions.append({"id": "lab", "label": "Practice menu", "callback": _return_to_lab})
@@ -416,10 +415,6 @@ func _show_findings() -> void:
 		"Response\n" + (str(_outcome.get("summary", "Containment confirmed.")) if is_ready() else str(_texts.get("waiting_body", ""))),
 	]
 	_show_dialog("Earlier findings", paragraphs, [{"id": "back", "label": "Back to work order", "callback": _back_to_briefing}])
-
-func _show_credits() -> void:
-	close_dialog()
-	_show_dialog("Art credits", RecoveryData.credits(_data), [{"id": "back", "label": "Back to work order", "callback": _back_to_briefing}])
 
 func _back_to_briefing() -> void:
 	close_dialog()

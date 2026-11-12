@@ -1,0 +1,71 @@
+{
+	"_note": "The credits scene (scenes/menus/Credits.tscn, opened by the Credits button of the title menu) is built from this file. sections: a title and its entries; an entry has a name, and optionally link, license, license_link and note. The art of the Recovery office was credited inside the Recovery phase (art_credits in data/recovery/dayN_recovery.json) and was moved here.",
+	"sections": [
+		{
+			"title": "RECOVERY OFFICE ART",
+			"entries": [
+				{
+					"name": "Recovery office v2 / supplied by the project owner",
+					"note": "Original pack, placement guide and source images retained under art_source/recovery/office_v2.\nPrepared by deterministic transparent cropping and GIF frame extraction. Original colours retained. No new image generation.\nCreator/licence information was not included in the supplied pack."
+				},
+				{
+					"name": "MetroCity / JIK-A-4",
+					"link": "https://jik-a-4.itch.io/metrocity-free-topdown-character-pack",
+					"license": "CC0",
+					"license_link": "https://creativecommons.org/publicdomain/zero/1.0/",
+					"note": "Body, Outfit6 and short hair layers combined and recoloured to look like Joshua."
+				},
+				{
+					"name": "Pixel Office / 2dPig",
+					"link": "https://2dpig.itch.io/pixel-office",
+					"license": "CC0",
+					"license_link": "https://creativecommons.org/publicdomain/zero/1.0/",
+					"note": "Plants, bookcase, wastebasket and clock cropped from the original asset sheet. Original pixels and colours retained."
+				},
+				{
+					"name": "Office Pixel Art by Imersa Studios",
+					"link": "https://imersastudios.itch.io/office-pixel-art",
+					"note": "Free edition used inside this project under its included licence. Authored rear desk, computer and cabinet views and front chair view, used unchanged at their native pixels. No generation or sprite flipping."
+				},
+				{
+					"name": "Midcentury Modern Furniture Set / 0_mem0ry",
+					"link": "https://0-mem0ry.itch.io/midcentury-modern-furniture-set-free",
+					"note": "Free creator-licensed assets for game projects. Rear sofa, rear armchairs, bookshelves, coffee table, plants, floor lamp, framed prints and wall clock cropped from the original sheet; original colours and pixels retained. No generation or sprite flipping."
+				}
+			]
+		},
+		{
+			"title": "SOUND EFFECTS",
+			"entries": [
+				{
+					"name": "Interface Sounds / Kenney",
+					"link": "https://kenney.nl/assets/interface-sounds",
+					"license": "CC0",
+					"license_link": "https://creativecommons.org/publicdomain/zero/1.0/",
+					"note": "The sounds of the interface: clicks, ticks, selects, confirmations, back, close, open, switches, toggles, drops, errors and scrolls. Each one is used for what its name says, and a few of each are chosen at random with a little change of pitch."
+				},
+				{
+					"name": "Keyboard Sound Pack 1 / Unicae Games (inconsequentialist)",
+					"link": "https://patreon.com/inconsequentialist",
+					"note": "32 single key presses of a Cherry KC 1000 keyboard, used for the typing of the dialogue and the key that moves it on. Free to use."
+				},
+				{
+					"name": "95 SFX Pack / Beats Warrior Nian",
+					"note": "The sounds of the Response fight: hits, shields, dodges, healing, the threat's attacks, victory and defeat. Supplied by the project owner; the pack did not include a license."
+				}
+			]
+		},
+		{
+			"title": "MUSIC",
+			"entries": [
+				{
+					"name": "Looping Music / Abstraction (Benjamin Burnes)",
+					"link": "https://abstractionmusic.com",
+					"license": "CC0",
+					"license_link": "https://creativecommons.org/publicdomain/zero/1.0/",
+					"note": "The looping music of every scene: the Sketchbook, Ludum Dare, Patreon and weekly tracks, and the Troubadeck track of the Book Archive. The three stages of the Response fight are one tune with an instrument added at each stage. Credit is not required; it is given with thanks."
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,63 @@
+{
+	"start": {
+		"text": "The new defenses are in place. The malware is already spreading, like spilled ink.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Joshua! It is locking everything it reaches. It has three tricks: it spreads, it demands money, and it threatens to publish the copy.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "A lock that spreads, a demand that grows, and a copy that is sent out. I counted three.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "C"
+	},
+	"C": {
+		"text": "That is what makes it dangerous.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"What is it doing?": "D1",
+			"Are we ready for this?": "D2"
+		}
+	},
+	"D1": {
+		"text": "A [b][color=red]mass lock[/color][/b] that spreads one folder at a time, a [b][color=red]ransom demand[/color][/b] that grows until a wall comes, and [b][color=red]double extortion[/color][/b]: two copies, from both sides.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"D2": {
+		"text": "That depends on the upgrades you equipped. Each trick has one defense that stops it. Without that defense, the trick comes back [b][color=red]harder[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "Use your cards to weaken the threat. Cards that give [b][color=green]Dodge[/color][/b] make the next hits do nothing. When it attacks, you dodge. Keep going until it is [b][color=green]contained[/color][/b].",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"text": "Understood. Let's stop it before it locks anything else.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "G"
+	},
+	"G": {
+		"text": "Everything I set up in Hardening is about to be tested.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "H"
+	},
+	"H": {
+		"trigger": "start_phase"
+	}
+}

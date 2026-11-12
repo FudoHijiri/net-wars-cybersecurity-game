@@ -1,0 +1,966 @@
+{
+	"id": "ransomware",
+	"day": 3,
+	"threat_name": "Ransomware",
+	"speaker": "Joshua",
+	"clues_required": 4,
+	"tabs": {
+		"logs": "ALERTS",
+		"computers": "LAPTOPS",
+		"login": "BACKUPS"
+	},
+	"finish": {
+		"points_per_clue": 20,
+		"points_per_mistake": 5,
+		"bonus": 25,
+		"comments": {
+			"flawless": "Joshua: The report was right on the first try. Bonus approved.",
+			"done": "Joshua: Case closed. Next time, check the order against the times first."
+		}
+	},
+	"all_clues_monologue": [
+		"That's enough. A fake parcel notice started a program that locked the files, and it spread to the shared folder.",
+		"And the offline backup is still safe. Time to press REPORT and put it in order."
+	],
+	"investigation": {
+		"email": {
+			"title": "EMAIL > MESSAGES SENT TO STAFF",
+			"columns": [
+				"FROM",
+				"SUBJECT",
+				"TIME"
+			],
+			"widths": [
+				80,
+				170,
+				50
+			],
+			"entries": [
+				{
+					"id": "email_parcel",
+					"cells": [
+						"Track Parc3l",
+						"Parcel waiting",
+						"09:12"
+					],
+					"title": "Parcel notice with a link",
+					"detail": "From: notice@track-parc3l.com\nTo: Marta Silva\nTime: 09:12\n\nYour parcel could not be delivered. Click here to choose a new date.",
+					"entities": [
+						"user:msilva",
+						"domain:track-parc3l.com",
+						"event:parcel_click"
+					],
+					"monologue": [
+						"A parcel notice from track-parc3l, with a 3 where the E should be. A real courier would not hide behind a typo.",
+						"That's a real clue."
+					],
+					"summary": "A fake parcel notice with a link, sent to Marta.",
+					"is_clue": true
+				},
+				{
+					"id": "email_my_files",
+					"cells": [
+						"Marta Silva",
+						"My files look strange",
+						"09:20"
+					],
+					"title": "\"My files look strange\"",
+					"detail": "From: Marta Silva\nTo: IT Team\nTime: 09:20\n\nAll my files have odd endings and there is a note on my screen. I unplugged the cable. What do I do?",
+					"entities": [
+						"user:msilva",
+						"device:marta-laptop"
+					],
+					"monologue": [
+						"Marta saw the odd endings at 09:20, eight minutes after the parcel notice.",
+						"She unplugged the cable. That was smart."
+					],
+					"summary": "Marta says her files have odd endings and a note.",
+					"is_clue": false
+				},
+				{
+					"id": "email_real_parcel",
+					"cells": [
+						"Swift Courier",
+						"Your order 8821",
+						"08:40"
+					],
+					"title": "Your order 8821 has shipped",
+					"detail": "From: tracking@swiftcourier.com\nTo: Marta Silva\nTime: 08:40\n\nYour order 8821 has shipped. Track it with your account on our site. No need to click anything here.",
+					"entities": [
+						"org:swiftcourier",
+						"user:msilva"
+					],
+					"monologue": [
+						"A real courier: the right address, a tracking number Marta really ordered, and no link that asks for anything.",
+						"Compare it with the other parcel notice and the difference is easy to see."
+					],
+					"summary": "A real parcel message from a real courier.",
+					"is_clue": false
+				},
+				{
+					"id": "email_month_end",
+					"cells": [
+						"Finance",
+						"Month-end reminder",
+						"07:55"
+					],
+					"title": "Month-end reminder",
+					"detail": "From: Finance\nTo: Finance team\nTime: 07:55\n\nThe month-end report is due on Friday. Please finish your tables.",
+					"entities": [
+						"org:finance"
+					],
+					"monologue": [
+						"A reminder about the month-end report. It explains why Marta is busy, nothing more."
+					],
+					"summary": "A reminder about the month-end report.",
+					"is_clue": false
+				},
+				{
+					"id": "email_lunch",
+					"cells": [
+						"Facilities",
+						"Friday lunch menu",
+						"09:05"
+					],
+					"title": "Friday lunch menu",
+					"detail": "From: Facilities\nTo: All Staff\nTime: 09:05\n\nThis Friday's lunch specials are soup and sandwiches.",
+					"entities": [
+						"org:facilities"
+					],
+					"monologue": [
+						"Just the lunch menu. Nothing to do with Marta's laptop."
+					],
+					"summary": "A lunch menu.",
+					"is_clue": false
+				},
+				{
+					"id": "email_dana_scanned",
+					"cells": [
+						"IT Alerts",
+						"Parcel notice moved to junk",
+						"09:13"
+					],
+					"title": "Parcel notice moved to junk",
+					"detail": "From: IT Alerts\nTo: Dana Pierce\nTime: 09:13\n\nA message from track-parc3l.com was moved to your junk folder. It had a link to an unknown site.",
+					"entities": [
+						"user:dpierce",
+						"domain:track-parc3l.com"
+					],
+					"monologue": [
+						"The scanner you turned on caught the same parcel notice for Dana and put it in junk. She never saw it."
+					],
+					"summary": "The same parcel notice was caught for Dana.",
+					"is_clue": false,
+					"if_equipped": [
+						"attachments"
+					]
+				},
+				{
+					"id": "email_dana_nearly",
+					"cells": [
+						"Dana Pierce",
+						"Weird parcel message",
+						"09:25"
+					],
+					"title": "\"Weird parcel message\"",
+					"detail": "From: Dana Pierce\nTo: IT Team\nTime: 09:25\n\nI got a parcel message with a link and almost clicked it. Then I heard about Marta. Is it the same one?",
+					"entities": [
+						"user:dpierce",
+						"domain:track-parc3l.com"
+					],
+					"monologue": [
+						"Dana got the same notice and nearly clicked. Without a scanner, it was luck that stopped her."
+					],
+					"summary": "Dana got the same notice and nearly clicked.",
+					"is_clue": false,
+					"unless_equipped": [
+						"attachments"
+					]
+				}
+			]
+		},
+		"logs": {
+			"title": "ALERTS > WHAT THE ALARMS SAID",
+			"columns": [
+				"TIME",
+				"WHERE",
+				"WHAT HAPPENED"
+			],
+			"widths": [
+				50,
+				94,
+				156
+			],
+			"entries": [
+				{
+					"id": "alert_mass_change",
+					"cells": [
+						"09:15",
+						"File server",
+						"612 files changed"
+					],
+					"title": "612 files changed in 3 minutes",
+					"detail": "Time: 09:15 to 09:18\nWhere: File server, Finance folder\nWhat happened: 612 files were changed\nStarted by: Marta's account\n\nNobody edits 612 files in 3 minutes. A program does.",
+					"entities": [
+						"device:finance-share",
+						"user:msilva",
+						"event:mass_change"
+					],
+					"monologue": [
+						"612 files in three minutes, started by Marta's account. No person edits that fast.",
+						"A program was doing it. That's a clue."
+					],
+					"summary": "612 Finance files changed in 3 minutes, from Marta's account.",
+					"is_clue": true
+				},
+				{
+					"id": "alert_backup_rename",
+					"cells": [
+						"01:00",
+						"Backup computer",
+						"Files renamed .bak"
+					],
+					"title": "Backup job renamed files",
+					"detail": "Time: 01:00\nWhere: Backup computer\nWhat happened: Many files were copied and renamed .bak\nStarted by: Backup Agent\n\nThis is the nightly backup. It is approved and runs at 01:00.",
+					"entities": [
+						"prog:backup-agent",
+						"device:backup-pc"
+					],
+					"monologue": [
+						"The nightly backup also changes a lot of files, but it does it at 01:00, with its own program.",
+						"Many files is not proof."
+					],
+					"summary": "The nightly backup renames many files at 01:00.",
+					"is_clue": false
+				},
+				{
+					"id": "alert_wrong_password",
+					"cells": [
+						"08:11",
+						"Password checker",
+						"One wrong password"
+					],
+					"title": "One wrong password",
+					"detail": "Time: 08:11\nWhere: Password checker\nWho: Dana\nWhat happened: One wrong try, then the right one",
+					"entities": [
+						"user:dpierce"
+					],
+					"monologue": [
+						"One wrong try, then the right one. People mistype."
+					],
+					"summary": "Dana mistyped her password once.",
+					"is_clue": false
+				},
+				{
+					"id": "alert_updates",
+					"cells": [
+						"03:00",
+						"Laptops",
+						"Updates installed"
+					],
+					"title": "Updates installed",
+					"detail": "Time: 03:00\nWhere: All laptops\nWhat happened: The monthly updates were installed",
+					"entities": [
+						"event:updates"
+					],
+					"monologue": [
+						"The monthly updates, as announced. Not related."
+					],
+					"summary": "The monthly updates installed at 03:00.",
+					"is_clue": false
+				},
+				{
+					"id": "alert_patched",
+					"cells": [
+						"Last week",
+						"Laptops",
+						"Courier hole closed"
+					],
+					"title": "A known hole in the courier's program is closed",
+					"detail": "Time: last week\nWhere: All laptops\nWhat happened: The patch for a known hole in the courier's tracking program was installed",
+					"entities": [
+						"event:updates",
+						"prog:courier-tool"
+					],
+					"monologue": [
+						"The updates you kept up to date closed a known hole in the courier's program. One less way in."
+					],
+					"summary": "The courier's program was patched last week.",
+					"is_clue": false,
+					"if_equipped": [
+						"updates"
+					]
+				},
+				{
+					"id": "alert_missing_patch",
+					"cells": [
+						"Last week",
+						"Marta's laptop",
+						"Missing a patch"
+					],
+					"title": "One laptop was missing a patch",
+					"detail": "Time: last week\nWhere: Marta's laptop\nWhat happened: A patch for a known hole in the courier's tracking program was not installed",
+					"entities": [
+						"event:updates",
+						"device:marta-laptop"
+					],
+					"monologue": [
+						"One laptop was missing a patch for a known hole. Marta's. Updates matter."
+					],
+					"summary": "Marta's laptop was missing a patch.",
+					"is_clue": false,
+					"unless_equipped": [
+						"updates"
+					]
+				}
+			]
+		},
+		"computers": {
+			"title": "LAPTOPS > HOW EACH LAPTOP IS",
+			"columns": [
+				"LAPTOP",
+				"STATE",
+				"CHANGED"
+			],
+			"widths": [
+				96,
+				110,
+				94
+			],
+			"entries": [
+				{
+					"id": "lap_marta",
+					"cells": [
+						"Marta's laptop",
+						"Unplugged 09:21",
+						"42 in 2 min"
+					],
+					"title": "Marta's laptop",
+					"detail": "Laptop: Marta's laptop\nState: unplugged by Marta at 09:21\nFiles changed in the first 2 minutes: 42\nLast seen on the network: 09:21\n\nMarta pulled the cable herself.",
+					"entities": [
+						"device:marta-laptop",
+						"user:msilva",
+						"event:mass_change"
+					],
+					"monologue": [
+						"Marta's laptop changed 42 files in its first two minutes. She unplugged it at 09:21."
+					],
+					"summary": "Marta's laptop changed 42 files, then she unplugged it.",
+					"is_clue": false
+				},
+				{
+					"id": "lap_dana",
+					"cells": [
+						"Dana's laptop",
+						"On the network",
+						"400 at 10:30"
+					],
+					"title": "Dana's laptop",
+					"detail": "Laptop: Dana's laptop\nState: on the network\nFiles changed: 400, at 10:30\nWhat they were: the Design archive, moved to a new folder\nEndings: all normal (.png, .docx)\n\nIt looks like a lot of changes, but the files still have their usual endings.",
+					"entities": [
+						"device:dana-laptop",
+						"user:dpierce"
+					],
+					"monologue": [
+						"400 files changed on Dana's laptop. That looks scary, but the endings are all normal.",
+						"She moved the Design archive. Many files is not proof."
+					],
+					"summary": "Dana moved 400 design files. The endings are normal.",
+					"is_clue": false
+				},
+				{
+					"id": "lap_carla",
+					"cells": [
+						"Carla's laptop",
+						"On the network",
+						"Fine"
+					],
+					"title": "Carla's laptop",
+					"detail": "Laptop: Carla's laptop\nState: on the network\nFiles changed today: 11\nNothing unusual.",
+					"entities": [
+						"device:carla-laptop"
+					],
+					"monologue": [
+						"Nothing unusual on Carla's laptop."
+					],
+					"summary": "Carla's laptop is fine.",
+					"is_clue": false
+				},
+				{
+					"id": "lap_reception",
+					"cells": [
+						"Reception laptop",
+						"On the network",
+						"Fine"
+					],
+					"title": "Reception laptop",
+					"detail": "Laptop: Reception laptop\nState: on the network\nFiles changed today: 3\nNothing unusual.",
+					"entities": [
+						"device:reception-laptop"
+					],
+					"monologue": [
+						"Reception is quiet. Nothing to see."
+					],
+					"summary": "The reception laptop is fine.",
+					"is_clue": false
+				},
+				{
+					"id": "lap_backup_pc",
+					"cells": [
+						"Backup computer",
+						"On, drive unplugged",
+						"Fine"
+					],
+					"title": "Backup computer",
+					"detail": "Laptop: Backup computer\nState: on, the backup drive is unplugged\nFiles changed today: 0\nNothing unusual.",
+					"entities": [
+						"device:backup-pc"
+					],
+					"monologue": [
+						"The backup computer is fine, and its drive is unplugged."
+					],
+					"summary": "The backup computer is fine.",
+					"is_clue": false
+				}
+			]
+		},
+		"login": {
+			"title": "BACKUPS > WHEN, WHERE AND CHECKED",
+			"columns": [
+				"TIME",
+				"KEPT",
+				"NETWORK",
+				"CHECKED"
+			],
+			"widths": [
+				58,
+				84,
+				84,
+				74
+			],
+			"entries": [
+				{
+					"id": "bk_offline",
+					"cells": [
+						"01:00",
+						"Offline drive",
+						"Offline",
+						"Checked"
+					],
+					"title": "Offline backup, 01:00",
+					"detail": "Time: 01:00\nKept: on a drive that is unplugged after the copy\nChecked: yes, it restores fine\nLocked files in it: none\n\nBecause the drive was not connected, the lock never reached it.",
+					"entities": [
+						"backup:offline",
+						"device:backup-pc"
+					],
+					"monologue": [
+						"The offline backup was unplugged right after the copy, so the locks never reached it. It restores fine.",
+						"Good news, and a clue about what to do next."
+					],
+					"summary": "The offline backup from 01:00 is intact and checked.",
+					"is_clue": true
+				},
+				{
+					"id": "bk_shared",
+					"cells": [
+						"01:00",
+						"Shared drive",
+						"On the network",
+						"Not checked"
+					],
+					"title": "Backup on the shared drive",
+					"detail": "Time: 01:00\nKept: on the shared drive, reachable from the network\nChecked: no\nLocked files in it: yes, the lock reached it at 09:17\n\nA backup that stays connected can be locked too.",
+					"entities": [
+						"backup:shared",
+						"device:finance-share"
+					],
+					"monologue": [
+						"This copy sat on the shared drive, connected to the network. The lock reached it too.",
+						"That is why a backup has to be kept apart."
+					],
+					"summary": "The backup on the shared drive was locked too.",
+					"is_clue": false
+				},
+				{
+					"id": "bk_weekly",
+					"cells": [
+						"4 days ago",
+						"Shared drive",
+						"On the network",
+						"Not checked"
+					],
+					"title": "Weekly backup, 4 days ago",
+					"detail": "Time: four days ago\nKept: on the shared drive\nChecked: no\n\nOlder, and nobody tested it. It may work, and it may not.",
+					"entities": [
+						"backup:weekly"
+					],
+					"monologue": [
+						"An old backup, and nobody tested it. It looks safe, but it is not proven."
+					],
+					"summary": "The weekly backup is old and was never checked.",
+					"is_clue": false
+				},
+				{
+					"id": "bk_design",
+					"cells": [
+						"02:00",
+						"Dana's drive",
+						"On the network",
+						"Checked"
+					],
+					"title": "Backup of the design files",
+					"detail": "Time: 02:00\nKept: Dana's own drive\nChecked: yes\n\nDana's backup of the Design folder.",
+					"entities": [
+						"backup:design",
+						"user:dpierce"
+					],
+					"monologue": [
+						"Dana's own backup of her design files. Fine, and not about Finance."
+					],
+					"summary": "Dana's design backup.",
+					"is_clue": false
+				},
+				{
+					"id": "bk_schedule",
+					"cells": [
+						"Always",
+						"Backup computer",
+						"-",
+						"-"
+					],
+					"title": "Backup schedule",
+					"detail": "Job: Backup Agent\nRuns: every night at 01:00 and every day at 13:00\nFrom: the file server\nTo: the backup computer",
+					"entities": [
+						"prog:backup-agent"
+					],
+					"monologue": [
+						"When each backup job runs. The nightly one at 01:00 is the one that matters today."
+					],
+					"summary": "The backup schedule.",
+					"is_clue": false
+				}
+			]
+		},
+		"files": {
+			"title": "FILES > RENAMED OR CREATED",
+			"columns": [
+				"TIME",
+				"WHERE",
+				"DID",
+				"FILE"
+			],
+			"widths": [
+				40,
+				78,
+				53,
+				129
+			],
+			"entries": [
+				{
+					"id": "file_locked",
+					"cells": [
+						"09:14",
+						"Marta's laptop",
+						"Renamed",
+						"budget_march.xlsx.locked"
+					],
+					"title": "Finance files renamed .locked",
+					"detail": "Time: 09:14\nWhere: Marta's laptop\nWhat is happening: files are renamed one by one\nFile: budget_march.xlsx becomes budget_march.xlsx.locked\nThen: 41 more, in order\n\nThe files cannot be opened any more.",
+					"entities": [
+						"file:budget_march.xlsx",
+						"ending:locked",
+						"device:marta-laptop"
+					],
+					"monologue": [
+						"budget_march.xlsx is now budget_march.xlsx.locked, and 41 more after it, in order.",
+						"The files were locked one by one. That's a clue."
+					],
+					"summary": "Marta's Finance files were renamed .locked.",
+					"is_clue": true
+				},
+				{
+					"id": "file_readme",
+					"cells": [
+						"09:19",
+						"Marta's laptop",
+						"Created",
+						"READ_ME.txt"
+					],
+					"title": "READ_ME.txt",
+					"detail": "Time: 09:19\nWhere: Marta's laptop and the shared Finance folder\nWhat appeared: READ_ME.txt\n\nIt says the files are locked and asks for money to open them.",
+					"entities": [
+						"file:readme.txt",
+						"ending:locked",
+						"device:finance-share"
+					],
+					"monologue": [
+						"The note appeared at 09:19, after the files were already locked. It asks for money.",
+						"Locking first, asking after."
+					],
+					"summary": "A note appeared that asks for money.",
+					"is_clue": false
+				},
+				{
+					"id": "file_design_moved",
+					"cells": [
+						"10:30",
+						"Dana's laptop",
+						"Moved",
+						"Design archive"
+					],
+					"title": "Design archive moved",
+					"detail": "Time: 10:30\nWhere: Dana's laptop\nWhat happened: 400 files were moved to a new folder\nEndings: usual ones",
+					"entities": [
+						"file:design",
+						"user:dpierce"
+					],
+					"monologue": [
+						"Dana moved a big folder. The endings did not change, so nothing was locked."
+					],
+					"summary": "Dana moved the Design archive.",
+					"is_clue": false
+				},
+				{
+					"id": "file_onboarding",
+					"cells": [
+						"08:50",
+						"Carla's laptop",
+						"Changed",
+						"Onboarding guide"
+					],
+					"title": "Onboarding guide",
+					"detail": "Time: 08:50\nWhere: Carla's laptop\nWhat happened: one file changed",
+					"entities": [
+						"file:onboarding",
+						"user:cpatel"
+					],
+					"monologue": [
+						"Carla edited a guide. Normal work."
+					],
+					"summary": "Carla edited a guide.",
+					"is_clue": false
+				},
+				{
+					"id": "file_handbook",
+					"cells": [
+						"08:20",
+						"File server",
+						"Changed",
+						"Handbook"
+					],
+					"title": "Handbook",
+					"detail": "Time: 08:20\nWhere: File server\nWhat happened: one file changed",
+					"entities": [
+						"file:handbook"
+					],
+					"monologue": [
+						"A small edit to the handbook. Not related."
+					],
+					"summary": "The handbook was edited.",
+					"is_clue": false
+				}
+			]
+		},
+		"network": {
+			"title": "NETWORK > WHO TALKED TO WHOM",
+			"columns": [
+				"TIME",
+				"FROM",
+				"SENT TO",
+				"HOW MUCH"
+			],
+			"widths": [
+				44,
+				82,
+				86,
+				88
+			],
+			"entries": [
+				{
+					"id": "net_heavy_writes",
+					"cells": [
+						"09:15",
+						"Marta's laptop",
+						"File server",
+						"612 writes"
+					],
+					"title": "Marta's laptop writes to the file server",
+					"detail": "Time: 09:15 to 09:18\nFrom: Marta's laptop\nSent to: File server, Finance folder\nHow much: far more than normal\n\nThe lock spread from her laptop into the shared folder.",
+					"entities": [
+						"device:marta-laptop",
+						"device:finance-share",
+						"event:mass_change"
+					],
+					"monologue": [
+						"The heavy writing went from Marta's laptop straight into the Finance folder. That is how it spread."
+					],
+					"summary": "Marta's laptop wrote heavily into the Finance folder.",
+					"is_clue": false
+				},
+				{
+					"id": "net_phone_home",
+					"cells": [
+						"09:14",
+						"Marta's laptop",
+						"Outside address",
+						"1 small message"
+					],
+					"title": "Marta's laptop sends one message out",
+					"detail": "Time: 09:14\nFrom: Marta's laptop\nSent to: An outside address\nHow much: one small message\n\nThe program phoned home for its key before it locked the files.",
+					"entities": [
+						"device:marta-laptop",
+						"event:parcel_click"
+					],
+					"monologue": [
+						"One small message out, just before the files were locked. The program asked its owner for a key."
+					],
+					"summary": "Marta's laptop sent one small message out.",
+					"is_clue": false
+				},
+				{
+					"id": "net_backup_copy",
+					"cells": [
+						"01:00",
+						"File server",
+						"Backup computer",
+						"9 GB"
+					],
+					"title": "Nightly backup copy",
+					"detail": "Time: 01:00\nFrom: File server\nSent to: Backup computer\nHow much: 9 GB\n\nApproved, and at its usual hour.",
+					"entities": [
+						"prog:backup-agent",
+						"device:backup-pc"
+					],
+					"monologue": [
+						"The nightly copy: big, but approved and at its usual hour."
+					],
+					"summary": "The nightly backup copy.",
+					"is_clue": false
+				},
+				{
+					"id": "net_printer",
+					"cells": [
+						"08:30",
+						"Printer",
+						"File server",
+						"Small"
+					],
+					"title": "Printer",
+					"detail": "Time: 08:30\nFrom: Printer, floor 2\nSent to: File server\nHow much: small",
+					"entities": [
+						"device:printer"
+					],
+					"monologue": [
+						"The printer sends scans to the file server. Normal."
+					],
+					"summary": "The printer sent a small scan.",
+					"is_clue": false
+				},
+				{
+					"id": "net_browsing",
+					"cells": [
+						"All day",
+						"Laptops",
+						"Web",
+						"Usual"
+					],
+					"title": "Normal web browsing",
+					"detail": "Time: all day\nFrom: the laptops\nSent to: websites\nHow much: usual",
+					"entities": [
+						"org:web"
+					],
+					"monologue": [
+						"Ordinary web browsing."
+					],
+					"summary": "Ordinary web browsing.",
+					"is_clue": false
+				}
+			]
+		},
+		"servers": {
+			"title": "SERVERS > THE MAIN COMPUTERS",
+			"columns": [
+				"COMPUTER",
+				"JOB",
+				"STATUS",
+				"BUSY"
+			],
+			"widths": [
+				100,
+				100,
+				55,
+				45
+			],
+			"entries": [
+				{
+					"id": "srv_file",
+					"cells": [
+						"File server",
+						"Shared folders",
+						"Busy",
+						"92%"
+					],
+					"title": "File server",
+					"detail": "Computer: File server\nJob: Keeps the shared folders\nStatus: Busy\nBusy: 92%, three times its usual load at 09:16\nNote: the Finance folder files end in .locked",
+					"entities": [
+						"device:finance-share",
+						"ending:locked",
+						"event:mass_change"
+					],
+					"monologue": [
+						"The file server is at three times its usual load, and the Finance folder is locked."
+					],
+					"summary": "The file server was overloaded, with the Finance folder locked.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_archive",
+					"cells": [
+						"Archive job",
+						"Zips old logs",
+						"Done",
+						"40%"
+					],
+					"title": "Archive job",
+					"detail": "Computer: Archive job\nJob: Zips old logs at 08:00\nStatus: Done\nBusy: 40%\nNote: many file changes at 08:00, as every day",
+					"entities": [
+						"prog:archive-job"
+					],
+					"monologue": [
+						"Many file changes at 08:00, as every day. Harmless."
+					],
+					"summary": "The archive job changes many files every day at 08:00.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_backup_pc",
+					"cells": [
+						"Backup computer",
+						"Keeps the copies",
+						"Running",
+						"6%"
+					],
+					"title": "Backup computer",
+					"detail": "Computer: Backup computer\nJob: Keeps the backups\nStatus: Running\nBusy: 6%\nNote: the offline drive was unplugged at 01:20",
+					"entities": [
+						"device:backup-pc",
+						"backup:offline"
+					],
+					"monologue": [
+						"The offline drive was unplugged at 01:20. That is why it is intact."
+					],
+					"summary": "The offline drive was unplugged at 01:20.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_mail",
+					"cells": [
+						"Mail server",
+						"Receives email",
+						"Running",
+						"28%"
+					],
+					"title": "Mail server",
+					"detail": "Computer: Mail server\nJob: Receives and sends the company's email\nStatus: Running\nBusy: 28%",
+					"entities": [
+						"host:mail-01"
+					],
+					"monologue": [
+						"The mail server is running as usual."
+					],
+					"summary": "The mail server runs as usual.",
+					"is_clue": false
+				},
+				{
+					"id": "srv_update",
+					"cells": [
+						"Update server",
+						"Sends updates",
+						"Idle",
+						"3%"
+					],
+					"title": "Update server",
+					"detail": "Computer: Update server\nJob: Sends updates to the laptops\nStatus: Idle\nBusy: 3%",
+					"entities": [
+						"host:update-01"
+					],
+					"monologue": [
+						"The update server is idle. Not related."
+					],
+					"summary": "The update server is idle.",
+					"is_clue": false
+				}
+			]
+		}
+	},
+	"report": {
+		"text": "First, {1}. Then, {2}. Then, {3}. Last, {4}.",
+		"answers": {
+			"1": "chip_click",
+			"2": "chip_locked",
+			"3": "chip_spread",
+			"4": "chip_note"
+		},
+		"chips": [
+			{
+				"id": "chip_click",
+				"label": "Marta clicked the link in the parcel notice (09:12)"
+			},
+			{
+				"id": "chip_locked",
+				"label": "her files were locked (09:14)"
+			},
+			{
+				"id": "chip_spread",
+				"label": "it spread to the shared Finance folder (09:16)"
+			},
+			{
+				"id": "chip_note",
+				"label": "a note asked for money (09:19)"
+			},
+			{
+				"id": "chip_nightly",
+				"label": "the nightly backup ran (01:00)",
+				"reason": "The nightly backup is real, but it ran eight hours before the attack and is not part of it."
+			},
+			{
+				"id": "chip_dana",
+				"label": "Dana moved a big folder (10:30)",
+				"reason": "Dana's move was ordinary work, and it came after the attack. Her files kept their usual endings."
+			},
+			{
+				"id": "chip_weekly",
+				"label": "the old weekly backup was checked",
+				"reason": "Nobody checked the weekly backup. That event never happened."
+			},
+			{
+				"id": "chip_paid",
+				"label": "Marta paid the money",
+				"reason": "Nobody paid. The offline backup made it unnecessary, and paying promises nothing."
+			}
+		],
+		"slot_empty": "(empty)",
+		"slot_correct": "[OK]",
+		"chip_picked": "> ",
+		"submit_button": "SUBMIT REPORT",
+		"submit_locked": "FILL ALL BLANKS",
+		"continue_button": "CONTINUE >",
+		"icons": {
+			"prompt": "?",
+			"picked": ">",
+			"wrong": "!",
+			"solved": "OK"
+		},
+		"messages": {
+			"prompt": "Read your notes, then put what happened in order.",
+			"picked": "Now click a blank to put \"{word}\" there.",
+			"some_wrong": "{right} of {total} are in the right place. {reason} Try again.",
+			"none_right": "None of these are in the right place yet. {reason} Try again.",
+			"solved": "Yes! That is the order. The files were locked first, and the money was asked for after.",
+			"misplaced": "\"{word}\" did happen, but not at this point. Check the times in your notes."
+		},
+		"solved_explanation": "This is called ransomware: a harmful program that locks your files, then asks for money to open them. A backup kept apart from the network is what saves you.",
+		"tutorial": "investigation_order",
+		"objective": "FINISH THE REPORT BY PUTTING THE EVENTS IN ORDER"
+	}
+}

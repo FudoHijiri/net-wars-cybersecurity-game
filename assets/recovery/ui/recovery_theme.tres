@@ -2,6 +2,10 @@
 
 [ext_resource type="FontFile" uid="uid://bsn2ekxvcjcxi" path="res://assets/font/Minecraft Standard 6px/MinecraftStandard.otf" id="1_body"]
 [ext_resource type="FontFile" uid="uid://blkxrxwbervu1" path="res://assets/font/Press Start 8p/PressStart2P.ttf" id="2_menu"]
+[ext_resource type="Texture2D" uid="uid://q8y3trlictjf" path="res://assets/ui/checkbutton/check_checked.png" id="check_checked"]
+[ext_resource type="Texture2D" uid="uid://cuddnths88bno" path="res://assets/ui/checkbutton/check_checked_disabled.png" id="check_checked_disabled"]
+[ext_resource type="Texture2D" uid="uid://c75rmo0hulu0d" path="res://assets/ui/checkbutton/check_unchecked.png" id="check_unchecked"]
+[ext_resource type="Texture2D" uid="uid://by1apkg5cs3a4" path="res://assets/ui/checkbutton/check_unchecked_disabled.png" id="check_unchecked_disabled"]
 
 [sub_resource type="StyleBoxFlat" id="button_disabled"]
 content_margin_left = 4.0
@@ -396,6 +400,14 @@ CheckButton/colors/font_focus_color = Color(1, 0.8039216, 0.45882353, 1)
 CheckButton/colors/font_hover_color = Color(1, 0.8039216, 0.45882353, 1)
 CheckButton/colors/font_hover_pressed_color = Color(0.654902, 0.9411765, 0.4392157, 1)
 CheckButton/colors/font_pressed_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+CheckButton/icons/checked = ExtResource("check_checked")
+CheckButton/icons/checked_disabled = ExtResource("check_checked_disabled")
+CheckButton/icons/checked_disabled_mirrored = ExtResource("check_checked_disabled")
+CheckButton/icons/checked_mirrored = ExtResource("check_checked")
+CheckButton/icons/unchecked = ExtResource("check_unchecked")
+CheckButton/icons/unchecked_disabled = ExtResource("check_unchecked_disabled")
+CheckButton/icons/unchecked_disabled_mirrored = ExtResource("check_unchecked_disabled")
+CheckButton/icons/unchecked_mirrored = ExtResource("check_unchecked")
 CheckButton/styles/disabled = SubResource("card_disabled")
 CheckButton/styles/hover = SubResource("card_hover")
 CheckButton/styles/hover_pressed = SubResource("card_good")

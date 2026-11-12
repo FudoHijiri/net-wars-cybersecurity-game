@@ -11,13 +11,11 @@ const TEXTS := {
 	State.OK: "NORMAL",
 	State.BAD: "SUSPICIOUS",
 }
-const FILLS := {
-	State.OK: Color("38b764"),
-	State.BAD: Color("b13e53"),
+## The color role of each state (GameColors): the fill is the player's Good / Bad color, with the text color that reads on it.
+const ROLES := {
+	State.OK: &"good",
+	State.BAD: &"bad",
 }
-## The dark navy and the white of the palette, whichever reads better on the fill.
-const DARK_TEXT := Color("1a1c2c")
-const LIGHT_TEXT := Color("f4f4f4")
 
 var _box: StyleBoxFlat
 
@@ -31,6 +29,7 @@ func _ready() -> void:
 
 func set_state(state: State) -> void:
 	text = TEXTS[state]
-	_box.bg_color = FILLS[state]
-	_box.border_color = FILLS[state]
-	add_theme_color_override("font_color", LIGHT_TEXT if state == State.BAD else DARK_TEXT)
+	var fill := GameColors.fill(ROLES[state])
+	_box.bg_color = fill
+	_box.border_color = fill
+	add_theme_color_override("font_color", GameColors.text_on(fill))

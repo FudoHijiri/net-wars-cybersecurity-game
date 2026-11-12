@@ -60,27 +60,28 @@ func _process(delta: float) -> void:
 		spark.vel.y += spark.gravity * delta
 		spark.pos += spark.vel * delta
 	_sparks = _sparks.filter(func(s: Spark) -> bool: return s.life > 0.0)
-	for ring in _rings:
-		ring.life -= delta
+	for one_ring in _rings:
+		one_ring.life -= delta
 	_rings = _rings.filter(func(r: Ring) -> bool: return r.life > 0.0)
-	for slash in _slashes:
-		slash.life -= delta
+	for one_slash in _slashes:
+		one_slash.life -= delta
 	_slashes = _slashes.filter(func(s: Slash) -> bool: return s.life > 0.0)
 	queue_redraw()
 
 
 func _draw() -> void:
-	for ring in _rings:
-		var k := 1.0 - ring.life / ring.max_life
-		var radius := lerpf(ring.from, ring.to, ease(k, 0.4))
-		draw_arc(ring.pos.round(), radius, 0.0, TAU, maxi(16, int(radius * 2.0)), Color(ring.color, 1.0 - k), 1.0, false)
-	for slash in _slashes:
-		var k := slash.life / slash.max_life # 1 -> 0
+	for one_ring in _rings:
+		var k := 1.0 - one_ring.life / one_ring.max_life
+		var radius := lerpf(one_ring.from, one_ring.to, ease(k, 0.4))
+		draw_arc(one_ring.pos.round(), radius, 0.0, TAU, maxi(16, int(radius * 2.0)), Color(one_ring.color, 1.0 - k), 1.0, false)
+	for one_slash in _slashes:
+		var k := one_slash.life / one_slash.max_life # 1 -> 0
 		var reach := minf((1.0 - k) * 4.0, 1.0)
-		var start := slash.pos.round() + Vector2(-14, -14)
-		draw_line(start, start + Vector2(28, 28) * reach, Color(slash.color, minf(k * 2.0, 1.0)), 2.0)
+		var start := one_slash.pos.round() + Vector2(-14, -14)
+		draw_line(start, start + Vector2(28, 28) * reach, Color(one_slash.color, minf(k * 2.0, 1.0)), 2.0)
 		draw_line(start + Vector2(4, -2), start + Vector2(4, -2) + Vector2(28, 28) * reach, Color(WHITE, minf(k * 2.0, 1.0)), 1.0)
 	for spark in _sparks:
+		@warning_ignore("integer_division")
 		var half := spark.size / 2
 		draw_rect(Rect2(spark.pos.round() - Vector2(half, half), Vector2(spark.size, spark.size)), Color(spark.color, clampf(spark.life / spark.max_life * 1.6, 0.0, 1.0)))
 

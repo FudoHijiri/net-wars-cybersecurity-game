@@ -1,0 +1,51 @@
+{
+	"start": {
+		"text": "Report sent. One address typed code into the login form, and the database answered with everything.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"next": "A"
+	},
+	"A": {
+		"text": "Good work, Joshua. Remember: typed text is data. It only becomes a problem when the site treats it as an order.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "B"
+	},
+	"B": {
+		"text": "So tonight you read each web request as it arrives.",
+		"name": "Carla",
+		"art": "Carla",
+		"choices": {
+			"Is an apostrophe an attack?": "C1",
+			"Can't we just block every odd character?": "C2"
+		}
+	},
+	"C1": {
+		"text": "No. Ciaran O'Brien types one in his name every day. The [b][color=green]rulebook[/color][/b] says look at the whole text, not at one character.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"C2": {
+		"text": "No. Names have apostrophes, and searches have spaces. We check what is typed, not how it looks. And our own scanner types code on purpose.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "D"
+	},
+	"D": {
+		"text": "[b][color=red]Report[/color][/b] the code. Let the rest [b][color=green]pass[/color][/b], even the ones that look odd.",
+		"name": "Carla",
+		"art": "Carla",
+		"next": "E"
+	},
+	"E": {
+		"text": "One request at a time. Read what was typed, and what came back.",
+		"name": "Joshua",
+		"art": "Joshua",
+		"hide_art": "Carla",
+		"next": "F"
+	},
+	"F": {
+		"trigger": "start_phase"
+	}
+}

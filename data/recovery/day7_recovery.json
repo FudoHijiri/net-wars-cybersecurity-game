@@ -1,0 +1,405 @@
+{
+	"_note": "The Day 7 (Phishing) work order. Same format as day6_recovery.json. attacks: the Response patterns that got through become these repairs. Components: mail (MailCleanup: the inboxes, the filter rule, the warning for the staff), password (the Day 1 task with Ravi's account) and sessions (the Day 1 task with Ravi's devices), and file_server (the final check). Every repair is a hands-on picture the player works on, step by step.",
+	"room": {
+		"counter": "Repairs {done}/{total}",
+		"controls": "WASD / arrows: move     E: use     Esc: pause",
+		"return": "Finish shift",
+		"finish": "Finish shift",
+		"work_order": "Office exit / work order",
+		"waiting": "Waiting for Response",
+		"waiting_body": "Response has not confirmed that the message is stopped. You can look around, but the equipment must stay dark until it is.",
+		"all_done": "Checks complete. Return to the office entrance to finish.",
+		"summary_title": "Recovery complete",
+		"summary_body": "The repairs and the final check passed.",
+		"summary_lesson": "Remove the fake from every inbox, reset the key it stole, and tell the staff calmly what to look for.",
+		"unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
+		"hardening_unavailable": "No hardening results have been supplied.",
+		"verify_locked": "Finish the required restoration work before the final access checks.",
+		"not_required": "This equipment does not need restoration in this work order.",
+		"close": "Back"
+	},
+	"points": {
+		"base": 15,
+		"clean_bonus": 10
+	},
+	"finish": {
+		"comments": {
+			"clean": "Joshua: Inboxes clean, the password new, the thief signed out, and the staff warned. Not one wrong move.",
+			"done": "Joshua: Everything is fixed. Next time, check the sender and the link before you decide."
+		}
+	},
+	"task_ui": {
+		"hint": "Take your time. Read the labels before choosing.",
+		"needs_repair": "[!] REQUIRED",
+		"working": "[=] NO REPAIR NEEDED",
+		"restored": "[OK] CHECKED",
+		"waiting": "[?] AWAITING CLEARANCE",
+		"locked": "[>] RESTORE FIRST",
+		"stamp": "REPAIRED",
+		"machine_default": "Workstation"
+	},
+	"case": {
+		"day": 7,
+		"day_title": "Look Closer",
+		"threat": "Phishing",
+		"brief": "The fake message is stopped, but it is still in the inboxes, Ravi's password is in a thief's hands, and a thief's computer is still signed in. Fix each one, then check that nothing is left.",
+		"lesson": "Remove the fake from every inbox, reset the key it stole, and tell the staff calmly what to look for."
+	},
+	"attacks": [
+		{
+			"id": "lure",
+			"label": "Lure",
+			"component": "mail"
+		},
+		{
+			"id": "fakepage",
+			"label": "Fake login page",
+			"component": "password"
+		},
+		{
+			"id": "stolen",
+			"label": "Stolen password",
+			"component": "sessions"
+		}
+	],
+	"components": {
+		"mail": {
+			"title": "Clean the inboxes, block, warn",
+			"system": "MAIL",
+			"instruction": "The fake email is in several inboxes. Remove every copy, stop the next one, and tell the staff what to look for.",
+			"lesson": "Remove it from every inbox, block what you checked (not a guess), and tell the staff what to look for.",
+			"stage_inboxes": "STEP 1: TICK EVERY COPY OF THE FAKE (c0mpany-it.com), THEN DELETE. LOOK IN THE ARCHIVE TOO.",
+			"stage_rule": "STEP 2: BUILD THE FILTER THAT STOPS THE NEXT ONE.",
+			"stage_warning": "STEP 3: CHOOSE THE MESSAGE THAT GOES TO THE STAFF.",
+			"pick": "Tick the copies of the fake. The real notices are in the same inboxes: look at each sender.",
+			"delete": "DELETE THE TICKED MESSAGES",
+			"tick_first": "Tick the copies of the fake first.",
+			"left_behind": "A copy is still hiding in {owner}'s inbox. Look at every folder.",
+			"inboxes_done": "Every copy is gone. Now stop the next one.",
+			"inboxes": [
+				{
+					"id": "marta",
+					"owner": "Marta's inbox",
+					"messages": [
+						{
+							"id": "marta_fake",
+							"from": "IT Support (c0mpany-it.com)",
+							"subject": "Your password expires today",
+							"fake": true
+						},
+						{
+							"id": "marta_it",
+							"from": "IT Support (company-it.com)",
+							"subject": "Password policy reminder",
+							"fake": false,
+							"reason": "That is the real IT reminder: the domain is company-it.com, without a zero. Keep it."
+						},
+						{
+							"id": "marta_lunch",
+							"from": "Facilities",
+							"subject": "Fire drill on Thursday",
+							"fake": false,
+							"reason": "That is the fire drill notice from Facilities. It has nothing to do with the fake."
+						}
+					]
+				},
+				{
+					"id": "ben",
+					"owner": "Ben's inbox",
+					"messages": [
+						{
+							"id": "ben_fake",
+							"from": "IT Support (c0mpany-it.com)",
+							"subject": "Your password expires today",
+							"fake": true
+						},
+						{
+							"id": "ben_hr",
+							"from": "Hana Ito (hr.company.com)",
+							"subject": "Benefits open until Friday",
+							"fake": false,
+							"reason": "That is HR's benefits message, from hr.company.com. Its link goes to the benefits partner, which is on the list. Keep it."
+						},
+						{
+							"id": "ben_fire",
+							"from": "Facilities",
+							"subject": "Parking permits",
+							"fake": false,
+							"reason": "That is a note from Facilities. It has nothing to do with the fake."
+						}
+					]
+				},
+				{
+					"id": "ravi",
+					"owner": "Ravi's inbox",
+					"messages": [
+						{
+							"id": "ravi_fake",
+							"from": "IT Support (c0mpany-it.com)",
+							"subject": "Your password expires today",
+							"fake": true
+						},
+						{
+							"id": "ravi_archive",
+							"from": "Archive: IT Support (c0mpany-it.com)",
+							"subject": "Your password expires today",
+							"fake": true
+						},
+						{
+							"id": "ravi_it",
+							"from": "IT Support (company-it.com)",
+							"subject": "Password policy reminder",
+							"fake": false,
+							"reason": "That is the real IT reminder from company-it.com. Keep it."
+						}
+					]
+				}
+			],
+			"rule": {
+				"what_label": "Block mail where the",
+				"value_label": "is",
+				"what": [
+					{
+						"id": "sender",
+						"label": "sender's domain"
+					},
+					{
+						"id": "subject",
+						"label": "subject",
+						"reason": "The subject can say anything, and the real reminder talks about passwords too. The look-alike is in the sender's domain."
+					},
+					{
+						"id": "link",
+						"label": "link text",
+						"reason": "The link text says portal.company-it.com, which is the real portal. What it says is not where it goes. Use the sender's domain."
+					}
+				],
+				"values": [
+					{
+						"id": "lookalike",
+						"label": "c0mpany-it.com"
+					},
+					{
+						"id": "real",
+						"label": "company-it.com",
+						"reason": "That is our own domain. Blocking it would block every real IT notice."
+					},
+					{
+						"id": "password",
+						"label": "\"password\"",
+						"reason": "The real IT reminder says password too. Blocking the word would block it."
+					}
+				],
+				"right": {
+					"what": "sender",
+					"value": "lookalike"
+				}
+			},
+			"rule_text": "Rule: block mail where the %s is %s",
+			"block": "SAVE THE FILTER",
+			"rule_pick": "Choose what to look at and what it is. Then save the filter.",
+			"rule_done": "The filter is saved. Mail from c0mpany-it.com is blocked, and the real IT mail still gets through.",
+			"warnings": [
+				{
+					"id": "calm",
+					"label": "A short, calm note: what the fake looked like, what to check (the sender and where the link goes), and where to report it",
+					"ok": true
+				},
+				{
+					"id": "scary",
+					"label": "\"HACKERS ARE EVERYWHERE! Do not open ANY email!\"",
+					"ok": false,
+					"reason": "That frightens people and tells them nothing to do. They will either ignore it or stop reading mail. Tell them what to check."
+				},
+				{
+					"id": "none",
+					"label": "No message. It is handled",
+					"ok": false,
+					"reason": "The next fake will look different. People need to know what to look for, so a calm note helps."
+				}
+			],
+			"tutorial": "recovery_mailbox",
+			"success": "Every copy is gone, the filter blocks the look-alike but not the real IT, and the staff know what to check."
+		},
+		"password": {
+			"title": "Give Ravi his account back",
+			"instruction": "Two people asked the sign-in system to reset Ravi's password. Check each request against his HR record, then give him a strong new password.",
+			"lesson": "A password typed into a fake page is stolen. Make sure the right person asks, then choose a long passphrase and a second step.",
+			"full": "Strong pick: four random words are long and hard to guess. Now add a second step that needs something Ravi holds.",
+			"success": "Ravi has his account back with a long new password and a second step. The password he typed into the fake page is useless now.",
+			"final_switch": "Ask for a second step (a key Ravi holds)",
+			"final_switch_locked": "Pick a strong password first.",
+			"identity": {
+				"record": "HR record:  Ravi Menon  /  Staff 0733  /  Phone ...58  /  Works in Sales, at the office",
+				"requests": [
+					{
+						"id": "request_a",
+						"title": "REQUEST A",
+						"name": "Ravi Menon",
+						"staff": "0733",
+						"phone": "...19",
+						"from": "Far away, a new computer",
+						"genuine": false,
+						"right": "Rejected. The phone and the place do not match his record: that was the thief trying to keep the account.",
+						"wrong": "Look again: this phone ends in 19, not 58, and it came from far away on a new computer. That is not Ravi."
+					},
+					{
+						"id": "request_b",
+						"title": "REQUEST B",
+						"name": "Ravi Menon",
+						"staff": "0733",
+						"phone": "...58",
+						"from": "Office, in person",
+						"genuine": true,
+						"right": "Approved. Everything matches his HR record.",
+						"wrong": "Everything here matches his HR record. This is the real Ravi."
+					}
+				]
+			},
+			"identity_prompt": "Compare each request with the HR record. Approve the real Anna, reject the other.",
+			"identity_done": "Identity checked. Now pick Ravi's new password.",
+			"system": "SIGN-IN SYSTEM",
+			"choice_label": "Pick Ravi's new password:",
+			"choice_prompt": "Pick the password that is hardest to guess.",
+			"choices": [
+				{
+					"id": "name_year",
+					"password": "Ravi2024",
+					"detail": "His name + this year",
+					"short": "Easy to guess",
+					"reason": "Too easy: his name and the year are among the first things an attacker tries."
+				},
+				{
+					"id": "season",
+					"password": "Summer2024!",
+					"detail": "A season and a year",
+					"short": "On every guess list",
+					"reason": "A season and a year with a mark is on every attacker's guess list."
+				},
+				{
+					"id": "passphrase",
+					"password": "copper window harbor lemon",
+					"detail": "Four random words",
+					"short": "Long and random",
+					"strong": true
+				}
+			]
+		},
+		"sessions": {
+			"title": "Sign the thief out",
+			"instruction": "A thief signed in as Ravi at 09:35, ten minutes after he typed his password. Sign out the devices that are not his, then ask for a second code.",
+			"lesson": "A stolen password works on the first try. Sign the thief out, and ask for a second code so a password alone is not enough.",
+			"account": "Ravi Menon",
+			"account_label": "Signed in to: {account}",
+			"sessions": [
+				{
+					"id": "ravi_laptop",
+					"device": "Ravi's laptop",
+					"place": "Office",
+					"time": "08:40",
+					"known": true,
+					"reason": "That is Ravi's own laptop, at the office. Keep it signed in."
+				},
+				{
+					"id": "unknown_far",
+					"device": "Unknown computer 3C91",
+					"place": "Far away",
+					"time": "09:35",
+					"known": false
+				},
+				{
+					"id": "ravi_phone",
+					"device": "Ravi's phone",
+					"place": "Office",
+					"time": "08:41",
+					"known": true,
+					"reason": "That is Ravi's own phone. He needs it for his sign-in codes."
+				},
+				{
+					"id": "unknown_second",
+					"device": "Unknown computer 3C91",
+					"place": "Another far place",
+					"time": "09:50",
+					"known": false
+				}
+			],
+			"sign_out": "Sign out",
+			"signed_out": "[OK] SIGNED OUT",
+			"pick": "Check each device. Which ones are really Ravi's?",
+			"removed": "Signed out.",
+			"remaining": "{left} unknown device(s) still signed in.",
+			"success": "The thief is signed out, and a stolen password alone can no longer get in.",
+			"final_prompt": "The thief is signed out. Now ask for a second code, so the stolen password alone cannot get back in.",
+			"final_switch": "Ask for a second code (from Ravi's phone)",
+			"final_switch_locked": "Sign out every device that is not Anna's first.",
+			"system": "ACCOUNT MONITOR"
+		},
+		"file_server": {
+			"title": "Back to work",
+			"system": "FINAL CHECK",
+			"instruction": "Check that nothing of the fake is left. Each check proves one repair worked.",
+			"lesson": "Recovery is finished only when nothing is left behind and you have checked it.",
+			"checks": [
+				{
+					"id": "inboxes_clear",
+					"label": "THE INBOXES",
+					"expected": "Trusted record: no copy of the fake should be in any inbox, and the filter should block c0mpany-it.com.",
+					"passed": "No copy is left in any inbox, and the filter blocks c0mpany-it.com.",
+					"failed": "A copy is still in an inbox. Recovery stays open.",
+					"icon": "file"
+				},
+				{
+					"id": "password_new",
+					"label": "THE PASSWORD",
+					"expected": "Trusted record: Ravi's password should be new, long, and have a second step.",
+					"passed": "Ravi's password is new, long, and has a second step.",
+					"failed": "Ravi still has the password he typed. Recovery stays open.",
+					"icon": "account"
+				},
+				{
+					"id": "thief_out",
+					"label": "THE SIGN-IN",
+					"expected": "Trusted record: only Ravi's own devices should be signed in.",
+					"passed": "Only Ravi's laptop and phone are signed in.",
+					"failed": "The thief's computer is still signed in. Recovery stays open.",
+					"icon": "contact"
+				}
+			],
+			"run": "Run check",
+			"confirm": "Confirm results",
+			"all_checks": "Run every check before confirming recovery.",
+			"failed": "A check failed. Keep recovery open and ask the response team to address the result.",
+			"passed": "[OK] {result}",
+			"failed_result": "[!] {result}",
+			"success": "Nothing of the fake is left, Ravi's account is his again, and the thief is out. The staff know what to check.",
+			"points": {
+				"base": 20,
+				"clean_bonus": 0
+			}
+		}
+	},
+	"equipment_selection": {
+		"mail": [
+			"monitoring"
+		],
+		"password": [
+			"access"
+		],
+		"sessions": [
+			"monitoring"
+		],
+		"file_server": [
+			"servers"
+		]
+	},
+	"response_outcome": {
+		"contained": true,
+		"summary": "Response stopped the message. The inboxes, Ravi's password and the thief's sign-in are ready for repairs.",
+		"cleared_devices": {},
+		"verification": {
+			"inboxes_clear": true,
+			"password_new": true,
+			"thief_out": true
+		}
+	}
+}

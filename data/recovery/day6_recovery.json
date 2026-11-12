@@ -1,0 +1,446 @@
+{
+	"_note": "The Day 6 (DDoS) work order. Same format as day5_recovery.json. attacks: the Response patterns that got through become these repairs; an attack may stand for several (\"components\"). Components: limit (RateDial: the gate and the dial), fan (FanSwap: the room, then the server), powercycle (RackPower: shut down from the top, start from the bottom), block (AccountAction with traffic groups: block the attackers, then tell the customers) and file_server (the final check). Every repair is a hands-on picture the player works on, step by step.",
+	"room": {
+		"counter": "Repairs {done}/{total}",
+		"controls": "WASD / arrows: move     E: use     Esc: pause",
+		"return": "Finish shift",
+		"finish": "Finish shift",
+		"work_order": "Office exit / work order",
+		"waiting": "Waiting for Response",
+		"waiting_body": "Response has not confirmed that the site is safe. You can look around, but the equipment must stay dark until it is.",
+		"all_done": "Checks complete. Return to the office entrance to finish.",
+		"summary_title": "Recovery complete",
+		"summary_body": "The repairs and the final check passed.",
+		"summary_lesson": "Set a limit that lets customers in and keeps the flood out, block only what you have checked, and look after the hardware the flood ran hot.",
+		"unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
+		"hardening_unavailable": "No hardening results have been supplied.",
+		"verify_locked": "Finish the required restoration work before the final access checks.",
+		"not_required": "This equipment does not need restoration in this work order.",
+		"close": "Back"
+	},
+	"points": {
+		"base": 15,
+		"clean_bonus": 10
+	},
+	"finish": {
+		"comments": {
+			"clean": "Joshua: Limit set, attackers blocked, the room cool, the rack back in order. Not one wrong move.",
+			"done": "Joshua: The site is back. Next time, read what each step is for before you press it."
+		}
+	},
+	"task_ui": {
+		"hint": "Take your time. Read the labels before choosing.",
+		"needs_repair": "[!] REQUIRED",
+		"working": "[=] NO REPAIR NEEDED",
+		"restored": "[OK] CHECKED",
+		"waiting": "[?] AWAITING CLEARANCE",
+		"locked": "[>] RESTORE FIRST",
+		"stamp": "REPAIRED",
+		"machine_default": "Workstation"
+	},
+	"case": {
+		"day": 6,
+		"day_title": "Locked Door",
+		"threat": "Distributed Denial-of-Service",
+		"brief": "The flood is stopped, but the door is still easy to crowd. Nothing limits one visitor, the attackers are still free to come back, the rack still holds slow connections, and the flood ran a fan to death. Fix each one, then check that real customers can get in.",
+		"lesson": "Set a limit that lets customers in and keeps the flood out, block only what you checked, and look after the hardware."
+	},
+	"attacks": [
+		{
+			"id": "flood",
+			"label": "Flood",
+			"components": [
+				"limit",
+				"fan"
+			]
+		},
+		{
+			"id": "sources",
+			"label": "Many sources",
+			"component": "block"
+		},
+		{
+			"id": "drip",
+			"label": "Slow drip",
+			"component": "powercycle"
+		}
+	],
+	"components": {
+		"limit": {
+			"title": "Set a request limit",
+			"system": "THE GATE",
+			"instruction": "The flood asks hundreds of times a minute from each address, and a real customer only a few. Move the limit so customers get in and the flood does not.",
+			"lesson": "A limit that is too tight blocks your own customers. One that is too loose blocks nothing.",
+			"heading": "How many requests may one address send a minute?",
+			"pick": "Move the dial and watch the dots. Round dots are customers, square dots are bots.",
+			"set_limit": "SET LIMIT",
+			"unit": "Limit: %d a minute",
+			"customer_max": 25,
+			"bot_min": 60,
+			"bot_max": 600,
+			"min_ok": 30,
+			"max_ok": 60,
+			"start": 200,
+			"legend_customers": "o  a customer",
+			"legend_bots": "[]  a bot",
+			"meter_customers": "Customers let in",
+			"meter_bots": "Attackers let in",
+			"too_low": "Real customers ask for up to 25 requests a minute. A limit of {limit} turns them away.",
+			"too_high": "The quietest bots ask for 60 a minute. A limit of {limit} lets some of the flood through.",
+			"tutorial": "recovery_dial",
+			"success": "The limit is set. Real customers get in, and the flood is turned away."
+		},
+		"fan": {
+			"title": "Cool the room, replace the fan",
+			"system": "HARDWARE",
+			"instruction": "The flood ran web-01 hot for an hour, and a fan gave up. First cool the room, then replace the fan the right way.",
+			"lesson": "Power it off and unplug it before you open it. Replace the part that failed, then check the temperature.",
+			"room": {
+				"heading": "THE ROOM: it is 41 degrees. Clear the vents, cool the air, close the door.",
+				"pick": "Click what is wrong in the room. The one that glows is next.",
+				"temp_start": 41,
+				"temp_ok": 24,
+				"vents": [
+					{
+						"id": "vent_a",
+						"label": "Move the box off the left vent",
+						"done": "The left vent can breathe again."
+					},
+					{
+						"id": "vent_b",
+						"label": "Move the box off the right vent",
+						"done": "The right vent is free too."
+					}
+				],
+				"vent_cool": 4,
+				"ac_start": 30,
+				"ac_text": "Air conditioner: %d",
+				"ac_set": "SET THE AIR CONDITIONER",
+				"ac_min": 20,
+				"ac_max": 24,
+				"ac_too_cold": "{value} is too cold: it wastes power and makes damp. 20 to 24 is right for a server room.",
+				"ac_too_warm": "{value} is still too warm for the servers. Set it between 20 and 24.",
+				"ac_cool": 8,
+				"ac_done": "The air conditioner is on at a sensible number.",
+				"door": {
+					"label": "Close the door",
+					"done": "The door is shut, so the cool air stays in."
+				},
+				"door_cool": 1,
+				"done": "The room is down to 24. Now the server with the stopped fan."
+			},
+			"server": {
+				"step_word": "STEP",
+				"wrong": "That is not the next step.",
+				"steps": [
+					{
+						"id": "shutdown",
+						"label": "Shut the server down properly",
+						"done": "It shut down cleanly. Nothing is lost.",
+						"early": "Shut the server down first."
+					},
+					{
+						"id": "unplug",
+						"label": "Unplug the power cable",
+						"done": "The cable is out. Now it is safe to open.",
+						"early": "Shut the server down first. Pulling the plug on a running server can damage its files."
+					},
+					{
+						"id": "open",
+						"label": "Open the case",
+						"done": "The case is open. The three fans are inside, with their speeds.",
+						"early": "Unplug it first. Never open a server that is still plugged in."
+					},
+					{
+						"id": "find",
+						"label": "Find the fan that has stopped",
+						"done": "That is the one: it shows 0 rpm. The others spin.",
+						"early": "Open the case first. The fans are inside."
+					},
+					{
+						"id": "install",
+						"label": "Put in a new fan, arrow the right way",
+						"done": "The new fan is in, blowing from the front to the back.",
+						"early": "Find the stopped fan first, then put in the new one."
+					},
+					{
+						"id": "close",
+						"label": "Close the case, plug in, power on",
+						"done": "The server is on. The fans turn and the temperature falls.",
+						"early": "Finish the repair first: the new fan has to be in before you close up."
+					}
+				],
+				"fans_label": "Which fan has stopped?",
+				"fans": [
+					{
+						"id": "fan_1",
+						"label": "Fan 1",
+						"rpm_text": "0 rpm",
+						"ok": true
+					},
+					{
+						"id": "fan_2",
+						"label": "Fan 2",
+						"rpm_text": "4,200 rpm",
+						"ok": false,
+						"reason": "Fan 2 spins fine: 4,200 rpm. Look for the one that has stopped."
+					},
+					{
+						"id": "fan_3",
+						"label": "Fan 3",
+						"rpm_text": "4,100 rpm",
+						"ok": false,
+						"reason": "Fan 3 spins fine: 4,100 rpm. Look for the one that has stopped."
+					}
+				],
+				"airflow_label": "The new fan's arrow:",
+				"airflow": [
+					{
+						"id": "back",
+						"label": "Arrow to the back",
+						"ok": true
+					},
+					{
+						"id": "front",
+						"label": "Arrow to the front",
+						"ok": false,
+						"reason": "Air must flow from the front to the back. An arrow to the front blows the heat the wrong way."
+					}
+				],
+				"temp_end": 24
+			},
+			"tutorial": "recovery_hardware",
+			"success": "The room is cool and the server has a new fan. Power off and unplug it before you open it, then check the temperature."
+		},
+		"powercycle": {
+			"title": "Power-cycle the rack in order",
+			"system": "RACK",
+			"instruction": "Slow connections are stuck in the rack. Restart it in the right order: shut down from the top, then start up from the bottom.",
+			"lesson": "Shut down from the top, start from the bottom, and wait for each part to be ready.",
+			"pick": "Press POWER on the unit that glows. A unit pressed too early tells you what it needs.",
+			"switch": "POWER",
+			"stage_off": "STEP 1: SHUT DOWN FROM THE TOP",
+			"stage_on": "STEP 2: START UP FROM THE BOTTOM. WAIT FOR EACH GREEN LIGHT.",
+			"start_seconds": 0.5,
+			"units": [
+				{
+					"id": "balancer",
+					"label": "Load balancer",
+					"job": "sends the visitors"
+				},
+				{
+					"id": "web",
+					"label": "Web server",
+					"job": "shows the shop"
+				},
+				{
+					"id": "app",
+					"label": "App server",
+					"job": "runs the shop"
+				},
+				{
+					"id": "database",
+					"label": "Database",
+					"job": "keeps the data"
+				},
+				{
+					"id": "switch",
+					"label": "Network switch",
+					"job": "connects them"
+				},
+				{
+					"id": "power",
+					"label": "Power strip",
+					"job": "feeds them all"
+				}
+			],
+			"shutdown_order": [
+				"balancer",
+				"web",
+				"app",
+				"database",
+				"switch",
+				"power"
+			],
+			"start_order": [
+				"power",
+				"switch",
+				"database",
+				"app",
+				"web",
+				"balancer"
+			],
+			"early_off": {
+				"web": "The load balancer still sends visitors to the web server. Turn the balancer off first.",
+				"app": "The web server still uses the app server. Turn the web server off first.",
+				"database": "The app server still uses the database. Turn the app server off first.",
+				"switch": "The database still talks through the switch. Turn the database off first.",
+				"power": "The switch still takes its power from the strip. Turn the switch off first."
+			},
+			"early_on": {
+				"switch": "The switch needs power. Start the power strip first.",
+				"database": "The database needs the network. Start the switch first.",
+				"app": "The app server needs the database. Start the database first.",
+				"web": "The web server needs the app server. Start the app server first.",
+				"balancer": "The load balancer comes last, when the web server is ready.",
+				"power": "The power strip comes first, but not before the rest is off."
+			},
+			"wait": "The {unit} is still starting. Wait for its green light.",
+			"off_done_unit": "{unit} is off.",
+			"on_done_unit": "{unit} is starting.",
+			"off_done": "Everything is off. Now start it from the bottom, one unit at a time.",
+			"on_done": "Everything is back, in order. The slow connections are gone.",
+			"tutorial": "recovery_hardware",
+			"success": "The rack is back, in order, and the stuck connections are gone."
+		},
+		"block": {
+			"title": "Block the attackers, not the customers",
+			"system": "TRAFFIC",
+			"instruction": "Block the traffic you have shown to be the attack. Then tell the customers what happened.",
+			"lesson": "Block what you have shown to be the attack. Never block people you have not checked.",
+			"heading": "Which traffic should be blocked?",
+			"pick": "Click a group to read about it. Then press BLOCK THESE ADDRESSES.",
+			"choose": "Click a group to read about it.",
+			"select_first": "Choose a group first.",
+			"disable": "BLOCK THESE ADDRESSES",
+			"accounts": [
+				{
+					"id": "botnet",
+					"label": "The 9,200 devices",
+					"ok": true,
+					"detail": "40 ranges of cameras and routers. 41,000 requests a minute to one page, one browser name, 0 orders."
+				},
+				{
+					"id": "customers",
+					"label": "The sale's customers",
+					"ok": false,
+					"detail": "3,100 addresses in six countries. Many pages, real browsers, 412 orders.",
+					"reason": "Those are real customers. They bought things. Blocking them would do the attacker's work."
+				},
+				{
+					"id": "office",
+					"label": "The office",
+					"ok": false,
+					"detail": "40 addresses. Staff laptops.",
+					"reason": "That is our own office. Blocking it would lock the staff out of the site."
+				},
+				{
+					"id": "partner",
+					"label": "The partner's API",
+					"ok": false,
+					"detail": "2 addresses. The analytics partner's servers.",
+					"reason": "That is the partner, and it is agreed. Blocking it would break their reports."
+				},
+				{
+					"id": "crawler",
+					"label": "The crawler",
+					"ok": false,
+					"detail": "1 address. A polite search engine crawler, 30 requests a minute.",
+					"reason": "That crawler is polite and listed. Blocking it would hide the shop from search."
+				},
+				{
+					"id": "monitor",
+					"label": "Our monitor",
+					"ok": false,
+					"detail": "1 address. Our own monitor that checks the shop.",
+					"reason": "That is our own monitor. Without it we would not know when the site is down."
+				}
+			],
+			"disabled": "The 9,200 devices are blocked. Now, what do you tell the customers?",
+			"talk_heading": "What do you tell the customers?",
+			"talk": [
+				{
+					"id": "alarm",
+					"label": "A big red alarm: \"We are under attack!\"",
+					"ok": false,
+					"reason": "A scary alarm worries people and says nothing useful. Say what happened and what to do."
+				},
+				{
+					"id": "notice",
+					"label": "A short notice on the site: it was slow, it is fixed, sorry",
+					"ok": true
+				},
+				{
+					"id": "silence",
+					"label": "Say nothing",
+					"ok": false,
+					"reason": "Customers were turned away at the checkout. They deserve a short, honest word."
+				}
+			],
+			"tutorial": "recovery_archive",
+			"success": "The attackers are blocked, and the customers get a short, honest notice. The shop is theirs again."
+		},
+		"file_server": {
+			"title": "Back to work",
+			"system": "FINAL CHECK",
+			"instruction": "Check that real customers can get in. Each check proves one repair worked.",
+			"lesson": "Recovery is finished only when real customers can get in and you have checked it.",
+			"checks": [
+				{
+					"id": "site_loads",
+					"label": "THE SITE",
+					"expected": "Trusted record: the shop should load for a real customer.",
+					"passed": "The shop loads, and a test order goes through.",
+					"failed": "The shop is still slow. Recovery stays open.",
+					"icon": "file"
+				},
+				{
+					"id": "limit_set",
+					"label": "THE LIMIT",
+					"expected": "Trusted record: one address may send at most 60 requests a minute.",
+					"passed": "The limit is set, and the flood's addresses are blocked.",
+					"failed": "There is no limit yet. Recovery stays open.",
+					"icon": "account"
+				},
+				{
+					"id": "hardware_ok",
+					"label": "THE HARDWARE",
+					"expected": "Trusted record: web-01 should be cool, with all its fans turning.",
+					"passed": "web-01 is cool, its fans turn, and the rack is back in order.",
+					"failed": "web-01 is still hot. Recovery stays open.",
+					"icon": "contact"
+				}
+			],
+			"run": "Run check",
+			"confirm": "Confirm results",
+			"all_checks": "Run every check before confirming recovery.",
+			"failed": "A check failed. Keep recovery open and ask the response team to address the result.",
+			"passed": "[OK] {result}",
+			"failed_result": "[!] {result}",
+			"success": "The shop loads, the limit is set, and web-01 is cool. Real customers can get in.",
+			"points": {
+				"base": 20,
+				"clean_bonus": 0
+			}
+		}
+	},
+	"equipment_selection": {
+		"limit": [
+			"network",
+			"monitoring"
+		],
+		"fan": [
+			"servers"
+		],
+		"powercycle": [
+			"servers"
+		],
+		"block": [
+			"access",
+			"monitoring"
+		],
+		"file_server": [
+			"servers"
+		]
+	},
+	"response_outcome": {
+		"contained": true,
+		"summary": "Response kept the site up. The limit, the attackers, the rack and the fan are ready for repairs.",
+		"cleared_devices": {},
+		"verification": {
+			"site_loads": true,
+			"limit_set": true,
+			"hardware_ok": true
+		}
+	}
+}
