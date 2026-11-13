@@ -47,6 +47,10 @@ var _summary: RichTextLabel
 @onready var _info: RichTextLabel = $Content/Info
 
 
+## The scrollbars of the pages: the pixel scrollbar theme of the rest of the game, not Godot's own.
+const SCROLL_THEME := preload("res://assets/ui/scrollbar/scrollbar_theme.tres")
+
+
 func _ready() -> void:
 	content.hide()
 	book_animation.show()
@@ -64,6 +68,7 @@ func _ready() -> void:
 	_left_title.anchor_left = 0.171875 # the left title is as wide as the page, from beside the back arrow, so a topic like WHAT IT IS keeps the big font
 	_left_title.anchor_right = _contents.anchor_right
 	_info.bbcode_enabled = true
+	_info.theme = SCROLL_THEME
 	_info.add_theme_font_override("bold_font", BOLD)
 	_info.add_theme_font_size_override("bold_font_size", 6)
 	_build_left_page()
@@ -347,6 +352,7 @@ func _build_left_page() -> void:
 	_left_info = RichTextLabel.new()
 	_left_info.name = "LeftInfo"
 	_left_info.bbcode_enabled = true
+	_left_info.theme = SCROLL_THEME
 	_left_info.position = LEFT_PAGE.position
 	_left_info.size = LEFT_PAGE.size
 	_left_info.add_theme_color_override("default_color", Color.BLACK)
@@ -376,6 +382,7 @@ func _build_picture() -> void:
 	_summary = RichTextLabel.new()
 	_summary.name = "Summary"
 	_summary.bbcode_enabled = true
+	_summary.theme = SCROLL_THEME
 	_summary.position = Vector2(PLATE_RECT.position.x, PLATE_RECT.end.y + 8.0)
 	_summary.size = Vector2(PLATE_RECT.size.x, 90.0)
 	_summary.add_theme_color_override("default_color", Color.BLACK)
