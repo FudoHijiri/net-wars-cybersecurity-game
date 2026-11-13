@@ -13,7 +13,6 @@
 		"summary_body": "The repairs and the final check passed.",
 		"summary_lesson": "Ransomware is beaten by a backup kept apart, from before the infection and tested, and by giving each person only the access the job needs.",
 		"unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
-		"hardening_unavailable": "No hardening results have been supplied.",
 		"verify_locked": "Finish the required restoration work before the final access checks.",
 		"not_required": "This equipment does not need restoration in this work order.",
 		"close": "Back"

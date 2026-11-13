@@ -202,7 +202,11 @@ func _answer(report: bool, timed_out: bool) -> void:
 		_wrong += 1
 	if report:
 		_reported.append(_log["id"])
-	_answers.append({"id": _log["id"], "reported": report, "right": right, "reason": truth["reason"]})
+	var shown: Array[String] = []
+	for part: Dictionary in _log["parts"]:
+		shown.append("%s: %s" % [part["label"], part["value"]])
+	# the log as the player saw it, so the Recovery findings can list the logs that were reported
+	_answers.append({"id": _log["id"], "reported": report, "right": right, "reason": truth["reason"], "number": _log["number"], "title": _log["title"], "fields": shown})
 
 	_reveal_hint_tags()
 	# The parts that broke a rule are marked in the text, whatever the player decided.

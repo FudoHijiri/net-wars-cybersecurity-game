@@ -20,7 +20,11 @@ static func snapshot_live() -> Dictionary:
 	for report: Dictionary in GameState.phase_findings.get("monitoring", {}).get("reports", []):
 		var id := str(report.get("id", ""))
 		var verdict := "SUSPICIOUS" if report.get("suspicious", false) else "NORMAL / FALSE ALARM"
-		reports.append(verdict + " - " + id + ": " + str(report.get("reason", "")))
+		if report.get("fields", []).is_empty(): # a report saved before the logs were kept
+			reports.append(verdict + " - " + id + ": " + str(report.get("reason", "")))
+		else:
+			# the log as the player saw it: which log, what it said, and why it was (or was not) a real problem
+			reports.append("%s - LOG #%d, %s\n%s\nWhy: %s" % [verdict, int(report.get("number", 0)), str(report.get("title", "")).capitalize(), " | ".join(report["fields"]), str(report.get("reason", ""))])
 		resolved.append(id)
 	for id: String in GameState.reported_anomalies:
 		if not resolved.has(id):
@@ -29,7 +33,6 @@ static func snapshot_live() -> Dictionary:
 		"day": GameState.current_day, "title": info.get("title", "Day %d" % GameState.current_day),
 		"threat": GameState.identified_threat if not GameState.identified_threat.is_empty() else "Not identified yet",
 		"evidence": evidence, "reports": reports, "points": GameState.wallet(),
-		"hardening": data.get("room", {}).get("hardening_unavailable", ""),
 		"brief": data.get("case", {}).get("brief", "No recovery lesson has been authored for this day yet."),
 		"profile": "day1" if data.has("case") else "unsupported", # "day1" is the profile of any day with a work order
 	}
@@ -60,7 +63,7 @@ static func sample_context(profile: String = "day1") -> Dictionary:
 		"threat": "Separate data-restoration exercise" if profile == "backup" else case_data.get("threat", ""),
 		"evidence": [] if profile == "backup" else case_data.get("sample_evidence", []).duplicate(),
 		"reports": [] if profile == "backup" else case_data.get("sample_monitoring", []).duplicate(),
-		"points": 0, "hardening": data.get("room", {}).get("hardening_unavailable", ""),
+		"points": 0,
 		"brief": practice.get("brief", "") if profile == "backup" else case_data.get("brief", ""),
 		"profile": "backup" if profile == "backup" else "day1",
 	}

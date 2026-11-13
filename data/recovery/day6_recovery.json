@@ -13,7 +13,6 @@
 		"summary_body": "The repairs and the final check passed.",
 		"summary_lesson": "Set a limit that lets customers in and keeps the flood out, block only what you have checked, and look after the hardware the flood ran hot.",
 		"unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
-		"hardening_unavailable": "No hardening results have been supplied.",
 		"verify_locked": "Finish the required restoration work before the final access checks.",
 		"not_required": "This equipment does not need restoration in this work order.",
 		"close": "Back"

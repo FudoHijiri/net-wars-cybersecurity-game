@@ -248,7 +248,7 @@ func _test_context() -> void:
 	var context: Dictionary = _context.snapshot_live()
 	check(context.evidence.size() == 2 and "Anna" in context.evidence[0], "Briefing resolves real submitted Investigation evidence")
 	check(context.reports.size() == 2 and "FALSE ALARM" in context.reports[0] and "SUSPICIOUS" in context.reports[1], "Monitoring normal reports remain false alarms")
-	check("No hardening" in context.hardening, "Unbuilt Hardening results are not fabricated")
+	check(not context.has("hardening"), "The findings do not list Hardening: nothing in Recovery depends on it")
 	var before: Array = _state.investigation_evidence.duplicate()
 	context.evidence.clear()
 	check(_state.investigation_evidence == before, "Recovery context does not mutate earlier phase state")

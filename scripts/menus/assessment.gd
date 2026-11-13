@@ -354,6 +354,10 @@ func _refresh_status() -> void:
 			_status.add_theme_color_override("font_color", GREEN)
 		"waiting":
 			_status.text = "Could not send your answers yet. They are saved here and are sent again later, when there is a connection."
+			if Assessment.last_error == "key":
+				_status.text = "The study sheet refused the key: the key of this game is not the same as KEY in the Apps Script. Your answers are saved here. Tell the researchers."
+			elif Assessment.last_error not in ["", "connection"]:
+				_status.text = "The study sheet did not accept the answers (%s). They are saved here. Tell the researchers." % Assessment.last_error
 			_status.add_theme_color_override("font_color", RED)
 			_retry.visible = true
 		"off":

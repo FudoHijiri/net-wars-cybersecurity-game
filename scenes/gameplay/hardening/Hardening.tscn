@@ -1497,6 +1497,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
 metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="DeckEditor/Collection" unique_id=69979982]
+theme = ExtResource("13_oyxaa")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.00862069
@@ -1506,6 +1507,7 @@ anchor_bottom = 0.9934211
 metadata/_edit_use_anchors_ = true
 
 [node name="CardGrid" type="ItemList" parent="DeckEditor/Collection/ScrollContainer" unique_id=722941854]
+theme = ExtResource("13_oyxaa")
 layout_mode = 2
 
 [node name="OffensiveFilter" type="Button" parent="DeckEditor/Collection" unique_id=1308873666]
@@ -1615,6 +1617,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Description" type="RichTextLabel" parent="DeckEditor/Info" unique_id=1555914365]
+theme = ExtResource("13_oyxaa")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05263158
@@ -1698,6 +1701,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
 metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UpgradeEditor/UpgradesPanel" unique_id=842489422]
+theme = ExtResource("13_oyxaa")
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
@@ -1726,6 +1730,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wycbq")
 metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UpgradeEditor/Collection" unique_id=515767355]
+theme = ExtResource("13_oyxaa")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.00862069
@@ -1735,6 +1740,7 @@ anchor_bottom = 0.9934211
 metadata/_edit_use_anchors_ = true
 
 [node name="UpgradesGrid" type="ItemList" parent="UpgradeEditor/Collection/ScrollContainer" unique_id=713531084]
+theme = ExtResource("13_oyxaa")
 layout_mode = 2
 
 [node name="RecommendedFilter" type="Button" parent="UpgradeEditor/Collection" unique_id=1467500797]
@@ -1815,6 +1821,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Description" type="RichTextLabel" parent="UpgradeEditor/Info" unique_id=331057999]
+theme = ExtResource("13_oyxaa")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05263158

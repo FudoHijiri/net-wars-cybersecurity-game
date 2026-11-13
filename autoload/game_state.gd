@@ -222,7 +222,10 @@ func capture_phase_findings(phase: String, monitoring_answers: Array = []) -> vo
 		for answer: Dictionary in monitoring_answers:
 			if answer.get("reported", false):
 				# A reported log judged wrong was normal: do not present it as a confirmed threat.
-				reports.append({"id": str(answer.get("id", "")), "suspicious": answer.get("right", false) == true, "reason": str(answer.get("reason", ""))})
+				reports.append({
+					"id": str(answer.get("id", "")), "suspicious": answer.get("right", false) == true, "reason": str(answer.get("reason", "")),
+					"number": int(answer.get("number", 0)), "title": str(answer.get("title", "")), "fields": answer.get("fields", []),
+				})
 		phase_findings[phase] = {"reported_ids": reported_anomalies.duplicate(), "reports": reports}
 	else:
 		return

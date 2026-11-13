@@ -37,6 +37,9 @@ enum Phase { PRE, POST }
 ## What the last attempt to send said: "" nothing sent yet, "sending", "sent", "waiting" (no connection or the sheet said
 ## no), "off" (no address set: the results stay on this computer).
 var status := ""
+## Why the last sending failed, when the script said (its "error": "key" is a key that is not the one of the script), or what went
+## wrong on the way ("connection", "answer"). Empty when nothing failed.
+var last_error := ""
 
 var title := "SECURITY CHECK"
 var questions: Array = []
@@ -389,9 +392,17 @@ func _on_request_completed(result: int, code: int, headers: PackedStringArray, b
 			return
 	var reply: Variant = JSON.parse_string(body.get_string_from_utf8()) if code == 200 else null
 	if result == HTTPRequest.RESULT_SUCCESS and code == 200 and reply is Dictionary and reply.get("ok", false) == true:
+		last_error = ""
 		_sent()
+		return
+	if reply is Dictionary:
+		last_error = str(reply.get("error", "answer"))
+	elif result != HTTPRequest.RESULT_SUCCESS:
+		last_error = "connection"
 	else:
-		_failed()
+		last_error = "answer" # not what the script sends (for example a Google page: the web app is not shared with Anyone)
+	push_warning("Assessment: the result was not sent (result %d, code %d, %s). It stays in the outbox and is tried again." % [result, code, last_error])
+	_failed()
 
 
 func _follow(location: String) -> void:

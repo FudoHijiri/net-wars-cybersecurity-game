@@ -12,7 +12,6 @@
     "summary_body": "The required restoration and access checks passed.",
     "summary_lesson": "Restoring access cannot take back information already stolen. Keep watching for new problems.",
     "unknown_damage": "Unsupported damage: {ids}. A matching recovery task is needed.",
-    "hardening_unavailable": "No hardening results have been supplied.",
     "verify_locked": "Finish the required restoration work before the final access checks.",
     "not_required": "This equipment does not need restoration in this work order.",
     "close": "Back"

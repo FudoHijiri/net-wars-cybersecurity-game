@@ -410,8 +410,7 @@ func _show_findings() -> void:
 	close_dialog()
 	var paragraphs: Array[String] = [
 		"Investigation\n" + ("\n".join(_context.get("evidence", [])) if not _context.get("evidence", []).is_empty() else "No submitted evidence is available."),
-		"Monitoring reports\n" + ("\n".join(_context.get("reports", [])) if not _context.get("reports", []).is_empty() else "No monitoring reports are available."),
-		"Hardening\n" + str(_outcome.get("hardening_summary", _context.get("hardening", ""))),
+		"Logs you reported in Monitoring\n" + ("\n\n".join(_context.get("reports", [])) if not _context.get("reports", []).is_empty() else "You did not report any log."),
 		"Response\n" + (str(_outcome.get("summary", "Containment confirmed.")) if is_ready() else str(_texts.get("waiting_body", ""))),
 	]
 	_show_dialog("Earlier findings", paragraphs, [{"id": "back", "label": "Back to work order", "callback": _back_to_briefing}])
